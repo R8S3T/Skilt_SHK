@@ -8,7 +8,7 @@ import ChaptersScreen from 'src/screens/ChaptersScreen';
 export type LearnStackParamList = {
     HomeScreen: undefined;
     YearsScreen: undefined;
-    ChaptersScreen: { year: number };
+    ChaptersScreen: { year: string };
 };
 
 const Stack = createStackNavigator<LearnStackParamList>();
