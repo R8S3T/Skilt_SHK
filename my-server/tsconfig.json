@@ -1,8 +1,9 @@
 {
-  "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es2016",
     "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": "./",
     "strict": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
@@ -10,15 +11,15 @@
     "paths": {
       "src/*": ["src/*"]
     },
-    "noEmit": true,
-    "allowSyntheticDefaultImports": true
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx"
+    "./**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ]
 }
 

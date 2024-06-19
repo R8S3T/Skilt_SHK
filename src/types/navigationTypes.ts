@@ -1,5 +1,4 @@
 import { NavigatorScreenParams } from "@react-navigation/native";
-import { LearnStackParamList } from "src/navigation/LearnStackNavigator";
 
 export type HomeParamList = {
     Home: {
@@ -14,6 +13,12 @@ export type BottomTabParamList = {
     Settings: undefined;
 };
 
+export type LearnStackParamList = {
+    HomeScreen: undefined;
+    YearsScreen: undefined;
+    ChaptersScreen: { year: string };
+    SubchaptersScreen: { chapterId: number; chapterTitle: string };
+};
 
 // A TypeScript type that defines all possible navigation paths and parameters in AppNavigator, ensuring that navigation across the entire app is type-safe and well-organized.
 

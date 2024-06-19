@@ -6,22 +6,22 @@ import { loadFonts } from "src/utils/fonts";
 import { ActivityIndicator, View, StyleSheet } from "react-native";
 
 const App = () => {
-  const [fontsLoaded, setFontsLoaded] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     async function prepare() {
       try {
         await loadFonts();
-        setFontsLoaded(true);
+        setIsReady(true);
       } catch (e) {
-        console.error(e);
+        console.error("An error occurred while loading app resources:", e);
       }
     }
 
     prepare();
   }, []);
 
-  if (!fontsLoaded) {
+  if (!isReady) {
     return (
       <View style={styles.container}>
         <ActivityIndicator size="large" />
@@ -45,3 +45,4 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+

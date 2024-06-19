@@ -1,71 +1,69 @@
-import React from 'react';
+// src/screens/ChaptersScreen.tsx
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
-import { RouteProp } from '@react-navigation/native';
+import { RouteProp, useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import { dynamicCardHeight, scaleFontSize } from 'src/utils/screenDimensions';
-
-type LearnStackParamList = {
-    HomeScreen: undefined;
-    YearsScreen: undefined;
-    ChaptersScreen: { year: string };
-};
+import { Chapter } from 'src/types/types';
+import { fetchChaptersByYear } from 'src/database/databaseServices';
+import { LearnStackParamList } from 'src/types/navigationTypes'; // Make sure the path matches your actual file structure
 
 type ChaptersScreenRouteProps = {
     route: RouteProp<LearnStackParamList, 'ChaptersScreen'>;
-}
+};
 
-interface Chapter {
-    key: string;
-    title: string;
-}
-
-const chaptersData: Record<string, Chapter[]> = {
-    '1': [
-        { key: '1', title: 'Test Titel 1' },
-        { key: '2', title: 'Test Titel 2' },
-        { key: '3', title: 'Test Titel 3' },
-        { key: '4', title: 'Test Titel 4' },
-    ],
-    '2': [
-        { key: '1', title: 'Test Titel 1' },
-        { key: '2', title: 'Test Titel 2' },
-        { key: '3', title: 'Test Titel 3' },
-        { key: '4', title: 'Test Titel 4' },
-    ],
-    '3': [
-        { key: '1', title: 'Test Titel 1' },
-        { key: '2', title: 'Test Titel 2' },
-        { key: '3', title: 'Test Titel 3' },
-        { key: '4', title: 'Test Titel 4' },
-        { key: '5', title: 'Test Titel 5' },
-    ],
-    '4': [
-        { key: '1', title: 'Test Titel 1' },
-        { key: '2', title: 'Test Titel 2' },
-    ],
-}
+type NavigationType = StackNavigationProp<LearnStackParamList, 'ChaptersScreen'>;
 
 const ChaptersScreen: React.FC<ChaptersScreenRouteProps> = ({ route }) => {
     const { year } = route.params;
-    const chapters = chaptersData[year];
+    const [chapters, setChapters] = useState<Chapter[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const navigation = useNavigation<NavigationType>();
+
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const data = await fetchChaptersByYear(parseInt(year));
+                console.log("Fetched Chapters Data for year " + year + ":", data);
+                setChapters(data);
+                setLoading(false);
+            } catch (error) {
+                console.error('Failed to load chapters for year ' + year + ':', error);
+                setLoading(false);
+            }
+        };
+
+        loadData();
+    }, [year]);
 
     const renderItem = ({ item }: { item: Chapter }) => (
-        <TouchableOpacity style={styles.chapterContainer}>
+        <TouchableOpacity
+            style={styles.chapterContainer}
+            onPress={() => navigation.navigate('SubchaptersScreen', {
+                chapterId: item.ChapterId,
+                chapterTitle: item.ChapterName
+            })}
+        >
             <Image
-                source={require('../../assets/Images/play_icon.png')} // Adjust the path
+                source={require('../../assets/Images/play_icon.png')}
                 style={styles.playButton}
             />
-            <Text style={styles.chapterText}>{item.title}</Text>
+            {item.ChapterIntro && <Text style={styles.introText}>{item.ChapterIntro}</Text>}
         </TouchableOpacity>
     );
 
     return (
         <View style={styles.container}>
             <Text style={styles.header}>{`${year}. Lehrjahr`}</Text>
-            <FlatList
-                data={chapters}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.key}
-            />
+            {loading ? (
+                <Text>Loading...</Text>
+            ) : (
+                <FlatList
+                    data={chapters}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.ChapterId.toString()}
+                />
+            )}
         </View>
     );
 };
@@ -84,6 +82,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginVertical: 20,
         color: '#2b4353',
+        backgroundColor: 'transparent',
     },
     chapterContainer: {
         flexDirection: 'row',
@@ -98,7 +97,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         height: dynamicCardHeight(95, 110),
     },
-    chapterText: {
+    introText: {
         flex: 1,
         marginLeft: 28,
         fontFamily: 'OpenSans-Regular',
