@@ -2,7 +2,7 @@
 
 import { Chapter } from 'src/types/types';
 
-const API_URL = 'http://192.168.78.38:3000';
+const API_URL = 'http://192.168.227.38:3000';
 
 // Fetch chapters by year via the server
 export async function fetchChaptersByYear(year: number): Promise<Chapter[]> {
