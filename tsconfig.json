@@ -11,14 +11,17 @@
       "src/*": ["src/*"]
     },
     "noEmit": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   },
   "include": [
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "src/types/**/*.d.ts"
   ],
   "exclude": [
     "node_modules"
   ]
 }
+
 

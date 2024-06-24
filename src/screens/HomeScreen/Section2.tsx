@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import Swiper from 'react-native-swiper';
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { LearnStackParamList } from '../../navigation/LearnStackNavigator';
 import { scaleFontSize, screenWidth } from 'src/utils/screenDimensions';
@@ -9,70 +10,61 @@ interface Section2Props {
 };
 
 const Section2: React.FC<Section2Props> = ({ onButtonPress }) => {
-    const navihgation = useNavigation<NavigationProp<LearnStackParamList>>();
-
-    const handlePress = () => {
-        console.log('Section2 Pressed');
-    };
+    const navigation = useNavigation<NavigationProp<LearnStackParamList>>();
 
     return (
-        <TouchableOpacity
-            style={styles.container}
-            onPress={handlePress}
-            activeOpacity={0.7}
-        >
-            <View style={styles.textContainer}>
-                <Text style={styles.title}>Übungen</Text>
-                <Text style={styles.subtitle}>Teste Dein Wissen</Text>
-            </View>
-            <Image
-                source={require('../../../assets/Images/wrench.png')}
-                style={styles.image}
-            />
-        </TouchableOpacity>
+        <View style={styles.container}>
+            <Text style={styles.title}>Mathe-Module</Text>
+            <Swiper style={styles.wrapper} showsButtons={true} loop={false}>
+                {['Module 1', 'Module 2', 'Module 3', 'Module 4'].map((module, index) => (
+                    <View key={index} style={styles.slide}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                console.log(`Button pressed for: ${module}`);
+                                onButtonPress(module);
+                            }}
+                            style={styles.button}
+                        >
+                            <Text style={styles.buttonText}>{module}</Text>
+                        </TouchableOpacity>
+                    </View>
+                ))}
+            </Swiper>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
-        width: screenWidth * 0.90,
-        height: screenWidth * 0.30,
+        flex: 1,
         alignItems: 'center',
-        justifyContent: 'space-between',
-        margin: 20,
+        justifyContent: 'center',
         padding: 20,
         backgroundColor: '#fff',
         borderRadius: 5,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5,
+        margin: 20,
     },
-    textContainer: {
+    wrapper: {
+        height: 250, // Ensure you have enough height to display the swiper comfortably
+    },
+    slide: {
+        flex: 1,
         justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#9DD6EB',
     },
     title: {
-        color: '#2b4353',
-        fontFamily: 'Lato-Bold',
-        fontSize: scaleFontSize(16),
-        textAlign: 'left',
-        marginBottom: 5,
+        fontSize: 20,
+        marginBottom: 15,
     },
-    subtitle: {
-        color: '#2b4353',
-        fontFamily: 'OpenSans-Regular',
-        fontSize: scaleFontSize(14),
-        textAlign: 'left',
+    button: {
+        backgroundColor: '#EFEFEF',
+        borderRadius: 20,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
     },
-    image: {
-        width: screenWidth * 0.13,
-        height: screenWidth * 0.13,
-        marginRight: screenWidth * 0.02,
+    buttonText: {
+        fontSize: 14,
     },
 });
 
