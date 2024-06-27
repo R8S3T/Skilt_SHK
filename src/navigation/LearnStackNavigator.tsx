@@ -5,13 +5,7 @@ import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import YearsScreen from 'src/screens/YearsScreen';
 import ChaptersScreen from 'src/screens/ChaptersScreen';
 import SubchaptersScreen from 'src/screens/Subchapters/SubchaptersScreen';
-
-export type LearnStackParamList = {
-    HomeScreen: undefined;
-    YearsScreen: undefined;
-    ChaptersScreen: { year: string };
-    SubchaptersScreen: { chapterId: number; chapterTitle: string };
-};
+import { LearnStackParamList } from 'src/types/navigationTypes';
 
 const Stack = createStackNavigator<LearnStackParamList>();
 

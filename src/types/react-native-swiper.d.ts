@@ -7,12 +7,13 @@ declare module 'react-native-swiper' {
         interface SwiperProps {
         showsButtons?: boolean;
         loop?: boolean;
+        showsPagination?: boolean;
         index?: number;
         horizontal?: boolean;
         style?: StyleProp<ViewStyle>;
         onIndexChanged?: (index: number) => void;
         children?: React.ReactNode;
-        }
+    }
 
         const Swiper: ComponentType<SwiperProps>;
         export default Swiper;

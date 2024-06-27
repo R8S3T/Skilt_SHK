@@ -5,6 +5,7 @@ import { RootStackParamList } from 'src/types/navigationTypes';
 import IntroScreen from '../screens/IntroScreen';
 import BottomTabNavigator from './BottomTabNavigator';
 import LearnStackNavigator from './LearnStackNavigator';
+import MathStackNavigator from './MathStackNavigator';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -28,6 +29,11 @@ const AppNavigator = () => {
             <Stack.Screen
                 name="Learn"
                 component={LearnStackNavigator}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="Math"
+                component={MathStackNavigator}
                 options={{ headerShown: false }}
             />
         </Stack.Navigator>

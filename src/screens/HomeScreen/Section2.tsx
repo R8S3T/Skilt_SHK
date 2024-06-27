@@ -1,35 +1,54 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import Swiper from 'react-native-swiper';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation, NavigationProp } from "@react-navigation/native";
-import { LearnStackParamList } from '../../navigation/LearnStackNavigator';
+import { RootStackParamList } from 'src/types/navigationTypes';
 import { scaleFontSize, screenWidth } from 'src/utils/screenDimensions';
 
 interface Section2Props {
-    onButtonPress: (title: string) => void;
+    onButtonPress: (title: string)=> void;
 };
 
-const Section2: React.FC<Section2Props> = ({ onButtonPress }) => {
-    const navigation = useNavigation<NavigationProp<LearnStackParamList>>();
+interface Module {
+    title: string;
+    img?: any;
+}
+
+const Section2: React.FC = () => {
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+
+    const modules: Module[] = [
+        { title: 'Gleichungen', img: require('../../../assets/Images/math_scales.png') },
+        { title: 'Geometrie', img: require('../../../assets/Images/math_geometry.png') },
+        { title: 'Bruchrechnung', img: require('../../../assets/Images/math_fraction.png') },
+        { title: 'Alle Module', img: require('../../../assets/Images/math_all.png') }
+    ];
+
+    const handleButtonPress = (title: string) => {
+        if (title === 'Alle Module') {
+            navigation.navigate('Math', { screen: 'MathScreen' });        } else {
+            console.log(`${title} pressed`)
+        }
+    }
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Mathe-Module</Text>
-            <Swiper style={styles.wrapper} showsButtons={true} loop={false}>
-                {['Module 1', 'Module 2', 'Module 3', 'Module 4'].map((module, index) => (
-                    <View key={index} style={styles.slide}>
-                        <TouchableOpacity
-                            onPress={() => {
-                                console.log(`Button pressed for: ${module}`);
-                                onButtonPress(module);
-                            }}
-                            style={styles.button}
-                        >
-                            <Text style={styles.buttonText}>{module}</Text>
-                        </TouchableOpacity>
-                    </View>
+            <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.scrollViewContainer}
+            >
+                {modules.map((module, index) => (
+                    <TouchableOpacity
+                        key={index}
+                        style={styles.button}
+                        onPress={() => handleButtonPress(module.title)}
+                    >
+                        {module.img && <Image source={module.img} style={styles.image} />}
+                        <Text style={styles.buttonText}>{module.title}</Text>
+                    </TouchableOpacity>
                 ))}
-            </Swiper>
+            </ScrollView>
         </View>
     );
 };
@@ -44,27 +63,32 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         margin: 20,
     },
-    wrapper: {
-        height: 250, // Ensure you have enough height to display the swiper comfortably
+    scrollViewContainer: {
+        alignItems: 'center',
+        paddingVertical: 20,
     },
-    slide: {
-        flex: 1,
+    button: {
+        backgroundColor: '#EFEFEF',
+        borderRadius: 10,
+        padding: 20,
+        marginLeft: 10,
+        marginRight: 10,
+        width: screenWidth * 0.4, // Adjust based on your design needs
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#9DD6EB',
+    },
+    image: {
+        width: 100,
+        height: 100,
+        marginBottom: 5,
     },
     title: {
         fontSize: 20,
         marginBottom: 15,
     },
-    button: {
-        backgroundColor: '#EFEFEF',
-        borderRadius: 20,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-    },
     buttonText: {
-        fontSize: 14,
+        fontSize: 16,
+        textAlign: 'center'
     },
 });
 

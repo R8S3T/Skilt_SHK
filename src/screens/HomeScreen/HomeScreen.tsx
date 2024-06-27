@@ -22,7 +22,6 @@ const HomeScreen = () => {
     }, [navigation, username]);
 
     const handleButtonPress = (title: string) => {
-        // Handle button press from sections, possibly navigate or perform actions
         console.log(title);
     };
 
