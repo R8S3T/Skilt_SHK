@@ -3,7 +3,7 @@
 import express from 'express';
 import path from 'path';
 import cors from 'cors';
-import { initializeDatabase, fetchChaptersByYear, addChapter, fetchSubchaptersByChapterId } from './databaseSetup';
+import { initializeDatabase, fetchChaptersByYear, addChapter, fetchSubchaptersByChapterId, fetchSubchapterContentBySubchapterId } from './databaseSetup';
 
 const app = express();
 const PORT = 3000;
@@ -64,6 +64,20 @@ app.get('/subchapters/:chapterId', async (req, res) => {
     }
 });
 
+app.get('/subchaptercontent/:subchapterId', async (req, res) => {
+    const subchapterId = parseInt(req.params.subchapterId);
+    console.log(`Received request for content of subchapterId: ${subchapterId}`);
+    try {
+        const subchapterContent = await fetchSubchapterContentBySubchapterId(subchapterId);
+        console.log(`Query result for subchapterId ${subchapterId}:`, subchapterContent);
+        res.json(subchapterContent);
+    } catch (error) {
+        console.error(`Error fetching content for subchapterId ${subchapterId}:`, error);
+        res.status(500).json({ error: 'Failed to fetch content' });
+    }
+});
+
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on http://192.168.227.38:${PORT}`);
 });
+

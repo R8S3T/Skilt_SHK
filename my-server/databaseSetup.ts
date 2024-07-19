@@ -21,7 +21,7 @@ export const initializeDatabase = (): Promise<void> => {
     });
 };
 
-// Create the database table if it does not exist
+// Create the database tables if they do not exist
 const createTables = (db: sqlite3.Database, resolve: () => void, reject: (err: any) => void) => {
     db.run(`
         CREATE TABLE IF NOT EXISTS Chapters (
@@ -32,7 +32,7 @@ const createTables = (db: sqlite3.Database, resolve: () => void, reject: (err: a
         );
     `, (err) => {
         if (err) {
-            console.error('Error creating table:', err.message);
+            console.error('Error creating Chapters table:', err.message);
             reject(err); // Reject the promise if there's an error
         } else {
             console.log('Table Chapters created successfully.');
@@ -41,8 +41,7 @@ const createTables = (db: sqlite3.Database, resolve: () => void, reject: (err: a
                     SubchapterId INTEGER PRIMARY KEY AUTOINCREMENT,
                     ChapterId INTEGER,
                     SubchapterName TEXT,
-                    SubchapterContent TEXT,
-                    FOREIGN KEY(ChapterId) REFERENCES Chapters(ChapterId)
+                    FOREIGN KEY(ChapterId) REFERENCES Chapters(ChapterId) ON DELETE CASCADE ON UPDATE CASCADE
                 );
             `, (err) => {
                 if (err) {
@@ -50,7 +49,23 @@ const createTables = (db: sqlite3.Database, resolve: () => void, reject: (err: a
                     reject(err);
                 } else {
                     console.log('Table Subchapters created successfully.');
-                    resolve();
+                    db.run(`
+                        CREATE TABLE IF NOT EXISTS SubchapterContent (
+                            ContentId INTEGER PRIMARY KEY AUTOINCREMENT,
+                            SubchapterId INTEGER,
+                            ContentData TEXT,
+                            SortOrder INTEGER,
+                            FOREIGN KEY(SubchapterId) REFERENCES Subchapters(SubchapterId) ON DELETE CASCADE ON UPDATE CASCADE
+                        );
+                    `, (err) => {
+                        if (err) {
+                            console.error('Error creating SubchapterContent table:', err.message);
+                            reject(err);
+                        } else {
+                            console.log('Table SubchapterContent created successfully.');
+                            resolve(); // Resolve the promise when tables are successfully created
+                        }
+                    });
                 }
             });
         }
@@ -74,7 +89,7 @@ export const fetchChaptersByYear = (year: number): Promise<any[]> => {
     });
 };
 
-// Fetch subchapter content by chapter id
+// Fetch subchapters by chapter id
 export const fetchSubchaptersByChapterId = (chapterId: number): Promise<any[]> => {
     const db = new sqlite3.Database(dbPath);
     return new Promise((resolve, reject) => {
@@ -85,6 +100,23 @@ export const fetchSubchaptersByChapterId = (chapterId: number): Promise<any[]> =
                 reject(err);
             } else {
                 console.log(`Fetched Subchapters Data for chapterId ${chapterId}:`, rows);
+                resolve(rows);
+            }
+        });
+    });
+};
+
+// Fetch subchapter content by subchapter id
+export const fetchSubchapterContentBySubchapterId = (subchapterId: number): Promise<any[]> => {
+    const db = new sqlite3.Database(dbPath);
+    return new Promise((resolve, reject) => {
+        db.all('SELECT * FROM SubchapterContent WHERE SubchapterId = ? ORDER BY SortOrder', [subchapterId], (err, rows) => {
+            db.close();
+            if (err) {
+                console.error('Failed to fetch subchapter content:', err);
+                reject(err);
+            } else {
+                console.log(`Fetched Subchapter Content Data for subchapterId ${subchapterId}:`, rows);
                 resolve(rows);
             }
         });
