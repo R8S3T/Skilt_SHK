@@ -3,24 +3,28 @@ import { View, StyleSheet } from "react-native";
 import SubchapterNode from "./SubchapterNode";
 
 interface Subchapter {
-    id: number;
-    title: string;
+    SubchapterId: number;
+    SubchapterName: string;
     isLocked: boolean;
+    isFinished: boolean;
 }
 
 interface SubchapterRowsProps {
     subchapters: Subchapter[];
+    onNodePress: (id: number, title: string) => void;
 }
 
-const SubchapterRows: React.FC<SubchapterRowsProps> = ({ subchapters }) => {
+const SubchapterRows: React.FC<SubchapterRowsProps> = ({ subchapters, onNodePress }) => {
     return (
         <View style={styles.container}>
             {subchapters.map((subchapter) => (
                 <SubchapterNode
-                    key={subchapter.id}
-                    id={subchapter.id}
-                    title={subchapter.title}
+                    key={subchapter.SubchapterId}
+                    id={subchapter.SubchapterId}
+                    title={subchapter.SubchapterName}
                     isLocked={subchapter.isLocked}
+                    isFinished={subchapter.isFinished}
+                    onPress={() => onNodePress(subchapter.SubchapterId, subchapter.SubchapterName)}
                 />
             ))}
         </View>

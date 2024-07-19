@@ -5,6 +5,7 @@ import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import YearsScreen from 'src/screens/YearsScreen';
 import ChaptersScreen from 'src/screens/ChaptersScreen';
 import SubchaptersScreen from 'src/screens/Subchapters/SubchaptersScreen';
+import SubchapterContentScreen from 'src/screens/SubchapterContent/SubchapterContentScreen';
 import { LearnStackParamList } from 'src/types/navigationTypes';
 
 const Stack = createStackNavigator<LearnStackParamList>();
@@ -19,6 +20,11 @@ const LearnStackNavigator: React.FC = () => {
                 name="SubchaptersScreen"
                 component={SubchaptersScreen}
                 options={{ title: 'Subchapters' }}
+            />
+            <Stack.Screen
+                name="SubchapterContentScreen"
+                component={SubchapterContentScreen}
+                options={{ title: 'Subchapter Content' }}
             />
         </Stack.Navigator>
     );

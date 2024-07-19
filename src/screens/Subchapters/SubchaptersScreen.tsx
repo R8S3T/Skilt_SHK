@@ -1,21 +1,56 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
+import { RouteProp, useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { fetchSubchaptersByChapterId } from 'src/database/databaseServices';
+import { Subchapter } from 'src/types/types';
+import { LearnStackParamList } from 'src/types/navigationTypes';
 import SubchapterRows from './SubchapterRows';
 
-const SubchaptersScreen: React.FC = () => {
-    // Dummy data for layout purposes
-    const subchapters = [
-        { id: 1, title: "Subchapter 1", isLocked: false },
-        { id: 2, title: "Subchapter 2", isLocked: true },
-        { id: 3, title: "Subchapter 3", isLocked: false },
-        { id: 4, title: "Subchapter 4", isLocked: false },
-    ];
+type SubchaptersScreenRouteProps = {
+    route: RouteProp<LearnStackParamList, 'SubchaptersScreen'>;
+}
+
+type NavigationType = StackNavigationProp<LearnStackParamList, 'SubchaptersScreen'>;
+
+const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => {
+    const { chapterId, chapterTitle } = route.params;
+    const [subchapters, setSubchapters] = useState<Subchapter[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const navigation = useNavigation<NavigationType>();
+
+    useEffect(() => {
+        const loadData = async () => {
+            try {
+                const data = await fetchSubchaptersByChapterId(chapterId);
+                console.log("Fetched Subchapters Data for chapterId " + chapterId + ":", data);
+                setSubchapters(data);
+            } catch (error) {
+                console.error('Failed to load subchapters for chapterId ' + chapterId + ':', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadData();
+    }, [chapterId]);
+
+    const handleNodePress = (subchapterId: number, subchapterTitle: string) => {
+        navigation.navigate('SubchapterContentScreen', {
+            subchapterId,
+            subchapterTitle
+        });
+    }
 
     return (
         <ScrollView style={styles.screenContainer}>
-            <Text style={styles.heading}>Subchapters</Text>
+            <Text style={styles.heading}>{chapterTitle}</Text>
             <View style={styles.separator} />
-            <SubchapterRows subchapters={subchapters} />
+            {loading ? (
+                <Text>Loading...</Text>
+            ) : (
+                <SubchapterRows subchapters={subchapters} onNodePress={handleNodePress} />
+            )}
         </ScrollView>
     );
 };

@@ -2,28 +2,26 @@
 
 import express from 'express';
 import path from 'path';
-import { initializeDatabase, fetchChaptersByYear, addChapter } from './databaseSetup';
+import cors from 'cors';
+import { initializeDatabase, fetchChaptersByYear, addChapter, fetchSubchaptersByChapterId } from './databaseSetup';
 
 const app = express();
-app.use(express.json()); // Enable JSON parsing for incoming requests
-app.use(express.urlencoded({ extended: true })); // Enable URL-encoded body parsing
 const PORT = 3000;
-const cors = require('cors');
-app.use(cors()); // Enable CORS to allow cross-origin requests
 
-// Initialize the database
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+
 initializeDatabase().then(() => {
     console.log('Database initialized');
 }).catch(error => {
     console.error('Failed to initialize database:', error);
 });
 
-// Serve HTML form at the root for adding chapters
 app.get('/form', (req, res) => {
     res.sendFile(path.join(__dirname, 'form.html'));
 });
 
-// API endpoint to fetch chapters by year
 app.get('/chapters/:year', async (req, res) => {
     const year = parseInt(req.params.year);
     console.log(`Received request for year: ${year}`);
@@ -37,11 +35,10 @@ app.get('/chapters/:year', async (req, res) => {
     }
 });
 
-// API endpoint to add a new chapter
 app.post('/chapters', async (req, res) => {
-    console.log("Raw request body:", req.body);  // Gibt den gesamten Request Body aus
+    console.log("Raw request body:", req.body);
     const { chapterName, chapterIntro, year } = req.body;
-    console.log("Extracted fields:", chapterName, chapterIntro, year);  // Detaillog der extrahierten Daten
+    console.log("Extracted fields:", chapterName, chapterIntro, year);
     if (!chapterName || !chapterIntro || !year) {
         return res.status(400).json({ error: 'All fields are required' });
     }
@@ -54,7 +51,19 @@ app.post('/chapters', async (req, res) => {
     }
 });
 
-// Start server
+app.get('/subchapters/:chapterId', async (req, res) => {
+    const chapterId = parseInt(req.params.chapterId);
+    console.log(`Received request for subchapters of chapterId: ${chapterId}`);
+    try {
+        const subchapters = await fetchSubchaptersByChapterId(chapterId);
+        console.log(`Query result for chapterId ${chapterId}:`, subchapters);
+        res.json(subchapters);
+    } catch (error) {
+        console.error(`Error fetching subchapters for chapterId ${chapterId}:`, error);
+        res.status(500).json({ error: 'Failed to fetch subchapters' });
+    }
+});
+
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on http://192.168.227.38:${PORT}`);
 });
