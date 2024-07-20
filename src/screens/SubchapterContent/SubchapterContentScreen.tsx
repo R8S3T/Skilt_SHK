@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import ContentSlide from '../SubchapterContent/ContentSlide';
+import NextButton from '../SubchapterContent/NextButton';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { LearnStackParamList } from 'src/types/navigationTypes';
@@ -16,9 +18,10 @@ type Props = {
 };
 
 const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
-    const { subchapterId, subchapterTitle } = route.params;
+    const { subchapterId, subchapterTitle, chapterId, chapterTitle } = route.params;
     const [contentData, setContentData] = useState<SubchapterContent[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const [currentIndex, setCurrentIndex] = useState<number>(0);
 
     useEffect(() => {
         navigation.setOptions({ title: subchapterTitle });
@@ -37,6 +40,10 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         loadData();
     }, [navigation, subchapterId, subchapterTitle]);
 
+    useEffect(() => {
+        console.log('Current Index:', currentIndex);
+    }, [currentIndex]);
+
     if (loading) {
         return (
             <View style={styles.container}>
@@ -45,13 +52,33 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         );
     }
 
+    const nextContent = () => {
+        if (currentIndex < contentData.length - 1) {
+            setCurrentIndex(currentIndex + 1);
+        } else {
+            navigation.navigate('CongratsScreen', {
+                subchapterId: subchapterId,
+                subchapterTitle: subchapterTitle,
+                chapterId: chapterId,
+                chapterTitle: chapterTitle,
+            });
+        }
+    };
+
     return (
         <View style={styles.container}>
-            {contentData.map(content => (
-                <Text key={content.ContentId} style={styles.contentText}>{content.ContentData}</Text>
-            ))}
+            <ContentSlide contentData={contentData[currentIndex]} />
+            <View style={styles.buttonContainer}>
+                <NextButton
+                    onPress={nextContent}
+                    isActive={contentData.length > 0}
+                    style={styles.nextButton}
+                >
+                    {currentIndex < contentData.length - 1 ? 'Next' : 'Finish'}
+                </NextButton>
+            </View>
         </View>
-    )
+    );
 };
 
 const styles = StyleSheet.create({
@@ -61,14 +88,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 16,
     },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 16,
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        width: '100%',
+        paddingHorizontal: 16,
     },
-    contentText: {
-        fontSize: 16,
-        marginBottom: 16,
+    nextButton: {
+        marginLeft: 10,
     },
 });
 

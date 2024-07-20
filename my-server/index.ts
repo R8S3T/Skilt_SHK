@@ -18,10 +18,12 @@ initializeDatabase().then(() => {
     console.error('Failed to initialize database:', error);
 });
 
+// Serve the form.html file when the '/form' URL is accessed
 app.get('/form', (req, res) => {
     res.sendFile(path.join(__dirname, 'form.html'));
 });
 
+// Handle GET requests to fetch chapters by year
 app.get('/chapters/:year', async (req, res) => {
     const year = parseInt(req.params.year);
     console.log(`Received request for year: ${year}`);
@@ -35,6 +37,7 @@ app.get('/chapters/:year', async (req, res) => {
     }
 });
 
+// Handle POST requests to add a new chapter
 app.post('/chapters', async (req, res) => {
     console.log("Raw request body:", req.body);
     const { chapterName, chapterIntro, year } = req.body;
@@ -51,6 +54,7 @@ app.post('/chapters', async (req, res) => {
     }
 });
 
+// Handle GET requests to fetch subchapters by chapter ID
 app.get('/subchapters/:chapterId', async (req, res) => {
     const chapterId = parseInt(req.params.chapterId);
     console.log(`Received request for subchapters of chapterId: ${chapterId}`);
@@ -64,6 +68,7 @@ app.get('/subchapters/:chapterId', async (req, res) => {
     }
 });
 
+// Handle GET requests to fetch content by subchapter ID
 app.get('/subchaptercontent/:subchapterId', async (req, res) => {
     const subchapterId = parseInt(req.params.subchapterId);
     console.log(`Received request for content of subchapterId: ${subchapterId}`);
@@ -77,6 +82,7 @@ app.get('/subchaptercontent/:subchapterId', async (req, res) => {
     }
 });
 
+// Start the server on the specified port and IP address
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on http://192.168.227.38:${PORT}`);
 });

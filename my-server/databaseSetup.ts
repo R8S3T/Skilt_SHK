@@ -3,7 +3,7 @@
 import sqlite3 from 'sqlite3';
 import path from 'path';
 
-// Resolve the database path
+
 const dbPath = path.resolve(__dirname, 'skiltSHK.db');
 console.log("Database path: ", dbPath);
 
@@ -33,7 +33,7 @@ const createTables = (db: sqlite3.Database, resolve: () => void, reject: (err: a
     `, (err) => {
         if (err) {
             console.error('Error creating Chapters table:', err.message);
-            reject(err); // Reject the promise if there's an error
+            reject(err);
         } else {
             console.log('Table Chapters created successfully.');
             db.run(`
@@ -63,7 +63,7 @@ const createTables = (db: sqlite3.Database, resolve: () => void, reject: (err: a
                             reject(err);
                         } else {
                             console.log('Table SubchapterContent created successfully.');
-                            resolve(); // Resolve the promise when tables are successfully created
+                            resolve();
                         }
                     });
                 }

@@ -38,7 +38,9 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
     const handleNodePress = (subchapterId: number, subchapterTitle: string) => {
         navigation.navigate('SubchapterContentScreen', {
             subchapterId,
-            subchapterTitle
+            subchapterTitle,
+            chapterId,
+            chapterTitle
         });
     }
 

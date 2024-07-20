@@ -18,7 +18,18 @@ export type LearnStackParamList = {
     YearsScreen: undefined;
     ChaptersScreen: { year: string };
     SubchaptersScreen: { chapterId: number; chapterTitle: string };
-    SubchapterContentScreen: { subchapterId: number; subchapterTitle: string };
+    SubchapterContentScreen: {
+        subchapterId: number; 
+        subchapterTitle: string; 
+        chapterId: number;
+        chapterTitle: string;
+    };
+    CongratsScreen: {
+        subchapterId: number | null;
+        subchapterTitle: string;
+        chapterId: number;
+        chapterTitle: string;
+    };
     MathScreen: undefined;
 };
 
