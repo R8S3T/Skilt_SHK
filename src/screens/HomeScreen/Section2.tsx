@@ -32,7 +32,7 @@ const Section2: React.FC = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Mathe-Module</Text>
+            <Text style={styles.title}>Fachmathematik</Text>
             <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}

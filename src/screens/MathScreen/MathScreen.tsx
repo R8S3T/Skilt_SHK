@@ -9,11 +9,11 @@ interface MathTopic {
 }
 
 const data: MathTopic[] = [
-    { key: 'equations', label: 'Gleichungen', icon: require('../../assets/Images/math_scales.png') },
-    { key: 'measurements', label: 'Maße', icon: require('../../assets/Images/math_measurements.png') },
-    { key: 'fraction', label: 'Bruchrechnung', icon: require('../../assets/Images/math_fraction.png') },
-    { key: 'geometry', label: 'Geometrie', icon: require('../../assets/Images/math_geometry.png') },
-    { key: 'formulas', label: 'Formelberechnung', icon: require('../../assets/Images/math_formula.png') },
+    { key: 'equations', label: 'Gleichungen', icon: require('../../../assets/Images/math_scales.png') },
+    { key: 'measurements', label: 'Maße', icon: require('../../../assets/Images/math_measurements.png') },
+    { key: 'fraction', label: 'Bruchrechnung', icon: require('../../../assets/Images/math_fraction.png') },
+    { key: 'geometry', label: 'Geometrie', icon: require('../../../assets/Images/math_geometry.png') },
+    { key: 'formulas', label: 'Formelberechnung', icon: require('../../../assets/Images/math_formula.png') },
 ];
 
 const MathScreen: React.FC = () => {
@@ -29,7 +29,7 @@ const MathScreen: React.FC = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.header}>Mathe Grundkurs</Text>
+            <Text style={styles.header}>Fachmathematik</Text>
             <FlatList
                 data={data}
                 renderItem={renderItem}

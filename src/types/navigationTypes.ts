@@ -31,6 +31,7 @@ export type LearnStackParamList = {
         chapterTitle: string;
     };
     MathScreen: undefined;
+    MathTopicContentScreen: { topicId: number; topicName: string };
 };
 
 export type MathStackParamList = {

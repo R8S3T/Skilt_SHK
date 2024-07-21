@@ -30,3 +30,15 @@ export interface SubchapterContextType {
     markSubchapterAsFinished: (subchapterId: number) => void;
     setCurrentSubchapter: (subchapterId: number | null, subchapterTitle: string) => void;
 }
+
+export interface MathTopicContent {
+    ContentId: number;
+    TopicId: number;
+    TextContent: string;
+    ImageUrl?: string;
+    Quiz?: {
+        Question: string;
+        Options: string[];
+        CorrectOption: string;
+    };
+}

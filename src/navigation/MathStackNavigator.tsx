@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import MathScreen from 'src/screens/MathScreen';
+import MathScreen from 'src/screens/MathScreen/MathScreen'; 
 import { MathStackParamList } from 'src/types/navigationTypes';
 
 const Stack = createStackNavigator<MathStackParamList>();

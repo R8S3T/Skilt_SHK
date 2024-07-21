@@ -1,6 +1,6 @@
 // Provides functions to fetch chapter data from a server for a specified year
 
-import { Chapter, Subchapter, SubchapterContent } from 'src/types/types';
+import { Chapter, Subchapter, SubchapterContent, MathTopicContent } from 'src/types/types';
 
 const API_URL = 'http://192.168.227.38:3000';
 
@@ -52,3 +52,20 @@ export async function fetchSubchapterContentBySubchapterId(subchapterId: number)
         return [];
     }
 }
+
+// Fetch math topic content by topic ID
+export async function fetchMathContentByTopicId(topicId:number): Promise<MathTopicContent[]> {
+    try {
+        const response = await fetch(`${API_URL}/mathtopiccontent/${topicId}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        const mathTopicContent: MathTopicContent[] = await response.json();
+        console.log(`Fetched Math Topic Content Data for topicId ${topicId}:`, mathTopicContent);
+        return mathTopicContent;
+    } catch (error) {
+        console.error(`Failed to fetchg math topic content for topicId ${topicId}`, error);
+        return [];
+    }
+}
+
