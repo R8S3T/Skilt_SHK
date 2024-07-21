@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
-
+import { useSubchapter } from '../Subchapters/SubchapterContext';
 
 type CongratsScreenParams = {
     subchapterId: number | null;
@@ -15,6 +15,8 @@ const CongratsScreen: React.FC = () => {
     const navigation = useNavigation<any>();
     const route = useRoute<RouteProp<{ params: CongratsScreenParams }, 'params'>>();
 
+    const { markSubchapterAsFinished } = useSubchapter();
+
     const { chapterId, chapterTitle, subchapterId, subchapterTitle } = route.params ?? { chapterId: 0, chapterTitle: '', subchapterId: null, subchapterTitle: '' };
 
 
@@ -25,9 +27,13 @@ const CongratsScreen: React.FC = () => {
         console.log('handleContinue called');
         console.log('Navigating to SubchaptersScreen with chapterId and chapterTitle');
 
+        if (subchapterId !== null) {
+            markSubchapterAsFinished(subchapterId)
+        }
+
         navigation.navigate('SubchaptersScreen', {
-            chapterId: chapterId,
-            chapterTitle: chapterTitle,
+            chapterId,
+            chapterTitle,
         });
     };
 

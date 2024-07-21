@@ -11,7 +11,7 @@ import { fetchSubchapterContentBySubchapterId } from 'src/database/databaseServi
 type SubchapterContentScreenRouteProp = RouteProp<LearnStackParamList, 'SubchapterContentScreen'>;
 
 type SubchapterContentScreenNavigationProp = StackNavigationProp<LearnStackParamList, 'SubchapterContentScreen'>;
-
+  
 type Props = {
     route: SubchapterContentScreenRouteProp;
     navigation: SubchapterContentScreenNavigationProp;

@@ -18,14 +18,14 @@ const SubchapterNode: React.FC<SubchapterNodeProps> = ({
     title,
     id
 }) => {
-    const dynamicNodeSize = getDynamicIconSize(100, 120);
-    const dynamicIconSize = getDynamicIconSize(80, 90);
+    const dynamicNodeSize = getDynamicIconSize(90, 110);
+    const dynamicIconSize = getDynamicIconSize(50, 60);
 
     const iconSource = isLocked
         ? require('../../../assets/Images/lock_icon.png')
         : isFinished
-        ? require('../../../assets/Images/ok_icon.png')
-        : require('../../../assets/Images/play.png');
+            ? require('../../../assets/Images/ok_icon.png')
+            : require('../../../assets/Images/play_icon.png');
 
     const dynamicStyles = StyleSheet.create({
         container: {
@@ -36,14 +36,14 @@ const SubchapterNode: React.FC<SubchapterNodeProps> = ({
             marginVertical: 10,
             borderRadius: 25,
             borderWidth: 2.5,
-            borderColor: isLocked ? '#A9A9A9' : '#FFA500',
+            borderColor: isLocked ? '#A9A9A9' : isFinished ? '#FFA500' : '#A9A9A9',
             backgroundColor: isLocked ? 'transparent' : '#FFFFFF',
-            marginHorizontal: 25,
+            marginHorizontal: 26,
         },
         icon: {
             width: dynamicIconSize,
             height: dynamicIconSize,
-            tintColor: isLocked ? '#FFFFFF' : '#e8630a',
+            tintColor: isLocked ? '#FFFFFF' : isFinished ? '#FFA500' : '#A9A9A9',
         },
     });
 

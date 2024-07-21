@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -6,6 +6,7 @@ import { fetchSubchaptersByChapterId } from 'src/database/databaseServices';
 import { Subchapter } from 'src/types/types';
 import { LearnStackParamList } from 'src/types/navigationTypes';
 import SubchapterRows from './SubchapterRows';
+import { SubchapterContext } from './SubchapterContext'
 
 type SubchaptersScreenRouteProps = {
     route: RouteProp<LearnStackParamList, 'SubchaptersScreen'>;
@@ -18,6 +19,14 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
     const [subchapters, setSubchapters] = useState<Subchapter[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const navigation = useNavigation<NavigationType>();
+    const context = useContext(SubchapterContext);
+
+    if (!context) {
+        throw new Error('SubchapterContext must be used within a SubchapterProvider');
+    }
+
+    const { unlockedSubchapters , finishedSubchapters, markSubchapterAsFinished, setCurrentSubchapter } = context;
+
 
     useEffect(() => {
         const loadData = async () => {
@@ -36,6 +45,7 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
     }, [chapterId]);
 
     const handleNodePress = (subchapterId: number, subchapterTitle: string) => {
+        setCurrentSubchapter(subchapterId, subchapterTitle);
         navigation.navigate('SubchapterContentScreen', {
             subchapterId,
             subchapterTitle,
@@ -44,6 +54,12 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
         });
     }
 
+    const renderedSubchapters = subchapters.map(subchapter => ({
+        ...subchapter,
+        isLocked: !unlockedSubchapters.includes(subchapter.SubchapterId),
+        isFinished: finishedSubchapters.includes(subchapter.SubchapterId)
+    }));
+
     return (
         <ScrollView style={styles.screenContainer}>
             <Text style={styles.heading}>{chapterTitle}</Text>
@@ -51,7 +67,7 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
             {loading ? (
                 <Text>Loading...</Text>
             ) : (
-                <SubchapterRows subchapters={subchapters} onNodePress={handleNodePress} />
+                <SubchapterRows subchapters={renderedSubchapters} onNodePress={handleNodePress} />
             )}
         </ScrollView>
     );
