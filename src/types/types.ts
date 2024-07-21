@@ -17,18 +17,23 @@ export interface Subchapter {
 export interface SubchapterContent {
     ContentId: number;
     SubchapterId: number;
-    ContentData: string;
+    TextContent: string;
     SortOrder: number;
+    ImageUrl?: string;
+    Quiz?: {
+        Question: string;
+        Options: string[];
+    };
 }
 
-export interface SubchapterContextType {
-    unlockedSubchapters: number[];
-    finishedSubchapters: number[];
-    currentSubchapterId: number | null;
-    currentSubchapterTitle: string;
-    unlockSubchapter: (subchapterId: number) => void;
-    markSubchapterAsFinished: (subchapterId: number) => void;
-    setCurrentSubchapter: (subchapterId: number | null, subchapterTitle: string) => void;
+export interface GenericContent {
+    ContentId: number;
+    TextContent: string;
+    ImageUrl?: string;
+    Quiz?: {
+        Question: string;
+        Options: string[];
+    };
 }
 
 export interface MathTopicContent {
@@ -36,9 +41,9 @@ export interface MathTopicContent {
     TopicId: number;
     TextContent: string;
     ImageUrl?: string;
+    SortOrder: number;
     Quiz?: {
         Question: string;
         Options: string[];
-        CorrectOption: string;
     };
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import ContentSlide from '../SubchapterContent/ContentSlide';
+import ContentSlide from '../ContentSlide';
 import NextButton from '../SubchapterContent/NextButton';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -11,7 +11,7 @@ import { fetchSubchapterContentBySubchapterId } from 'src/database/databaseServi
 type SubchapterContentScreenRouteProp = RouteProp<LearnStackParamList, 'SubchapterContentScreen'>;
 
 type SubchapterContentScreenNavigationProp = StackNavigationProp<LearnStackParamList, 'SubchapterContentScreen'>;
-  
+
 type Props = {
     route: SubchapterContentScreenRouteProp;
     navigation: SubchapterContentScreenNavigationProp;
@@ -84,15 +84,12 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         padding: 16,
     },
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
-        width: '100%',
-        paddingHorizontal: 16,
+        marginTop: 20,
     },
     nextButton: {
         marginLeft: 10,
@@ -100,3 +97,4 @@ const styles = StyleSheet.create({
 });
 
 export default SubchapterContentScreen;
+

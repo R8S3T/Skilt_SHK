@@ -44,9 +44,18 @@ export async function fetchSubchapterContentBySubchapterId(subchapterId: number)
         if (!response.ok) {
             throw new Error('Network response was not ok.');
         }
-        const subchapterContent: SubchapterContent[] = await response.json();
+        const subchapterContent: any[] = await response.json();
         console.log(`Fetched Subchapter Content Data for subchapterId ${subchapterId}:`, subchapterContent);
-        return subchapterContent;
+
+        // Transform the data to match the expected structure
+        return subchapterContent.map(content => ({
+            ContentId: content.ContentId,
+            SubchapterId: content.SubchapterId,
+            TextContent: content.ContentData,
+            SortOrder: content.SortOrder,
+            ImageUrl: content.ImageUrl || null,
+            Quiz: content.Quiz || null,
+        }));
     } catch (error) {
         console.error(`Failed to fetch subchapter content for subchapterId ${subchapterId}:`, error);
         return [];
@@ -54,7 +63,7 @@ export async function fetchSubchapterContentBySubchapterId(subchapterId: number)
 }
 
 // Fetch math topic content by topic ID
-export async function fetchMathContentByTopicId(topicId:number): Promise<MathTopicContent[]> {
+export async function fetchMathContentByTopicId(topicId: number): Promise<MathTopicContent[]> {
     try {
         const response = await fetch(`${API_URL}/mathtopiccontent/${topicId}`);
         if (!response.ok) {
@@ -64,7 +73,7 @@ export async function fetchMathContentByTopicId(topicId:number): Promise<MathTop
         console.log(`Fetched Math Topic Content Data for topicId ${topicId}:`, mathTopicContent);
         return mathTopicContent;
     } catch (error) {
-        console.error(`Failed to fetchg math topic content for topicId ${topicId}`, error);
+        console.error(`Failed to fetch math topic content for topicId ${topicId}`, error);
         return [];
     }
 }

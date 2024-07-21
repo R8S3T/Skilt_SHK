@@ -1,6 +1,9 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, ImageSourcePropType } from 'react-native';
 import { scaleFontSize } from "src/utils/screenDimensions";
+import { StackNavigationProp } from '@react-navigation/stack';
+import { LearnStackParamList } from 'src/types/navigationTypes';
+import { useNavigation } from '@react-navigation/native';
 
 interface MathTopic {
     key: string;
@@ -16,11 +19,15 @@ const data: MathTopic[] = [
     { key: 'formulas', label: 'Formelberechnung', icon: require('../../../assets/Images/math_formula.png') },
 ];
 
+type MathScreenNavigationProp = StackNavigationProp<LearnStackParamList, 'MathScreen'>;
+
 const MathScreen: React.FC = () => {
+    const navigation = useNavigation<MathScreenNavigationProp>();
+
     const renderItem = ({ item }: { item: MathTopic }) => (
         <TouchableOpacity
             style={styles.itemContainer}
-            onPress={() => console.log(`key: ${item.key} pressed`)}
+            onPress={() => navigation.navigate('MathTopicContentScreen', { topicId: data.indexOf(item) + 1, topicName: item.label })}
         >
             <Image source={item.icon} style={styles.iconStyle}/>
             <Text style={styles.itemText}>{item.label}</Text>
@@ -69,3 +76,4 @@ const styles = StyleSheet.create({
 });
 
 export default MathScreen;
+
