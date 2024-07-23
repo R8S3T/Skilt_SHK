@@ -66,9 +66,15 @@ export async function fetchSubchapterContentBySubchapterId(subchapterId: number)
 export async function fetchMathContentByTopicId(topicId: number): Promise<MathTopicContent[]> {
     try {
         const response = await fetch(`${API_URL}/mathtopiccontent/${topicId}`);
+        console.log(`Request URL: ${API_URL}/mathtopiccontent/${topicId}`);
+        console.log(`Response Status: ${response.status}`);
+
         if (!response.ok) {
+            const errorText = await response.text();
+            console.error(`Response Error: ${errorText}`);
             throw new Error('Network response was not ok.');
         }
+
         const mathTopicContent: MathTopicContent[] = await response.json();
         console.log(`Fetched Math Topic Content Data for topicId ${topicId}:`, mathTopicContent);
         return mathTopicContent;
@@ -77,4 +83,5 @@ export async function fetchMathContentByTopicId(topicId: number): Promise<MathTo
         return [];
     }
 }
+
 

@@ -7,8 +7,6 @@ import ChaptersScreen from 'src/screens/ChaptersScreen';
 import SubchaptersScreen from 'src/screens/Subchapters/SubchaptersScreen';
 import SubchapterContentScreen from 'src/screens/SubchapterContent/SubchapterContentScreen';
 import CongratsScreen from 'src/screens/SubchapterContent/CongratsScreen';
-import MathScreen from 'src/screens/MathScreen/MathScreen';
-import MathTopicContentScreen from 'src/screens/MathScreen/MathTopicContentScreen';
 import { LearnStackParamList } from 'src/types/navigationTypes';
 
 const Stack = createStackNavigator<LearnStackParamList>();
@@ -33,16 +31,6 @@ const LearnStackNavigator: React.FC = () => {
                 name="CongratsScreen"
                 component={CongratsScreen}
                 options={{ title: 'Congratulations' }} // Add CongratsScreen to the stack
-            />
-            <Stack.Screen
-                name="MathScreen"
-                component={MathScreen}
-                options={{ title: 'Mathe Grundkurs' }}
-            />
-            <Stack.Screen
-                name="MathTopicContentScreen"
-                component={MathTopicContentScreen}
-                options={{ title: 'Math Topic Content' }}
             />
         </Stack.Navigator>
     );

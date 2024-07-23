@@ -3,10 +3,10 @@
 import sqlite3 from 'sqlite3';
 import path from 'path';
 
-
 const dbPath = path.resolve(__dirname, 'skiltSHK.db');
 console.log("Database path: ", dbPath);
 
+// Initialize the database and create tables
 export const initializeDatabase = (): Promise<void> => {
     return new Promise((resolve, reject) => {
         const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
@@ -63,7 +63,39 @@ const createTables = (db: sqlite3.Database, resolve: () => void, reject: (err: a
                             reject(err);
                         } else {
                             console.log('Table SubchapterContent created successfully.');
-                            resolve();
+                            db.run(`
+                                CREATE TABLE IF NOT EXISTS MathTopics (
+                                    TopicId INTEGER PRIMARY KEY AUTOINCREMENT,
+                                    TopicName TEXT NOT NULL,
+                                    Description TEXT,
+                                    SortOrder INTEGER
+                                );
+                            `, (err) => {
+                                if (err) {
+                                    console.error('Error creating MathTopics table:', err.message);
+                                    reject(err);
+                                } else {
+                                    console.log('Table MathTopics created successfully.');
+                                    db.run(`
+                                        CREATE TABLE IF NOT EXISTS MathTopicContent (
+                                            ContentId INTEGER PRIMARY KEY AUTOINCREMENT,
+                                            TopicId INTEGER,
+                                            TextContent TEXT,
+                                            ImageUrl TEXT,
+                                            SortOrder INTEGER,
+                                            FOREIGN KEY(TopicId) REFERENCES MathTopics(TopicId) ON DELETE CASCADE ON UPDATE CASCADE
+                                        );
+                                    `, (err) => {
+                                        if (err) {
+                                            console.error('Error creating MathTopicContent table:', err.message);
+                                            reject(err);
+                                        } else {
+                                            console.log('Table MathTopicContent created successfully.');
+                                            resolve();
+                                        }
+                                    });
+                                }
+                            });
                         }
                     });
                 }
@@ -74,8 +106,8 @@ const createTables = (db: sqlite3.Database, resolve: () => void, reject: (err: a
 
 // Fetch chapters by year
 export const fetchChaptersByYear = (year: number): Promise<any[]> => {
-    const db = new sqlite3.Database(dbPath);
     return new Promise((resolve, reject) => {
+        const db = new sqlite3.Database(dbPath);
         db.all('SELECT * FROM Chapters WHERE Year = ?', [year], (err, rows) => {
             db.close();
             if (err) {
@@ -91,8 +123,8 @@ export const fetchChaptersByYear = (year: number): Promise<any[]> => {
 
 // Fetch subchapters by chapter id
 export const fetchSubchaptersByChapterId = (chapterId: number): Promise<any[]> => {
-    const db = new sqlite3.Database(dbPath);
     return new Promise((resolve, reject) => {
+        const db = new sqlite3.Database(dbPath);
         db.all('SELECT * FROM Subchapters WHERE ChapterId = ?', [chapterId], (err, rows) => {
             db.close();
             if (err) {
@@ -108,8 +140,8 @@ export const fetchSubchaptersByChapterId = (chapterId: number): Promise<any[]> =
 
 // Fetch subchapter content by subchapter id
 export const fetchSubchapterContentBySubchapterId = (subchapterId: number): Promise<any[]> => {
-    const db = new sqlite3.Database(dbPath);
     return new Promise((resolve, reject) => {
+        const db = new sqlite3.Database(dbPath);
         db.all('SELECT * FROM SubchapterContent WHERE SubchapterId = ? ORDER BY SortOrder', [subchapterId], (err, rows) => {
             db.close();
             if (err) {
@@ -123,10 +155,27 @@ export const fetchSubchapterContentBySubchapterId = (subchapterId: number): Prom
     });
 };
 
+// Fetch math topic content by topic id
+export const fetchMathContentByTopicId = (topicId: number): Promise<any[]> => {
+    return new Promise((resolve, reject) => {
+        const db = new sqlite3.Database(dbPath);
+        db.all('SELECT * FROM MathTopicContent WHERE TopicId = ? ORDER BY SortOrder', [topicId], (err, rows) => {
+            db.close();
+            if (err) {
+                console.error('Failed to fetch math topic content:', err);
+                reject(err);
+            } else {
+                console.log(`Fetched Math Topic Content Data for topicId ${topicId}:`, rows);
+                resolve(rows);
+            }
+        });
+    });
+};
+
 // Add a new chapter to the database
 export const addChapter = (chapterName: string, chapterIntro: string, year: number): Promise<void> => {
-    const db = new sqlite3.Database(dbPath);
     return new Promise((resolve, reject) => {
+        const db = new sqlite3.Database(dbPath);
         db.run(`
             INSERT INTO Chapters (ChapterName, ChapterIntro, Year) VALUES (?, ?, ?)
         `, [chapterName, chapterIntro, year], (err: Error | null) => {
@@ -141,4 +190,3 @@ export const addChapter = (chapterName: string, chapterIntro: string, year: numb
         });
     });
 };
-

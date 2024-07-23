@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { LearnStackParamList } from 'src/types/navigationTypes';
+import { MathStackParamList } from 'src/types/navigationTypes'; // Ensure this matches your actual navigation type
 import { fetchMathContentByTopicId } from 'src/database/databaseServices';
 import { MathTopicContent } from 'src/types/types';
 import ContentSlide from '../ContentSlide';
 
-type MathTopicContentScreenRouteProp = RouteProp<LearnStackParamList, 'MathTopicContentScreen'>;
+type MathTopicContentScreenRouteProp = RouteProp<MathStackParamList, 'MathTopicContentScreen'>;
 
-type MathTopicContentScreenNavigationProp = StackNavigationProp<LearnStackParamList, 'MathTopicContentScreen'>;
+type MathTopicContentScreenNavigationProp = StackNavigationProp<MathStackParamList, 'MathTopicContentScreen'>;
 
 type Props = {
     route: MathTopicContentScreenRouteProp;
@@ -23,6 +23,7 @@ const MathTopicContentScreen: React.FC<Props> = ({ route, navigation }) => {
 
     useEffect(() => {
         navigation.setOptions({ title: topicName });
+        console.log(`Received params: topicId=${topicId}, topicName=${topicName}`);
 
         const loadData = async () => {
             try {
@@ -63,3 +64,4 @@ const styles = StyleSheet.create({
 });
 
 export default MathTopicContentScreen;
+

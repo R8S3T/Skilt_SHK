@@ -3,7 +3,7 @@
 import express from 'express';
 import path from 'path';
 import cors from 'cors';
-import { initializeDatabase, fetchChaptersByYear, addChapter, fetchSubchaptersByChapterId, fetchSubchapterContentBySubchapterId } from './databaseSetup';
+import { initializeDatabase, fetchChaptersByYear, addChapter, fetchSubchaptersByChapterId, fetchSubchapterContentBySubchapterId, fetchMathContentByTopicId } from './databaseSetup';
 
 const app = express();
 const PORT = 3000;
@@ -82,8 +82,23 @@ app.get('/subchaptercontent/:subchapterId', async (req, res) => {
     }
 });
 
+// Handle GET requests to fetch math topic content by topic ID
+app.get('/mathtopiccontent/:topicId', async (req, res) => {
+    const topicId = parseInt(req.params.topicId);
+    console.log(`Received request for content of topicId: ${topicId}`);
+    try {
+        const mathTopicContent = await fetchMathContentByTopicId(topicId);
+        console.log(`Query result for topicId ${topicId}:`, mathTopicContent);
+        res.json(mathTopicContent);
+    } catch (error) {
+        console.error(`Error fetching content for topicId ${topicId}:`, error);
+        res.status(500).json({ error: 'Failed to fetch content' });
+    }
+});
+
 // Start the server on the specified port and IP address
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on http://192.168.227.38:${PORT}`);
 });
+
 
