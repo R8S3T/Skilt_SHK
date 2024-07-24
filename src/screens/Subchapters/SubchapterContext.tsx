@@ -1,3 +1,5 @@
+// Creates and provides a context for managing subchapter-related state, such as unlocked and finished subchapters, and the current subchapter details. 
+
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { SubchapterContextType } from 'src/types/types';
 

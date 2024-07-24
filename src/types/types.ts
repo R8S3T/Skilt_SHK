@@ -26,6 +26,18 @@ export interface SubchapterContent {
     };
 }
 
+
+export interface SubchapterContextType {
+    unlockedSubchapters: number[];
+    finishedSubchapters: number[];
+    currentSubchapterId: number | null;
+    currentSubchapterTitle: string;
+    unlockSubchapter: (subchapterId: number) => void;
+    markSubchapterAsFinished: (subchapterId: number) => void;
+    setCurrentSubchapter: (subchapterId: number | null, subchapterTitle: string) => void;
+}
+
+
 export interface GenericContent {
     ContentId: number;
     TextContent: string;

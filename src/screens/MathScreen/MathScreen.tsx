@@ -27,9 +27,15 @@ const MathScreen: React.FC = () => {
     const renderItem = ({ item }: { item: MathTopic }) => (
         <TouchableOpacity
             style={styles.itemContainer}
-            onPress={() => navigation.navigate('MathTopicContentScreen', { topicId: data.indexOf(item) + 1, topicName: item.label })}
+            onPress={() => {
+                if (item.key === 'equations') {
+                    navigation.navigate('MathTopicScreen');
+                } else {
+                    navigation.navigate('MathTopicContentScreen', { topicId: data.indexOf(item) + 1, topicName: item.label });
+                }
+            }}
         >
-            <Image source={item.icon} style={styles.iconStyle}/>
+            <Image source={item.icon} style={styles.iconStyle} />
             <Text style={styles.itemText}>{item.label}</Text>
         </TouchableOpacity>
     );
