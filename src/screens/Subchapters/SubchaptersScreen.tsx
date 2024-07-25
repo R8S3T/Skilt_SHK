@@ -5,12 +5,13 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { fetchSubchaptersByChapterId } from 'src/database/databaseServices';
 import { Subchapter } from 'src/types/types';
 import { LearnStackParamList } from 'src/types/navigationTypes';
-import SubchapterRows from './SubchapterRows';
-import { SubchapterContext } from './SubchapterContext'
+import { SubchapterContext } from 'src/OldFiles/SubchapterContext';
+import GenericRows from '../GenericRows';
+
 
 type SubchaptersScreenRouteProps = {
     route: RouteProp<LearnStackParamList, 'SubchaptersScreen'>;
-}
+};
 
 type NavigationType = StackNavigationProp<LearnStackParamList, 'SubchaptersScreen'>;
 
@@ -25,17 +26,15 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
         throw new Error('SubchapterContext must be used within a SubchapterProvider');
     }
 
-    const { unlockedSubchapters , finishedSubchapters, markSubchapterAsFinished, setCurrentSubchapter } = context;
-
+    const { unlockedSubchapters, finishedSubchapters, markSubchapterAsFinished, setCurrentSubchapter } = context;
 
     useEffect(() => {
         const loadData = async () => {
             try {
                 const data = await fetchSubchaptersByChapterId(chapterId);
-                console.log("Fetched Subchapters Data for chapterId " + chapterId + ":", data);
                 setSubchapters(data);
             } catch (error) {
-                console.error('Failed to load subchapters for chapterId ' + chapterId + ':', error);
+                console.error('Failed to load subchapters:', error);
             } finally {
                 setLoading(false);
             }
@@ -52,10 +51,11 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
             chapterId,
             chapterTitle
         });
-    }
+    };
 
     const renderedSubchapters = subchapters.map(subchapter => ({
-        ...subchapter,
+        id: subchapter.SubchapterId,
+        title: subchapter.SubchapterName,
         isLocked: !unlockedSubchapters.includes(subchapter.SubchapterId),
         isFinished: finishedSubchapters.includes(subchapter.SubchapterId)
     }));
@@ -67,7 +67,7 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
             {loading ? (
                 <Text>Loading...</Text>
             ) : (
-                <SubchapterRows subchapters={renderedSubchapters} onNodePress={handleNodePress} />
+                <GenericRows items={renderedSubchapters} onNodePress={handleNodePress} color="#FFA500" finishedColor="#FFA500" />
             )}
         </ScrollView>
     );

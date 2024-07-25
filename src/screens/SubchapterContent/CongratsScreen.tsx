@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
-import { useSubchapter } from '../Subchapters/SubchapterContext';
+import { useSubchapter } from '../../OldFiles/SubchapterContext';
 
 type CongratsScreenParams = {
     subchapterId: number | null;

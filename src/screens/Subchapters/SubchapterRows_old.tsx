@@ -1,6 +1,6 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
-import SubchapterNode from "./SubchapterNode";
+import SubchapterNode from "../../OldFiles/SubchapterNode_old";
 
 interface Subchapter {
     SubchapterId: number;
