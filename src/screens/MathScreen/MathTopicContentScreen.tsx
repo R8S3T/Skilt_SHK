@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { MathStackParamList } from 'src/types/navigationTypes'; // Ensure this matches your actual navigation type
+import { MathStackParamList } from 'src/types/navigationTypes';
 import { fetchMathContentByTopicId } from 'src/database/databaseServices';
 import { MathTopicContent } from 'src/types/types';
 import ContentSlide from '../ContentSlide';

@@ -1,7 +1,6 @@
 // ContentSlide.tsx
 import React from 'react';
 import { View, StyleSheet, Image, Text } from 'react-native';
-import { SubchapterContent } from 'src/types/types';
 import { GenericContent } from 'src/types/types';
 
 interface ContentSlideProps {

@@ -1,8 +1,15 @@
 // Provides functions to fetch chapter data from a server for a specified year
 
-import { Chapter, Subchapter, SubchapterContent, MathTopicContent } from 'src/types/types';
+import {
+    Chapter,
+    Subchapter,
+    SubchapterContent,
+    MathTopic,
+    MathTopicContent } from 'src/types/types';
 
-const API_URL = 'http://192.168.227.38:3000';
+    // Use here Expo IP adress
+    const API_URL = 'http://192.168.145.38:3000';
+
 
 // Fetch chapters by year via the server
 export async function fetchChaptersByYear(year: number): Promise<Chapter[]> {
@@ -61,6 +68,24 @@ export async function fetchSubchapterContentBySubchapterId(subchapterId: number)
         return [];
     }
 }
+
+// Fetch math topics from the server
+export async function fetchMathTopics(): Promise<MathTopic[]> {
+    try {
+        const response = await fetch(`${API_URL}/mathtopics`);
+        if (!response.ok) {
+            console.error('HTTP error', response.status, await response.text());
+            throw new Error('Network response was not ok.');
+        }
+        const mathTopics: MathTopic[] = await response.json(); // Here MathTopic is used
+        return mathTopics;
+    } catch (error) {
+        console.error('Network request failed:', error);
+        return [];  // Consider how you want to handle errors: retry, return defaults, etc.
+    }
+}
+
+
 
 // Fetch math topic content by topic ID
 export async function fetchMathContentByTopicId(topicId: number): Promise<MathTopicContent[]> {

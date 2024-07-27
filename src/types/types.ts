@@ -48,6 +48,13 @@ export interface GenericContent {
     };
 }
 
+export interface MathTopic {
+    TopicId: number;
+    TopicName: string;
+    Description: string;
+    SortOrder: number;
+}
+
 export interface MathTopicContent {
     ContentId: number;
     TopicId: number;

@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from "src/navigation/AppNavigator";
 import { loadFonts } from "src/utils/fonts";
 import { ActivityIndicator, View, StyleSheet } from "react-native";
-import { SubchapterProvider } from "src/OldFiles/SubchapterContext";
+import { SubchapterProvider } from "src/screens/SubchapterContent/SubchapterContext";
 
 const App = () => {
   const [isReady, setIsReady] = useState(false);

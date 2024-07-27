@@ -106,20 +106,27 @@ const createTables = (db: sqlite3.Database, resolve: () => void, reject: (err: a
 
 // Fetch chapters by year
 export const fetchChaptersByYear = (year: number): Promise<any[]> => {
+    const db = new sqlite3.Database(dbPath);
     return new Promise((resolve, reject) => {
-        const db = new sqlite3.Database(dbPath);
-        db.all('SELECT * FROM Chapters WHERE Year = ?', [year], (err, rows) => {
-            db.close();
-            if (err) {
-                console.error('Failed to fetch chapters:', err);
-                reject(err);
-            } else {
-                console.log(`Fetched Chapters Data for year ${year}:`, rows);
-                resolve(rows);
-            }
-        });
+        try {
+            db.all('SELECT * FROM Chapters WHERE Year = ?', [year], (err, rows) => {
+                if (err) {
+                    console.error('Failed to fetch chapters:', err);
+                    reject(err);
+                } else {
+                    console.log(`Fetched Chapters Data for year ${year}:`, rows);
+                    resolve(rows);
+                }
+            });
+        } catch (error) {
+            console.error('Error executing query:', error);
+            reject(error);
+        } finally {
+            db.close();  // Ensures closure even if db.all() setup fails
+        }
     });
 };
+
 
 // Fetch subchapters by chapter id
 export const fetchSubchaptersByChapterId = (chapterId: number): Promise<any[]> => {
@@ -154,6 +161,30 @@ export const fetchSubchapterContentBySubchapterId = (subchapterId: number): Prom
         });
     });
 };
+
+// Fetch math topics
+export const fetchMathTopics = (): Promise<any[]> => {
+    const db = new sqlite3.Database(dbPath);
+    return new Promise((resolve, reject) => {
+        try {
+            db.all('SELECT * FROM MathTopics ORDER BY SortOrder', [], (err, rows) => {
+                if (err) {
+                    console.error('Failed to fetch math topics:', err);
+                    reject(err);
+                } else {
+                    console.log('Fetched Math Topics Data:', rows);
+                    resolve(rows);
+                }
+            });
+        } catch (error) {
+            console.error('Error during database query:', error);
+            reject(error);
+        } finally {
+            db.close();  // Ensures the database is always closed
+        }
+    });
+};
+
 
 // Fetch math topic content by topic id
 export const fetchMathContentByTopicId = (topicId: number): Promise<any[]> => {

@@ -5,7 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { fetchSubchaptersByChapterId } from 'src/database/databaseServices';
 import { Subchapter } from 'src/types/types';
 import { LearnStackParamList } from 'src/types/navigationTypes';
-import { SubchapterContext } from 'src/OldFiles/SubchapterContext';
+import { SubchapterContext } from '../SubchapterContent/SubchapterContext';
 import GenericRows from '../GenericRows';
 
 

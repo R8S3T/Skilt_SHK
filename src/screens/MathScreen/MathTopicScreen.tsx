@@ -1,17 +1,44 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import GenericRows from '../GenericRows'; // Adjust the path if necessary
+import GenericRows from '../GenericRows';
+import { fetchMathTopics } from 'src/database/databaseServices';
+import { MathTopic } from 'src/types/types';
+
+interface MathTopicNode {
+    id: number;
+    title: string;
+    isLocked: boolean;
+    isFinished: boolean;
+}
 
 const MathTopicScreen: React.FC = () => {
+    const [nodes, setNodes] = useState<MathTopicNode[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const loadTopics = async () => {
+            try {
+                const topics = await fetchMathTopics();
+                const formattedNodes: MathTopicNode[] = topics.map((topic: MathTopic) => ({
+                    id: topic.TopicId,
+                    title: topic.TopicName,
+                    isLocked: false,
+                    isFinished: false,
+                }));
+                setNodes(formattedNodes);
+                setLoading(false);
+            } catch (error) {
+                console.error('Failed to fetch topics:', error);
+                setLoading(false);
+            }
+        };
+
+        loadTopics();
+    }, []);
+
     const handleNodePress = (nodeId: number, title: string) => {
         console.log(`Node ${nodeId} pressed: ${title}`);
     };
-
-    const nodes = [
-        { id: 1, title: 'Node 1', isLocked: false, isFinished: true },
-        { id: 2, title: 'Node 2', isLocked: false, isFinished: false },
-        { id: 3, title: 'Node 3', isLocked: false, isFinished: false },
-    ];
 
     return (
         <ScrollView style={styles.container}>

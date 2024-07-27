@@ -3,7 +3,15 @@
 import express from 'express';
 import path from 'path';
 import cors from 'cors';
-import { initializeDatabase, fetchChaptersByYear, addChapter, fetchSubchaptersByChapterId, fetchSubchapterContentBySubchapterId, fetchMathContentByTopicId } from './databaseSetup';
+import {
+    initializeDatabase,
+    fetchChaptersByYear,
+    addChapter,
+    fetchSubchaptersByChapterId,
+    fetchSubchapterContentBySubchapterId,
+    fetchMathTopics,
+    fetchMathContentByTopicId
+} from './databaseSetup';
 
 const app = express();
 const PORT = 3000;
@@ -81,6 +89,18 @@ app.get('/subchaptercontent/:subchapterId', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch content' });
     }
 });
+
+// Handle GET requests to fetch math topics
+app.get('/mathtopics', async (req, res) => {
+    try {
+        const mathTopics = await fetchMathTopics();
+        res.json(mathTopics);
+    } catch (error) {
+        console.error('Error fetching math topics:', error);
+        res.status(500).send('Internal Server Error');
+    };
+});
+
 
 // Handle GET requests to fetch math topic content by topic ID
 app.get('/mathtopiccontent/:topicId', async (req, res) => {
