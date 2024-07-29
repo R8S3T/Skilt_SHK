@@ -2,55 +2,42 @@ import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
-import { useSubchapter } from './SubchapterContext';
+import { useContent } from './ContentContext';
 
 type CongratsScreenParams = {
-    subchapterId: number | null;
-    subchapterTitle: string;
-    chapterId: number;
-    chapterTitle: string;
+    contentId: number | null;
+    contentTitle: string;
+    onContinue: () => void;
 };
 
 const CongratsScreen: React.FC = () => {
-    const navigation = useNavigation<any>();
     const route = useRoute<RouteProp<{ params: CongratsScreenParams }, 'params'>>();
+    const { contentId, contentTitle, onContinue } = route.params;
 
-    const { markSubchapterAsFinished } = useSubchapter();
-
-    const { chapterId, chapterTitle, subchapterId, subchapterTitle } = route.params ?? { chapterId: 0, chapterTitle: '', subchapterId: null, subchapterTitle: '' };
-
-
-    console.log('CongratsScreen Params:', route.params);
+    const { markContentAsFinished } = useContent();
 
     const handleContinue = () => {
-        console.log('Chapter ID:', chapterId, 'Chapter Title:', chapterTitle);
-        console.log('handleContinue called');
-        console.log('Navigating to SubchaptersScreen with chapterId and chapterTitle');
-
-        if (subchapterId !== null) {
-            markSubchapterAsFinished(subchapterId)
+        if (contentId !== null) {
+            markContentAsFinished(contentId);
         }
-
-        navigation.navigate('SubchaptersScreen', {
-            chapterId,
-            chapterTitle,
-        });
+        onContinue(); // Use the provided callback to continue
     };
 
     return (
         <View style={styles.container}>
             <LottieView
-                source={require('../../../assets/Animations/congrats_1.json')}
+                source={require('../../assets/Animations/congrats_1.json')}
                 autoPlay
                 loop={false}
                 style={styles.animation}
             />
-            <TouchableOpacity style={[styles.button, styles.active]} onPress={handleContinue}>
+            <TouchableOpacity style={styles.button} onPress={handleContinue}>
                 <Text style={styles.text}>Weiter</Text>
             </TouchableOpacity>
         </View>
     );
 };
+
 
 const styles = StyleSheet.create({
     container: {
@@ -63,6 +50,7 @@ const styles = StyleSheet.create({
         height: 300,
     },
     button: {
+        backgroundColor: 'orange',
         minWidth: 100,
         padding: 10,
         borderRadius: 5,

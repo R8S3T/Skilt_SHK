@@ -57,10 +57,14 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
             setCurrentIndex(currentIndex + 1);
         } else {
             navigation.navigate('CongratsScreen', {
-                subchapterId: subchapterId,
-                subchapterTitle: subchapterTitle,
-                chapterId: chapterId,
-                chapterTitle: chapterTitle,
+                contentId: subchapterId,
+                contentTitle: subchapterTitle,
+                onContinue: () => {
+                    navigation.navigate('SubchaptersScreen', {
+                        chapterId: chapterId,
+                        chapterTitle: chapterTitle
+                    });
+                }
             });
         }
     };

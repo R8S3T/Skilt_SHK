@@ -5,9 +5,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { fetchSubchaptersByChapterId } from 'src/database/databaseServices';
 import { Subchapter } from 'src/types/types';
 import { LearnStackParamList } from 'src/types/navigationTypes';
-import { SubchapterContext } from '../SubchapterContent/SubchapterContext';
+import { ContentContext } from '../ContentContext';
 import GenericRows from '../GenericRows';
-
 
 type SubchaptersScreenRouteProps = {
     route: RouteProp<LearnStackParamList, 'SubchaptersScreen'>;
@@ -20,13 +19,18 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
     const [subchapters, setSubchapters] = useState<Subchapter[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const navigation = useNavigation<NavigationType>();
-    const context = useContext(SubchapterContext);
+    const context = useContext(ContentContext);
 
     if (!context) {
-        throw new Error('SubchapterContext must be used within a SubchapterProvider');
+        throw new Error('ContentContext must be used within a ContentProvider');
     }
 
-    const { unlockedSubchapters, finishedSubchapters, markSubchapterAsFinished, setCurrentSubchapter } = context;
+    const {
+        unlockedContentIds,
+        finishedContentIds,
+        markContentAsFinished,
+        setCurrentContent
+    } = context;
 
     useEffect(() => {
         const loadData = async () => {
@@ -44,7 +48,7 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
     }, [chapterId]);
 
     const handleNodePress = (subchapterId: number, subchapterTitle: string) => {
-        setCurrentSubchapter(subchapterId, subchapterTitle);
+        setCurrentContent(subchapterId, subchapterTitle);
         navigation.navigate('SubchapterContentScreen', {
             subchapterId,
             subchapterTitle,
@@ -56,8 +60,8 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
     const renderedSubchapters = subchapters.map(subchapter => ({
         id: subchapter.SubchapterId,
         title: subchapter.SubchapterName,
-        isLocked: !unlockedSubchapters.includes(subchapter.SubchapterId),
-        isFinished: finishedSubchapters.includes(subchapter.SubchapterId)
+        isLocked: !unlockedContentIds.includes(subchapter.SubchapterId),
+        isFinished: finishedContentIds.includes(subchapter.SubchapterId)
     }));
 
     return (
@@ -94,3 +98,4 @@ const styles = StyleSheet.create({
 });
 
 export default SubchaptersScreen;
+

@@ -6,7 +6,7 @@ import YearsScreen from 'src/screens/YearsScreen';
 import ChaptersScreen from 'src/screens/ChaptersScreen';
 import SubchaptersScreen from 'src/screens/Subchapters/SubchaptersScreen';
 import SubchapterContentScreen from 'src/screens/SubchapterContent/SubchapterContentScreen';
-import CongratsScreen from 'src/screens/SubchapterContent/CongratsScreen';
+import CongratsScreen from 'src/screens/CongratsScreen';
 import { LearnStackParamList } from 'src/types/navigationTypes';
 
 const Stack = createStackNavigator<LearnStackParamList>();

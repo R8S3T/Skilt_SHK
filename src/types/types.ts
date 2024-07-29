@@ -66,3 +66,13 @@ export interface MathTopicContent {
         Options: string[];
     };
 }
+
+export interface ContentContextType {
+    unlockedContentIds: number[];
+    finishedContentIds: number[];
+    currentContentId: number | null;
+    currentContentTitle: string;
+    unlockContent: (contentId: number) => void;
+    markContentAsFinished: (contentId: number) => void;
+    setCurrentContent: (contentId: number | null, contentTitle: string) => void;
+}

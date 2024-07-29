@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import GenericRows from '../GenericRows';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { MathStackParamList } from 'src/types/navigationTypes';
 import { fetchMathTopics } from 'src/database/databaseServices';
 import { MathTopic } from 'src/types/types';
 
@@ -11,7 +14,10 @@ interface MathTopicNode {
     isFinished: boolean;
 }
 
+type MathTopicScreenNavigationProp = StackNavigationProp<MathStackParamList, 'MathTopicScreen'>;
+
 const MathTopicScreen: React.FC = () => {
+    const navigation = useNavigation<MathTopicScreenNavigationProp>();
     const [nodes, setNodes] = useState<MathTopicNode[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -38,6 +44,10 @@ const MathTopicScreen: React.FC = () => {
 
     const handleNodePress = (nodeId: number, title: string) => {
         console.log(`Node ${nodeId} pressed: ${title}`);
+        navigation.navigate('MathTopicContentScreen', {
+            topicId: nodeId,
+            topicName: title
+        });
     };
 
     return (
@@ -69,4 +79,5 @@ const styles = StyleSheet.create({
 });
 
 export default MathTopicScreen;
+
 

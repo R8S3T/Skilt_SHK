@@ -25,10 +25,9 @@ export type LearnStackParamList = {
         chapterTitle: string;
     };
     CongratsScreen: {
-        subchapterId: number | null;
-        subchapterTitle: string;
-        chapterId: number;
-        chapterTitle: string;
+        contentId: number | null;
+        contentTitle: string;
+        onContinue: () => void;
     };
     MathScreen: undefined;
     MathTopicContentScreen: { topicId: number; topicName: string };
@@ -39,6 +38,11 @@ export type MathStackParamList = {
     MathScreen: undefined;
     MathTopicContentScreen: { topicId: number; topicName: string };
     MathTopicScreen: undefined;
+    CongratsScreen: {
+        contentId: number | null;
+        contentTitle: string;
+        onContinue: () => void;
+    };
 };
 
 // A TypeScript type that defines all possible navigation paths and parameters in AppNavigator, ensuring that navigation across the entire app is type-safe and well-organized.
