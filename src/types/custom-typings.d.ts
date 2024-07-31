@@ -1,4 +1,5 @@
-// src/types/react-native-swiper.d.ts
+// src/types/custom-typings.d.ts
+// Ensures TypeScript recognizes the modules and their types, enabling type checking and autocompletion.
 
 declare module 'react-native-swiper' {
     import { ComponentType } from 'react';
@@ -18,3 +19,8 @@ declare module 'react-native-swiper' {
         const Swiper: ComponentType<SwiperProps>;
         export default Swiper;
 }
+
+declare module '@react-navigation/native' {
+    export * from '@react-navigation/native/lib/typescript/src';
+}
+
