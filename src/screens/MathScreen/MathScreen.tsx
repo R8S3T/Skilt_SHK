@@ -1,52 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image, ImageSourcePropType } from 'react-native';
 import { scaleFontSize } from "src/utils/screenDimensions";
 import { StackNavigationProp } from '@react-navigation/stack';
 import { LearnStackParamList } from 'src/types/navigationTypes';
 import { useNavigation } from '@react-navigation/native';
-
-interface MathTopic {
-    key: string;
-    label: string;
-    icon: ImageSourcePropType;
-}
-
-const data: MathTopic[] = [
-    { key: 'equations', label: 'Gleichungen', icon: require('../../../assets/Images/math_scales.png') },
-    { key: 'measurements', label: 'Maße', icon: require('../../../assets/Images/math_measurements.png') },
-    { key: 'fraction', label: 'Bruchrechnung', icon: require('../../../assets/Images/math_fraction.png') },
-    { key: 'geometry', label: 'Geometrie', icon: require('../../../assets/Images/math_geometry.png') },
-    { key: 'formulas', label: 'Formelberechnung', icon: require('../../../assets/Images/math_formula.png') },
-];
+import { fetchMathTopics } from 'src/database/databaseServices'; // Import your fetch function
+import { MathTopic } from 'src/types/types';
 
 type MathScreenNavigationProp = StackNavigationProp<LearnStackParamList, 'MathScreen'>;
 
 const MathScreen: React.FC = () => {
     const navigation = useNavigation<MathScreenNavigationProp>();
+    const [topics, setTopics] = useState<MathTopic[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const loadTopics = async () => {
+            try {
+                const fetchedTopics = await fetchMathTopics();
+                setTopics(fetchedTopics);
+            } catch (error) {
+                console.error('Failed to fetch topics:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadTopics();
+    }, []);
 
     const renderItem = ({ item }: { item: MathTopic }) => (
         <TouchableOpacity
             style={styles.itemContainer}
             onPress={() => {
-                if (item.key === 'equations') {
-                    navigation.navigate('MathTopicScreen');
-                } else {
-                    navigation.navigate('MathTopicContentScreen', { topicId: data.indexOf(item) + 1, topicName: item.label });
-                }
+                navigation.navigate('MathTopicSubchapterScreen', { topicId: item.TopicId, topicName: item.TopicName });
             }}
         >
-            <Image source={item.icon} style={styles.iconStyle} />
-            <Text style={styles.itemText}>{item.label}</Text>
+            <Text style={styles.itemText}>{item.TopicName}</Text>
         </TouchableOpacity>
     );
+
+    if (loading) {
+        return (
+            <View style={styles.container}>
+                <Text>Loading...</Text>
+            </View>
+        );
+    }
 
     return (
         <View style={styles.container}>
             <Text style={styles.header}>Fachmathematik</Text>
             <FlatList
-                data={data}
+                data={topics}
                 renderItem={renderItem}
-                keyExtractor={item => item.key}
+                keyExtractor={item => item.TopicId.toString()}
             />
         </View>
     );
@@ -82,4 +90,6 @@ const styles = StyleSheet.create({
 });
 
 export default MathScreen;
+
+
 

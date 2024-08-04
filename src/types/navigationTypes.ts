@@ -14,32 +14,35 @@ export type BottomTabParamList = {
 };
 
 export type LearnStackParamList = {
-    HomeScreen: undefined;
-    YearsScreen: undefined;
-    ChaptersScreen: { year: string };
-    SubchaptersScreen: { chapterId: number; chapterTitle: string };
-    SubchapterContentScreen: {
-        subchapterId: number;
-        subchapterTitle: string;
-        chapterId: number;
-        chapterTitle: string;
+        HomeScreen: undefined;
+        YearsScreen: undefined;
+        ChaptersScreen: { year: string };
+        SubchaptersScreen: { chapterId: number; chapterTitle: string };
+        SubchapterContentScreen: {
+            subchapterId: number;
+            subchapterTitle: string;
+            chapterId: number;
+            chapterTitle: string;
+        };
+        CongratsScreen: {
+            subchapterId: number | null;
+            subchapterTitle: string;
+            chapterId: number;
+            chapterTitle: string;
+        };
+        MathScreen: undefined;
+        MathTopicContentScreen: { subchapterId: number; subchapterName: string; topicId: number; topicName: string };
+        MathTopicScreen: undefined;
+        MathTopicSubchapterScreen: { topicId: number; topicName: string };
     };
-    CongratsScreen: {
-        subchapterId: number | null;
-        subchapterTitle: string;
-        chapterId: number;
-        chapterTitle: string;
+    
+    export type MathStackParamList = {
+        MathScreen: undefined;
+        MathTopicContentScreen: { subchapterId: number; subchapterName: string; topicId: number; topicName: string };
+        MathTopicScreen: undefined;
+        MathTopicSubchapterScreen: { topicId: number; topicName: string };
     };
-    MathScreen: undefined;
-    MathTopicContentScreen: { topicId: number; topicName: string };
-    MathTopicScreen: undefined;
-};
-
-export type MathStackParamList = {
-    MathScreen: undefined;
-    MathTopicContentScreen: { topicId: number; topicName: string };
-    MathTopicScreen: undefined;
-};
+    
 
 // A TypeScript type that defines all possible navigation paths and parameters in AppNavigator, ensuring that navigation across the entire app is type-safe and well-organized.
 

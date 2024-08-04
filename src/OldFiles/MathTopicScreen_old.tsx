@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import GenericRows from '../GenericRows';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import GenericRows from '../screens/GenericRows';
 import { fetchMathTopics } from 'src/database/databaseServices';
 import { MathTopic } from 'src/types/types';
+import { MathStackParamList } from 'src/types/navigationTypes';
 
 interface MathTopicNode {
     id: number;
@@ -11,9 +14,12 @@ interface MathTopicNode {
     isFinished: boolean;
 }
 
+type NavigationType = StackNavigationProp<MathStackParamList, 'MathTopicContentScreen'>;
+
 const MathTopicScreen: React.FC = () => {
     const [nodes, setNodes] = useState<MathTopicNode[]>([]);
     const [loading, setLoading] = useState(true);
+    const navigation = useNavigation<NavigationType>();
 
     useEffect(() => {
         const loadTopics = async () => {
@@ -38,8 +44,11 @@ const MathTopicScreen: React.FC = () => {
 
     const handleNodePress = (nodeId: number, title: string) => {
         console.log(`Node ${nodeId} pressed: ${title}`);
+        navigation.navigate('MathTopicSubchapterScreen', {
+            topicId: nodeId,
+            topicName: title
+        });
     };
-
     return (
         <ScrollView style={styles.container}>
             <Text style={styles.header}>Gleichungen</Text>

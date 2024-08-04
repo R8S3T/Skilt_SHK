@@ -10,7 +10,8 @@ import {
     fetchSubchaptersByChapterId,
     fetchSubchapterContentBySubchapterId,
     fetchMathTopics,
-    fetchMathContentByTopicId
+    fetchMathTopicSubchaptersByTopicId,
+    fetchMathContentBySubchapterId
 } from './databaseSetup';
 
 const app = express();
@@ -101,17 +102,30 @@ app.get('/mathtopics', async (req, res) => {
     };
 });
 
-
-// Handle GET requests to fetch math topic content by topic ID
-app.get('/mathtopiccontent/:topicId', async (req, res) => {
+// Handle GET requests to fetch math topic subchapters by topic ID
+app.get('/mathtopicsubchapters/:topicId', async (req, res) => {
     const topicId = parseInt(req.params.topicId);
-    console.log(`Received request for content of topicId: ${topicId}`);
+    console.log(`Received request for subchapters of topicId: ${topicId}`);
     try {
-        const mathTopicContent = await fetchMathContentByTopicId(topicId);
-        console.log(`Query result for topicId ${topicId}:`, mathTopicContent);
-        res.json(mathTopicContent);
+        const subchapters = await fetchMathTopicSubchaptersByTopicId(topicId);
+        console.log(`Query result for topicId ${topicId}:`, subchapters);
+        res.json(subchapters);
     } catch (error) {
-        console.error(`Error fetching content for topicId ${topicId}:`, error);
+        console.error(`Error fetching subchapters for topicId ${topicId}:`, error);
+        res.status(500).json({ error: 'Failed to fetch subchapters' });
+    }
+});
+
+// Handle GET requests to fetch math topic content by subchapter ID
+app.get('/mathtopiccontent/:subchapterId', async (req, res) => {
+    const subchapterId = parseInt(req.params.subchapterId);
+    console.log(`Received request for content of subchapterId: ${subchapterId}`);
+    try {
+        const subchapterContent = await fetchMathContentBySubchapterId(subchapterId);
+        console.log(`Query result for subchapterId ${subchapterId}:`, subchapterContent);
+        res.json(subchapterContent);
+    } catch (error) {
+        console.error(`Error fetching content for subchapterId ${subchapterId}:`, error);
         res.status(500).json({ error: 'Failed to fetch content' });
     }
 });

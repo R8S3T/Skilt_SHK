@@ -55,6 +55,12 @@ export interface MathTopic {
     SortOrder: number;
 }
 
+export interface MathTopicSubchapter {
+    SubchapterId: number;
+    TopicId: number;
+    SubchapterName: string;
+}
+
 export interface MathTopicContent {
     ContentId: number;
     TopicId: number;

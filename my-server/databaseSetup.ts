@@ -77,21 +77,39 @@ const createTables = (db: sqlite3.Database, resolve: () => void, reject: (err: a
                                 } else {
                                     console.log('Table MathTopics created successfully.');
                                     db.run(`
-                                        CREATE TABLE IF NOT EXISTS MathTopicContent (
-                                            ContentId INTEGER PRIMARY KEY AUTOINCREMENT,
+                                        CREATE TABLE IF NOT EXISTS MathTopicSubchapters (
+                                            SubchapterId INTEGER PRIMARY KEY AUTOINCREMENT,
                                             TopicId INTEGER,
-                                            TextContent TEXT,
-                                            ImageUrl TEXT,
+                                            SubchapterName TEXT,
                                             SortOrder INTEGER,
                                             FOREIGN KEY(TopicId) REFERENCES MathTopics(TopicId) ON DELETE CASCADE ON UPDATE CASCADE
                                         );
                                     `, (err) => {
                                         if (err) {
-                                            console.error('Error creating MathTopicContent table:', err.message);
+                                            console.error('Error creating MathTopicSubchapters table:', err.message);
                                             reject(err);
                                         } else {
-                                            console.log('Table MathTopicContent created successfully.');
-                                            resolve();
+                                            console.log('Table MathTopicSubchapters created successfully.');
+                                            db.run(`
+                                                CREATE TABLE IF NOT EXISTS MathTopicContent (
+                                                    ContentId INTEGER PRIMARY KEY AUTOINCREMENT,
+                                                    TopicId INTEGER,
+                                                    SubchapterId INTEGER,
+                                                    TextContent TEXT,
+                                                    ImageUrl TEXT,
+                                                    SortOrder INTEGER,
+                                                    FOREIGN KEY(TopicId) REFERENCES MathTopics(TopicId) ON DELETE CASCADE ON UPDATE CASCADE,
+                                                    FOREIGN KEY(SubchapterId) REFERENCES MathTopicSubchapters(SubchapterId) ON DELETE CASCADE ON UPDATE CASCADE
+                                                );
+                                            `, (err) => {
+                                                if (err) {
+                                                    console.error('Error creating MathTopicContent table:', err.message);
+                                                    reject(err);
+                                                } else {
+                                                    console.log('Table MathTopicContent created successfully.');
+                                                    resolve();
+                                                }
+                                            });
                                         }
                                     });
                                 }
@@ -185,18 +203,34 @@ export const fetchMathTopics = (): Promise<any[]> => {
     });
 };
 
-
-// Fetch math topic content by topic id
-export const fetchMathContentByTopicId = (topicId: number): Promise<any[]> => {
+// Fetch math topic subchapters by topic ID
+export const fetchMathTopicSubchaptersByTopicId = (topicId: number): Promise<any[]> => {
     return new Promise((resolve, reject) => {
         const db = new sqlite3.Database(dbPath);
-        db.all('SELECT * FROM MathTopicContent WHERE TopicId = ? ORDER BY SortOrder', [topicId], (err, rows) => {
+        db.all('SELECT * FROM MathTopicSubchapters WHERE TopicId = ? ORDER BY SortOrder', [topicId], (err, rows) => {
+            db.close();
+            if (err) {
+                console.error('Failed to fetch subchapters:', err);
+                reject(err);
+            } else {
+                console.log(`Fetched Math Topic Subchapters Data for topicId ${topicId}:`, rows);
+                resolve(rows);
+            }
+        });
+    });
+};
+
+// Fetch math topic content by subchapter id
+export const fetchMathContentBySubchapterId = (subchapterId: number): Promise<any[]> => {
+    return new Promise((resolve, reject) => {
+        const db = new sqlite3.Database(dbPath);
+        db.all('SELECT * FROM MathTopicContent WHERE SubchapterId = ? ORDER BY SortOrder', [subchapterId], (err, rows) => {
             db.close();
             if (err) {
                 console.error('Failed to fetch math topic content:', err);
                 reject(err);
             } else {
-                console.log(`Fetched Math Topic Content Data for topicId ${topicId}:`, rows);
+                console.log(`Fetched Math Topic Content Data for subchapterId ${subchapterId}:`, rows);
                 resolve(rows);
             }
         });
