@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { LearnStackParamList } from 'src/navigation/LearnStackNavigator';
+import { LearnStackParamList } from 'src/types/navigationTypes';
 import { dynamicCardHeight, scaleFontSize, screenWidth } from 'src/utils/screenDimensions';
 
 interface EducationYear {

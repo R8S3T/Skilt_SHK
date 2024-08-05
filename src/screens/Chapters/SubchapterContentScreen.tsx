@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import ContentSlide from '../ContentSlide';
-import NextButton from '../SubchapterContent/NextButton';
+import NextButton from '../NextButton';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { LearnStackParamList } from 'src/types/navigationTypes';
 import { SubchapterContent } from 'src/types/types';
 import { fetchSubchapterContentBySubchapterId } from 'src/database/databaseServices';
+import { GenericContent } from 'src/types/types';
+import { useSubchapter } from './SubchapterContext';
 
 type SubchapterContentScreenRouteProp = RouteProp<LearnStackParamList, 'SubchapterContentScreen'>;
 
@@ -22,6 +24,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     const [contentData, setContentData] = useState<SubchapterContent[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const { markSubchapterAsFinished, unlockSubchapter } = useSubchapter();
 
     useEffect(() => {
         navigation.setOptions({ title: subchapterTitle });
@@ -56,26 +59,28 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         if (currentIndex < contentData.length - 1) {
             setCurrentIndex(currentIndex + 1);
         } else {
+            markSubchapterAsFinished(subchapterId);  // Add this line
+            unlockSubchapter(subchapterId + 1);  // Add this line
             navigation.navigate('CongratsScreen', {
-                subchapterId: subchapterId,
-                subchapterTitle: subchapterTitle,
-                chapterId: chapterId,
-                chapterTitle: chapterTitle,
+                targetScreen: 'SubchaptersScreen',
+                targetParams: {
+                    chapterId: chapterId,
+                    chapterTitle: chapterTitle,
+                },
             });
         }
     };
 
     return (
         <View style={styles.container}>
-            <ContentSlide contentData={contentData[currentIndex]} />
+            <ContentSlide contentData={contentData[currentIndex] as GenericContent} />
             <View style={styles.buttonContainer}>
                 <NextButton
                     onPress={nextContent}
                     isActive={contentData.length > 0}
+                    label={currentIndex < contentData.length - 1 ? 'Next' : 'Finish'}
                     style={styles.nextButton}
-                >
-                    {currentIndex < contentData.length - 1 ? 'Next' : 'Finish'}
-                </NextButton>
+                />
             </View>
         </View>
     );
@@ -97,4 +102,7 @@ const styles = StyleSheet.create({
 });
 
 export default SubchapterContentScreen;
+
+
+
 

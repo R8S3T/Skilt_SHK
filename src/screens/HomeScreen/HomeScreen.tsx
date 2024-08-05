@@ -30,7 +30,7 @@ const HomeScreen = () => {
             <LearnTracker />
             <Section1 onButtonPress={handleButtonPress} />
             <Section2 onButtonPress={handleButtonPress} />
-            {/* <Section3 onButtonPress={handleButtonPress} /> */}
+{/*             <Section3 onButtonPress={handleButtonPress} /> */}
         </ScrollView>
     );
 }

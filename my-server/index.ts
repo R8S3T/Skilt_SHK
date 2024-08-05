@@ -9,9 +9,9 @@ import {
     addChapter,
     fetchSubchaptersByChapterId,
     fetchSubchapterContentBySubchapterId,
-    fetchMathTopics,
-    fetchMathTopicSubchaptersByTopicId,
-    fetchMathContentBySubchapterId
+    fetchMathChapters,
+    fetchMathSubchaptersByChapterId,
+    fetchMathSubchapterContentBySubchapterId
 } from './databaseSetup';
 
 const app = express();
@@ -91,38 +91,34 @@ app.get('/subchaptercontent/:subchapterId', async (req, res) => {
     }
 });
 
-// Handle GET requests to fetch math topics
-app.get('/mathtopics', async (req, res) => {
+// Handle GET requests to fetch math chapters
+app.get('/mathchapters', async (req, res) => {
     try {
-        const mathTopics = await fetchMathTopics();
-        res.json(mathTopics);
+        const mathChapters = await fetchMathChapters();
+        res.json(mathChapters);
     } catch (error) {
-        console.error('Error fetching math topics:', error);
-        res.status(500).send('Internal Server Error');
-    };
+        console.error('Error fetching math chapters:', error);
+        res.status(500).json({ error: 'Failed to fetch math chapters' });
+    }
 });
 
-// Handle GET requests to fetch math topic subchapters by topic ID
-app.get('/mathtopicsubchapters/:topicId', async (req, res) => {
-    const topicId = parseInt(req.params.topicId);
-    console.log(`Received request for subchapters of topicId: ${topicId}`);
+// Handle GET requests to fetch math subchapters by chapter ID
+app.get('/mathsubchapters/:chapterId', async (req, res) => {
+    const chapterId = parseInt(req.params.chapterId);
     try {
-        const subchapters = await fetchMathTopicSubchaptersByTopicId(topicId);
-        console.log(`Query result for topicId ${topicId}:`, subchapters);
+        const subchapters = await fetchMathSubchaptersByChapterId(chapterId);
         res.json(subchapters);
     } catch (error) {
-        console.error(`Error fetching subchapters for topicId ${topicId}:`, error);
+        console.error(`Error fetching subchapters for chapterId ${chapterId}:`, error);
         res.status(500).json({ error: 'Failed to fetch subchapters' });
     }
 });
 
-// Handle GET requests to fetch math topic content by subchapter ID
-app.get('/mathtopiccontent/:subchapterId', async (req, res) => {
+// Handle GET requests to fetch math subchapter content by subchapter ID
+app.get('/mathsubchaptercontent/:subchapterId', async (req, res) => {
     const subchapterId = parseInt(req.params.subchapterId);
-    console.log(`Received request for content of subchapterId: ${subchapterId}`);
     try {
-        const subchapterContent = await fetchMathContentBySubchapterId(subchapterId);
-        console.log(`Query result for subchapterId ${subchapterId}:`, subchapterContent);
+        const subchapterContent = await fetchMathSubchapterContentBySubchapterId(subchapterId);
         res.json(subchapterContent);
     } catch (error) {
         console.error(`Error fetching content for subchapterId ${subchapterId}:`, error);

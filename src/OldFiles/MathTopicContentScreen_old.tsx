@@ -5,7 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { MathStackParamList } from 'src/types/navigationTypes';
 import { fetchMathContentBySubchapterId } from 'src/database/databaseServices';
 import { MathTopicContent } from 'src/types/types';
-import ContentSlide from '../ContentSlide';
+import ContentSlide from '../screens/ContentSlide';
 
 type MathTopicContentScreenRouteProp = RouteProp<MathStackParamList, 'MathTopicContentScreen'>;
 

@@ -4,10 +4,6 @@ import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { RootStackParamList } from 'src/types/navigationTypes';
 import { scaleFontSize, screenWidth } from 'src/utils/screenDimensions';
 
-interface Section2Props {
-    onButtonPress: (title: string)=> void;
-};
-
 interface Module {
     title: string;
     img?: any;
@@ -25,10 +21,11 @@ const Section2: React.FC = () => {
 
     const handleButtonPress = (title: string) => {
         if (title === 'Alle Module') {
-            navigation.navigate('Math', { screen: 'MathScreen' });        } else {
-            console.log(`${title} pressed`)
+            navigation.navigate('Math', { screen: 'MathChapterScreen' });
+        } else {
+            console.log(`${title} pressed`);
         }
-    }
+    };
 
     return (
         <View style={styles.container}>

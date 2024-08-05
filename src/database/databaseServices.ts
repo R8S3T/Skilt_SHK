@@ -4,9 +4,9 @@ import {
     Chapter,
     Subchapter,
     SubchapterContent,
-    MathTopic,
-    MathTopicSubchapter,
-    MathTopicContent 
+    MathChapter,
+    MathSubchapter,
+    MathSubchapterContent
 } from 'src/types/types';
 
     // Use here Expo IP adress
@@ -71,59 +71,52 @@ export async function fetchSubchapterContentBySubchapterId(subchapterId: number)
     }
 }
 
-// Fetch math topics from the server
-export async function fetchMathTopics(): Promise<MathTopic[]> {
+// Fetch math chapters from the server
+export async function fetchMathChapters(): Promise<MathChapter[]> {
     try {
-        const response = await fetch(`${API_URL}/mathtopics`);
+        const response = await fetch(`${API_URL}/mathchapters`);
         if (!response.ok) {
             throw new Error('Network response was not ok.');
         }
-        const mathTopics: MathTopic[] = await response.json();
-        console.log('Fetched Math Topics Data:', mathTopics);
-        return mathTopics;
+        const mathChapters: MathChapter[] = await response.json();
+        console.log('Fetched Math Chapters Data:', mathChapters);
+        return mathChapters;
     } catch (error) {
-        console.error('Failed to fetch math topics:', error);
+        console.error('Failed to fetch math chapters:', error);
         return [];
     }
 }
 
-
-// Fetch math topic subchapters by topic ID
-export async function fetchMathTopicSubchaptersByTopicId(topicId: number): Promise<MathTopicSubchapter[]> {
+// Fetch math subchapters by chapter ID
+export async function fetchMathSubchaptersByChapterId(chapterId: number): Promise<MathSubchapter[]> {
     try {
-        const response = await fetch(`${API_URL}/mathtopicsubchapters/${topicId}`);
+        const response = await fetch(`${API_URL}/mathsubchapters/${chapterId}`);
         if (!response.ok) {
-            console.error('HTTP error', response.status, await response.text());
             throw new Error('Network response was not ok.');
         }
-        const subchapters: MathTopicSubchapter[] = await response.json();
-        console.log(`Fetched Math Topic Subchapters Data for topicId ${topicId}:`, subchapters);
+        const subchapters: MathSubchapter[] = await response.json();
+        console.log(`Fetched Math Subchapters Data for chapterId ${chapterId}:`, subchapters);
         return subchapters;
     } catch (error) {
-        console.error(`Failed to fetch math topic subchapters for topicId ${topicId}`, error);
+        console.error(`Failed to fetch math subchapters for chapterId ${chapterId}`, error);
         return [];
     }
 }
 
-// Fetch math topic content by subchapter ID
-export async function fetchMathContentBySubchapterId(subchapterId: number): Promise<MathTopicContent[]> {
+// Fetch math subchapter content by subchapter ID
+export async function fetchMathContentBySubchapterId(subchapterId: number): Promise<MathSubchapterContent[]> {
     try {
-        const response = await fetch(`${API_URL}/mathtopiccontent/${subchapterId}`);
-        console.log(`Request URL: ${API_URL}/mathtopiccontent/${subchapterId}`);
-        console.log(`Response Status: ${response.status}`);
-
+        const response = await fetch(`${API_URL}/mathsubchaptercontent/${subchapterId}`);
         if (!response.ok) {
-            const errorText = await response.text();
-            console.error(`Response Error: ${errorText}`);
             throw new Error('Network response was not ok.');
         }
-
-        const mathTopicContent: MathTopicContent[] = await response.json();
-        console.log(`Fetched Math Topic Content Data for subchapterId ${subchapterId}:`, mathTopicContent);
-        return mathTopicContent;
+        const subchapterContent: MathSubchapterContent[] = await response.json();
+        console.log(`Fetched Math Subchapter Content Data for subchapterId ${subchapterId}:`, subchapterContent);
+        return subchapterContent;
     } catch (error) {
-        console.error(`Failed to fetch math topic content for subchapterId ${subchapterId}`, error);
+        console.error(`Failed to fetch math subchapter content for subchapterId ${subchapterId}`, error);
         return [];
     }
 }
+
 

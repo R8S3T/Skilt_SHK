@@ -5,7 +5,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { MathStackParamList } from 'src/types/navigationTypes';
 import { fetchMathTopicSubchaptersByTopicId } from 'src/database/databaseServices';
 import { MathTopicSubchapter } from 'src/types/types';
-import GenericRows from '../GenericRows';
+import GenericRows from '../screens/GenericRows';
 
 type MathTopicSubchapterScreenRouteProp = RouteProp<MathStackParamList, 'MathTopicSubchapterScreen'>;
 

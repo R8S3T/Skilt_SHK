@@ -9,7 +9,6 @@ export interface Subchapter {
     SubchapterId: number;
     ChapterId: number;
     SubchapterName: string;
-    SubchapterContent?: string;
     isLocked: boolean;
     isFinished: boolean;
 }
@@ -17,15 +16,15 @@ export interface Subchapter {
 export interface SubchapterContent {
     ContentId: number;
     SubchapterId: number;
-    TextContent: string;
+    ContentData: string;
     SortOrder: number;
+    TextContent: string; // Add this line
     ImageUrl?: string;
     Quiz?: {
         Question: string;
         Options: string[];
     };
 }
-
 
 export interface SubchapterContextType {
     unlockedSubchapters: number[];
@@ -37,7 +36,6 @@ export interface SubchapterContextType {
     setCurrentSubchapter: (subchapterId: number | null, subchapterTitle: string) => void;
 }
 
-
 export interface GenericContent {
     ContentId: number;
     TextContent: string;
@@ -48,22 +46,24 @@ export interface GenericContent {
     };
 }
 
-export interface MathTopic {
-    TopicId: number;
-    TopicName: string;
+export interface MathChapter {
+    ChapterId: number;
+    ChapterName: string;
     Description: string;
     SortOrder: number;
 }
 
-export interface MathTopicSubchapter {
+export interface MathSubchapter {
     SubchapterId: number;
-    TopicId: number;
+    ChapterId: number;
     SubchapterName: string;
+    SortOrder: number;
 }
 
-export interface MathTopicContent {
+export interface MathSubchapterContent {
     ContentId: number;
-    TopicId: number;
+    ChapterId: number;
+    SubchapterId: number;
     TextContent: string;
     ImageUrl?: string;
     SortOrder: number;
@@ -72,3 +72,14 @@ export interface MathTopicContent {
         Options: string[];
     };
 }
+
+export interface MathSubchapterContextType {
+    unlockedSubchapters: number[];
+    finishedSubchapters: number[];
+    currentSubchapterId: number | null;
+    currentSubchapterTitle: string;
+    unlockSubchapter: (subchapterId: number) => void;
+    markSubchapterAsFinished: (subchapterId: number) => void;
+    setCurrentSubchapter: (subchapterId: number | null, subchapterTitle: string) => void;
+}
+

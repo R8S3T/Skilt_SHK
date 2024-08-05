@@ -45,7 +45,7 @@ const ChaptersScreen: React.FC<ChaptersScreenRouteProps> = ({ route }) => {
             })}
         >
             <Image
-                source={require('../../assets/Images/play_icon.png')}
+                source={require('../../../assets/Images/play_icon.png')}
                 style={styles.playButton}
             />
             {item.ChapterIntro && <Text style={styles.introText}>{item.ChapterIntro}</Text>}

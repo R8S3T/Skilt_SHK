@@ -2,39 +2,28 @@ import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
-import { useSubchapter } from './SubchapterContext';
+import { RootStackParamList } from 'src/types/navigationTypes';
 
-type CongratsScreenParams = {
-    subchapterId: number | null;
-    subchapterTitle: string;
-    chapterId: number;
-    chapterTitle: string;
-};
+type CongratsScreenRouteProp = RouteProp<RootStackParamList, 'CongratsScreen'>;
 
 const CongratsScreen: React.FC = () => {
     const navigation = useNavigation<any>();
-    const route = useRoute<RouteProp<{ params: CongratsScreenParams }, 'params'>>();
+    const route = useRoute<CongratsScreenRouteProp>();
 
-    const { markSubchapterAsFinished } = useSubchapter();
+    const targetScreen = route.params?.targetScreen as keyof RootStackParamList;
+    const targetParams = route.params?.targetParams;
+    
 
-    const { chapterId, chapterTitle, subchapterId, subchapterTitle } = route.params ?? { chapterId: 0, chapterTitle: '', subchapterId: null, subchapterTitle: '' };
-
-
-    console.log('CongratsScreen Params:', route.params);
+    if (!targetScreen || !targetParams) {
+        return (
+            <View style={styles.container}>
+                <Text>Error: Missing navigation parameters.</Text>
+            </View>
+        );
+    }
 
     const handleContinue = () => {
-        console.log('Chapter ID:', chapterId, 'Chapter Title:', chapterTitle);
-        console.log('handleContinue called');
-        console.log('Navigating to SubchaptersScreen with chapterId and chapterTitle');
-
-        if (subchapterId !== null) {
-            markSubchapterAsFinished(subchapterId)
-        }
-
-        navigation.navigate('SubchaptersScreen', {
-            chapterId,
-            chapterTitle,
-        });
+        navigation.navigate(targetScreen, targetParams);
     };
 
     return (
@@ -82,3 +71,9 @@ const styles = StyleSheet.create({
 });
 
 export default CongratsScreen;
+
+
+
+
+
+
