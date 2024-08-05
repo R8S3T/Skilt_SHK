@@ -66,7 +66,6 @@ const GenericNode: React.FC<GenericNodeProps> = ({
                 ) : (
                     <>
                         <Image source={iconSource} style={dynamicStyles.icon} />
-                        <Text>{title}</Text>
                     </>
                 )}
             </TouchableOpacity>

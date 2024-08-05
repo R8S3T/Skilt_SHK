@@ -1,11 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MathStackParamList } from 'src/types/navigationTypes';
 import { fetchMathContentBySubchapterId } from 'src/database/databaseServices';
-import { MathSubchapterContent } from 'src/types/types';
-import { MathSubchapterContext } from './MathSubchapterContext';
+import { GenericContent } from 'src/types/types';
 import ContentSlide from '../ContentSlide';
 import NextButton from '../NextButton';
 
@@ -20,24 +19,17 @@ type Props = {
 
 const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     const { subchapterId, subchapterTitle, chapterId, chapterTitle } = route.params;
-    const [contentData, setContentData] = useState<MathSubchapterContent[]>([]);
+    const [contentData, setContentData] = useState<GenericContent[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
-    const context = useContext(MathSubchapterContext); // Add this line
-
-    if (!context) {
-        throw new Error('MathSubchapterContext must be used within a MathSubchapterProvider');
-    }
-
-    const { markSubchapterAsFinished, unlockSubchapter } = context
 
     useEffect(() => {
         navigation.setOptions({ title: subchapterTitle });
-        console.log(`Received params: chapterId=${chapterId}, chapterTitle=${chapterTitle}, subchapterId=${subchapterId}, subchapterTitle=${subchapterTitle}`);
 
         const loadData = async () => {
             try {
                 const data = await fetchMathContentBySubchapterId(subchapterId);
+                console.log('Fetched Data:', data); // Log fetched data
                 setContentData(data);
                 setLoading(false);
             } catch (error) {
@@ -47,7 +39,12 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
         };
 
         loadData();
-    }, [navigation, chapterId, chapterTitle, subchapterId, subchapterTitle]);
+    }, [navigation, subchapterId, subchapterTitle]);
+
+    useEffect(() => {
+        console.log('Current Index:', currentIndex);
+        console.log('Current Content Data:', contentData[currentIndex]);
+    }, [currentIndex, contentData]);
 
     if (loading) {
         return (
@@ -61,8 +58,6 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
         if (currentIndex < contentData.length - 1) {
             setCurrentIndex(currentIndex + 1);
         } else {
-            markSubchapterAsFinished(subchapterId); // Add this line
-            unlockSubchapter(subchapterId + 1); // Add this line
             navigation.navigate('MathCongratsScreen', {
                 targetScreen: 'MathSubchapterScreen',
                 targetParams: {
@@ -75,7 +70,9 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
 
     return (
         <ScrollView style={styles.container}>
-            <ContentSlide contentData={contentData[currentIndex]} />
+            {contentData.length > 0 && (
+                <ContentSlide contentData={contentData[currentIndex]} />
+            )}
             <View style={styles.buttonContainer}>
                 <NextButton
                     onPress={nextContent}
@@ -104,6 +101,9 @@ const styles = StyleSheet.create({
 });
 
 export default MathSubchapterContentScreen;
+
+
+
 
 
 

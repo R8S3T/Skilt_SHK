@@ -13,12 +13,11 @@ export interface Subchapter {
     isFinished: boolean;
 }
 
-export interface SubchapterContent {
+export interface SubchapterContent extends GenericContent {
     ContentId: number;
     SubchapterId: number;
     ContentData: string;
     SortOrder: number;
-    TextContent: string; // Add this line
     ImageUrl?: string;
     Quiz?: {
         Question: string;
@@ -36,16 +35,6 @@ export interface SubchapterContextType {
     setCurrentSubchapter: (subchapterId: number | null, subchapterTitle: string) => void;
 }
 
-export interface GenericContent {
-    ContentId: number;
-    TextContent: string;
-    ImageUrl?: string;
-    Quiz?: {
-        Question: string;
-        Options: string[];
-    };
-}
-
 export interface MathChapter {
     ChapterId: number;
     ChapterName: string;
@@ -60,13 +49,12 @@ export interface MathSubchapter {
     SortOrder: number;
 }
 
-export interface MathSubchapterContent {
+export interface MathSubchapterContent extends GenericContent {
     ContentId: number;
-    ChapterId: number;
     SubchapterId: number;
-    TextContent: string;
-    ImageUrl?: string;
+    ContentData: string;
     SortOrder: number;
+    ImageUrl?: string;
     Quiz?: {
         Question: string;
         Options: string[];
@@ -83,3 +71,29 @@ export interface MathSubchapterContextType {
     setCurrentSubchapter: (subchapterId: number | null, subchapterTitle: string) => void;
 }
 
+export interface GenericContent {
+    ContentId: number;
+    SubchapterId: number;
+    ContentData: string;
+    TextContent?: string;
+    SortOrder: number;
+    ImageUrl?: string;
+    Quiz?: {
+        Question: string;
+        Options: string[];
+    };
+}
+
+export interface Quiz {
+    QuizId: number;
+    ContentId: number;
+    Question: string;
+    Type: string;
+    Answer: string;
+}
+
+export interface MultipleChoiceOption {
+    OptionId: number;
+    QuizId: number;
+    OptionText: string;
+}

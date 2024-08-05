@@ -6,7 +6,10 @@ import {
     SubchapterContent,
     MathChapter,
     MathSubchapter,
-    MathSubchapterContent
+    MathSubchapterContent,
+    GenericContent,
+    Quiz,
+    MultipleChoiceOption,
 } from 'src/types/types';
 
     // Use here Expo IP adress
@@ -56,15 +59,15 @@ export async function fetchSubchapterContentBySubchapterId(subchapterId: number)
         const subchapterContent: any[] = await response.json();
         console.log(`Fetched Subchapter Content Data for subchapterId ${subchapterId}:`, subchapterContent);
 
-        // Transform the data to match the expected structure
         return subchapterContent.map(content => ({
             ContentId: content.ContentId,
             SubchapterId: content.SubchapterId,
-            TextContent: content.ContentData,
+            ContentData: content.ContentData,
+            TextContent: content.TextContent || content.ContentData,
             SortOrder: content.SortOrder,
             ImageUrl: content.ImageUrl || null,
             Quiz: content.Quiz || null,
-        }));
+        })) as SubchapterContent[];
     } catch (error) {
         console.error(`Failed to fetch subchapter content for subchapterId ${subchapterId}:`, error);
         return [];
@@ -104,17 +107,59 @@ export async function fetchMathSubchaptersByChapterId(chapterId: number): Promis
 }
 
 // Fetch math subchapter content by subchapter ID
-export async function fetchMathContentBySubchapterId(subchapterId: number): Promise<MathSubchapterContent[]> {
+export async function fetchMathContentBySubchapterId(subchapterId: number): Promise<GenericContent[]> {
     try {
         const response = await fetch(`${API_URL}/mathsubchaptercontent/${subchapterId}`);
         if (!response.ok) {
             throw new Error('Network response was not ok.');
         }
-        const subchapterContent: MathSubchapterContent[] = await response.json();
-        console.log(`Fetched Math Subchapter Content Data for subchapterId ${subchapterId}:`, subchapterContent);
-        return subchapterContent;
+        const mathSubchapterContent: any[] = await response.json();
+        console.log(`Fetched Math Subchapter Content Data for subchapterId ${subchapterId}:`, mathSubchapterContent);
+
+        return mathSubchapterContent.map(content => ({
+            ContentId: content.ContentId,
+            SubchapterId: content.SubchapterId,
+            ContentData: content.ContentData,
+            TextContent: content.TextContent || content.ContentData, // Ensure TextContent is set
+            SortOrder: content.SortOrder,
+            ImageUrl: content.ImageUrl || null,
+            Quiz: content.Quiz || null,
+        })) as GenericContent[];
     } catch (error) {
         console.error(`Failed to fetch math subchapter content for subchapterId ${subchapterId}`, error);
+        return [];
+    }
+}
+
+// Fetch quiz by content ID and content type
+export async function fetchQuizByContentId(contentId: number, contentType: string): Promise<Quiz[]> {
+    try {
+        const response = await fetch(`${API_URL}/quiz/${contentId}/${contentType}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        const quiz: Quiz[] = await response.json();
+        console.log(`Fetched Quiz Data for contentId ${contentId} and contentType ${contentType}:`, quiz);
+        return quiz;
+    } catch (error) {
+        console.error(`Failed to fetch quiz for contentId ${contentId} and contentType ${contentType}:`, error);
+        return [];
+    }
+}
+
+
+// Fetch multiple-choice options by quiz ID
+export async function fetchMultipleChoiceOptionsByQuizId(quizId: number): Promise<MultipleChoiceOption[]> {
+    try {
+        const response = await fetch(`${API_URL}/multiplechoiceoptions/${quizId}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        const options: MultipleChoiceOption[] = await response.json();
+        console.log(`Fetched MultipleChoiceOptions Data for quizId ${quizId}:`, options);
+        return options;
+    } catch (error) {
+        console.error(`Failed to fetch multiple-choice options for quizId ${quizId}:`, error);
         return [];
     }
 }

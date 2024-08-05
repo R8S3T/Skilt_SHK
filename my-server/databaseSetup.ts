@@ -1,122 +1,50 @@
-// This file handles the direct interaction with the SQLite database, including creating tables and adding entries. It operates on the server-side.
+// This file operates on the server-sid and handles the direct interaction with the SQLite database, including initializing the database and adding entries.
+// The actual table creation logic has been moved to a separate module (createTables.ts).
 
 import sqlite3 from 'sqlite3';
 import path from 'path';
+import {
+    createChaptersTable,
+    createSubchaptersTable,
+    createSubchapterContentTable,
+    createMathChaptersTable,
+    createMathSubchaptersTable,
+    createMathSubchapterContentTable,
+    createQuizTable,
+    createMultipleChoiceOptionsTable
+} from './createTables';
+
 
 const dbPath = path.resolve(__dirname, 'skiltSHK.db');
 console.log("Database path: ", dbPath);
 
-// Initialize the database and create tables
 export const initializeDatabase = (): Promise<void> => {
     return new Promise((resolve, reject) => {
-        const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
+        const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, async (err) => {
             if (err) {
                 console.error('Error opening database:', err.message);
                 reject(err);
             } else {
                 console.log('Connected to the SQLite database.');
-                createTables(db, resolve, reject);
+
+                // Set busy timeout to 5 seconds (5000 milliseconds)
+                db.configure('busyTimeout', 5000);
+
+                try {
+                    await createChaptersTable(db);
+                    await createSubchaptersTable(db);
+                    await createSubchapterContentTable(db);
+                    await createMathChaptersTable(db);
+                    await createMathSubchaptersTable(db);
+                    await createMathSubchapterContentTable(db);
+                    await createQuizTable(db);
+                    await createMultipleChoiceOptionsTable(db);
+                    resolve();
+                } catch (error) {
+                    reject(error);
+                }
             }
         });
-    });
-};
-
-// Create the database tables if they do not exist
-const createTables = (db: sqlite3.Database, resolve: () => void, reject: (err: any) => void) => {
-    db.run(`
-        CREATE TABLE IF NOT EXISTS Chapters (
-            ChapterId INTEGER PRIMARY KEY AUTOINCREMENT,
-            ChapterName TEXT NOT NULL,
-            ChapterIntro TEXT,
-            Year INTEGER
-        );
-    `, (err) => {
-        if (err) {
-            console.error('Error creating Chapters table:', err.message);
-            reject(err);
-        } else {
-            console.log('Table Chapters created successfully.');
-            db.run(`
-                CREATE TABLE IF NOT EXISTS Subchapters (
-                    SubchapterId INTEGER PRIMARY KEY AUTOINCREMENT,
-                    ChapterId INTEGER,
-                    SubchapterName TEXT,
-                    FOREIGN KEY(ChapterId) REFERENCES Chapters(ChapterId) ON DELETE CASCADE ON UPDATE CASCADE
-                );
-            `, (err) => {
-                if (err) {
-                    console.error('Error creating Subchapters table:', err.message);
-                    reject(err);
-                } else {
-                    console.log('Table Subchapters created successfully.');
-                    db.run(`
-                        CREATE TABLE IF NOT EXISTS SubchapterContent (
-                            ContentId INTEGER PRIMARY KEY AUTOINCREMENT,
-                            SubchapterId INTEGER,
-                            ContentData TEXT,
-                            SortOrder INTEGER,
-                            FOREIGN KEY(SubchapterId) REFERENCES Subchapters(SubchapterId) ON DELETE CASCADE ON UPDATE CASCADE
-                        );
-                    `, (err) => {
-                        if (err) {
-                            console.error('Error creating SubchapterContent table:', err.message);
-                            reject(err);
-                        } else {
-                            console.log('Table SubchapterContent created successfully.');
-                            db.run(`
-                                CREATE TABLE IF NOT EXISTS MathChapters (
-                                    ChapterId INTEGER PRIMARY KEY AUTOINCREMENT,
-                                    ChapterName TEXT NOT NULL,
-                                    Description TEXT,
-                                    SortOrder INTEGER
-                                );
-                            `, (err) => {
-                                if (err) {
-                                    console.error('Error creating MathChapters table:', err.message);
-                                    reject(err);
-                                } else {
-                                    console.log('Table MathChapters created successfully.');
-                                    db.run(`
-                                        CREATE TABLE IF NOT EXISTS MathSubchapters (
-                                            SubchapterId INTEGER PRIMARY KEY AUTOINCREMENT,
-                                            ChapterId INTEGER,
-                                            SubchapterName TEXT,
-                                            SortOrder INTEGER,
-                                            FOREIGN KEY(ChapterId) REFERENCES MathChapters(ChapterId) ON DELETE CASCADE ON UPDATE CASCADE
-                                        );
-                                    `, (err) => {
-                                        if (err) {
-                                            console.error('Error creating MathSubchapters table:', err.message);
-                                            reject(err);
-                                        } else {
-                                            console.log('Table MathSubchapters created successfully.');
-                                            db.run(`
-                                                CREATE TABLE IF NOT EXISTS MathSubchapterContent (
-                                                    ContentId INTEGER PRIMARY KEY AUTOINCREMENT,
-                                                    SubchapterId INTEGER,
-                                                    TextContent TEXT,
-                                                    ImageUrl TEXT,
-                                                    SortOrder INTEGER,
-                                                    FOREIGN KEY(SubchapterId) REFERENCES MathSubchapters(SubchapterId) ON DELETE CASCADE ON UPDATE CASCADE
-                                                );
-                                            `, (err) => {
-                                                if (err) {
-                                                    console.error('Error creating MathSubchapterContent table:', err.message);
-                                                    reject(err);
-                                                } else {
-                                                    console.log('Table MathSubchapterContent created successfully.');
-                                                    resolve();
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    });
-                }
-            });
-        }
     });
 };
 
@@ -254,3 +182,35 @@ export const addChapter = (chapterName: string, chapterIntro: string, year: numb
     });
 };
 
+export const fetchQuizByContentId = (contentId: number, contentType: string): Promise<any[]> => {
+    return new Promise((resolve, reject) => {
+        const db = new sqlite3.Database(dbPath);
+        const tableName = contentType === 'math' ? 'MathSubchapterContent' : 'SubchapterContent';
+        db.all(`SELECT * FROM Quiz WHERE ContentId = ?`, [contentId], (err, rows) => {
+            db.close();
+            if (err) {
+                console.error('Failed to fetch quiz:', err);
+                reject(err);
+            } else {
+                resolve(rows);
+            }
+        });
+    });
+};
+
+
+
+export const fetchMultipleChoiceOptionsByQuizId = (quizId: number): Promise<any[]> => {
+    return new Promise((resolve, reject) => {
+        const db = new sqlite3.Database(dbPath);
+        db.all('SELECT * FROM MultipleChoiceOptions WHERE QuizId = ?', [quizId], (err, rows) => {
+            db.close();
+            if (err) {
+                console.error('Failed to fetch multiple-choice options:', err);
+                reject(err);
+            } else {
+                resolve(rows);
+            }
+        });
+    });
+};

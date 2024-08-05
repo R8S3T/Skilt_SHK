@@ -7,7 +7,6 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { LearnStackParamList } from 'src/types/navigationTypes';
 import { SubchapterContent } from 'src/types/types';
 import { fetchSubchapterContentBySubchapterId } from 'src/database/databaseServices';
-import { GenericContent } from 'src/types/types';
 import { useSubchapter } from './SubchapterContext';
 
 type SubchapterContentScreenRouteProp = RouteProp<LearnStackParamList, 'SubchapterContentScreen'>;
@@ -32,6 +31,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         const loadData = async () => {
             try {
                 const data = await fetchSubchapterContentBySubchapterId(subchapterId);
+                console.log('Fetched content data:', data); // Log fetched data
                 setContentData(data);
                 setLoading(false);
             } catch (error) {
@@ -45,7 +45,8 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
 
     useEffect(() => {
         console.log('Current Index:', currentIndex);
-    }, [currentIndex]);
+        console.log('Current Content Data:', contentData[currentIndex]); // Log current content data
+    }, [currentIndex, contentData]);
 
     if (loading) {
         return (
@@ -59,8 +60,8 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         if (currentIndex < contentData.length - 1) {
             setCurrentIndex(currentIndex + 1);
         } else {
-            markSubchapterAsFinished(subchapterId);  // Add this line
-            unlockSubchapter(subchapterId + 1);  // Add this line
+            markSubchapterAsFinished(subchapterId);
+            unlockSubchapter(subchapterId + 1);
             navigation.navigate('CongratsScreen', {
                 targetScreen: 'SubchaptersScreen',
                 targetParams: {
@@ -73,7 +74,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
 
     return (
         <View style={styles.container}>
-            <ContentSlide contentData={contentData[currentIndex] as GenericContent} />
+            <ContentSlide contentData={contentData[currentIndex]} contentType="subchapter" />
             <View style={styles.buttonContainer}>
                 <NextButton
                     onPress={nextContent}
@@ -102,6 +103,7 @@ const styles = StyleSheet.create({
 });
 
 export default SubchapterContentScreen;
+
 
 
 
