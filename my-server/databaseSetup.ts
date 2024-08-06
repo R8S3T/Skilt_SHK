@@ -182,11 +182,11 @@ export const addChapter = (chapterName: string, chapterIntro: string, year: numb
     });
 };
 
-export const fetchQuizByContentId = (contentId: number, contentType: string): Promise<any[]> => {
+// Fetch quiz by content ID
+export const fetchQuizByContentId = (contentId: number): Promise<any[]> => {
+    const db = new sqlite3.Database(dbPath);
     return new Promise((resolve, reject) => {
-        const db = new sqlite3.Database(dbPath);
-        const tableName = contentType === 'math' ? 'MathSubchapterContent' : 'SubchapterContent';
-        db.all(`SELECT * FROM Quiz WHERE ContentId = ?`, [contentId], (err, rows) => {
+        db.all('SELECT * FROM Quiz WHERE ContentId = ?', [contentId], (err, rows) => {
             db.close();
             if (err) {
                 console.error('Failed to fetch quiz:', err);
@@ -198,8 +198,7 @@ export const fetchQuizByContentId = (contentId: number, contentType: string): Pr
     });
 };
 
-
-
+// Fetch multiple-choice options by quiz ID
 export const fetchMultipleChoiceOptionsByQuizId = (quizId: number): Promise<any[]> => {
     return new Promise((resolve, reject) => {
         const db = new sqlite3.Database(dbPath);

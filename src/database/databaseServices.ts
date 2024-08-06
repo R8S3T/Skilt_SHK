@@ -132,21 +132,20 @@ export async function fetchMathContentBySubchapterId(subchapterId: number): Prom
 }
 
 // Fetch quiz by content ID and content type
-export async function fetchQuizByContentId(contentId: number, contentType: string): Promise<Quiz[]> {
+export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
     try {
-        const response = await fetch(`${API_URL}/quiz/${contentId}/${contentType}`);
+        const response = await fetch(`${API_URL}/quiz/${contentId}`);
         if (!response.ok) {
             throw new Error('Network response was not ok.');
         }
         const quiz: Quiz[] = await response.json();
-        console.log(`Fetched Quiz Data for contentId ${contentId} and contentType ${contentType}:`, quiz);
+        console.log(`Fetched Quiz Data for contentId ${contentId}:`, quiz);
         return quiz;
     } catch (error) {
-        console.error(`Failed to fetch quiz for contentId ${contentId} and contentType ${contentType}:`, error);
+        console.error(`Failed to fetch quiz for contentId ${contentId}:`, error);
         return [];
     }
 }
-
 
 // Fetch multiple-choice options by quiz ID
 export async function fetchMultipleChoiceOptionsByQuizId(quizId: number): Promise<MultipleChoiceOption[]> {

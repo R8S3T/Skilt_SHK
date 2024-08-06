@@ -55,10 +55,6 @@ export interface MathSubchapterContent extends GenericContent {
     ContentData: string;
     SortOrder: number;
     ImageUrl?: string;
-    Quiz?: {
-        Question: string;
-        Options: string[];
-    };
 }
 
 export interface MathSubchapterContextType {
@@ -90,6 +86,7 @@ export interface Quiz {
     Question: string;
     Type: string;
     Answer: string;
+    Options?: MultipleChoiceOption[];
 }
 
 export interface MultipleChoiceOption {

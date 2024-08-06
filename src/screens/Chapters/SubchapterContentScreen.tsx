@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import ContentSlide from '../ContentSlide';
+import QuizSlide from '../Quiz/QuizSlide';
 import NextButton from '../NextButton';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { LearnStackParamList } from 'src/types/navigationTypes';
 import { SubchapterContent } from 'src/types/types';
-import { fetchSubchapterContentBySubchapterId } from 'src/database/databaseServices';
+import { fetchSubchapterContentBySubchapterId, fetchQuizByContentId } from 'src/database/databaseServices';
 import { useSubchapter } from './SubchapterContext';
 
 type SubchapterContentScreenRouteProp = RouteProp<LearnStackParamList, 'SubchapterContentScreen'>;
-
 type SubchapterContentScreenNavigationProp = StackNavigationProp<LearnStackParamList, 'SubchapterContentScreen'>;
 
 type Props = {
@@ -23,6 +23,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     const [contentData, setContentData] = useState<SubchapterContent[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const [showQuiz, setShowQuiz] = useState<boolean>(false);
     const { markSubchapterAsFinished, unlockSubchapter } = useSubchapter();
 
     useEffect(() => {
@@ -31,7 +32,6 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         const loadData = async () => {
             try {
                 const data = await fetchSubchapterContentBySubchapterId(subchapterId);
-                console.log('Fetched content data:', data); // Log fetched data
                 setContentData(data);
                 setLoading(false);
             } catch (error) {
@@ -45,7 +45,22 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
 
     useEffect(() => {
         console.log('Current Index:', currentIndex);
-        console.log('Current Content Data:', contentData[currentIndex]); // Log current content data
+        console.log('Current Content Data:', contentData[currentIndex]);
+
+        if (currentIndex < contentData.length) {
+            const currentContentId = contentData[currentIndex].ContentId;
+
+            const checkForQuiz = async () => {
+                try {
+                    const quizData = await fetchQuizByContentId(currentContentId);
+                    setShowQuiz(quizData.length > 0);
+                } catch (error) {
+                    console.error('Failed to check for quiz:', error);
+                }
+            };
+
+            checkForQuiz();
+        }
     }, [currentIndex, contentData]);
 
     if (loading) {
@@ -57,7 +72,9 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     }
 
     const nextContent = () => {
-        if (currentIndex < contentData.length - 1) {
+        if (showQuiz) {
+            setShowQuiz(false);
+        } else if (currentIndex < contentData.length - 1) {
             setCurrentIndex(currentIndex + 1);
         } else {
             markSubchapterAsFinished(subchapterId);
@@ -74,12 +91,16 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
 
     return (
         <View style={styles.container}>
-            <ContentSlide contentData={contentData[currentIndex]} contentType="subchapter" />
+            {showQuiz ? (
+                <QuizSlide contentId={contentData[currentIndex].ContentId} onContinue={nextContent} />
+            ) : (
+                <ContentSlide contentData={contentData[currentIndex]} contentType="subchapter" />
+            )}
             <View style={styles.buttonContainer}>
                 <NextButton
                     onPress={nextContent}
                     isActive={contentData.length > 0}
-                    label={currentIndex < contentData.length - 1 ? 'Next' : 'Finish'}
+                    label={showQuiz ? 'Continue' : 'Next'}
                     style={styles.nextButton}
                 />
             </View>
@@ -103,6 +124,9 @@ const styles = StyleSheet.create({
 });
 
 export default SubchapterContentScreen;
+
+
+
 
 
 

@@ -6,36 +6,37 @@ import { fetchQuizByContentId, fetchMultipleChoiceOptionsByQuizId } from 'src/da
 
 interface ContentSlideProps {
     contentData: GenericContent;
-    contentType: string;
+    contentType?: string;
 }
 
 const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, contentType }) => {
-    const { TextContent, ContentData, ImageUrl } = contentData;
+    const { TextContent, ContentData, ImageUrl, Quiz: quizData } = contentData;
     const displayText = TextContent || ContentData;
     const [quiz, setQuiz] = useState<Quiz | null>(null);
     const [options, setOptions] = useState<MultipleChoiceOption[]>([]);
 
     useEffect(() => {
-        const loadQuizData = async () => {
-            const fetchedQuiz = await fetchQuizByContentId(contentData.ContentId, contentType);
-            if (fetchedQuiz.length > 0) {
-                setQuiz(fetchedQuiz[0]);
-                const fetchedOptions = await fetchMultipleChoiceOptionsByQuizId(fetchedQuiz[0].QuizId);
-                setOptions(fetchedOptions);
-            }
-        };
+        if (contentType === 'subchapter' && quizData) {
+            const loadQuizData = async () => {
+                const fetchedQuiz = await fetchQuizByContentId(contentData.ContentId, contentType);
+                if (fetchedQuiz.length > 0) {
+                    setQuiz(fetchedQuiz[0]);
+                    const fetchedOptions = await fetchMultipleChoiceOptionsByQuizId(fetchedQuiz[0].QuizId);
+                    setOptions(fetchedOptions);
+                }
+            };
 
-        loadQuizData();
-    }, [contentData.ContentId, contentType]);
+            loadQuizData();
+        }
+    }, [contentData.ContentId, contentType, quizData]);
+
 
     return (
         <View style={styles.slide}>
             {ImageUrl && <Image source={{ uri: ImageUrl }} style={styles.image} />}
             <Text style={styles.contentText}>{displayText}</Text>
-            {quiz && options.length > 0 && (
-                <View style={styles.quizContainer}>
-                    <MultipleChoice quiz={quiz} options={options} onAnswerSubmit={(isCorrect) => {}} />
-                </View>
+            {contentType === 'subchapter' && quiz && options.length > 0 && (
+                <MultipleChoice quiz={quiz} options={options} onAnswerSubmit={(isCorrect) => {}} />
             )}
         </View>
     );
@@ -78,6 +79,9 @@ const styles = StyleSheet.create({
 });
 
 export default ContentSlide;
+
+
+
 
 
 

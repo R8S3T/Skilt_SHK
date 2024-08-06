@@ -13,7 +13,7 @@ import {
     fetchMathSubchaptersByChapterId,
     fetchMathSubchapterContentBySubchapterId,
     fetchQuizByContentId,
-    fetchMultipleChoiceOptionsByQuizId 
+    fetchMultipleChoiceOptionsByQuizId
 } from './databaseSetup';
 
 const app = express();
@@ -129,17 +129,17 @@ app.get('/mathsubchaptercontent/:subchapterId', async (req, res) => {
 });
 
 // Handle GET requests to fetch quiz by content ID
-app.get('/quiz/:contentId/:contentType', async (req, res) => {
+app.get('/quiz/:contentId', async (req, res) => {
     const contentId = parseInt(req.params.contentId);
-    const contentType = req.params.contentType;
     try {
-        const quiz = await fetchQuizByContentId(contentId, contentType);
-        res.json(quiz);
+        const quiz = await fetchQuizByContentId(contentId);
+        res.json(quiz); // Always return 200 OK with the quiz data (even if empty)
     } catch (error) {
-        console.error(`Error fetching quiz for contentId ${contentId} and contentType ${contentType}:`, error);
+        console.error(`Error fetching quiz for contentId ${contentId}:`, error);
         res.status(500).json({ error: 'Failed to fetch quiz' });
     }
 });
+
 
 // Handle GET requests to fetch multiple-choice options by quiz ID
 app.get('/multiplechoiceoptions/:quizId', async (req, res) => {
