@@ -150,17 +150,18 @@ export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
 // Fetch multiple-choice options by quiz ID
 export async function fetchMultipleChoiceOptionsByQuizId(quizId: number): Promise<MultipleChoiceOption[]> {
     try {
-        const response = await fetch(`${API_URL}/multiplechoiceoptions/${quizId}`);
+        const response = await fetch(`${API_URL}/multipleChoiceOptions/${quizId}`);
         if (!response.ok) {
             throw new Error('Network response was not ok.');
         }
         const options: MultipleChoiceOption[] = await response.json();
-        console.log(`Fetched MultipleChoiceOptions Data for quizId ${quizId}:`, options);
+        console.log(`Fetched MultipleChoiceOptions for quizId ${quizId}:`, options);
         return options;
     } catch (error) {
-        console.error(`Failed to fetch multiple-choice options for quizId ${quizId}:`, error);
+        console.error(`Failed to fetch multiple choice options for quizId ${quizId}:`, error);
         return [];
     }
 }
+
 
 

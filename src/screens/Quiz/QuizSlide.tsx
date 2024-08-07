@@ -22,6 +22,7 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue }) => {
                 if (fetchedQuiz.length > 0) {
                     setQuiz(fetchedQuiz[0]);
                     const fetchedOptions = await fetchMultipleChoiceOptionsByQuizId(fetchedQuiz[0].QuizId);
+                    console.log(`Fetched Options for quiz ${fetchedQuiz[0].QuizId}:`, fetchedOptions);
                     setOptions(fetchedOptions);
                 } else {
                     setError('No quiz found for this content.');
@@ -33,9 +34,10 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue }) => {
                 setLoading(false);
             }
         };
-
+    
         loadQuizData();
     }, [contentId]);
+    
 
     if (loading) {
         return <Text>Loading quiz...</Text>;
@@ -74,6 +76,7 @@ const styles = StyleSheet.create({
 });
 
 export default QuizSlide;
+
 
 
 

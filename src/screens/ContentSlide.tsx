@@ -14,22 +14,41 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, contentType })
     const displayText = TextContent || ContentData;
     const [quiz, setQuiz] = useState<Quiz | null>(null);
     const [options, setOptions] = useState<MultipleChoiceOption[]>([]);
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         if (contentType === 'subchapter' && quizData) {
             const loadQuizData = async () => {
-                const fetchedQuiz = await fetchQuizByContentId(contentData.ContentId, contentType);
-                if (fetchedQuiz.length > 0) {
-                    setQuiz(fetchedQuiz[0]);
-                    const fetchedOptions = await fetchMultipleChoiceOptionsByQuizId(fetchedQuiz[0].QuizId);
-                    setOptions(fetchedOptions);
+                try {
+                    const fetchedQuiz = await fetchQuizByContentId(contentData.ContentId);
+                    if (fetchedQuiz.length > 0) {
+                        setQuiz(fetchedQuiz[0]);
+                        const fetchedOptions = await fetchMultipleChoiceOptionsByQuizId(fetchedQuiz[0].QuizId);
+                        setOptions(fetchedOptions);
+                    } else {
+                        setError('No quiz found for this content.');
+                    }
+                } catch (err) {
+                    setError('Failed to fetch quiz data.');
+                } finally {
+                    setLoading(false);
                 }
             };
 
             loadQuizData();
+        } else {
+            setLoading(false);
         }
     }, [contentData.ContentId, contentType, quizData]);
 
+    if (loading) {
+        return <Text>Loading...</Text>;
+    }
+
+    if (error) {
+        return <Text>{error}</Text>;
+    }
 
     return (
         <View style={styles.slide}>
