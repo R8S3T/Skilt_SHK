@@ -202,7 +202,10 @@ export const fetchQuizByContentId = (contentId: number): Promise<any[]> => {
 export const fetchMultipleChoiceOptionsByQuizId = (quizId: number): Promise<any[]> => {
     return new Promise((resolve, reject) => {
         const db = new sqlite3.Database(dbPath);
-        db.all('SELECT * FROM MultipleChoiceOptions WHERE QuizId = ?', [quizId], (err, rows) => {
+        db.all(`
+            SELECT OptionText1, OptionText2, OptionText3, OptionText4
+            FROM MultipleChoiceOptions
+            WHERE QuizId = ?`, [quizId], (err, rows) => {  // Updated query to fetch new columns
             db.close();
             if (err) {
                 console.error('Failed to fetch multiple-choice options:', err);

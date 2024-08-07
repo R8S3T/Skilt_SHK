@@ -161,7 +161,7 @@ export async function fetchMultipleChoiceOptionsByQuizId(quizId: number): Promis
         console.error(`Failed to fetch multiple choice options for quizId ${quizId}:`, error);
         return [];
     }
-}
+};
 
 
 

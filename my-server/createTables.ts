@@ -161,7 +161,10 @@ export const createMultipleChoiceOptionsTable = (db: sqlite3.Database): Promise<
             CREATE TABLE IF NOT EXISTS MultipleChoiceOptions (
                 OptionId INTEGER PRIMARY KEY AUTOINCREMENT,
                 QuizId INTEGER,
-                OptionText TEXT,
+                OptionText1 TEXT,
+                OptionText2 TEXT,
+                OptionText3 TEXT,
+                OptionText4 TEXT,
                 FOREIGN KEY(QuizId) REFERENCES Quiz(QuizId)
             );
         `, (err) => {

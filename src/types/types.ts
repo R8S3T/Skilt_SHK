@@ -92,5 +92,8 @@ export interface Quiz {
 export interface MultipleChoiceOption {
     OptionId: number;
     QuizId: number;
-    OptionText: string;
+    OptionText1: string;
+    OptionText2: string;
+    OptionText3: string;
+    OptionText4: string;
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import ControlButtons from './ControlButtons';
 import { Quiz, MultipleChoiceOption } from 'src/types/types';
 
@@ -61,16 +61,20 @@ const MultipleChoice: React.FC<MultipleChoiceProps> = ({ quiz, options, onAnswer
     };
 
     return (
-        <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.quizText}>{quiz.Question}</Text>
             {options.map((option, index) => (
-                <TouchableOpacity
-                    key={index}
-                    style={getButtonStyle(option.OptionText)}
-                    onPress={() => handleAnswer(option.OptionText)}
-                >
-                    <Text style={styles.optionText}>{option.OptionText}</Text>
-                </TouchableOpacity>
+                [option.OptionText1, option.OptionText2, option.OptionText3, option.OptionText4]
+                    .filter(text => text) // Filter out empty option fields
+                    .map((text, idx) => (
+                        <TouchableOpacity
+                            key={idx}
+                            style={getButtonStyle(text)}
+                            onPress={() => handleAnswer(text)}
+                        >
+                            <Text style={styles.optionText}>{text}</Text>
+                        </TouchableOpacity>
+                    ))
             ))}
             {showFeedback && (
                 <Text style={styles.answerText}>
@@ -85,13 +89,13 @@ const MultipleChoice: React.FC<MultipleChoiceProps> = ({ quiz, options, onAnswer
                 submitButtonText={submitButtonText}
                 disabled={isButtonDisabled}
             />
-        </View>
+        </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: 20,
