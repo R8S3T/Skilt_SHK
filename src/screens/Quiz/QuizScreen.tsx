@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Button, ViewStyle } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import MultipleChoice from './MultipleChoice';
 import { fetchQuizByContentId, fetchMultipleChoiceOptionsByQuizId } from 'src/database/databaseServices';
 import { Quiz, MultipleChoiceOption } from 'src/types/types';
+import { StackScreenProps } from '@react-navigation/stack';
+import { LearnStackParamList } from 'src/types/navigationTypes';
 
-interface QuizSlideProps {
-    contentId: number;
-    onContinue: () => void;
-    style?: ViewStyle;
-}
+type Props = StackScreenProps<LearnStackParamList, 'QuizScreen'>;
 
-const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) => {
+const QuizScreen: React.FC<Props> = ({ route, navigation }) => {
+    const { contentId } = route.params;
     const [quiz, setQuiz] = useState<Quiz | null>(null);
     const [options, setOptions] = useState<MultipleChoiceOption[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -23,7 +22,6 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
                 if (fetchedQuiz.length > 0) {
                     setQuiz(fetchedQuiz[0]);
                     const fetchedOptions = await fetchMultipleChoiceOptionsByQuizId(fetchedQuiz[0].QuizId);
-                    console.log(`Fetched Options for quiz ${fetchedQuiz[0].QuizId}:`, fetchedOptions);
                     setOptions(fetchedOptions);
                 } else {
                     setError('No quiz found for this content.');
@@ -35,10 +33,9 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
                 setLoading(false);
             }
         };
-    
+
         loadQuizData();
     }, [contentId]);
-    
 
     if (loading) {
         return <Text>Loading quiz...</Text>;
@@ -53,10 +50,10 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
     }
 
     return (
-        <View style={styles.slide}>
+        <View style={[styles.slide, { backgroundColor: '#f0f8ff' }]}>
             <MultipleChoice quiz={quiz} options={options} onAnswerSubmit={(isCorrect) => {}} />
             <View style={styles.buttonContainer}>
-                <Button title="Continue" onPress={onContinue} />
+                <Button title="Continue" onPress={() => navigation.goBack()} />
             </View>
         </View>
     );
@@ -76,8 +73,5 @@ const styles = StyleSheet.create({
     },
 });
 
-export default QuizSlide;
-
-
-
+export default QuizScreen;
 
