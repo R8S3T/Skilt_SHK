@@ -20,7 +20,6 @@ export type LearnStackParamList = {
         chapterId: number;
         chapterTitle: string;
     };
-    QuizScreen: { contentId: number };
     CongratsScreen: {
         targetScreen: keyof LearnStackParamList | keyof MathStackParamList;
         targetParams: { chapterId: number; chapterTitle: string };

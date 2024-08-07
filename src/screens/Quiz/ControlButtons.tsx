@@ -4,15 +4,19 @@ import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 interface ControlButtonsProps {
     onClear: () => void;
     onSubmit: () => void;
+    onContinue: () => void;
     showBackspaceButton: boolean;
     submitButtonText?: string;
+    disabled: boolean;
 }
 
 const ControlButtons: React.FC<ControlButtonsProps> = ({
     onClear,
     onSubmit,
-    showBackspaceButton = true, 
-    submitButtonText = "Bestätigen" // Default text
+    onContinue,
+    showBackspaceButton = true,
+    submitButtonText = "Bestätigen",
+    disabled
 }) => {
     return (
         <View style={styles.buttonContainer}>
@@ -24,7 +28,11 @@ const ControlButtons: React.FC<ControlButtonsProps> = ({
                     />
                 </TouchableOpacity>
             )}
-            <TouchableOpacity style={styles.submitButton} onPress={onSubmit}>
+            <TouchableOpacity 
+                style={[styles.submitButton, disabled && styles.disabledButton]} 
+                onPress={submitButtonText === 'Weiter' ? onContinue : onSubmit}
+                disabled={disabled}
+            >
                 <Text style={styles.submitButtonText}>{submitButtonText}</Text>
             </TouchableOpacity>
         </View>
@@ -59,6 +67,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontSize: 16,
     },
+    disabledButton: {
+        backgroundColor: '#d3d3d3',
+        borderColor: '#a9a9a9'
+    },
 });
 
 export default ControlButtons;
+

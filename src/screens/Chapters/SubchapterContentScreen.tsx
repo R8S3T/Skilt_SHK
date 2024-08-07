@@ -96,14 +96,16 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
             ) : (
                 <ContentSlide contentData={contentData[currentIndex]} contentType="subchapter" />
             )}
-            <View style={styles.buttonContainer}>
-                <NextButton
-                    onPress={nextContent}
-                    isActive={contentData.length > 0}
-                    label={showQuiz ? 'Continue' : 'Next'}
-                    style={styles.nextButton}
-                />
-            </View>
+            {!showQuiz && (
+                <View style={styles.buttonContainer}>
+                    <NextButton
+                        onPress={nextContent}
+                        isActive={contentData.length > 0}
+                        label="Next"
+                        style={styles.nextButton}
+                    />
+                </View>
+            )}
         </View>
     );
 };
@@ -111,7 +113,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 16,
+        padding: 0,
     },
     buttonContainer: {
         flexDirection: 'row',

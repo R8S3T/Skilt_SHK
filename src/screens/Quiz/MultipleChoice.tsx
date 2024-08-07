@@ -1,78 +1,121 @@
-// MultipleChoice.tsx
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import ControlButtons from './ControlButtons';
 import { Quiz, MultipleChoiceOption } from 'src/types/types';
 
 interface MultipleChoiceProps {
     quiz: Quiz;
     options: MultipleChoiceOption[];
     onAnswerSubmit: (isCorrect: boolean) => void;
+    onContinue: () => void;
 }
 
-const MultipleChoice: React.FC<MultipleChoiceProps> = ({ quiz, options, onAnswerSubmit }) => {
+const MultipleChoice: React.FC<MultipleChoiceProps> = ({ quiz, options, onAnswerSubmit, onContinue }) => {
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const [showFeedback, setShowFeedback] = useState(false);
     const [isAnswerCorrect, setIsAnswerCorrect] = useState(false);
+    const [submitButtonText, setSubmitButtonText] = useState<string>('Bestätigen');
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
     const handleAnswer = (option: string) => {
         setSelectedOption(option);
         setShowFeedback(false);
         setIsAnswerCorrect(false);
+        setSubmitButtonText('Bestätigen');
+        setIsButtonDisabled(false);
     };
 
     const handleSubmit = () => {
         const isCorrect = selectedOption === quiz.Answer;
         setShowFeedback(true);
         setIsAnswerCorrect(isCorrect);
-        onAnswerSubmit(isCorrect);
+
+        if (isCorrect) {
+            setSubmitButtonText('Weiter');
+        } else {
+            setIsButtonDisabled(true);
+            onAnswerSubmit(false);
+        }
+    };
+
+    const handleContinue = () => {
+        onAnswerSubmit(true);
+        onContinue();
+    };
+
+    const getButtonStyle = (option: string) => {
+        let style = styles.option;
+
+        if (showFeedback && selectedOption) {
+            if (selectedOption === option) {
+                if (option === quiz.Answer) {
+                    style = { ...style, borderColor: '#32CD32', borderWidth: 4 };
+                } else {
+                    style = { ...style, borderColor: '#FF6347', borderWidth: 4 };
+                }
+            }
+        } else if (option === selectedOption && !isAnswerCorrect) {
+            style = { ...style, borderColor: '#8fc2c2', borderWidth: 4 };
+        }
+        return style;
     };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.question}>{quiz.Question}</Text>
+            <Text style={styles.quizText}>{quiz.Question}</Text>
             {options.map((option, index) => (
                 <TouchableOpacity
                     key={index}
-                    style={[
-                        styles.option,
-                        selectedOption === option.OptionText && styles.selectedOption,
-                        showFeedback && option.OptionText === quiz.Answer && styles.correctOption,
-                        showFeedback && selectedOption === option.OptionText && selectedOption !== quiz.Answer && styles.incorrectOption,
-                    ]}
+                    style={getButtonStyle(option.OptionText)}
                     onPress={() => handleAnswer(option.OptionText)}
                 >
                     <Text style={styles.optionText}>{option.OptionText}</Text>
                 </TouchableOpacity>
             ))}
             {showFeedback && (
-                <Text style={styles.feedback}>
-                    {isAnswerCorrect ? 'Correct!' : 'Incorrect, try again.'}
+                <Text style={styles.answerText}>
+                    {selectedOption === quiz.Answer ? 'Correct answer.' : 'Incorrect answer, please try again.'}
                 </Text>
             )}
-            <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-                <Text style={styles.submitButtonText}>Submit</Text>
-            </TouchableOpacity>
+            <ControlButtons
+                onClear={() => setSelectedOption(null)}
+                onSubmit={handleSubmit}
+                onContinue={handleContinue}
+                showBackspaceButton={false}
+                submitButtonText={submitButtonText}
+                disabled={isButtonDisabled}
+            />
         </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 20,
-        width: '100%',
+        flex: 1,
+        justifyContent: 'space-between',
         alignItems: 'center',
+        padding: 20,
+        backgroundColor: '#2b4353',
     },
-    question: {
-        fontSize: 18,
+    quizText: {
+        fontSize: 20,
         fontWeight: 'bold',
-        marginBottom: 10,
+        marginTop: 60,
+        marginBottom: 50,
+        marginHorizontal: 20,
+        textAlign: 'center',
+        color: '#FFF',
+        lineHeight: 30,
     },
     option: {
-        width: '100%',
-        padding: 10,
-        marginVertical: 5,
-        backgroundColor: '#f0f0f0',
+        backgroundColor: '#2b4353',
+        minWidth: '85%',
+        padding: 20,
+        marginVertical: 10,
+        marginHorizontal: 20,
         borderRadius: 5,
+        borderWidth: 1,
+        borderColor: '#8fc2c2',
         alignItems: 'center',
     },
     selectedOption: {
@@ -85,12 +128,16 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffcdd2',
     },
     optionText: {
-        fontSize: 16,
+        color: '#FFF',
+        fontFamily: 'OpenSans-Regular',
+        fontSize: 18,
+        textAlign: 'center',
     },
-    feedback: {
-        marginTop: 10,
-        fontSize: 16,
-        color: '#ff5722',
+    answerText: {
+        color: '#FFF',
+        marginVertical: 20,
+        fontSize: 18,
+        textAlign: 'center',
     },
     submitButton: {
         marginTop: 20,
@@ -105,3 +152,4 @@ const styles = StyleSheet.create({
 });
 
 export default MultipleChoice;
+

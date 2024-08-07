@@ -35,10 +35,10 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
                 setLoading(false);
             }
         };
-    
+
         loadQuizData();
     }, [contentId]);
-    
+
 
     if (loading) {
         return <Text>Loading quiz...</Text>;
@@ -54,10 +54,15 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
 
     return (
         <View style={styles.slide}>
-            <MultipleChoice quiz={quiz} options={options} onAnswerSubmit={(isCorrect) => {}} />
-            <View style={styles.buttonContainer}>
-                <Button title="Continue" onPress={onContinue} />
-            </View>
+            <MultipleChoice
+                quiz={quiz}
+                options={options}
+                onAnswerSubmit={(isCorrect) => {
+                if (isCorrect) {
+                    onContinue();
+                }
+            }}
+            onContinue={onContinue} />
         </View>
     );
 };
@@ -69,7 +74,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingHorizontal: 20,
         paddingVertical: 10,
-        marginTop: 20,
+        marginTop: 0,
+        backgroundColor: '#2b4353',
     },
     buttonContainer: {
         marginTop: 20,
