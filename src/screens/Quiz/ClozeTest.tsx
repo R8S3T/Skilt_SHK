@@ -13,39 +13,61 @@ interface ClozeTestProps {
 }
 
 const ClozeTest: React.FC<ClozeTestProps> = ({ quiz, options, onAnswerSubmit, onContinue }) => {
-    // Split the question into sentence parts based on the underscores representing blanks
     const sentenceParts = quiz.Question.split('_');
 
-    // Initialize state to track selected options and their correctness
+    console.log('Sentence Parts:', sentenceParts);
+    console.log('Options:', options);
+
     const [selectedOptions, setSelectedOptions] = useState<AnswerStatus[]>(Array(sentenceParts.length - 1).fill({ answer: null, isCorrect: null }));
-
-    // Manage the state for the submit button text and its disabled state
-    const [submitButtonText, setSubmitButtonText] = useState<string>('Submit');
+    const [submitButtonText, setSubmitButtonText] = useState<string>('Bestätigen');
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+    const [showFeedback, setShowFeedback] = useState(false);
 
-    // Handle the selection of an option, filling the first available blank
     const handleOptionSelect = (option: string) => {
         const newSelectedOptions = [...selectedOptions];
-        const emptyIndex = newSelectedOptions.findIndex(opt => opt.answer === null);  // Find the first empty blank
+        const emptyIndex = newSelectedOptions.findIndex(opt => opt.answer === null);
         if (emptyIndex !== -1) {
-            newSelectedOptions[emptyIndex] = { answer: option, isCorrect: null };  // Fill the blank
+            newSelectedOptions[emptyIndex] = { answer: option, isCorrect: null };
             setSelectedOptions(newSelectedOptions);
-            setIsButtonDisabled(newSelectedOptions.some(opt => opt.answer === null));  // Disable button until all blanks are filled
+            setIsButtonDisabled(false);
         }
     };
 
-    // Handle deletion of an option from a blank
-    const handleDelete = (index: number) => {
-        const newSelectedOptions = [...selectedOptions];
-        newSelectedOptions[index] = { answer: null, isCorrect: null };  // Clear the blank
-        setSelectedOptions(newSelectedOptions);
-        setIsButtonDisabled(true);  // Re-disable the submit button
+    const handleDelete = () => {
+        const lastFilledIndex = selectedOptions
+            .map((opt, index) => ({ ...opt, index }))
+            .filter(opt => opt.answer !== null)
+            .map(opt => opt.index)
+            .pop(); // Get the last filled blank
+    
+        if (lastFilledIndex !== undefined) {
+            const newSelectedOptions = [...selectedOptions];
+            newSelectedOptions[lastFilledIndex] = { answer: null, isCorrect: null };
+            setSelectedOptions(newSelectedOptions);
+            setSubmitButtonText('Bestätigen');
+            setIsButtonDisabled(true);
+        }
     };
 
-    // Handle the submission of the quiz answers
     const handleSubmit = () => {
-        const correctAnswers = options.map(option => option.CorrectOptions);  // Get the correct answers
-        const isCorrect = selectedOptions.every((opt, index) => opt.answer === correctAnswers[index]);  // Check correctness
+        if (submitButtonText === 'Weiter') {
+            handleContinue();
+            return;
+        }
+
+        // Split the correct answers into an array
+        const correctAnswers = options[0].CorrectOptions.split(',').map(opt => opt.trim());
+
+        // Check if the selected answers match the correct answers for all blanks
+        const isCorrect = selectedOptions.every((opt, index) => opt.answer === correctAnswers[index]);
+
+        if (isCorrect) {
+            setSubmitButtonText('Weiter');
+            setIsButtonDisabled(false);
+        } else {
+            setSubmitButtonText('Bestätigen');
+            setIsButtonDisabled(true);
+        }
 
         // Update selected options with correctness information
         const updatedSelectedOptions = selectedOptions.map((opt, index) => ({
@@ -54,31 +76,22 @@ const ClozeTest: React.FC<ClozeTestProps> = ({ quiz, options, onAnswerSubmit, on
         }));
         setSelectedOptions(updatedSelectedOptions);
 
-        // Update button text based on whether answers were correct, and disable/enable the button accordingly
-        setSubmitButtonText(isCorrect ? 'Continue' : 'Submit');
-        setIsButtonDisabled(!isCorrect);
-
-        // Call the parent's answer submission handler
-        onAnswerSubmit(isCorrect);
+        setShowFeedback(true);
     };
 
-    // Handle the continue action after a correct submission
     const handleContinue = () => {
         onAnswerSubmit(true);
         onContinue();
     };
 
-    console.log('Options in ClozeTest:', options);
     return (
         <ScrollView contentContainerStyle={styles.container}>
-
             <SentenceWithBlanks sentenceParts={sentenceParts} filledAnswers={selectedOptions} />
-
             <View style={styles.optionsContainer}>
                 {options.map((option, idx) =>
                     (option.OptionTexts as string[]).map((text, i) => (
                         <OptionButton
-                            key={i}
+                            key={`${idx}-${i}`}
                             option={text}
                             onSelect={() => handleOptionSelect(text)}
                             isSelected={selectedOptions.some(opt => opt.answer === text)}
@@ -86,20 +99,19 @@ const ClozeTest: React.FC<ClozeTestProps> = ({ quiz, options, onAnswerSubmit, on
                     ))
                 )}
             </View>
-
             {selectedOptions.some(opt => opt.isCorrect !== null) && (
                 <Text style={styles.answerText}>
                     {selectedOptions.every(opt => opt.isCorrect) ? 'Correct answer.' : 'Incorrect answer, please try again.'}
                 </Text>
             )}
             <ControlButtons
-                onClear={() => setSelectedOptions(Array(sentenceParts.length - 1).fill({ answer: null, isCorrect: null }))}
+                onClear={handleDelete}
                 onSubmit={handleSubmit}
                 onContinue={handleContinue}
-                showBackspaceButton={false}
+                showBackspaceButton={true}
                 submitButtonText={submitButtonText}
                 disabled={isButtonDisabled}
-                showClearButton={true}
+                showClearButton={submitButtonText !== 'Weiter'}
             />
         </ScrollView>
     );

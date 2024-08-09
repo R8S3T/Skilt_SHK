@@ -32,7 +32,7 @@ const SentenceWithBlanks: React.FC<SentenceWithBlanksProps> = ({ sentenceParts, 
 
 const styles = StyleSheet.create({
     container: {
-        // Your container style
+        paddingHorizontal: 10,
     },
     line: {
         flexDirection: 'row',
@@ -44,6 +44,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: 'bold',
         color: '#FFF',
+        textAlign: 'center',
+        marginHorizontal: 2,
     },
     blank: {
         fontWeight: 'bold',
