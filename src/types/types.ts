@@ -84,9 +84,9 @@ export interface Quiz {
     QuizId: number;
     ContentId: number;
     Question: string;
-    Type: string;
+    QuizType: string;
     Answer: string;
-    Options?: MultipleChoiceOption[];
+    Options?: MultipleChoiceOption[] | ClozeTestOption[];
 }
 
 export interface MultipleChoiceOption {
@@ -96,4 +96,16 @@ export interface MultipleChoiceOption {
     OptionText2: string;
     OptionText3: string;
     OptionText4: string;
+}
+
+export interface ClozeTestOption {
+    OptionId: number;
+    QuizId: number;
+    OptionTexts: string | string[];
+    CorrectOptions: string;
+}
+
+export interface AnswerStatus {
+    answer: string | null;
+    isCorrect: boolean | null;
 }

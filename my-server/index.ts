@@ -13,7 +13,8 @@ import {
     fetchMathSubchaptersByChapterId,
     fetchMathSubchapterContentBySubchapterId,
     fetchQuizByContentId,
-    fetchMultipleChoiceOptionsByQuizId
+    fetchMultipleChoiceOptionsByQuizId,
+    fetchClozeTestOptionsByQuizId
 } from './databaseSetup';
 
 const app = express();
@@ -150,6 +151,18 @@ app.get('/multiplechoiceoptions/:quizId', async (req, res) => {
     } catch (error) {
         console.error(`Error fetching multiple-choice options for quizId ${quizId}:`, error);
         res.status(500).json({ error: 'Failed to fetch multiple-choice options' });
+    }
+});
+
+// Handle GET requests to fetch cloze test options by quiz ID
+app.get('/clozetestoptions/:quizId', async (req, res) => {
+    const quizId = parseInt(req.params.quizId);
+    try {
+        const options = await fetchClozeTestOptionsByQuizId(quizId);
+        res.json(options);
+    } catch (error) {
+        console.error(`Error fetching cloze test options for quizId ${quizId}:`, error);
+        res.status(500).json({ error: 'Failed to fetch cloze test options' });
     }
 });
 

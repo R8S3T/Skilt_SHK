@@ -178,3 +178,25 @@ export const createMultipleChoiceOptionsTable = (db: sqlite3.Database): Promise<
         });
     });
 };
+
+export const createClozeTestOptionsTable = (db: sqlite3.Database): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        db.run(`
+            CREATE TABLE IF NOT EXISTS ClozeTestOptions (
+                OptionId INTEGER PRIMARY KEY AUTOINCREMENT,
+                QuizId INTEGER,
+                OptionTexts TEXT, -- Store options as a comma-separated string
+                CorrectOptions TEXT, -- Store correct options as a comma-separated string
+                FOREIGN KEY(QuizId) REFERENCES Quiz(QuizId)
+            );
+        `, (err) => {
+            if (err) {
+                console.error('Error creating ClozeTestOptions table:', err.message);
+                reject(err);
+            } else {
+                console.log('Table ClozeTestOptions created successfully.');
+                resolve();
+            }
+        });
+    });
+};

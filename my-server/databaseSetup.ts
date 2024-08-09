@@ -1,6 +1,8 @@
 // This file operates on the server-sid and handles the direct interaction with the SQLite database, including initializing the database and adding entries.
 // The actual table creation logic has been moved to a separate module (createTables.ts).
 
+// databaseSetup.ts
+
 import sqlite3 from 'sqlite3';
 import path from 'path';
 import {
@@ -11,7 +13,8 @@ import {
     createMathSubchaptersTable,
     createMathSubchapterContentTable,
     createQuizTable,
-    createMultipleChoiceOptionsTable
+    createMultipleChoiceOptionsTable,
+    createClozeTestOptionsTable
 } from './createTables';
 
 
@@ -39,6 +42,7 @@ export const initializeDatabase = (): Promise<void> => {
                     await createMathSubchapterContentTable(db);
                     await createQuizTable(db);
                     await createMultipleChoiceOptionsTable(db);
+                    await createClozeTestOptionsTable(db);
                     resolve();
                 } catch (error) {
                     reject(error);
@@ -209,6 +213,22 @@ export const fetchMultipleChoiceOptionsByQuizId = (quizId: number): Promise<any[
             db.close();
             if (err) {
                 console.error('Failed to fetch multiple-choice options:', err);
+                reject(err);
+            } else {
+                resolve(rows);
+            }
+        });
+    });
+};
+
+// Fetch cloze test options by quiz ID
+export const fetchClozeTestOptionsByQuizId = (quizId: number): Promise<any[]> => {
+    return new Promise((resolve, reject) => {
+        const db = new sqlite3.Database(dbPath);
+        db.all('SELECT * FROM ClozeTestOptions WHERE QuizId = ?', [quizId], (err, rows) => {
+            db.close();
+            if (err) {
+                console.error('Failed to fetch cloze test options:', err);
                 reject(err);
             } else {
                 resolve(rows);

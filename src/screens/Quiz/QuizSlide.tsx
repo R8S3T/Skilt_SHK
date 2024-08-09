@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Button, ViewStyle } from 'react-native';
 import MultipleChoice from './MultipleChoice';
-import { fetchQuizByContentId, fetchMultipleChoiceOptionsByQuizId } from 'src/database/databaseServices';
-import { Quiz, MultipleChoiceOption } from 'src/types/types';
+import ClozeTest from './ClozeTest';
+import { fetchQuizByContentId, fetchMultipleChoiceOptionsByQuizId, fetchClozeTestOptionsByQuizId } from 'src/database/databaseServices';
+import { Quiz, MultipleChoiceOption, ClozeTestOption } from 'src/types/types';
 
 interface QuizSlideProps {
     contentId: number;
@@ -12,7 +13,7 @@ interface QuizSlideProps {
 
 const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) => {
     const [quiz, setQuiz] = useState<Quiz | null>(null);
-    const [options, setOptions] = useState<MultipleChoiceOption[]>([]);
+    const [options, setOptions] = useState<(MultipleChoiceOption[] | ClozeTestOption[])>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -21,9 +22,26 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
             try {
                 const fetchedQuiz = await fetchQuizByContentId(contentId);
                 if (fetchedQuiz.length > 0) {
-                    setQuiz(fetchedQuiz[0]);
-                    const fetchedOptions = await fetchMultipleChoiceOptionsByQuizId(fetchedQuiz[0].QuizId);
-                    console.log(`Fetched Options for quiz ${fetchedQuiz[0].QuizId}:`, fetchedOptions);
+                    const quizData = fetchedQuiz[0];
+                    const quiz = {
+                        ...quizData,
+                        Type: quizData.QuizType // Map QuizType to Type
+                    };
+                    setQuiz(quiz);
+
+                    let fetchedOptions: MultipleChoiceOption[] | ClozeTestOption[] = [];
+                    if (quiz.Type === 'multiple_choice') {
+                        fetchedOptions = await fetchMultipleChoiceOptionsByQuizId(quiz.QuizId);
+                    } else if (quiz.Type === 'cloze_test') {
+                        const clozeTestOptions = await fetchClozeTestOptionsByQuizId(quiz.QuizId);
+                        fetchedOptions = clozeTestOptions.map(option => ({
+                            ...option,
+                            OptionTexts: typeof option.OptionTexts === 'string'
+                                ? option.OptionTexts.split(', ').map(text => text.trim()) // Ensure OptionTexts is a string
+                                : option.OptionTexts // If it's already an array, keep it as is
+                        }));
+                    }
+
                     setOptions(fetchedOptions);
                 } else {
                     setError('No quiz found for this content.');
@@ -39,7 +57,6 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
         loadQuizData();
     }, [contentId]);
 
-
     if (loading) {
         return <Text>Loading quiz...</Text>;
     }
@@ -53,16 +70,31 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
     }
 
     return (
-        <View style={styles.slide}>
-            <MultipleChoice
-                quiz={quiz}
-                options={options}
-                onAnswerSubmit={(isCorrect) => {
-                if (isCorrect) {
-                    onContinue();
-                }
-            }}
-            onContinue={onContinue} />
+        <View style={[styles.slide, style]}>
+            {quiz.QuizType === 'multiple_choice' && (
+                <MultipleChoice
+                    quiz={quiz}
+                    options={options as MultipleChoiceOption[]}
+                    onAnswerSubmit={(isCorrect) => {
+                        if (isCorrect) {
+                            onContinue();
+                        }
+                    }}
+                    onContinue={onContinue}
+                />
+            )}
+            {quiz.QuizType === 'cloze_test' && (
+                <ClozeTest
+                    quiz={quiz}
+                    options={options as ClozeTestOption[]}
+                    onAnswerSubmit={(isCorrect) => {
+                        if (isCorrect) {
+                            onContinue();
+                        }
+                    }}
+                    onContinue={onContinue}
+                />
+            )}
         </View>
     );
 };

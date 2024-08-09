@@ -8,6 +8,7 @@ interface ControlButtonsProps {
     showBackspaceButton: boolean;
     submitButtonText?: string;
     disabled: boolean;
+    showClearButton?: boolean;
 }
 
 const ControlButtons: React.FC<ControlButtonsProps> = ({
@@ -16,20 +17,21 @@ const ControlButtons: React.FC<ControlButtonsProps> = ({
     onContinue,
     showBackspaceButton = true,
     submitButtonText = "Bestätigen",
-    disabled
+    disabled,
+    showClearButton = true,
 }) => {
     return (
         <View style={styles.buttonContainer}>
-            {showBackspaceButton && (
+            {showClearButton && showBackspaceButton && (
                 <TouchableOpacity onPress={onClear}>
                     <Image
-                        source={require('../../../assets/Images/backspace.png')} 
+                        source={require('../../../assets/Images/backspace.png')}
                         style={styles.backspaceIcon}
                     />
                 </TouchableOpacity>
             )}
-            <TouchableOpacity 
-                style={[styles.submitButton, disabled && styles.disabledButton]} 
+            <TouchableOpacity
+                style={[styles.submitButton, disabled && styles.disabledButton]}
                 onPress={submitButtonText === 'Weiter' ? onContinue : onSubmit}
                 disabled={disabled}
             >

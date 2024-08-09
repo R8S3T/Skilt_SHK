@@ -88,6 +88,7 @@ const MultipleChoice: React.FC<MultipleChoiceProps> = ({ quiz, options, onAnswer
                 showBackspaceButton={false}
                 submitButtonText={submitButtonText}
                 disabled={isButtonDisabled}
+                showClearButton={false}
             />
         </ScrollView>
     );

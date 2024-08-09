@@ -1,5 +1,6 @@
 // Provides functions to fetch chapter data from a server for a specified year
 
+// databaseservices.ts client-side
 import {
     Chapter,
     Subchapter,
@@ -10,6 +11,7 @@ import {
     GenericContent,
     Quiz,
     MultipleChoiceOption,
+    ClozeTestOption
 } from 'src/types/types';
 
     // Use here Expo IP adress
@@ -131,37 +133,62 @@ export async function fetchMathContentBySubchapterId(subchapterId: number): Prom
     }
 }
 
-// Fetch quiz by content ID and content type
+// Fetch quiz by content ID
 export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
     try {
         const response = await fetch(`${API_URL}/quiz/${contentId}`);
         if (!response.ok) {
             throw new Error('Network response was not ok.');
         }
-        const quiz: Quiz[] = await response.json();
-        console.log(`Fetched Quiz Data for contentId ${contentId}:`, quiz);
-        return quiz;
+        const quizzes: Quiz[] = await response.json();
+        console.log(`Fetched Quiz Data for contentId ${contentId}:`, quizzes);
+
+        for (let quiz of quizzes) {
+            if (quiz.Type === 'cloze_test') {
+                const clozeOptions = await fetchClozeTestOptionsByQuizId(quiz.QuizId);
+                quiz.Options = clozeOptions;
+            } else if (quiz.Type === 'multiple_choice') {
+                const multipleChoiceOptions = await fetchMultipleChoiceOptionsByQuizId(quiz.QuizId);
+                quiz.Options = multipleChoiceOptions;
+            }
+        }
+
+        return quizzes;
     } catch (error) {
         console.error(`Failed to fetch quiz for contentId ${contentId}:`, error);
         return [];
     }
 }
 
+
 // Fetch multiple-choice options by quiz ID
 export async function fetchMultipleChoiceOptionsByQuizId(quizId: number): Promise<MultipleChoiceOption[]> {
     try {
-        const response = await fetch(`${API_URL}/multipleChoiceOptions/${quizId}`);
+        const response = await fetch(`${API_URL}/multiplechoiceoptions/${quizId}`);
         if (!response.ok) {
             throw new Error('Network response was not ok.');
         }
         const options: MultipleChoiceOption[] = await response.json();
-        console.log(`Fetched MultipleChoiceOptions for quizId ${quizId}:`, options);
+        console.log(`Fetched MultipleChoiceOptions for quizId ${quizId}:`, options); // Verify the data here
         return options;
     } catch (error) {
         console.error(`Failed to fetch multiple choice options for quizId ${quizId}:`, error);
         return [];
     }
-};
+}
 
-
-
+// Fetch cloze test options by quiz ID
+export async function fetchClozeTestOptionsByQuizId(quizId: number): Promise<ClozeTestOption[]> {
+    try {
+        const response = await fetch(`${API_URL}/clozetestoptions/${quizId}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        const options: ClozeTestOption[] = await response.json();
+        console.log(`Fetched ClozeTestOptions for quizId ${quizId}:`, options);
+        return options;
+    } catch (error) {
+        console.error(`Failed to fetch cloze test options for quizId ${quizId}:`, error);
+        return [];
+    }
+}
