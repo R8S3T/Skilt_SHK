@@ -144,10 +144,10 @@ export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
         console.log(`Fetched Quiz Data for contentId ${contentId}:`, quizzes);
 
         for (let quiz of quizzes) {
-            if (quiz.Type === 'cloze_test') {
+            if (quiz.QuizType === 'cloze_test') {
                 const clozeOptions = await fetchClozeTestOptionsByQuizId(quiz.QuizId);
                 quiz.Options = clozeOptions;
-            } else if (quiz.Type === 'multiple_choice') {
+            } else if (quiz.QuizType === 'multiple_choice') {
                 const multipleChoiceOptions = await fetchMultipleChoiceOptionsByQuizId(quiz.QuizId);
                 quiz.Options = multipleChoiceOptions;
             }
