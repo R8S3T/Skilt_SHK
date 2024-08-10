@@ -6,7 +6,8 @@ import { MathStackParamList } from 'src/types/navigationTypes';
 import { fetchMathSubchaptersByChapterId } from 'src/database/databaseServices';
 import { MathSubchapter } from 'src/types/contentTypes';
 import GenericRows from '../GenericRows';
-import { MathSubchapterContext } from './MathSubchapterContext';
+import { useSubchapter } from '../Chapters/SubchapterContext';
+import SubchapterInfoModal from '../Chapters/SubchapterInfoModal';
 
 type MathSubchapterScreenRouteProp = RouteProp<MathStackParamList, 'MathSubchapterScreen'>;
 
@@ -21,13 +22,20 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
     const { chapterId, chapterTitle } = route.params;
     const [subchapters, setSubchapters] = useState<MathSubchapter[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const context = useContext(MathSubchapterContext);
+    const context = useSubchapter();
+    const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [selectedSubchapter, setSelectedSubchapter] = useState<MathSubchapter | null>(null);
 
     if (!context) {
         throw new Error('MathSubchapterContext must be used within a MathSubchapterProvider');
     }
 
     const { unlockedSubchapters, finishedSubchapters, setCurrentSubchapter } = context;
+
+    useEffect(() => {
+        console.log('MathSubchapterScreen rendered with finishedSubchapters:', finishedSubchapters);
+        console.log('MathSubchapterScreen rendered with unlockedSubchapters:', unlockedSubchapters);
+    }, [finishedSubchapters, unlockedSubchapters]);
 
     useEffect(() => {
         navigation.setOptions({ title: chapterTitle });
@@ -45,19 +53,41 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
     }, [navigation, chapterId, chapterTitle]);
 
     const handleNodePress = (subchapterId: number, subchapterTitle: string) => {
-        navigation.navigate('MathSubchapterContentScreen', {
-            subchapterId,
-            subchapterTitle,
-            chapterId,
-            chapterTitle
-        });
+        const isFinished = finishedSubchapters.includes(subchapterId);
+        const selected = subchapters.find(sub => sub.SubchapterId === subchapterId);
+
+        if (isFinished && selected) {
+            setSelectedSubchapter(selected);
+            setModalVisible(true);
+        } else {
+            setCurrentSubchapter(subchapterId, subchapterTitle);
+            navigation.navigate('MathSubchapterContentScreen', {
+                subchapterId,
+                subchapterTitle,
+                chapterId,
+                chapterTitle
+            });
+        }
     };
 
-    const formattedSubchapters = subchapters.map(subchapter => ({
+    const handleReviewLesson = () => {
+        if (selectedSubchapter) {
+            setCurrentSubchapter(selectedSubchapter.SubchapterId, selectedSubchapter.SubchapterName);
+            navigation.navigate('MathSubchapterContentScreen', {
+                subchapterId: selectedSubchapter.SubchapterId,
+                subchapterTitle: selectedSubchapter.SubchapterName,
+                chapterId,
+                chapterTitle
+            });
+        }
+        setModalVisible(false);
+    };
+
+    const renderedSubchapters = subchapters.map(subchapter => ({
         id: subchapter.SubchapterId,
         title: subchapter.SubchapterName,
         isLocked: !unlockedSubchapters.includes(subchapter.SubchapterId),
-        isFinished: finishedSubchapters.includes(subchapter.SubchapterId),
+        isFinished: finishedSubchapters.includes(subchapter.SubchapterId)
     }));
 
     return (
@@ -65,7 +95,15 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
             {loading ? (
                 <Text>Loading...</Text>
             ) : (
-                <GenericRows items={formattedSubchapters} onNodePress={handleNodePress} color="#FF5733" finishedColor="#32CD32" />
+                <GenericRows items={renderedSubchapters} onNodePress={handleNodePress} color="#FF5733" finishedColor="#32CD32" />
+            )}
+            {selectedSubchapter && (
+                <SubchapterInfoModal
+                    visible={modalVisible}
+                    onClose={() => setModalVisible(false)}
+                    subchapterName={selectedSubchapter.SubchapterName}
+                    onReviewLesson={handleReviewLesson}
+                />
             )}
         </ScrollView>
     );
@@ -80,4 +118,5 @@ const styles = StyleSheet.create({
 });
 
 export default MathSubchapterScreen;
+
 

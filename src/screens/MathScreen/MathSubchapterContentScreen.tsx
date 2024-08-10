@@ -5,7 +5,7 @@ import NextButton from '../NextButton';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MathStackParamList } from 'src/types/navigationTypes';
-import { MathSubchapterContent } from 'src/types/contentTypes';
+import { GenericContent } from 'src/types/contentTypes';
 import { useSubchapter } from '../Chapters/SubchapterContext';
 import { fetchMathContentBySubchapterId } from 'src/database/databaseServices';
 
@@ -20,7 +20,7 @@ type Props = {
 
 const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     const { subchapterId, subchapterTitle, chapterId, chapterTitle } = route.params;
-    const [contentData, setContentData] = useState<MathSubchapterContent[]>([]);
+    const [contentData, setContentData] = useState<GenericContent[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const { markSubchapterAsFinished, unlockSubchapter } = useSubchapter();

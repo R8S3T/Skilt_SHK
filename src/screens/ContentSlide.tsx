@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Image, Text, Button } from 'react-native';
-import { GenericContent } from 'src/types/types';
+import { GenericContent } from 'src/types/contentTypes';
 import { useNavigation } from '@react-navigation/native';
 import { LearnStackParamList } from 'src/types/navigationTypes';
 import { StackNavigationProp } from '@react-navigation/stack';

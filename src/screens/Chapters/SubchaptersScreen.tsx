@@ -20,8 +20,8 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
     const { chapterId, chapterTitle } = route.params;
     const [subchapters, setSubchapters] = useState<Subchapter[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const [modalVisible, setModalVisible] = useState<boolean>(false); // State for modal visibility
-    const [selectedSubchapter, setSelectedSubchapter] = useState<Subchapter | null>(null); // State for selected subchapter
+    const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [selectedSubchapter, setSelectedSubchapter] = useState<Subchapter | null>(null);
     const navigation = useNavigation<NavigationType>();
     const context = useContext(SubchapterContext);
 

@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet, Modal, TouchableOpacity } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { View, Text, StyleSheet, Modal, TouchableOpacity, TouchableWithoutFeedback, Animated } from 'react-native';
 import { SubchapterInfoModalProps } from 'src/types/uiTypes';
 
 const SubchapterInfoModal: React.FC<SubchapterInfoModalProps> = ({
@@ -8,40 +8,62 @@ const SubchapterInfoModal: React.FC<SubchapterInfoModalProps> = ({
     subchapterName,
     onReviewLesson
 }) => {
+    const opacity = useRef(new Animated.Value(0)).current;
+
+    useEffect(() => {
+        if (visible) {
+            Animated.timing(opacity, {
+                toValue: 1,
+                duration: 150, // Shorter duration for quicker animation
+                useNativeDriver: true,
+            }).start();
+        } else {
+            Animated.timing(opacity, {
+                toValue: 0,
+                duration: 150, // Shorter duration for quicker fade-out
+                useNativeDriver: true,
+            }).start();
+        }
+    }, [visible]);
+
     return (
         <Modal
-            animationType="slide"
+            animationType="none" // Disable the default slide-up animation
             transparent={true}
             visible={visible}
-            onRequestClose={onClose}
+            onRequestClose={onClose} // Handles hardware back button on Android
         >
-            <View style={styles.centeredView}>
-                <View style={styles.modalView}>
-                    <Text style={styles.subchapterName}>{subchapterName}</Text>
-                    <Text style={styles.description}>
-                    Du hast diese Lektion abgeschlossen. Möchtest du sie wiederholen?
-                    </Text>
-                    <TouchableOpacity style={styles.button} onPress={onReviewLesson}>
-                        <Text style={styles.buttonText}>Wiederholen</Text>
-                    </TouchableOpacity>
+            <TouchableWithoutFeedback onPress={onClose}>
+                <View style={styles.fullScreen}>
+                    <TouchableWithoutFeedback>
+                        <Animated.View style={[styles.modalView, { opacity }]}>
+                            <Text style={styles.subchapterName}>{subchapterName}</Text>
+                            <Text style={styles.description}>
+                                Du hast diese Lektion abgeschlossen. Möchtest du sie wiederholen?
+                            </Text>
+                            <TouchableOpacity style={styles.button} onPress={onReviewLesson}>
+                                <Text style={styles.buttonText}>Wiederholen</Text>
+                            </TouchableOpacity>
+                        </Animated.View>
+                    </TouchableWithoutFeedback>
                 </View>
-            </View>
+            </TouchableWithoutFeedback>
         </Modal>
     );
 };
 
 const styles = StyleSheet.create({
-    centeredView: {
+    fullScreen: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 22,
+        backgroundColor: 'transparent', // Keep background transparent
     },
     modalView: {
-        margin: 20,
+        marginHorizontal: 20,
         backgroundColor: 'white',
         borderRadius: 20,
-        padding: 35,
+        padding: 25,
         alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: {
@@ -76,4 +98,7 @@ const styles = StyleSheet.create({
 });
 
 export default SubchapterInfoModal;
+
+
+
 

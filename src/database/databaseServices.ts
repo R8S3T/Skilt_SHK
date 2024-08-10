@@ -4,15 +4,13 @@
 import {
     Chapter,
     Subchapter,
-    SubchapterContent,
     MathChapter,
     MathSubchapter,
-    MathSubchapterContent,
     GenericContent,
     Quiz,
     MultipleChoiceOption,
     ClozeTestOption
-} from 'src/types/types';
+} from 'src/types/contentTypes';
 
     // Use here Expo IP adress
     const API_URL = 'http://192.168.145.38:3000';
@@ -52,24 +50,15 @@ export async function fetchSubchaptersByChapterId(chapterId: number): Promise<Su
 }
 
 // Fetch subchapter content by subchapter ID
-export async function fetchSubchapterContentBySubchapterId(subchapterId: number): Promise<SubchapterContent[]> {
+export async function fetchSubchapterContentBySubchapterId(subchapterId: number): Promise<GenericContent[]> {
     try {
         const response = await fetch(`${API_URL}/subchaptercontent/${subchapterId}`);
         if (!response.ok) {
             throw new Error('Network response was not ok.');
         }
-        const subchapterContent: any[] = await response.json();
+        const subchapterContent: GenericContent[] = await response.json();
         console.log(`Fetched Subchapter Content Data for subchapterId ${subchapterId}:`, subchapterContent);
-
-        return subchapterContent.map(content => ({
-            ContentId: content.ContentId,
-            SubchapterId: content.SubchapterId,
-            ContentData: content.ContentData,
-            TextContent: content.TextContent || content.ContentData,
-            SortOrder: content.SortOrder,
-            ImageUrl: content.ImageUrl || null,
-            Quiz: content.Quiz || null,
-        })) as SubchapterContent[];
+        return subchapterContent;
     } catch (error) {
         console.error(`Failed to fetch subchapter content for subchapterId ${subchapterId}:`, error);
         return [];
@@ -115,18 +104,9 @@ export async function fetchMathContentBySubchapterId(subchapterId: number): Prom
         if (!response.ok) {
             throw new Error('Network response was not ok.');
         }
-        const mathSubchapterContent: any[] = await response.json();
+        const mathSubchapterContent: GenericContent[] = await response.json();
         console.log(`Fetched Math Subchapter Content Data for subchapterId ${subchapterId}:`, mathSubchapterContent);
-
-        return mathSubchapterContent.map(content => ({
-            ContentId: content.ContentId,
-            SubchapterId: content.SubchapterId,
-            ContentData: content.ContentData,
-            TextContent: content.TextContent || content.ContentData, // Ensure TextContent is set
-            SortOrder: content.SortOrder,
-            ImageUrl: content.ImageUrl || null,
-            Quiz: content.Quiz || null,
-        })) as GenericContent[];
+        return mathSubchapterContent;
     } catch (error) {
         console.error(`Failed to fetch math subchapter content for subchapterId ${subchapterId}`, error);
         return [];

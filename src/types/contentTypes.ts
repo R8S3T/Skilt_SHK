@@ -13,7 +13,7 @@ export interface Subchapter {
     isFinished: boolean;
 }
 
-export interface SubchapterContent extends GenericContent {
+/* export interface SubchapterContent extends GenericContent {
     ContentId: number;
     SubchapterId: number;
     ContentData: string;
@@ -23,7 +23,7 @@ export interface SubchapterContent extends GenericContent {
         Question: string;
         Options: string[];
     };
-}
+} */
 
 export interface MathChapter {
     ChapterId: number;
@@ -39,13 +39,13 @@ export interface MathSubchapter {
     SortOrder: number;
 }
 
-export interface MathSubchapterContent extends GenericContent {
+/* export interface MathSubchapterContent extends GenericContent {
     ContentId: number;
     SubchapterId: number;
     ContentData: string;
     SortOrder: number;
     ImageUrl?: string;
-}
+} */
 
 export interface GenericContent {
     ContentId: number;

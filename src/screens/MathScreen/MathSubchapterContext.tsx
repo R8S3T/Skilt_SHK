@@ -22,14 +22,20 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
     const [currentSubchapterTitle, setCurrentSubchapterTitle] = useState<string>('');
 
     const unlockSubchapter = (subchapterId: number) => {
-        setUnlockedSubchapters((current) => [...new Set([...current, subchapterId])]);
+        setUnlockedSubchapters((current) => {
+            const updated = [...new Set([...current, subchapterId])];
+            console.log('Updated unlocked subchapters:', updated);
+            return updated;
+        });
     };
 
     const markSubchapterAsFinished = (subchapterId: number) => {
-        setFinishedSubchapters(current => [...new Set([...current, subchapterId])]);
-        // Unlock the next subchapter
-        const nextSubchapterId = subchapterId + 1;
-        unlockSubchapter(nextSubchapterId);
+        setFinishedSubchapters(current => {
+            const updated = [...new Set([...current, subchapterId])];
+            console.log('Updated finished subchapters:', updated);  // Debug log
+            return updated;
+        });
+        unlockSubchapter(subchapterId + 1);
     }
 
     const setCurrentSubchapter = (subchapterId: number | null, subchapterTitle: string) => {
@@ -51,5 +57,6 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
         </MathSubchapterContext.Provider>
     );
 }
+
 
 export { MathSubchapterContext };

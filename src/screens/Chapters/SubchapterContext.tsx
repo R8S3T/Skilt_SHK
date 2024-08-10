@@ -28,11 +28,13 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
     };
 
     const markSubchapterAsFinished = (subchapterId: number) => {
-        setFinishedSubchapters(current => [...new Set([...current, subchapterId])]);
-        // Unlock the next subchapter
-        const nextSubchapterId = subchapterId + 1;
-        unlockSubchapter(nextSubchapterId);
-    }
+        setFinishedSubchapters(current => {
+            const updated = [...new Set([...current, subchapterId])];
+            console.log('Updated finished subchapters:', updated); // Debug log
+            return updated;
+        });
+        unlockSubchapter(subchapterId + 1);
+    };
 
     const setCurrentSubchapter = (subchapterId: number | null, subchapterTitle: string) => {
         setCurrentSubchapterId(subchapterId);

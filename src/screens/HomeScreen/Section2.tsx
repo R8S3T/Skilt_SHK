@@ -58,21 +58,23 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: '#fff',
         borderRadius: 5,
-        margin: 20,
+        margin: 5,
     },
     scrollViewContainer: {
         alignItems: 'center',
         paddingVertical: 20,
     },
     button: {
-        backgroundColor: '#EFEFEF',
+        backgroundColor: '#FFF',
         borderRadius: 10,
-        padding: 20,
+        padding: 15,
         marginLeft: 10,
         marginRight: 10,
-        width: screenWidth * 0.4, // Adjust based on your design needs
+        width: screenWidth * 0.4,
         justifyContent: 'center',
         alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#CCC',
     },
     image: {
         width: 100,

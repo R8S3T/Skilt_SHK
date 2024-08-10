@@ -8,37 +8,35 @@ import { SubchapterProvider } from "src/screens/Chapters/SubchapterContext";
 import { MathSubchapterProvider } from "src/screens/MathScreen/MathSubchapterContext";
 
 const App = () => {
-  const [isReady, setIsReady] = useState(false);
+    const [isReady, setIsReady] = useState(false);
 
-  useEffect(() => {
-    async function prepare() {
-      try {
-        await loadFonts();
-        setIsReady(true);
-      } catch (e) {
-        console.error("An error occurred while loading app resources:", e);
+    useEffect(() => {
+      async function prepare() {
+        try {
+          await loadFonts();
+          setIsReady(true);
+        } catch (e) {
+          console.error("An error occurred while loading app resources:", e);
+        }
       }
+
+      prepare();
+    }, []);
+
+    if (!isReady) {
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator size="large" />
+        </View>
+      );
     }
 
-    prepare();
-  }, []);
-
-  if (!isReady) {
     return (
-      <View style={styles.container}>
-        <ActivityIndicator size="large" />
-      </View>
-    );
-  }
-
-  return (
-    <NavigationContainer>
-      <SubchapterProvider>
-        <MathSubchapterProvider>
-          <AppNavigator />
-        </MathSubchapterProvider>
-      </SubchapterProvider>
-    </NavigationContainer>
+      <NavigationContainer>
+          <SubchapterProvider>
+              <AppNavigator />
+          </SubchapterProvider>
+      </NavigationContainer>
   );
 };
 
