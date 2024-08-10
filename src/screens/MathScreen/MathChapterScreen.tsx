@@ -4,7 +4,7 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { MathStackParamList } from 'src/types/navigationTypes';
 import { useNavigation } from '@react-navigation/native';
 import { fetchMathChapters } from 'src/database/databaseServices';
-import { MathChapter } from 'src/types/types';
+import { MathChapter } from "src/types/contentTypes";
 
 type MathChapterScreenNavigationProp = StackNavigationProp<MathStackParamList, 'MathChapterScreen'>;
 

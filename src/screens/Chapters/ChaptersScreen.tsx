@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from 'react
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { dynamicCardHeight, scaleFontSize } from 'src/utils/screenDimensions';
-import { Chapter } from 'src/types/types';
+import { Chapter } from 'src/types/contentTypes';
 import { fetchChaptersByYear } from 'src/database/databaseServices';
 import { LearnStackParamList } from 'src/types/navigationTypes'; // Make sure the path matches your actual file structure
 

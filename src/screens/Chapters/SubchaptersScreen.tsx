@@ -3,9 +3,10 @@ import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { fetchSubchaptersByChapterId } from 'src/database/databaseServices';
-import { Subchapter } from 'src/types/types';
+import { Subchapter } from 'src/types/contentTypes';
 import { LearnStackParamList } from 'src/types/navigationTypes';
 import { SubchapterContext } from './SubchapterContext';
+import SubchapterInfoModal from './SubchapterInfoModal';
 import GenericRows from '../GenericRows';
 
 
@@ -19,6 +20,8 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
     const { chapterId, chapterTitle } = route.params;
     const [subchapters, setSubchapters] = useState<Subchapter[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const [modalVisible, setModalVisible] = useState<boolean>(false); // State for modal visibility
+    const [selectedSubchapter, setSelectedSubchapter] = useState<Subchapter | null>(null); // State for selected subchapter
     const navigation = useNavigation<NavigationType>();
     const context = useContext(SubchapterContext);
 
@@ -26,7 +29,7 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
         throw new Error('SubchapterContext must be used within a SubchapterProvider');
     }
 
-    const { unlockedSubchapters, finishedSubchapters, markSubchapterAsFinished, setCurrentSubchapter } = context;
+    const { unlockedSubchapters, finishedSubchapters, setCurrentSubchapter } = context;
 
     useEffect(() => {
         const loadData = async () => {
@@ -44,13 +47,34 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
     }, [chapterId]);
 
     const handleNodePress = (subchapterId: number, subchapterTitle: string) => {
-        setCurrentSubchapter(subchapterId, subchapterTitle);
-        navigation.navigate('SubchapterContentScreen', {
-            subchapterId,
-            subchapterTitle,
-            chapterId,
-            chapterTitle
-        });
+        const isFinished = finishedSubchapters.includes(subchapterId);
+        const selected = subchapters.find(sub => sub.SubchapterId === subchapterId);
+
+        if (isFinished && selected) {
+            setSelectedSubchapter(selected);
+            setModalVisible(true);
+        } else {
+            setCurrentSubchapter(subchapterId, subchapterTitle);
+            navigation.navigate('SubchapterContentScreen', {
+                subchapterId,
+                subchapterTitle,
+                chapterId,
+                chapterTitle
+            });
+        }
+    };
+
+    const handleReviewLesson = () => {
+        if (selectedSubchapter) {
+            setCurrentSubchapter(selectedSubchapter.SubchapterId, selectedSubchapter.SubchapterName);
+            navigation.navigate('SubchapterContentScreen', {
+                subchapterId: selectedSubchapter.SubchapterId,
+                subchapterTitle: selectedSubchapter.SubchapterName,
+                chapterId,
+                chapterTitle
+            });
+        }
+        setModalVisible(false);
     };
 
     const renderedSubchapters = subchapters.map(subchapter => ({
@@ -68,6 +92,15 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
                 <Text>Loading...</Text>
             ) : (
                 <GenericRows items={renderedSubchapters} onNodePress={handleNodePress} color="#FFA500" finishedColor="#FFA500" />
+            )}
+
+            {selectedSubchapter && (
+                <SubchapterInfoModal
+                    visible={modalVisible}
+                    onClose={() => setModalVisible(false)}
+                    subchapterName={selectedSubchapter.SubchapterName}
+                    onReviewLesson={handleReviewLesson}
+                />
             )}
         </ScrollView>
     );

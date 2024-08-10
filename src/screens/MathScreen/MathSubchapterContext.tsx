@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { MathSubchapterContextType } from 'src/types/types';
+import { MathSubchapterContextType } from 'src/types/contextTypes';
 
 const MathSubchapterContext = createContext<MathSubchapterContextType | undefined>(undefined);
 

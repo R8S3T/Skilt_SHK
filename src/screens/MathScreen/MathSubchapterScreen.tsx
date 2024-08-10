@@ -4,7 +4,7 @@ import { RouteProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MathStackParamList } from 'src/types/navigationTypes';
 import { fetchMathSubchaptersByChapterId } from 'src/database/databaseServices';
-import { MathSubchapter } from 'src/types/types';
+import { MathSubchapter } from 'src/types/contentTypes';
 import GenericRows from '../GenericRows';
 import { MathSubchapterContext } from './MathSubchapterContext';
 

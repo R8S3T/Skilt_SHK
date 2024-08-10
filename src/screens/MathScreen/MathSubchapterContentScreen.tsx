@@ -5,7 +5,7 @@ import NextButton from '../NextButton';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MathStackParamList } from 'src/types/navigationTypes';
-import { MathSubchapterContent } from 'src/types/types';
+import { MathSubchapterContent } from 'src/types/contentTypes';
 import { useSubchapter } from '../Chapters/SubchapterContext';
 import { fetchMathContentBySubchapterId } from 'src/database/databaseServices';
 

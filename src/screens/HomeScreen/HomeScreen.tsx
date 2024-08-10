@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { BottomTabParamList } from 'src/types/navigationTypes';
-import LearnTracker from './LearnTracker';
+import LearnTracker from '../LearnTracking/LearnTracker';
 import Section1 from './Section1';
 import Section2 from './Section2';
 import Section3 from './Section3';
@@ -30,7 +30,6 @@ const HomeScreen = () => {
             <LearnTracker />
             <Section1 onButtonPress={handleButtonPress} />
             <Section2 onButtonPress={handleButtonPress} />
-{/*             <Section3 onButtonPress={handleButtonPress} /> */}
         </ScrollView>
     );
 }

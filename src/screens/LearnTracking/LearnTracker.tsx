@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getStreak, updateStreak } from 'src/utils/streakUtils'; // Make sure this path is correct
+import { getStreak, updateStreak } from 'src/utils/streakUtils';
 
 const LearnTracker = () => {
     const [streakDates, setStreakDates] = useState<Date[]>([]);

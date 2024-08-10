@@ -6,7 +6,7 @@ import NextButton from '../NextButton';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { LearnStackParamList } from 'src/types/navigationTypes';
-import { SubchapterContent } from 'src/types/types';
+import { SubchapterContent } from 'src/types/contentTypes';
 import { fetchSubchapterContentBySubchapterId, fetchQuizByContentId } from 'src/database/databaseServices';
 import { useSubchapter } from './SubchapterContext';
 
