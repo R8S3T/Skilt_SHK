@@ -1,4 +1,5 @@
 // A sub-navigator dedicated to managing the navigation flow within the specific learning-related content of the app.
+
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from '../screens/HomeScreen/HomeScreen';

@@ -27,7 +27,7 @@ const GenericRows: React.FC<GenericRowsProps> = ({ items, onNodePress, color, fi
                     isFinished={item.isFinished}
                     onPress={() => onNodePress(item.id, item.title)}
                     color={color}
-                    finishedColor={finishedColor} // Pass finishedColor prop
+                    finishedColor={finishedColor}
                 />
             ))}
         </View>

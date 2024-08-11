@@ -114,7 +114,7 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'transparent', // Match the background color
+        backgroundColor: 'transparent',
     },
     heading: {
         fontSize: 24,

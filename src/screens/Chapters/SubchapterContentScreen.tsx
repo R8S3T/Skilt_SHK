@@ -6,7 +6,7 @@ import NextButton from '../NextButton';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { LearnStackParamList } from 'src/types/navigationTypes';
-import { SubchapterContent } from 'src/types/contentTypes';
+import { GenericContent } from 'src/types/contentTypes';
 import { fetchSubchapterContentBySubchapterId, fetchQuizByContentId } from 'src/database/databaseServices';
 import { useSubchapter } from './SubchapterContext';
 
@@ -20,7 +20,7 @@ type Props = {
 
 const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     const { subchapterId, subchapterTitle, chapterId, chapterTitle } = route.params;
-    const [contentData, setContentData] = useState<SubchapterContent[]>([]);
+    const [contentData, setContentData] = useState<GenericContent[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [showQuiz, setShowQuiz] = useState<boolean>(false);
@@ -94,7 +94,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
             {showQuiz ? (
                 <QuizSlide contentId={contentData[currentIndex].ContentId} onContinue={nextContent} />
             ) : (
-                <ContentSlide contentData={contentData[currentIndex]} contentType="subchapter" />
+                <ContentSlide contentData={contentData[currentIndex]} />  // Remove contentType prop
             )}
             {!showQuiz && (
                 <View style={styles.buttonContainer}>
