@@ -97,7 +97,7 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
             {loading ? (
                 <Text>Loading...</Text>
             ) : (
-                <GenericRows items={formattedSubchapters} onNodePress={handleNodePress} color="#FF5733" finishedColor="#32CD32" />
+                <GenericRows items={formattedSubchapters} onNodePress={handleNodePress} color="#FF5733" finishedColor="#52ab95" />
             )}
             {selectedSubchapter && (
                 <SubchapterInfoModal

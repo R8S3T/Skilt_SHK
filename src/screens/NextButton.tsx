@@ -5,10 +5,10 @@ interface NextButtonProps {
     onPress: () => void;
     isActive: boolean;
     style?: StyleProp<ViewStyle>;
-    label?: string; // Optional label prop
+    label?: string;
 }
 
-const NextButton: React.FC<NextButtonProps> = ({ onPress, isActive, style, label = 'Next' }) => {
+const NextButton: React.FC<NextButtonProps> = ({ onPress, isActive, style, label = 'Weiter' }) => {
     return (
         <TouchableOpacity
             onPress={onPress}

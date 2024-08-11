@@ -79,7 +79,7 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
                 <NextButton
                     onPress={nextContent}
                     isActive={contentData.length > 0}
-                    label={currentIndex < contentData.length - 1 ? 'Next' : 'Finish'}
+                    label={currentIndex < contentData.length - 1 ? 'Weiter' : 'Finish'}
                     style={styles.nextButton}
                 />
             </View>

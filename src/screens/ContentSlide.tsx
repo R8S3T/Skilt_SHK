@@ -1,24 +1,35 @@
 import React from 'react';
-import { View, StyleSheet, Image, Text, Button } from 'react-native';
+import { View, StyleSheet, Image, Text } from 'react-native';
+import { imageMap } from 'src/utils/imageMappings';
 import { GenericContent } from 'src/types/contentTypes';
-import { useNavigation } from '@react-navigation/native';
-import { LearnStackParamList } from 'src/types/navigationTypes';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 interface ContentSlideProps {
     contentData: GenericContent;
-    contentType?: string;
 }
 
-const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, contentType }) => {
-    const navigation = useNavigation<StackNavigationProp<LearnStackParamList>>();
-    const { TextContent, ContentData, ImageUrl } = contentData;
-    const displayText = TextContent || ContentData;
+const ContentSlide: React.FC<ContentSlideProps> = ({ contentData }) => {
+    const { ContentData } = contentData;
+
+    // Split the content by any image placeholders like [equations_3]
+    const parts = ContentData.split(/\[([^\]]+)\]/);
 
     return (
         <View style={styles.slide}>
-            {ImageUrl && <Image source={{ uri: ImageUrl }} style={styles.image} />}
-            <Text style={styles.contentText}>{displayText}</Text>
+            {parts.map((part, index) => {
+                const trimmedPart = part.trim();
+                const imageSource = imageMap[trimmedPart as keyof typeof imageMap];
+
+                if (imageSource) {
+                    // Apply larger style if the image name contains "welcome"
+                    const imageStyle = trimmedPart.toLowerCase().includes('welcome') 
+                        ? styles.welcomeImage 
+                        : styles.image;
+
+                    return <Image key={index} source={imageSource} style={imageStyle} />;
+                } else {
+                    return <Text key={index} style={styles.contentText}>{part}</Text>;
+                }
+            })}
         </View>
     );
 };
@@ -30,11 +41,18 @@ const styles = StyleSheet.create({
     },
     image: {
         width: '100%',
-        height: 200,
+        height: 160,
         resizeMode: 'contain',
+        marginVertical: 10,
+    },
+    welcomeImage: {  // Specific style for images containing "welcome" in the name
+        width: '100%',
+        height: 300,
+        resizeMode: 'contain',
+        marginVertical: 10,
     },
     contentText: {
-        fontSize: 16,
+        fontSize: 20,
         marginVertical: 10,
     },
 });
