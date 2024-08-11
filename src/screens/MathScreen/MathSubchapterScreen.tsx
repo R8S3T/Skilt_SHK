@@ -83,7 +83,7 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
         setModalVisible(false);
     };
 
-    const renderedSubchapters = subchapters.map(subchapter => ({
+    const formattedSubchapters = subchapters.map(subchapter => ({
         id: subchapter.SubchapterId,
         title: subchapter.SubchapterName,
         isLocked: !unlockedSubchapters.includes(subchapter.SubchapterId),
@@ -92,10 +92,12 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
 
     return (
         <ScrollView style={styles.container}>
+            <Text style={styles.heading}>{chapterTitle}</Text>
+            <View style={styles.separator} />
             {loading ? (
                 <Text>Loading...</Text>
             ) : (
-                <GenericRows items={renderedSubchapters} onNodePress={handleNodePress} color="#FF5733" finishedColor="#32CD32" />
+                <GenericRows items={formattedSubchapters} onNodePress={handleNodePress} color="#FF5733" finishedColor="#32CD32" />
             )}
             {selectedSubchapter && (
                 <SubchapterInfoModal
@@ -112,10 +114,23 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 16,
-        backgroundColor: '#fff',
+        backgroundColor: 'transparent', // Match the background color
+    },
+    heading: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        margin: 10,
+        marginTop: 25,
+        color: '#2b4353',
+    },
+    separator: {
+        borderBottomWidth: 1,
+        borderBottomColor: '#2b4353',
+        marginVertical: 5,
     },
 });
+
 
 export default MathSubchapterScreen;
 
