@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { View, ScrollView, StyleSheet, Text } from 'react-native';
 import ContentSlide from '../ContentSlide';
 import NextButton from '../NextButton';
@@ -23,6 +23,7 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
     const [contentData, setContentData] = useState<GenericContent[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const scrollViewRef = useRef<ScrollView>(null);  // Add ref for ScrollView
     const { markSubchapterAsFinished, unlockSubchapter } = useSubchapter();
 
     useEffect(() => {
@@ -44,6 +45,11 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
 
     useEffect(() => {
         console.log('Current Index:', currentIndex);
+
+        // Reset scroll position when currentIndex changes
+        if (scrollViewRef.current) {
+            scrollViewRef.current.scrollTo({ y: 0, animated: false });
+        }
     }, [currentIndex]);
 
     if (loading) {
@@ -71,7 +77,7 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
     };
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView ref={scrollViewRef} style={styles.container}>
             {contentData.length > 0 && (
                 <ContentSlide contentData={contentData[currentIndex]} />
             )}
@@ -103,6 +109,7 @@ const styles = StyleSheet.create({
 });
 
 export default MathSubchapterContentScreen;
+
 
 
 
