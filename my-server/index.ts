@@ -14,7 +14,8 @@ import {
     fetchMathSubchapterContentBySubchapterId,
     fetchQuizByContentId,
     fetchMultipleChoiceOptionsByQuizId,
-    fetchClozeTestOptionsByQuizId
+    fetchClozeTestOptionsByQuizId,
+    fetchMathMiniQuizByContentId
 } from './databaseSetup';
 
 const app = express();
@@ -163,6 +164,18 @@ app.get('/clozetestoptions/:quizId', async (req, res) => {
     } catch (error) {
         console.error(`Error fetching cloze test options for quizId ${quizId}:`, error);
         res.status(500).json({ error: 'Failed to fetch cloze test options' });
+    }
+});
+
+// Handle GET requests to fetch MathMiniQuiz by content ID
+app.get('/mathminiquiz/:contentId', async (req, res) => {
+    const contentId = parseInt(req.params.contentId);
+    try {
+        const mathMiniQuiz = await fetchMathMiniQuizByContentId(contentId);
+        res.json(mathMiniQuiz);
+    } catch (error) {
+        console.error(`Error fetching MathMiniQuiz for contentId ${contentId}:`, error);
+        res.status(500).json({ error: 'Failed to fetch MathMiniQuiz' });
     }
 });
 

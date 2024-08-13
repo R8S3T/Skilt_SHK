@@ -200,3 +200,28 @@ export const createClozeTestOptionsTable = (db: sqlite3.Database): Promise<void>
         });
     });
 };
+
+export const createMathMiniQuizTable = (db: sqlite3.Database): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        db.run(`
+            CREATE TABLE IF NOT EXISTS MathMiniQuiz (
+                QuizId INTEGER PRIMARY KEY AUTOINCREMENT,
+                ContentId INTEGER,
+                Question TEXT,
+                Answer TEXT,
+                Option1 TEXT,
+                Option2 TEXT,
+                Option3 TEXT,
+                FOREIGN KEY(ContentId) REFERENCES MathSubchapterContent(ContentId)
+            );
+        `, (err) => {
+            if (err) {
+                console.error('Error creating MathMiniQuiz table:', err.message);
+                reject(err);
+            } else {
+                console.log('Table MathMiniQuiz created successfully.');
+                resolve();
+            }
+        });
+    });
+};

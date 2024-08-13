@@ -14,7 +14,8 @@ import {
     createMathSubchapterContentTable,
     createQuizTable,
     createMultipleChoiceOptionsTable,
-    createClozeTestOptionsTable
+    createClozeTestOptionsTable,
+    createMathMiniQuizTable
 } from './createTables';
 
 
@@ -43,6 +44,7 @@ export const initializeDatabase = (): Promise<void> => {
                     await createQuizTable(db);
                     await createMultipleChoiceOptionsTable(db);
                     await createClozeTestOptionsTable(db);
+                    await createMathMiniQuizTable(db);
                     resolve();
                 } catch (error) {
                     reject(error);
@@ -229,6 +231,22 @@ export const fetchClozeTestOptionsByQuizId = (quizId: number): Promise<any[]> =>
             db.close();
             if (err) {
                 console.error('Failed to fetch cloze test options:', err);
+                reject(err);
+            } else {
+                resolve(rows);
+            }
+        });
+    });
+};
+
+// Fetch MathMiniQuiz by content ID
+export const fetchMathMiniQuizByContentId = (contentId: number): Promise<any[]> => {
+    const db = new sqlite3.Database(dbPath);
+    return new Promise((resolve, reject) => {
+        db.all('SELECT * FROM MathMiniQuiz WHERE ContentId = ?', [contentId], (err, rows) => {
+            db.close();
+            if (err) {
+                console.error('Failed to fetch MathMiniQuiz:', err);
                 reject(err);
             } else {
                 resolve(rows);

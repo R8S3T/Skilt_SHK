@@ -6,6 +6,7 @@ import {
     Subchapter,
     MathChapter,
     MathSubchapter,
+    MathMiniQuiz,
     GenericContent,
     Quiz,
     MultipleChoiceOption,
@@ -172,3 +173,23 @@ export async function fetchClozeTestOptionsByQuizId(quizId: number): Promise<Clo
         return [];
     }
 }
+
+// Fetch MathMiniQuiz by content ID
+export async function fetchMathMiniQuizByContentId(contentId: number): Promise<MathMiniQuiz[]> {
+    try {
+        const response = await fetch(`${API_URL}/mathminiquiz/${contentId}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        // Ensure the fetched data is of type MathMiniQuiz[]
+        const quizzes: MathMiniQuiz[] = await response.json();
+        console.log(`Fetched MathMiniQuiz Data for contentId ${contentId}:`, quizzes);
+        return quizzes;
+    } catch (error) {
+        console.error(`Failed to fetch MathMiniQuiz for contentId ${contentId}:`, error);
+        return [];
+    }
+}
+
+
+

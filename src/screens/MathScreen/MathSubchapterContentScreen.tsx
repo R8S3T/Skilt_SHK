@@ -1,16 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { View, ScrollView, StyleSheet, Text } from 'react-native';
-import ContentSlide from '../ContentSlide';
-import NextButton from '../NextButton';
+import MathContentSlide from './MathContentslide';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MathStackParamList } from 'src/types/navigationTypes';
-import { GenericContent } from 'src/types/contentTypes';
+import { GenericContent, MathMiniQuiz } from 'src/types/contentTypes';
 import { useSubchapter } from '../Chapters/SubchapterContext';
-import { fetchMathContentBySubchapterId } from 'src/database/databaseServices';
+import { fetchMathContentBySubchapterId, fetchMathMiniQuizByContentId } from 'src/database/databaseServices';
 
 type MathSubchapterContentScreenRouteProp = RouteProp<MathStackParamList, 'MathSubchapterContentScreen'>;
-
 type MathSubchapterContentScreenNavigationProp = StackNavigationProp<MathStackParamList, 'MathSubchapterContentScreen'>;
 
 type Props = {
@@ -23,8 +21,10 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
     const [contentData, setContentData] = useState<GenericContent[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
-    const scrollViewRef = useRef<ScrollView>(null);  // Add ref for ScrollView
+    const scrollViewRef = useRef<ScrollView>(null);
     const { markSubchapterAsFinished, unlockSubchapter } = useSubchapter();
+    const [mathMiniQuizzes, setMathMiniQuizzes] = useState<MathMiniQuiz[]>([]);
+    const [completedQuizzes, setCompletedQuizzes] = useState<boolean[]>([]);
 
     useEffect(() => {
         navigation.setOptions({ title: subchapterTitle });
@@ -34,6 +34,12 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
                 const data = await fetchMathContentBySubchapterId(subchapterId);
                 setContentData(data);
                 setLoading(false);
+
+                if (data.length > 0) {
+                    const fetchedMathMiniQuizzes = await fetchMathMiniQuizByContentId(data[currentIndex].ContentId) as MathMiniQuiz[];
+                    setMathMiniQuizzes(fetchedMathMiniQuizzes);
+                    setCompletedQuizzes(new Array(fetchedMathMiniQuizzes.length).fill(false));  // Initialize completedQuizzes
+                }
             } catch (error) {
                 console.error('Failed to load content data:', error);
                 setLoading(false);
@@ -41,12 +47,11 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
         };
 
         loadData();
-    }, [navigation, subchapterId, subchapterTitle]);
+    }, [navigation, subchapterId, subchapterTitle, currentIndex]);
 
     useEffect(() => {
         console.log('Current Index:', currentIndex);
 
-        // Reset scroll position when currentIndex changes
         if (scrollViewRef.current) {
             scrollViewRef.current.scrollTo({ y: 0, animated: false });
         }
@@ -76,20 +81,29 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
         }
     };
 
+    const handleQuizComplete = (isCorrect: boolean) => {
+        // Handle quiz completion, perhaps by updating state
+        console.log('Quiz completed:', isCorrect);
+    };
+
     return (
-        <ScrollView ref={scrollViewRef} style={styles.container}>
+        <View style={styles.container}>
             {contentData.length > 0 && (
-                <ContentSlide contentData={contentData[currentIndex]} />
-            )}
-            <View style={styles.buttonContainer}>
-                <NextButton
-                    onPress={nextContent}
-                    isActive={contentData.length > 0}
-                    label={currentIndex < contentData.length - 1 ? 'Weiter' : 'Finish'}
-                    style={styles.nextButton}
+                <MathContentSlide
+                    contentData={contentData[currentIndex]}
+                    mathMiniQuizzes={mathMiniQuizzes}
+                    onQuizComplete={(isCorrect) => {
+                        // Handle quiz completion
+                        console.log('Quiz completed:', isCorrect);
+                    }}
+                    onQuizLayout={(event) => {
+                        // Handle quiz layout changes if needed
+                    }}
+                    completedQuizzes={completedQuizzes}
+                    onNextSlide={nextContent}  // Move to the next slide
                 />
-            </View>
-        </ScrollView>
+            )}
+        </View>
     );
 };
 
@@ -109,11 +123,6 @@ const styles = StyleSheet.create({
 });
 
 export default MathSubchapterContentScreen;
-
-
-
-
-
 
 
 

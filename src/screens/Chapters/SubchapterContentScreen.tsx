@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import ContentSlide from '../ContentSlide';
 import QuizSlide from '../Quiz/QuizSlide';
-import NextButton from '../NextButton';
+import NextSlideButton from '../NextSlideButton';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { LearnStackParamList } from 'src/types/navigationTypes';
@@ -98,7 +98,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
             )}
             {!showQuiz && (
                 <View style={styles.buttonContainer}>
-                    <NextButton
+                    <NextSlideButton
                         onPress={nextContent}
                         isActive={contentData.length > 0}
                         label="Next"

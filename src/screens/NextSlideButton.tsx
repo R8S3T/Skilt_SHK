@@ -1,14 +1,14 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, StyleProp, ViewStyle } from 'react-native';
 
-interface NextButtonProps {
+interface NextSlideButtonProps {
     onPress: () => void;
     isActive: boolean;
     style?: StyleProp<ViewStyle>;
     label?: string;
 }
 
-const NextButton: React.FC<NextButtonProps> = ({ onPress, isActive, style, label = 'Weiter' }) => {
+const NextSlideButton: React.FC<NextSlideButtonProps> = ({ onPress, isActive, style, label = 'Weiter' }) => {
     return (
         <TouchableOpacity
             onPress={onPress}
@@ -41,5 +41,5 @@ const styles = StyleSheet.create({
     },
 });
 
-export default NextButton;
+export default NextSlideButton;
 

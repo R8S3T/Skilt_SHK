@@ -3,7 +3,7 @@ import { View, StyleSheet, ScrollView, Text } from 'react-native';
 import ControlButtons from './ControlButtons';
 import SentenceWithBlanks from './SentenceWithBlanks';
 import OptionButton from './OptionButton';
-import { Quiz, ClozeTestOption, AnswerStatus } from 'src/types/types';
+import { Quiz, ClozeTestOption, AnswerStatus } from 'src/types/contentTypes';
 
 interface ClozeTestProps {
     quiz: Quiz;

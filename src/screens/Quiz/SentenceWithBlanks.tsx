@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { AnswerStatus } from 'src/types/types';
+import { AnswerStatus } from 'src/types/contentTypes';
 
 interface SentenceWithBlanksProps {
     sentenceParts: string[];
@@ -49,20 +49,20 @@ const styles = StyleSheet.create({
     },
     blank: {
         fontWeight: 'bold',
-        minWidth: 50,
+        minWidth: 150,
         fontSize: 20,
         color: '#8fc2c2',
     },
     correctBlank: {
         fontWeight: 'bold',
         color: '#32CD32',
-        minWidth: 50,
+        minWidth: 150,
         fontSize: 20,
     },
     incorrectBlank: {
         fontWeight: 'bold',
         color: '#FF6347',
-        minWidth: 50,
+        minWidth: 150,
         fontSize: 20,
     },
 });

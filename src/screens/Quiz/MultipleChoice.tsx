@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import ControlButtons from './ControlButtons';
-import { Quiz, MultipleChoiceOption } from 'src/types/types';
+import { Quiz, MultipleChoiceOption } from 'src/types/contentTypes';
 
 interface MultipleChoiceProps {
     quiz: Quiz;

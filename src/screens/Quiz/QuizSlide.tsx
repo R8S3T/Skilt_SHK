@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Button, ViewStyle } from 'react-native';
 import MultipleChoice from './MultipleChoice';
 import ClozeTest from './ClozeTest';
 import { fetchQuizByContentId, fetchMultipleChoiceOptionsByQuizId, fetchClozeTestOptionsByQuizId } from 'src/database/databaseServices';
-import { Quiz, MultipleChoiceOption, ClozeTestOption } from 'src/types/types';
+import { Quiz, MultipleChoiceOption, ClozeTestOption } from 'src/types/contentTypes';
 
 interface QuizSlideProps {
     contentId: number;
