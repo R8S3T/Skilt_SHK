@@ -1,30 +1,30 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
-import { AnswerStatus } from 'src/types/contentTypes';
 
 interface SentenceWithBlanksProps {
     sentenceParts: string[];
-    filledAnswers: AnswerStatus[];
+    filledAnswers: { answer: string | null; isCorrect: boolean | null }[];
 }
 
 const SentenceWithBlanks: React.FC<SentenceWithBlanksProps> = ({ sentenceParts, filledAnswers }) => {
     return (
         <View style={styles.container}>
             {sentenceParts.map((part, index) => (
-                <View key={index} style={styles.line}>
-                    <Text style={styles.sentencePart}>{part}</Text>
+                <Text key={index} style={styles.sentencePart}>
+                    {part}
                     {index < sentenceParts.length - 1 && (
-                        <Text style={
+                        <Text style={[
+                            styles.blank,
                             filledAnswers[index].isCorrect === null
-                            ? styles.blank
-                            : filledAnswers[index].isCorrect
-                                ? styles.correctBlank
-                                : styles.incorrectBlank
-                        }>
-                            {filledAnswers[index].answer || '_'}
+                                ? styles.blank
+                                : filledAnswers[index].isCorrect
+                                    ? styles.correctBlank
+                                    : styles.incorrectBlank
+                        ]}>
+                            {filledAnswers[index].answer || '_______'}
                         </Text>
                     )}
-                </View>
+                </Text>
             ))}
         </View>
     );
@@ -32,38 +32,29 @@ const SentenceWithBlanks: React.FC<SentenceWithBlanksProps> = ({ sentenceParts, 
 
 const styles = StyleSheet.create({
     container: {
-        paddingHorizontal: 10,
-    },
-    line: {
         flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginVertical: 5,
+        flexWrap: 'wrap',
+        paddingHorizontal: 10,
     },
     sentencePart: {
         fontSize: 20,
         fontWeight: 'bold',
         color: '#FFF',
-        textAlign: 'center',
-        marginHorizontal: 2,
+        marginHorizontal: 3,
+        lineHeight: 30,
     },
     blank: {
         fontWeight: 'bold',
-        minWidth: 150,
         fontSize: 20,
         color: '#8fc2c2',
+        paddingHorizontal: 5,
+        textDecorationLine: 'underline',
     },
     correctBlank: {
-        fontWeight: 'bold',
         color: '#32CD32',
-        minWidth: 150,
-        fontSize: 20,
     },
     incorrectBlank: {
-        fontWeight: 'bold',
         color: '#FF6347',
-        minWidth: 150,
-        fontSize: 20,
     },
 });
 

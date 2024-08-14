@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { View, StyleSheet, Image, Text, LayoutChangeEvent, FlatList, Dimensions } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Image, Text, LayoutChangeEvent, FlatList } from 'react-native';
 import { imageMap } from 'src/utils/imageMappings';
 import { MathMiniQuiz, GenericContent } from 'src/types/contentTypes';
 import MathMiniQuizComponent from '../Quiz/MathMiniQuiz';
@@ -26,9 +26,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
     const { ContentData } = contentData;
     const [revealedParts, setRevealedParts] = useState<number>(1);
     const [quizAnswered, setQuizAnswered] = useState<boolean>(false);
-    const [hasQuiz, setHasQuiz] = useState<boolean>(false);
     const [isLastPart, setIsLastPart] = useState<boolean>(false);
-    const [quizCompleted, setQuizCompleted] = useState<boolean>(false);
 
     // Split the content by the [continue] marker
     const parts = ContentData.split(/\[continue\]/);
@@ -53,16 +51,15 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
 
     const handleQuizAnswered = () => {
         setQuizAnswered(true);
-        setQuizCompleted(true);  // Mark the quiz as completed
     };
 
     const renderPart = (part: string, index: number) => {
         const subParts = part.split(/\[([^\]]+)\]/);
         let quizFound = false;  // Local flag to detect quiz presence in this part
-    
+
         const content = subParts.map((subPart, subIndex) => {
             const trimmedSubPart = subPart.trim();
-    
+
             // Handle images
             const imageSource = imageMap[trimmedSubPart as keyof typeof imageMap];
             if (imageSource) {
@@ -71,13 +68,13 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                     : styles.image;
                 return <Image key={`${index}-${subIndex}`} source={imageSource} style={imageStyle} />;
             }
-    
+
             // Handle quizzes
             if (trimmedSubPart.startsWith('quiz_')) {
                 quizFound = true;
                 const quizIndex = parseInt(trimmedSubPart.split('_')[1], 10) - 1;
                 const quiz = mathMiniQuizzes[quizIndex];
-    
+
                 if (quiz) {
                     return (
                         <MathMiniQuizComponent
@@ -90,19 +87,13 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                     );
                 }
             }
-    
+
             return <Text key={`${index}-${subIndex}`} style={styles.contentText}>{trimmedSubPart}</Text>;
         });
-    
+
         // Return the rendered content without updating state here.
         return content;
     };
-
-    // Update hasQuiz after the content is rendered
-    useEffect(() => {
-        const quizFound = parts.slice(0, revealedParts).some(part => part.includes('quiz_'));
-        setHasQuiz(quizFound);  // Update hasQuiz state after content is rendered
-    }, [revealedParts, parts]);
 
     return (
         <View style={styles.container}>
@@ -123,7 +114,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 keyExtractor={(item, index) => index.toString()}
                 ListFooterComponent={
                     <View style={styles.footer}>
-                        {isLastPart && (!hasQuiz || quizCompleted) && (  // Display the button only if it's the last part and the quiz is either not present or completed
+                        {isLastPart && revealedParts === parts.length && (  // Display the button only if it's the last part and all parts are revealed
                             <NextSlideButton
                                 onPress={onNextSlide}
                                 isActive={true}
@@ -173,3 +164,4 @@ const styles = StyleSheet.create({
 });
 
 export default MathContentSlide;
+
