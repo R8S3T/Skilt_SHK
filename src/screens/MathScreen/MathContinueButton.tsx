@@ -1,16 +1,17 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 
-interface MiniQuizButtonProps {
+interface ContinueButtonProps {
     label: string;
     onPress: () => void;
-    disabled: boolean;
+    disabled?: boolean;
+    style?: any; // Allow custom styles to be passed
 }
 
-const MiniQuizButton: React.FC<MiniQuizButtonProps> = ({ label, onPress, disabled }) => {
+const ContinueButton: React.FC<ContinueButtonProps> = ({ label, onPress, disabled = false, style }) => {
     return (
         <TouchableOpacity
-            style={[styles.button, disabled ? styles.disabledButton : styles.activeButton]}
+            style={[styles.button, style, disabled ? styles.disabledButton : styles.activeButton]} // Apply styles and handle disabled state
             onPress={onPress}
             disabled={disabled}
         >
@@ -28,6 +29,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         borderRadius: 5,
         alignItems: 'center',
+        backgroundColor: '#000000',
         height: 40,
     },
     activeButton: {
@@ -43,5 +45,5 @@ const styles = StyleSheet.create({
     },
 });
 
-export default MiniQuizButton;
+export default ContinueButton;
 

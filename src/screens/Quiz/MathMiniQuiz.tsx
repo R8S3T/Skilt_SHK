@@ -2,19 +2,22 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, LayoutChangeEvent } from 'react-native';
 import { MathMiniQuiz } from 'src/types/contentTypes';
 import MiniQuizButton from '../MathScreen/MiniQuizButton';
+import ContinueButton from '../MathScreen/MathContinueButton';
 
 interface MathMiniQuizProps {
     quiz: MathMiniQuiz;
     onQuizComplete: (isCorrect: boolean) => void;
     onQuizLayout: (event: LayoutChangeEvent) => void;
     onQuizAnswered: () => void;
+    onContinue: () => void;
 }
 
 const MathMiniQuizComponent: React.FC<MathMiniQuizProps> = ({
     quiz,
     onQuizComplete,
     onQuizLayout,
-    onQuizAnswered,  // Use the new prop
+    onQuizAnswered,
+    onContinue,
 }) => {
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const [isAnswered, setIsAnswered] = useState<boolean>(false);
@@ -28,11 +31,10 @@ const MathMiniQuizComponent: React.FC<MathMiniQuizProps> = ({
             const isCorrect = selectedOption === quiz.Answer;
             setIsAnswered(true);
             onQuizComplete(isCorrect);
-            onQuizAnswered();
+            onQuizAnswered(); // Notify parent that the quiz has been answered
         }
     };
 
-    // Create an array of options
     const options = [quiz.Option1, quiz.Option2, quiz.Option3].filter(Boolean);
 
     return (
@@ -53,11 +55,19 @@ const MathMiniQuizComponent: React.FC<MathMiniQuizProps> = ({
                     <Text style={styles.optionText}>{option}</Text>
                 </TouchableOpacity>
             ))}
-            <MiniQuizButton
-                label="Submit"
-                onPress={handleSubmit}
-                disabled={!selectedOption}
-            />
+            <View style={styles.buttonContainer}>
+                <MiniQuizButton
+                    label="Submit"
+                    onPress={handleSubmit}
+                    disabled={!selectedOption}
+                />
+                <ContinueButton
+                    label="Continue"
+                    onPress={onContinue}
+                    disabled={!isAnswered}
+                    style={styles.continueButton} // Custom style for smaller size
+                />
+            </View>
         </View>
     );
 };
@@ -99,9 +109,21 @@ const styles = StyleSheet.create({
     optionText: {
         fontSize: 16,
     },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 10,
+    },
+    continueButton: {
+        width: 150, // Smaller width for the continue button within the quiz
+        paddingVertical: 8, // Adjust the padding as needed
+        paddingHorizontal: 12,
+    },
 });
 
 export default MathMiniQuizComponent;
+
 
 
 

@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, Image, Text, LayoutChangeEvent, FlatList } from 'react-native';
 import { imageMap } from 'src/utils/imageMappings';
 import { MathMiniQuiz, GenericContent } from 'src/types/contentTypes';
 import MathMiniQuizComponent from '../Quiz/MathMiniQuiz';
 import MiniQuizButton from '../MathScreen/MiniQuizButton';
 import NextSlideButton from '../NextSlideButton';
+import ContinueButton from './MathContinueButton';
 
 interface MathContentSlideProps {
     contentData: GenericContent;
@@ -20,29 +21,39 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
     mathMiniQuizzes,
     onQuizComplete,
     onQuizLayout,
-    completedQuizzes,
     onNextSlide,
 }) => {
     const { ContentData } = contentData;
     const [revealedParts, setRevealedParts] = useState<number>(1);
     const [quizAnswered, setQuizAnswered] = useState<boolean>(false);
     const [isLastPart, setIsLastPart] = useState<boolean>(false);
+    const [visibleButtons, setVisibleButtons] = useState<number[]>([]);
+
+    const flatListRef = useRef<FlatList>(null);
 
     // Split the content by the [continue] marker
     const parts = ContentData.split(/\[continue\]/);
 
-    const handleContinue = () => {
+    const handleContinue = (index: number) => {
+        setVisibleButtons([...visibleButtons, index]);  // Mark the current button as invisible by adding its index to the array
+    
         const nextRevealedParts = revealedParts + 1;
         setRevealedParts(nextRevealedParts);
         setQuizAnswered(false);  // Reset for the next section
-
+    
+        // Scroll to the newly revealed part
+        setTimeout(() => {
+            if (flatListRef.current) {
+                flatListRef.current.scrollToIndex({ animated: true, index: nextRevealedParts - 1 });
+            }
+        }, 100);  // Delay to ensure state is updated before scrolling
+    
         // Check if the next part is the last part
         if (nextRevealedParts >= parts.length) {
             setIsLastPart(true);  // Mark as the last part if we've reached the end
         }
     };
-
-    // Ensure isLastPart is set for short content
+    
     useEffect(() => {
         if (revealedParts === parts.length) {
             setIsLastPart(true);
@@ -83,6 +94,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                             onQuizComplete={onQuizComplete}
                             onQuizLayout={onQuizLayout}
                             onQuizAnswered={handleQuizAnswered}
+                            onContinue={() => handleContinue(index)} // Pass the continue action
                         />
                     );
                 }
@@ -98,15 +110,15 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
     return (
         <View style={styles.container}>
             <FlatList
+                ref={flatListRef}  // Attach the FlatList reference
                 data={parts.slice(0, revealedParts)}
                 renderItem={({ item, index }) => (
                     <View key={index} style={styles.partContainer}>
                         {renderPart(item, index)}
-                        {index < parts.length - 1 && (
-                            <MiniQuizButton
+                        {index < parts.length - 1 && !visibleButtons.includes(index) && !item.includes('quiz_') && (
+                            <ContinueButton
                                 label="Continue"
-                                onPress={handleContinue}
-                                disabled={!quizAnswered && !!item.includes('quiz_')}  // Disable if a quiz is present and not answered
+                                onPress={() => handleContinue(index)} 
                             />
                         )}
                     </View>
@@ -128,6 +140,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
         </View>
     );
 };
+
 
 const styles = StyleSheet.create({
     container: {
