@@ -45,11 +45,12 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         marginVertical: 10,
     },
-    welcomeImage: {  // Specific style for images containing "welcome" in the name
+    welcomeImage: {
         width: '100%',
         height: 300,
         resizeMode: 'contain',
-        marginVertical: 10,
+        marginTop: 100,
+        marginBottom: 20,
     },
     contentText: {
         fontSize: 20,

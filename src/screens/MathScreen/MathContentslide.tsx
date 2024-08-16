@@ -3,7 +3,6 @@ import { View, StyleSheet, Image, Text, LayoutChangeEvent, FlatList } from 'reac
 import { imageMap } from 'src/utils/imageMappings';
 import { MathMiniQuiz, GenericContent } from 'src/types/contentTypes';
 import MathMiniQuizComponent from '../Quiz/MathMiniQuiz';
-import MiniQuizButton from '../MathScreen/MiniQuizButton';
 import NextSlideButton from '../NextSlideButton';
 import ContinueButton from './MathContinueButton';
 
@@ -24,65 +23,54 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
     onNextSlide,
 }) => {
     const { ContentData } = contentData;
-    const [revealedParts, setRevealedParts] = useState<number>(1);
+    const [currentPartIndex, setCurrentPartIndex] = useState<number>(0); 
     const [quizAnswered, setQuizAnswered] = useState<boolean>(false);
-    const [isLastPart, setIsLastPart] = useState<boolean>(false);
-    const [visibleButtons, setVisibleButtons] = useState<number[]>([]);
-
     const flatListRef = useRef<FlatList>(null);
+    const [isLastPart, setIsLastPart] = useState<boolean>(false);
 
     // Split the content by the [continue] marker
     const parts = ContentData.split(/\[continue\]/);
 
-    const handleContinue = (index: number) => {
-        setVisibleButtons([...visibleButtons, index]);  // Mark the current button as invisible by adding its index to the array
-    
-        const nextRevealedParts = revealedParts + 1;
-        setRevealedParts(nextRevealedParts);
-        setQuizAnswered(false);  // Reset for the next section
+    const handleContinue = () => {
+        const nextPartIndex = currentPartIndex + 1;
+        setCurrentPartIndex(nextPartIndex);
+        setQuizAnswered(false); // Reset for the next section
     
         // Scroll to the newly revealed part
-        setTimeout(() => {
-            if (flatListRef.current) {
-                flatListRef.current.scrollToIndex({ animated: true, index: nextRevealedParts - 1 });
-            }
-        }, 100);  // Delay to ensure state is updated before scrolling
+        if (flatListRef.current) {
+            setTimeout(() => {
+                flatListRef.current?.scrollToIndex({
+                    animated: true,
+                    index: nextPartIndex, // Scroll to the newly revealed part
+                });
+            }, 100); 
+        }
     
         // Check if the next part is the last part
-        if (nextRevealedParts >= parts.length) {
-            setIsLastPart(true);  // Mark as the last part if we've reached the end
+        if (nextPartIndex >= parts.length - 1) {
+            setIsLastPart(true); // Mark as the last part if we've reached the end
         }
     };
     
-    useEffect(() => {
-        if (revealedParts === parts.length) {
-            setIsLastPart(true);
-        }
-    }, [revealedParts, parts.length]);
-
     const handleQuizAnswered = () => {
-        setQuizAnswered(true);
+        setQuizAnswered(true); 
     };
 
     const renderPart = (part: string, index: number) => {
         const subParts = part.split(/\[([^\]]+)\]/);
-        let quizFound = false;  // Local flag to detect quiz presence in this part
-
+        const partBackgroundColor = index % 2 === 0 ? 'white' : '#f0f0f0';  // Alternate between white and light grey for each part
+    
         const content = subParts.map((subPart, subIndex) => {
             const trimmedSubPart = subPart.trim();
 
             // Handle images
             const imageSource = imageMap[trimmedSubPart as keyof typeof imageMap];
             if (imageSource) {
-                const imageStyle = trimmedSubPart.toLowerCase().includes('welcome')
-                    ? styles.welcomeImage
-                    : styles.image;
-                return <Image key={`${index}-${subIndex}`} source={imageSource} style={imageStyle} />;
+                return <Image key={`${index}-${subIndex}`} source={imageSource} style={styles.image} />;
             }
 
             // Handle quizzes
             if (trimmedSubPart.startsWith('quiz_')) {
-                quizFound = true;
                 const quizIndex = parseInt(trimmedSubPart.split('_')[1], 10) - 1;
                 const quiz = mathMiniQuizzes[quizIndex];
 
@@ -94,7 +82,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                             onQuizComplete={onQuizComplete}
                             onQuizLayout={onQuizLayout}
                             onQuizAnswered={handleQuizAnswered}
-                            onContinue={() => handleContinue(index)} // Pass the continue action
+                            onContinue={handleContinue}
                         />
                     );
                 }
@@ -103,30 +91,35 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
             return <Text key={`${index}-${subIndex}`} style={styles.contentText}>{trimmedSubPart}</Text>;
         });
 
-        // Return the rendered content without updating state here.
-        return content;
+        // Apply dynamic background color based on the index and ensure it covers the entire width and height
+        return (
+            <View style={[styles.fullWidthPartContainer, { backgroundColor: partBackgroundColor }]}>
+                {content}
+            </View>
+        );
     };
 
     return (
         <View style={styles.container}>
             <FlatList
-                ref={flatListRef}  // Attach the FlatList reference
-                data={parts.slice(0, revealedParts)}
+                ref={flatListRef}
+                data={parts.slice(0, currentPartIndex + 1)}
                 renderItem={({ item, index }) => (
                     <View key={index} style={styles.partContainer}>
                         {renderPart(item, index)}
-                        {index < parts.length - 1 && !visibleButtons.includes(index) && !item.includes('quiz_') && (
+                        {index === currentPartIndex && currentPartIndex < parts.length - 1 && !item.includes('quiz_') && (
                             <ContinueButton
                                 label="Continue"
-                                onPress={() => handleContinue(index)} 
+                                onPress={handleContinue}
                             />
                         )}
                     </View>
                 )}
                 keyExtractor={(item, index) => index.toString()}
-                ListFooterComponent={
+                contentContainerStyle={styles.flatListContent}
+                ListFooterComponent={ 
                     <View style={styles.footer}>
-                        {isLastPart && revealedParts === parts.length && (  // Display the button only if it's the last part and all parts are revealed
+                        {currentPartIndex === parts.length - 1 && (
                             <NextSlideButton
                                 onPress={onNextSlide}
                                 isActive={true}
@@ -135,20 +128,29 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                         )}
                     </View>
                 }
-                contentContainerStyle={styles.flatListContent}
+                onScrollToIndexFailed={() => {
+                    if (flatListRef.current) {
+                        flatListRef.current.scrollToEnd({ animated: true });
+                    }
+                }}
             />
         </View>
     );
 };
 
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column',
+        backgroundColor: 'white', // Apply this to start with white background
+    },
+    fullWidthPartContainer: {
+        flex: 1,
+        width: '100%', 
+        padding: 25,
     },
     partContainer: {
-        marginBottom: 16,
+        flex: 1,
+        padding: 25,
     },
     flatListContent: {
         flexGrow: 1,
@@ -160,19 +162,15 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         marginVertical: 10,
     },
-    welcomeImage: {
-        width: '100%',
-        height: 300,
-        resizeMode: 'contain',
-        marginVertical: 10,
-    },
     contentText: {
         fontSize: 20,
         marginVertical: 10,
+        color: '#000',
     },
     footer: {
         paddingVertical: 20,
         alignItems: 'center',
+        width: '100%',
     },
 });
 

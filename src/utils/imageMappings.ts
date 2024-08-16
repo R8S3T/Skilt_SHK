@@ -6,6 +6,7 @@ const img_equations4 = require('../../assets/DbImages/equations_4.png');
 const img_equations5 = require('../../assets/DbImages/equations_5.png');
 const img_equations6 = require('../../assets/DbImages/equations_6.png');
 const img_equationswelcome = require('../../assets/DbImages/equations_welcome.png');
+const img_flori = require('../../assets/DbImages/flori.png');
 
 export const imageMap = {
     "equations_1": img_equations1,
@@ -14,5 +15,6 @@ export const imageMap = {
     "equations_4": img_equations4,
     "equations_5": img_equations5,
     "equations_6": img_equations6,
-    "equations_welcome": img_equationswelcome
+    "equations_welcome": img_equationswelcome,
+    "flori": img_flori
 };

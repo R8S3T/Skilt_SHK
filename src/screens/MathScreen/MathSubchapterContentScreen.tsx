@@ -110,7 +110,7 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 16,
+        backgroundColor: 'blue'
     },
     buttonContainer: {
         flexDirection: 'row',
