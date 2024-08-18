@@ -68,6 +68,13 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
     const nextContent = () => {
         if (currentIndex < contentData.length - 1) {
             setCurrentIndex(currentIndex + 1);
+    
+            // Scroll to the top of the new slide
+            if (scrollViewRef.current) {
+                setTimeout(() => {
+                    scrollViewRef.current?.scrollTo({ y: 0, animated: true });
+                }, 100); // Add a slight delay to ensure the new content is loaded
+            }
         } else {
             markSubchapterAsFinished(subchapterId);
             unlockSubchapter(subchapterId + 1);
@@ -80,6 +87,7 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
             });
         }
     };
+
 
     const handleQuizComplete = (isCorrect: boolean) => {
         // Handle quiz completion, perhaps by updating state

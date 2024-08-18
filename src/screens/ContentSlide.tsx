@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         height: 300,
         resizeMode: 'contain',
         marginTop: 100,
-        marginBottom: 20,
+        marginBottom: 50,
     },
     contentText: {
         fontSize: 20,

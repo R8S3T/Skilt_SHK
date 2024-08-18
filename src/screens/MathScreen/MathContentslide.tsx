@@ -23,7 +23,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
     onNextSlide,
 }) => {
     const { ContentData } = contentData;
-    const [currentPartIndex, setCurrentPartIndex] = useState<number>(0); 
+    const [currentPartIndex, setCurrentPartIndex] = useState<number>(0);
     const [quizAnswered, setQuizAnswered] = useState<boolean>(false);
     const flatListRef = useRef<FlatList>(null);
     const [isLastPart, setIsLastPart] = useState<boolean>(false);
@@ -34,8 +34,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
     const handleContinue = () => {
         const nextPartIndex = currentPartIndex + 1;
         setCurrentPartIndex(nextPartIndex);
-        setQuizAnswered(false); // Reset for the next section
-    
+
         // Scroll to the newly revealed part
         if (flatListRef.current) {
             setTimeout(() => {
@@ -45,21 +44,21 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 });
             }, 100); 
         }
-    
+
         // Check if the next part is the last part
         if (nextPartIndex >= parts.length - 1) {
             setIsLastPart(true); // Mark as the last part if we've reached the end
         }
     };
-    
+
     const handleQuizAnswered = () => {
-        setQuizAnswered(true); 
+        setQuizAnswered(true);
     };
 
     const renderPart = (part: string, index: number) => {
         const subParts = part.split(/\[([^\]]+)\]/);
         const partBackgroundColor = index % 2 === 0 ? 'white' : '#f0f0f0';  // Alternate between white and light grey for each part
-    
+
         const content = subParts.map((subPart, subIndex) => {
             const trimmedSubPart = subPart.trim();
 
@@ -141,7 +140,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white', // Apply this to start with white background
+        backgroundColor: 'white',
     },
     fullWidthPartContainer: {
         flex: 1,
@@ -160,7 +159,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 160,
         resizeMode: 'contain',
-        marginVertical: 10,
+        marginVertical: 50,
     },
     contentText: {
         fontSize: 20,

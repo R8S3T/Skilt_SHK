@@ -21,6 +21,7 @@ const MathMiniQuizComponent: React.FC<MathMiniQuizProps> = ({
 }) => {
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const [isAnswered, setIsAnswered] = useState<boolean>(false);
+    const [showContinueButton, setShowContinueButton] = useState<boolean>(true);
 
     const handleAnswerSelect = (option: string) => {
         setSelectedOption(option);
@@ -33,6 +34,11 @@ const MathMiniQuizComponent: React.FC<MathMiniQuizProps> = ({
             onQuizComplete(isCorrect);
             onQuizAnswered(); // Notify parent that the quiz has been answered
         }
+    };
+
+    const handleContinue = () => {
+        setShowContinueButton(false); // Hide the continue button after it's pressed
+        onContinue(); // Call the passed onContinue function
     };
 
     const options = [quiz.Option1, quiz.Option2, quiz.Option3].filter(Boolean);
@@ -61,12 +67,14 @@ const MathMiniQuizComponent: React.FC<MathMiniQuizProps> = ({
                     onPress={handleSubmit}
                     disabled={!selectedOption}
                 />
-                <ContinueButton
-                    label="Continue"
-                    onPress={onContinue}
-                    disabled={!isAnswered}
-                    style={styles.continueButton} // Custom style for smaller size
-                />
+                {showContinueButton && (
+                    <ContinueButton
+                        label="Continue"
+                        onPress={handleContinue}
+                        disabled={!isAnswered}
+                        style={styles.continueButton}
+                    />
+                )}
             </View>
         </View>
     );
@@ -116,8 +124,8 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     continueButton: {
-        width: 150, // Smaller width for the continue button within the quiz
-        paddingVertical: 8, // Adjust the padding as needed
+        width: 150,
+        paddingVertical: 8,
         paddingHorizontal: 12,
     },
 });
