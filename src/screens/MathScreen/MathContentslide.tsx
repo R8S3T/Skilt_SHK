@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, StyleSheet, Image, Text, LayoutChangeEvent, FlatList } from 'react-native';
-import { imageMap } from 'src/utils/imageMappings';
+import { View, StyleSheet, FlatList, LayoutChangeEvent } from 'react-native';
+import RenderPart from 'src/utils/RenderParts';
 import { MathMiniQuiz, GenericContent } from 'src/types/contentTypes';
-import MathMiniQuizComponent from '../Quiz/MathMiniQuiz';
 import NextSlideButton from '../NextSlideButton';
 import ContinueButton from './MathContinueButton';
 
@@ -22,14 +21,10 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
     onQuizLayout,
     onNextSlide,
 }) => {
-    const { ContentData } = contentData;
+    const { ContentData, ContentId } = contentData; // Extract ContentId from contentData
     const [currentPartIndex, setCurrentPartIndex] = useState<number>(0);
-    const [quizAnswered, setQuizAnswered] = useState<boolean>(false);
+    const [quizAnswered, setQuizAnswered] = useState<boolean>(false); // Define setQuizAnswered
     const flatListRef = useRef<FlatList>(null);
-    const [isLastPart, setIsLastPart] = useState<boolean>(false);
-
-    // Split the content by the [continue] marker
-    const parts = ContentData.split(/\[continue\]/);
 
     const handleQuizAnswered = () => {
         setQuizAnswered(true);
@@ -42,83 +37,25 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
         // Delay the scroll action until the FlatList has updated
         setTimeout(() => {
             if (flatListRef.current) {
-                flatListRef.current.scrollToIndex({ 
-                    index: nextPartIndex, 
+                flatListRef.current.scrollToIndex({
+                    index: nextPartIndex,
                     animated: true,
-                    viewPosition: 0.5 // Adjust this value as needed
+                    viewPosition: 0.5, // Adjust this value as needed
                 });
             }
         }, 100); // 100ms delay should give enough time for the FlatList to update
     };
 
-
     useEffect(() => {
         setCurrentPartIndex(0); // Reset currentPartIndex when a new slide is loaded
         setQuizAnswered(false); // Reset quizAnswered state when slide changes
-        setIsLastPart(false); // Reset isLastPart when slide changes
-
         if (flatListRef.current) {
             flatListRef.current.scrollToOffset({ offset: 0, animated: true }); // Ensure scroll is reset
         }
     }, [contentData]); // This will trigger whenever a new slide's content is loaded
 
-    const renderPart = (part: string, index: number) => {
-        const lines = part.split('\n');  // Split content into lines
-        const content = lines.map((line, subIndex) => {
-            // Handle images
-            if (line.startsWith('[equations_')) {
-                const imageName = line.replace('[', '').replace(']', '').trim(); // Extract the image key
-                console.log('Image Name:', imageName);  // Log the image name
-                console.log('Image Map:', imageMap);  // Log the image map
-
-                const imageSource = imageMap[imageName as keyof typeof imageMap];
-                if (imageSource) {
-                    return <Image key={`${index}-${subIndex}`} source={imageSource} style={styles.image} />;
-                } else {
-                    console.warn(`Image not found for key: ${imageName}`);
-                    return null;  // If the image isn't found, return null
-                }
-            }
-
-            // Handle bold text
-            if (line.includes('[bold]') && line.includes('[/bold]')) {
-                const boldText = line.replace('[bold]', '').replace('[/bold]', '');
-                return (
-                    <Text key={`${index}-${subIndex}`} style={[styles.contentText, { fontWeight: 'bold' }]}>
-                        {boldText}
-                    </Text>
-                );
-            }
-
-            // Handle quizzes
-            if (line.startsWith('[quiz_')) {
-                const quizIndex = parseInt(line.split('_')[1], 10) - 1;
-                const quiz = mathMiniQuizzes[quizIndex];
-
-                if (quiz) {
-                    return (
-                        <MathMiniQuizComponent
-                            key={`${index}-${subIndex}`}
-                            quiz={quiz}
-                            onQuizComplete={onQuizComplete}
-                            onQuizLayout={onQuizLayout}
-                            onQuizAnswered={handleQuizAnswered}
-                            onContinue={handleContinue}
-                        />
-                    );
-                }
-            }
-
-            // Default: Render as normal text
-            return (
-                <Text key={`${index}-${subIndex}`} style={styles.contentText}>
-                    {line}
-                </Text>
-            );
-        });
-
-        return <View style={styles.fullWidthPartContainer}>{content}</View>;
-    };
+    // Split the content by the [continue] marker
+    const parts = ContentData.split(/\[continue\]/); // Define parts
 
     return (
         <View style={styles.container}>
@@ -127,7 +64,16 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 data={parts.slice(0, currentPartIndex + 1)}
                 renderItem={({ item, index }) => (
                     <View key={index} style={styles.partContainer}>
-                        {renderPart(item, index)}
+                        <RenderPart
+                            part={item}
+                            index={index}
+                            mathMiniQuizzes={mathMiniQuizzes}
+                            onQuizComplete={onQuizComplete}
+                            onQuizLayout={onQuizLayout}
+                            handleQuizAnswered={handleQuizAnswered}
+                            handleContinue={handleContinue}
+                            contentId={ContentId}  // Pass ContentId to RenderPart
+                        />
                         {index === currentPartIndex && currentPartIndex < parts.length - 1 && (
                             <ContinueButton
                                 label="Continue"
@@ -138,22 +84,13 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 )}
                 keyExtractor={(item, index) => index.toString()}
                 contentContainerStyle={styles.flatListContent}
-                ListFooterComponent={ 
+                ListFooterComponent={
                     <View style={styles.footer}>
                         {currentPartIndex === parts.length - 1 && (
-                            <NextSlideButton
-                                onPress={onNextSlide}
-                                isActive={true}
-                                label="Next"
-                            />
+                            <NextSlideButton onPress={onNextSlide} isActive={true} label="Next" />
                         )}
                     </View>
                 }
-                onScrollToIndexFailed={() => {
-                    if (flatListRef.current) {
-                        flatListRef.current.scrollToEnd({ animated: true });
-                    }
-                }}
             />
         </View>
     );
@@ -164,11 +101,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: 'white',
     },
-    fullWidthPartContainer: {
-        flex: 1,
-        width: '100%', 
-        padding: 25,
-    },
     partContainer: {
         flex: 1,
         padding: 25,
@@ -176,17 +108,6 @@ const styles = StyleSheet.create({
     flatListContent: {
         flexGrow: 1,
         justifyContent: 'space-between',
-    },
-    image: {
-        width: '100%',
-        height: 160,
-        resizeMode: 'contain',
-        marginVertical: 50,
-    },
-    contentText: {
-        fontSize: 20,
-        marginVertical: 10,
-        color: '#000',
     },
     footer: {
         paddingVertical: 20,
@@ -196,4 +117,5 @@ const styles = StyleSheet.create({
 });
 
 export default MathContentSlide;
+
 
