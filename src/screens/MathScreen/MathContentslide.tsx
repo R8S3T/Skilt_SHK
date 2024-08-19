@@ -31,10 +31,14 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
     // Split the content by the [continue] marker
     const parts = ContentData.split(/\[continue\]/);
 
+    const handleQuizAnswered = () => {
+        setQuizAnswered(true);
+    };
+
     const handleContinue = () => {
         const nextPartIndex = currentPartIndex + 1;
         setCurrentPartIndex(nextPartIndex);
-    
+
         // Delay the scroll action until the FlatList has updated
         setTimeout(() => {
             if (flatListRef.current) {
@@ -46,17 +50,17 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
             }
         }, 100); // 100ms delay should give enough time for the FlatList to update
     };
-    
+
 
     useEffect(() => {
-        if (flatListRef.current) {
-            flatListRef.current.scrollToOffset({ offset: 0, animated: true }); // Scroll to top when Slide changes
-        }
-    }, [contentData]);
+        setCurrentPartIndex(0); // Reset currentPartIndex when a new slide is loaded
+        setQuizAnswered(false); // Reset quizAnswered state when slide changes
+        setIsLastPart(false); // Reset isLastPart when slide changes
 
-    const handleQuizAnswered = () => {
-        setQuizAnswered(true);
-    };
+        if (flatListRef.current) {
+            flatListRef.current.scrollToOffset({ offset: 0, animated: true }); // Ensure scroll is reset
+        }
+    }, [contentData]); // This will trigger whenever a new slide's content is loaded
 
     const renderPart = (part: string, index: number) => {
         const lines = part.split('\n');  // Split content into lines
@@ -66,7 +70,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 const imageName = line.replace('[', '').replace(']', '').trim(); // Extract the image key
                 console.log('Image Name:', imageName);  // Log the image name
                 console.log('Image Map:', imageMap);  // Log the image map
-    
+
                 const imageSource = imageMap[imageName as keyof typeof imageMap];
                 if (imageSource) {
                     return <Image key={`${index}-${subIndex}`} source={imageSource} style={styles.image} />;
@@ -75,7 +79,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                     return null;  // If the image isn't found, return null
                 }
             }
-    
+
             // Handle bold text
             if (line.includes('[bold]') && line.includes('[/bold]')) {
                 const boldText = line.replace('[bold]', '').replace('[/bold]', '');
@@ -85,12 +89,12 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                     </Text>
                 );
             }
-    
+
             // Handle quizzes
             if (line.startsWith('[quiz_')) {
                 const quizIndex = parseInt(line.split('_')[1], 10) - 1;
                 const quiz = mathMiniQuizzes[quizIndex];
-    
+
                 if (quiz) {
                     return (
                         <MathMiniQuizComponent
@@ -104,7 +108,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                     );
                 }
             }
-    
+
             // Default: Render as normal text
             return (
                 <Text key={`${index}-${subIndex}`} style={styles.contentText}>
@@ -112,10 +116,9 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 </Text>
             );
         });
-    
+
         return <View style={styles.fullWidthPartContainer}>{content}</View>;
     };
-    
 
     return (
         <View style={styles.container}>
@@ -125,7 +128,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 renderItem={({ item, index }) => (
                     <View key={index} style={styles.partContainer}>
                         {renderPart(item, index)}
-                        {index === currentPartIndex && currentPartIndex < parts.length - 1 && !item.includes('quiz_') && (
+                        {index === currentPartIndex && currentPartIndex < parts.length - 1 && (
                             <ContinueButton
                                 label="Continue"
                                 onPress={handleContinue}
