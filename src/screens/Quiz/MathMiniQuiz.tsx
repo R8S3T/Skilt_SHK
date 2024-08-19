@@ -37,8 +37,8 @@ const MathMiniQuizComponent: React.FC<MathMiniQuizProps> = ({
     };
 
     const handleContinue = () => {
-        setShowContinueButton(false); // Hide the continue button after it's pressed
-        onContinue(); // Call the passed onContinue function
+        setShowContinueButton(false);
+        onContinue();
     };
 
     const options = [quiz.Option1, quiz.Option2, quiz.Option3].filter(Boolean);
