@@ -34,45 +34,63 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
     const handleContinue = () => {
         const nextPartIndex = currentPartIndex + 1;
         setCurrentPartIndex(nextPartIndex);
-
-        // Scroll to the newly revealed part
-        if (flatListRef.current) {
-            setTimeout(() => {
-                flatListRef.current?.scrollToIndex({
+    
+        // Delay the scroll action until the FlatList has updated
+        setTimeout(() => {
+            if (flatListRef.current) {
+                flatListRef.current.scrollToIndex({ 
+                    index: nextPartIndex, 
                     animated: true,
-                    index: nextPartIndex, // Scroll to the newly revealed part
+                    viewPosition: 0.5 // Adjust this value as needed
                 });
-            }, 100); 
-        }
-
-        // Check if the next part is the last part
-        if (nextPartIndex >= parts.length - 1) {
-            setIsLastPart(true); // Mark as the last part if we've reached the end
-        }
+            }
+        }, 100); // 100ms delay should give enough time for the FlatList to update
     };
+    
+
+    useEffect(() => {
+        if (flatListRef.current) {
+            flatListRef.current.scrollToOffset({ offset: 0, animated: true }); // Scroll to top when Slide changes
+        }
+    }, [contentData]);
 
     const handleQuizAnswered = () => {
         setQuizAnswered(true);
     };
 
     const renderPart = (part: string, index: number) => {
-        const subParts = part.split(/\[([^\]]+)\]/);
-        const partBackgroundColor = index % 2 === 0 ? 'white' : '#f0f0f0';  // Alternate between white and light grey for each part
-
-        const content = subParts.map((subPart, subIndex) => {
-            const trimmedSubPart = subPart.trim();
-
+        const lines = part.split('\n');  // Split content into lines
+        const content = lines.map((line, subIndex) => {
             // Handle images
-            const imageSource = imageMap[trimmedSubPart as keyof typeof imageMap];
-            if (imageSource) {
-                return <Image key={`${index}-${subIndex}`} source={imageSource} style={styles.image} />;
+            if (line.startsWith('[equations_')) {
+                const imageName = line.replace('[', '').replace(']', '').trim(); // Extract the image key
+                console.log('Image Name:', imageName);  // Log the image name
+                console.log('Image Map:', imageMap);  // Log the image map
+    
+                const imageSource = imageMap[imageName as keyof typeof imageMap];
+                if (imageSource) {
+                    return <Image key={`${index}-${subIndex}`} source={imageSource} style={styles.image} />;
+                } else {
+                    console.warn(`Image not found for key: ${imageName}`);
+                    return null;  // If the image isn't found, return null
+                }
             }
-
+    
+            // Handle bold text
+            if (line.includes('[bold]') && line.includes('[/bold]')) {
+                const boldText = line.replace('[bold]', '').replace('[/bold]', '');
+                return (
+                    <Text key={`${index}-${subIndex}`} style={[styles.contentText, { fontWeight: 'bold' }]}>
+                        {boldText}
+                    </Text>
+                );
+            }
+    
             // Handle quizzes
-            if (trimmedSubPart.startsWith('quiz_')) {
-                const quizIndex = parseInt(trimmedSubPart.split('_')[1], 10) - 1;
+            if (line.startsWith('[quiz_')) {
+                const quizIndex = parseInt(line.split('_')[1], 10) - 1;
                 const quiz = mathMiniQuizzes[quizIndex];
-
+    
                 if (quiz) {
                     return (
                         <MathMiniQuizComponent
@@ -86,17 +104,18 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                     );
                 }
             }
-
-            return <Text key={`${index}-${subIndex}`} style={styles.contentText}>{trimmedSubPart}</Text>;
+    
+            // Default: Render as normal text
+            return (
+                <Text key={`${index}-${subIndex}`} style={styles.contentText}>
+                    {line}
+                </Text>
+            );
         });
-
-        // Apply dynamic background color based on the index and ensure it covers the entire width and height
-        return (
-            <View style={[styles.fullWidthPartContainer, { backgroundColor: partBackgroundColor }]}>
-                {content}
-            </View>
-        );
+    
+        return <View style={styles.fullWidthPartContainer}>{content}</View>;
     };
+    
 
     return (
         <View style={styles.container}>

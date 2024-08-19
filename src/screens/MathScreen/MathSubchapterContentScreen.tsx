@@ -68,7 +68,7 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
     const nextContent = () => {
         if (currentIndex < contentData.length - 1) {
             setCurrentIndex(currentIndex + 1);
-    
+
             // Scroll to the top of the new slide
             if (scrollViewRef.current) {
                 setTimeout(() => {
@@ -86,12 +86,6 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
                 },
             });
         }
-    };
-
-
-    const handleQuizComplete = (isCorrect: boolean) => {
-        // Handle quiz completion, perhaps by updating state
-        console.log('Quiz completed:', isCorrect);
     };
 
     return (
