@@ -21,9 +21,9 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
     onQuizLayout,
     onNextSlide,
 }) => {
-    const { ContentData, ContentId } = contentData; // Extract ContentId from contentData
+    const { ContentData, ContentId } = contentData;
     const [currentPartIndex, setCurrentPartIndex] = useState<number>(0);
-    const [quizAnswered, setQuizAnswered] = useState<boolean>(false); // Define setQuizAnswered
+    const [quizAnswered, setQuizAnswered] = useState<boolean>(false);
     const flatListRef = useRef<FlatList>(null);
 
     const handleQuizAnswered = () => {
@@ -40,10 +40,9 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 flatListRef.current.scrollToIndex({
                     index: nextPartIndex,
                     animated: true,
-                    viewPosition: 0.5, // Adjust this value as needed
                 });
             }
-        }, 100); // 100ms delay should give enough time for the FlatList to update
+        }, 100);
     };
 
     useEffect(() => {
@@ -52,10 +51,10 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
         if (flatListRef.current) {
             flatListRef.current.scrollToOffset({ offset: 0, animated: true }); // Ensure scroll is reset
         }
-    }, [contentData]); // This will trigger whenever a new slide's content is loaded
+    }, [contentData]);
 
     // Split the content by the [continue] marker
-    const parts = ContentData.split(/\[continue\]/); // Define parts
+    const parts = ContentData.split(/\[continue\]/);
 
     return (
         <View style={styles.container}>
@@ -72,7 +71,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                             onQuizLayout={onQuizLayout}
                             handleQuizAnswered={handleQuizAnswered}
                             handleContinue={handleContinue}
-                            contentId={ContentId}  // Pass ContentId to RenderPart
+                            contentId={ContentId}
                         />
                         {index === currentPartIndex && currentPartIndex < parts.length - 1 && (
                             <ContinueButton
@@ -87,14 +86,37 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 ListFooterComponent={
                     <View style={styles.footer}>
                         {currentPartIndex === parts.length - 1 && (
-                            <NextSlideButton onPress={onNextSlide} isActive={true} label="Next" />
+                            <NextSlideButton
+                                onPress={onNextSlide}
+                                isActive={true}
+                                label="Next"
+                            />
                         )}
                     </View>
                 }
+                onScrollToIndexFailed={(info) => {
+                    console.warn(`Scroll to index failed. Trying to scroll to index: ${info.index}, highest measured frame index: ${info.highestMeasuredFrameIndex}`);
+
+                    // Scroll to the highest measured index first
+                    flatListRef.current?.scrollToIndex({
+                        index: info.highestMeasuredFrameIndex,
+                        animated: true,
+                    });
+
+                    // After some delay, try scrolling to the desired index again
+                    const wait = new Promise(resolve => setTimeout(resolve, 500));
+                    wait.then(() => {
+                        flatListRef.current?.scrollToIndex({
+                            index: info.index,
+                            animated: true,
+                        });
+                    });
+                }}
             />
         </View>
     );
 };
+
 
 const styles = StyleSheet.create({
     container: {
