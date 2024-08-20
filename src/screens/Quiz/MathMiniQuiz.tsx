@@ -82,10 +82,10 @@ const MathMiniQuizComponent: React.FC<MathMiniQuizProps> = ({
 
 const styles = StyleSheet.create({
     quizContainer: {
-        padding: 20,
+        padding: 15,
         backgroundColor: '#f0f0f0',
         borderRadius: 10,
-        marginBottom: 20,
+        marginBottom: 10,
     },
     questionText: {
         fontSize: 18,
