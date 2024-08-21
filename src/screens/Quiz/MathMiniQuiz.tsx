@@ -19,17 +19,23 @@ const MathMiniQuizComponent: React.FC<MathMiniQuizProps> = ({
     onQuizAnswered,
     onContinue,
 }) => {
-    const [selectedOption, setSelectedOption] = useState<string | null>(null);
+    const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
     const [isAnswered, setIsAnswered] = useState<boolean>(false);
     const [showContinueButton, setShowContinueButton] = useState<boolean>(true);
 
     const handleAnswerSelect = (option: string) => {
-        setSelectedOption(option);
+        if (selectedOptions.includes(option)) {
+            setSelectedOptions(selectedOptions.filter(opt => opt !== option));
+        } else {
+            setSelectedOptions([...selectedOptions, option]);
+        }
     };
 
     const handleSubmit = () => {
-        if (selectedOption) {
-            const isCorrect = selectedOption === quiz.Answer;
+        if (selectedOptions.length > 0) {
+            const correctAnswers = quiz.Answer;
+            const isCorrect = selectedOptions.every(opt => correctAnswers.includes(opt)) &&
+                selectedOptions.length === correctAnswers.length;
             setIsAnswered(true);
             onQuizComplete(isCorrect);
             onQuizAnswered(); // Notify parent that the quiz has been answered
@@ -51,9 +57,9 @@ const MathMiniQuizComponent: React.FC<MathMiniQuizProps> = ({
                     key={index}
                     style={[
                         styles.option,
-                        selectedOption === option && styles.selectedOption,
-                        isAnswered && option === quiz.Answer && styles.correctOption,
-                        isAnswered && selectedOption === option && option !== quiz.Answer && styles.incorrectOption,
+                        selectedOptions.includes(option) && styles.selectedOption,
+                        isAnswered && quiz.Answer.includes(option) && styles.correctOption,
+                        isAnswered && selectedOptions.includes(option) && !quiz.Answer.includes(option) && styles.incorrectOption,
                     ]}
                     onPress={() => handleAnswerSelect(option)}
                     disabled={isAnswered}
@@ -65,7 +71,7 @@ const MathMiniQuizComponent: React.FC<MathMiniQuizProps> = ({
                 <MiniQuizButton
                     label="Submit"
                     onPress={handleSubmit}
-                    disabled={!selectedOption}
+                    disabled={selectedOptions.length === 0}
                 />
                 {showContinueButton && (
                     <ContinueButton
@@ -131,6 +137,7 @@ const styles = StyleSheet.create({
 });
 
 export default MathMiniQuizComponent;
+
 
 
 

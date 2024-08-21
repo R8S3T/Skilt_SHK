@@ -249,7 +249,17 @@ export const fetchMathMiniQuizByContentId = (contentId: number): Promise<any[]> 
                 console.error('Failed to fetch MathMiniQuiz:', err);
                 reject(err);
             } else {
-                resolve(rows);
+                // Ensure TypeScript knows that rows is an array of objects
+                const processedRows = rows.map(row => {
+                    // Type the row explicitly as an object with specific fields
+                    const typedRow = row as { [key: string]: any };
+                    return {
+                        ...typedRow,  // Spread operator works now because we ensured row is an object
+                        Answer: typedRow.Answer.split(',').map((answer: string) => answer.trim()) // Convert to array
+                    };
+                });
+                
+                resolve(processedRows);
             }
         });
     });

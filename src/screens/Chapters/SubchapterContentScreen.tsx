@@ -43,25 +43,55 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         loadData();
     }, [navigation, subchapterId, subchapterTitle]);
 
-    useEffect(() => {
-        console.log('Current Index:', currentIndex);
-        console.log('Current Content Data:', contentData[currentIndex]);
-
-        if (currentIndex < contentData.length) {
+    const nextContent = async () => {
+        // Check if we're showing the quiz
+        if (showQuiz) {
+            // If the quiz is shown and completed, move to the next content item
+            setShowQuiz(false);
+            if (currentIndex < contentData.length - 1) {
+                setCurrentIndex(currentIndex + 1);
+            } else {
+                // If no more content, mark as finished
+                markSubchapterAsFinished(subchapterId);
+                unlockSubchapter(subchapterId + 1);
+                navigation.navigate('CongratsScreen', {
+                    targetScreen: 'SubchaptersScreen',
+                    targetParams: {
+                        chapterId: chapterId,
+                        chapterTitle: chapterTitle,
+                    },
+                });
+            }
+        } else {
+            // If the content is shown, check if there's a quiz associated with it
             const currentContentId = contentData[currentIndex].ContentId;
 
-            const checkForQuiz = async () => {
-                try {
-                    const quizData = await fetchQuizByContentId(currentContentId);
-                    setShowQuiz(quizData.length > 0);
-                } catch (error) {
-                    console.error('Failed to check for quiz:', error);
+            try {
+                const quizData = await fetchQuizByContentId(currentContentId);
+                if (quizData.length > 0) {
+                    // Show quiz if there's one associated with the content
+                    setShowQuiz(true);
+                } else {
+                    // Otherwise, move directly to the next content
+                    if (currentIndex < contentData.length - 1) {
+                        setCurrentIndex(currentIndex + 1);
+                    } else {
+                        markSubchapterAsFinished(subchapterId);
+                        unlockSubchapter(subchapterId + 1);
+                        navigation.navigate('CongratsScreen', {
+                            targetScreen: 'SubchaptersScreen',
+                            targetParams: {
+                                chapterId: chapterId,
+                                chapterTitle: chapterTitle,
+                            },
+                        });
+                    }
                 }
-            };
-
-            checkForQuiz();
+            } catch (error) {
+                console.error('Failed to check for quiz:', error);
+            }
         }
-    }, [currentIndex, contentData]);
+    };
 
     if (loading) {
         return (
@@ -71,44 +101,17 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         );
     }
 
-    const nextContent = () => {
-        if (showQuiz) {
-            setShowQuiz(false);
-        } else if (currentIndex < contentData.length - 1) {
-            setCurrentIndex(currentIndex + 1);
-        } else {
-            markSubchapterAsFinished(subchapterId);
-            unlockSubchapter(subchapterId + 1);
-            navigation.navigate('CongratsScreen', {
-                targetScreen: 'SubchaptersScreen',
-                targetParams: {
-                    chapterId: chapterId,
-                    chapterTitle: chapterTitle,
-                },
-            });
-        }
-    };
-
     return (
         <View style={styles.container}>
             {showQuiz ? (
                 <QuizSlide contentId={contentData[currentIndex].ContentId} onContinue={nextContent} />
             ) : (
-                <ContentSlide contentData={contentData[currentIndex]} />  // Remove contentType prop
-            )}
-            {!showQuiz && (
-                <View style={styles.buttonContainer}>
-                    <NextSlideButton
-                        onPress={nextContent}
-                        isActive={contentData.length > 0}
-                        label="Next"
-                        style={styles.nextButton}
-                    />
-                </View>
+                <ContentSlide contentData={contentData[currentIndex]} onNext={nextContent} />
             )}
         </View>
     );
 };
+
 
 const styles = StyleSheet.create({
     container: {

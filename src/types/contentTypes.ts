@@ -75,7 +75,7 @@ export interface MathMiniQuiz {
     QuizId: number;
     ContentId: number;
     Question: string;
-    Answer: string;
+    Answer: string[];
     Option1: string;
     Option2: string;
     Option3: string;

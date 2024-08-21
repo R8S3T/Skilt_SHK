@@ -1,13 +1,15 @@
 import React from 'react';
 import { View, StyleSheet, Image, Text } from 'react-native';
+import NextSlideButton from './NextSlideButton';
 import { imageMap } from 'src/utils/imageMappings';
 import { GenericContent } from 'src/types/contentTypes';
 
 interface ContentSlideProps {
     contentData: GenericContent;
+    onNext: () => void; // Add this prop to handle the "Next" action
 }
 
-const ContentSlide: React.FC<ContentSlideProps> = ({ contentData }) => {
+const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
     const { ContentData } = contentData;
 
     // Split the content by any image placeholders like [equations_3]
@@ -21,8 +23,8 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData }) => {
 
                 if (imageSource) {
                     // Apply larger style if the image name contains "welcome"
-                    const imageStyle = trimmedPart.toLowerCase().includes('welcome') 
-                        ? styles.welcomeImage 
+                    const imageStyle = trimmedPart.toLowerCase().includes('welcome')
+                        ? styles.welcomeImage
                         : styles.image;
 
                     return <Image key={index} source={imageSource} style={imageStyle} />;
@@ -30,6 +32,14 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData }) => {
                     return <Text key={index} style={styles.contentText}>{part}</Text>;
                 }
             })}
+            <View style={styles.buttonContainer}>
+                <NextSlideButton
+                    onPress={onNext}
+                    isActive={true}
+                    label="Next"
+                    style={styles.nextButton}
+                />
+            </View>
         </View>
     );
 };
@@ -56,9 +66,18 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginVertical: 10,
     },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 20,
+    },
+    nextButton: {
+        marginLeft: 10,
+    },
 });
 
 export default ContentSlide;
+
 
 
 

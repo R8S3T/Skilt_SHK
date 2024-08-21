@@ -181,7 +181,7 @@ export async function fetchMathMiniQuizByContentId(contentId: number): Promise<M
         if (!response.ok) {
             throw new Error('Network response was not ok.');
         }
-        // Ensure the fetched data is of type MathMiniQuiz[]
+        // No need to process Answer as array, it is already processed server-side
         const quizzes: MathMiniQuiz[] = await response.json();
         console.log(`Fetched MathMiniQuiz Data for contentId ${contentId}:`, quizzes);
         return quizzes;
@@ -190,6 +190,8 @@ export async function fetchMathMiniQuizByContentId(contentId: number): Promise<M
         return [];
     }
 }
+
+
 
 
 
