@@ -68,7 +68,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
         const bgColorBlockRegex = /\[bgcolor-block=(#?[a-zA-Z0-9]+)\]([\s\S]*?)\[\/bgcolor-block\]/g;
         let lastIndex = 0;
         const content = [];
-    
+
         let match;
         while ((match = bgColorBlockRegex.exec(part)) !== null) {
             // Add any text before the [bgcolor-block] as normal content
@@ -76,36 +76,36 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 const normalText = part.slice(lastIndex, match.index);
                 content.push(...processNormalText(normalText, index, lastIndex));
             }
-    
+
             // Extract the background color and text inside the [bgcolor-block] block
             const bgColor = match[1];
             const bgText = match[2];
-    
+
             // Add the [bgcolor-block]
             content.push(
                 <View key={`${index}-bgcolor-block-${lastIndex}`} style={[styles.bgColorBlock, { backgroundColor: bgColor }]}>
                     <Text style={styles.contentText}>{bgText}</Text>
                 </View>
             );
-    
+
             // Update lastIndex to continue from the end of this [bgcolor-block]
             lastIndex = match.index + match[0].length;
         }
-    
+
         // Add any remaining text after the last [bgcolor-block]
         if (lastIndex < part.length) {
             const remainingText = part.slice(lastIndex);
             content.push(...processNormalText(remainingText, index, lastIndex));
         }
-    
+
         return <View style={styles.fullWidthPartContainer}>{content}</View>;
     };
-    
+
     const processNormalText = (text: string, index: number, lastIndex: number) => {
         const lines = text.split('\n');
         return lines.map((line, subIndex) => {
             const content = [];
-    
+
             // Handle single-line background color
             const bgColorLineRegex = /\[bgcolor-line=(#?[a-zA-Z0-9]+)\](.*?)\[\/bgcolor-line\]/;
             const bgColorLineMatch = line.match(bgColorLineRegex);
@@ -119,7 +119,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 );
                 return content;
             }
-    
+
             // Handle images
             if (line.startsWith('[equations_')) {
                 const imageName = line.replace('[', '').replace(']', '').trim();
@@ -132,7 +132,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                     console.warn(`Image not found for key: ${imageName}`);
                 }
             }
-    
+
             // Handle bold text
             else if (line.includes('[bold]') && line.includes('[/bold]')) {
                 const boldText = line.replace('[bold]', '').replace('[/bold]', '');
@@ -142,7 +142,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                     </Text>
                 );
             }
-    
+
             // Handle underline text
             else if (line.includes('[underline]') && line.includes('[/underline]')) {
                 const underlineText = line.replace('[underline]', '').replace('[/underline]', '');
@@ -152,7 +152,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                     </View>
                 );
             }
-    
+
             // Handle quizzes
             else if (line.startsWith('[quiz_')) {
                 const quizIndex = parseInt(line.split('_')[1], 10) - 1;
@@ -172,7 +172,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                     console.warn(`Quiz with index ${quizIndex + 1} not found in mathMiniQuizzes`);
                 }
             }
-    
+
             // Default: Render as normal text
             else {
                 content.push(
@@ -181,11 +181,11 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                     </Text>
                 );
             }
-    
+
             return content;
         });
     };
-    
+
     return (
         <View style={styles.container}>
             <FlatList
