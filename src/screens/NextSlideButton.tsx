@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
         marginVertical: 20,
     },
     active: {
-        backgroundColor: '#ff8f00',
+        backgroundColor: '#343A40',
     },
     inactive: {
         backgroundColor: 'gray',

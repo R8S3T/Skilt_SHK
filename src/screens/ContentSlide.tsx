@@ -16,10 +16,12 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
     let isBold = false;
     let isUnderline = false;
     let isBgBlock = false;
+    let isFrame = false;  
+    let isLine = false;   // New state for line marker
     let bgColor = '';
 
-    // Adjust split pattern to ensure correct detection of markers
-    const parts = ContentData.split(/(\[\/?bold\]|\[bgcolor-line=#[0-9a-fA-F]{6}\]|\[\/bgcolor-line\]|\[bgcolor-block=#[0-9a-fA-F]{6}\]|\[\/bgcolor-block\]|\[\/?underline\]|\[LF_[^\]]+\])/);
+    // Adjust split pattern to ensure correct detection of markers, including the new [line] marker
+    const parts = ContentData.split(/(\[\/?bold\]|\[bgcolor-line=#[0-9a-fA-F]{6}\]|\[\/bgcolor-line\]|\[bgcolor-block=#[0-9a-fA-F]{6}\]|\[\/bgcolor-block\]|\[\/?underline\]|\[\/?frame\]|\[\/?line\]|\[LF_[^\]]+\])/);
 
     return (
         <View style={styles.container}>
@@ -83,12 +85,42 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
                         return null;
                     }
 
+                    // Handle [frame] marker start
+                    if (part === '[frame]') {
+                        isFrame = true;
+                        return null;
+                    }
+
+                    // Handle [/frame] marker end
+                    if (part === '[/frame]') {
+                        isFrame = false;
+                        return null;
+                    }
+
+                    // Handle [line] marker start
+                    if (part === '[line]') {
+                        isLine = true;
+                        return null;
+                    }
+
+                    // Handle [/line] marker end
+                    if (part === '[/line]') {
+                        isLine = false;
+                        return null;
+                    }
+
                     // Handle image placeholders for LF_ markers
                     if (part.startsWith('[LF_')) {
                         const imageName = part.replace('[', '').replace(']', '').trim();
                         const imageSource = imageMap[imageName as keyof typeof imageMap];
                         if (imageSource) {
-                            return <Image key={index} source={imageSource} style={styles.image} />;
+                            return (
+                                <View key={index} style={[styles.imageContainer, isFrame && styles.frameWithBulb]}>
+                                    {isLine && <View style={styles.line} />}
+                                    <Image source={imageSource} style={styles.image} />
+                                    {isLine && <View style={styles.line} />}
+                                </View>
+                            );
                         } else {
                             console.warn(`Image not found for key: ${imageName}`);
                         }
@@ -107,13 +139,23 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
                     const textStyle = [
                         styles.contentText,
                         isBold && styles.boldText,
-                        isBgBlock && { backgroundColor: bgColor, padding: 10, borderRadius: 5 }
+                        isBgBlock && { backgroundColor: bgColor, padding: 10, borderRadius: 5 },
                     ].filter(Boolean); // Filter out any false values
 
                     // Handle underline text
                     if (isUnderline) {
                         return (
                             <View key={index} style={styles.underlineContainer}>
+                                <Text style={textStyle}>{part}</Text>
+                            </View>
+                        );
+                    }
+
+                    // If inside a frame, include the info sign image left and center with the text
+                    if (isFrame) {
+                        return (
+                            <View key={index} style={styles.frameWithBulb}>
+                                <Image source={require('assets/Images/info_sign.png')} style={styles.infoSign} />
                                 <Text style={textStyle}>{part}</Text>
                             </View>
                         );
@@ -130,7 +172,7 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
                 <NextSlideButton
                     onPress={onNext}
                     isActive={true}
-                    label="Next"
+                    label="Weiter"
                     style={styles.nextButton}
                 />
             </View>
@@ -145,9 +187,12 @@ const styles = StyleSheet.create({
     scrollContent: {
         padding: 20,
     },
+    imageContainer: {
+        alignItems: 'center',
+    },
     image: {
         width: '100%',
-        height: 160,
+        height: 350,
         resizeMode: 'contain',
         marginVertical: 10,
     },
@@ -172,6 +217,27 @@ const styles = StyleSheet.create({
         width: '100%',
         marginVertical: 10,
     },
+    frameWithBulb: {
+        position: 'relative',
+        padding: 20,
+        marginVertical: 5,
+        marginHorizontal: 20,
+        alignSelf: 'center',
+        justifyContent: 'center',
+    },
+    infoSign: {
+        width: 38,
+        height: 38,
+        position: 'absolute',
+        top: 30,
+        left: -40,
+    },
+    line: {
+        height: 1,
+        backgroundColor: 'black',
+        marginVertical: 10,
+        width: '100%',
+    },
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
@@ -183,4 +249,3 @@ const styles = StyleSheet.create({
 });
 
 export default ContentSlide;
-

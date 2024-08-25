@@ -1,5 +1,6 @@
 
 const img_LF1DINA = require('../../assets/DbImages/LF_1_DIN_A.png');
+const img_LF1screwdrawing = require('../../assets/DbImages/LF_1_screw_drawing.png');
 const img_equations1 = require('../../assets/DbImages/MathImages/equations_1.png');
 const img_equations2 = require('../../assets/DbImages/MathImages/equations_2.png');
 const img_equations3 = require('../../assets/DbImages/MathImages/equations_3.png');
@@ -16,6 +17,7 @@ const img_equationswelcome = require('../../assets/DbImages/MathImages/equations
 
 export const imageMap = {
     "LF_1_DIN_A": img_LF1DINA,
+    "LF_1_screw_drawing": img_LF1screwdrawing,
     "equations_1": img_equations1,
     "equations_2": img_equations2,
     "equations_3": img_equations3,
