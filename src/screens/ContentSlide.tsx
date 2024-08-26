@@ -233,8 +233,8 @@ const styles = StyleSheet.create({
         left: -40,
     },
     line: {
-        height: 1,
-        backgroundColor: 'black',
+        height: 1.5,
+        backgroundColor: 'orange',
         marginVertical: 10,
         width: '100%',
     },

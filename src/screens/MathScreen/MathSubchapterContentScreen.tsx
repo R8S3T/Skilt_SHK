@@ -5,7 +5,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MathStackParamList } from 'src/types/navigationTypes';
 import { GenericContent, MathMiniQuiz } from 'src/types/contentTypes';
-import { useSubchapter } from '../Chapters/SubchapterContext';
+import { useMathSubchapter } from './MathSubchapterContext';
 import { fetchMathContentBySubchapterId, fetchMathMiniQuizByContentId } from 'src/database/databaseServices';
 
 type MathSubchapterContentScreenRouteProp = RouteProp<MathStackParamList, 'MathSubchapterContentScreen'>;
@@ -22,7 +22,7 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
     const [loading, setLoading] = useState<boolean>(true);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const scrollViewRef = useRef<ScrollView>(null);
-    const { markSubchapterAsFinished, unlockSubchapter } = useSubchapter();
+    const { markSubchapterAsFinished, unlockSubchapter } = useMathSubchapter();
     const [mathMiniQuizzes, setMathMiniQuizzes] = useState<MathMiniQuiz[]>([]);
     const [completedQuizzes, setCompletedQuizzes] = useState<boolean[]>([]);
 

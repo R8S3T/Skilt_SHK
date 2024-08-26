@@ -6,7 +6,7 @@ import { MathStackParamList } from 'src/types/navigationTypes';
 import { fetchMathSubchaptersByChapterId } from 'src/database/databaseServices';
 import { MathSubchapter } from 'src/types/contentTypes';
 import GenericRows from '../GenericRows';
-import { useSubchapter } from '../Chapters/SubchapterContext';
+import { useMathSubchapter } from './MathSubchapterContext';
 import SubchapterInfoModal from '../Chapters/SubchapterInfoModal';
 
 type MathSubchapterScreenRouteProp = RouteProp<MathStackParamList, 'MathSubchapterScreen'>;
@@ -22,7 +22,7 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
     const { chapterId, chapterTitle } = route.params;
     const [subchapters, setSubchapters] = useState<MathSubchapter[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const context = useSubchapter();
+    const context = useMathSubchapter();
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [selectedSubchapter, setSelectedSubchapter] = useState<MathSubchapter | null>(null);
 
@@ -42,6 +42,7 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
         const loadSubchapters = async () => {
             try {
                 const data = await fetchMathSubchaptersByChapterId(chapterId);
+                console.log('Loaded subchapters:', data);
                 setSubchapters(data);
                 setLoading(false);
             } catch (error) {
@@ -51,6 +52,20 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
         };
         loadSubchapters();
     }, [navigation, chapterId, chapterTitle]);
+
+    useEffect(() => {
+        if (subchapters.length > 0) {
+            const firstSubchapter = subchapters.find(sub => sub.SortOrder === 1);
+            if (firstSubchapter && !unlockedSubchapters.includes(firstSubchapter.SubchapterId)) {
+                console.log('Unlocking first subchapter of the chapter:', firstSubchapter.SubchapterId);
+                setCurrentSubchapter(firstSubchapter.SubchapterId, firstSubchapter.SubchapterName);
+            }
+        }
+    }, [subchapters, unlockedSubchapters]);
+
+    useEffect(() => {
+        console.log('Unlocked subchapters after load:', unlockedSubchapters);
+    }, [unlockedSubchapters]);
 
     const handleNodePress = (subchapterId: number, subchapterTitle: string) => {
         const isFinished = finishedSubchapters.includes(subchapterId);
