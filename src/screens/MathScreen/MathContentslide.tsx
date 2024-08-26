@@ -125,8 +125,14 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 const imageName = line.replace('[', '').replace(']', '').trim();
                 const imageSource = imageMap[imageName as keyof typeof imageMap];
                 if (imageSource) {
+                    // Apply different style for welcome images
+                    const isWelcomeImage = imageName.includes("welcome");
                     content.push(
-                        <Image key={`${index}-${lastIndex}-${subIndex}`} source={imageSource} style={styles.image} />
+                        <Image
+                            key={`${index}-${lastIndex}-${subIndex}`}
+                            source={imageSource}
+                            style={isWelcomeImage ? styles.welcomeImage : styles.image}
+                        />
                     );
                 } else {
                     console.warn(`Image not found for key: ${imageName}`);
@@ -240,7 +246,13 @@ const styles = StyleSheet.create({
     },
     image: {
         width: '100%',
-        height: 160,
+        height: 200,
+        resizeMode: 'contain',
+        marginVertical: 0,
+    },
+    welcomeImage: {
+        width: '100%',
+        height: 300, // Increase height for welcome images
         resizeMode: 'contain',
         marginVertical: 0,
     },
@@ -266,6 +278,8 @@ const styles = StyleSheet.create({
         padding: 25,
         borderRadius: 5,
         marginVertical: 0,
+        borderWidth: 1.5,
+        borderColor: 'orange'
     },
 });
 
