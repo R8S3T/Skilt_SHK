@@ -105,7 +105,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
         const lines = text.split('\n');
         return lines.map((line, subIndex) => {
             const content = [];
-
+    
             // Handle single-line background color
             const bgColorLineRegex = /\[bgcolor-line=(#?[a-zA-Z0-9]+)\](.*?)\[\/bgcolor-line\]/;
             const bgColorLineMatch = line.match(bgColorLineRegex);
@@ -119,7 +119,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 );
                 return content;
             }
-
+    
             // Handle images
             if (line.startsWith('[equations_')) {
                 const imageName = line.replace('[', '').replace(']', '').trim();
@@ -137,30 +137,11 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 } else {
                     console.warn(`Image not found for key: ${imageName}`);
                 }
+                return content;
             }
-
-            // Handle bold text
-            else if (line.includes('[bold]') && line.includes('[/bold]')) {
-                const boldText = line.replace('[bold]', '').replace('[/bold]', '');
-                content.push(
-                    <Text key={`${index}-${lastIndex}-${subIndex}`} style={[styles.contentText, { fontWeight: 'bold' }]}>
-                        {boldText}
-                    </Text>
-                );
-            }
-
-            // Handle underline text
-            else if (line.includes('[underline]') && line.includes('[/underline]')) {
-                const underlineText = line.replace('[underline]', '').replace('[/underline]', '');
-                content.push(
-                    <View key={`${index}-${lastIndex}-${subIndex}`} style={styles.underlineContainer}>
-                        <Text style={styles.contentText}>{underlineText}</Text>
-                    </View>
-                );
-            }
-
+    
             // Handle quizzes
-            else if (line.startsWith('[quiz_')) {
+            if (line.startsWith('[quiz_')) {
                 const quizIndex = parseInt(line.split('_')[1], 10) - 1;
                 const quiz = mathMiniQuizzes[quizIndex];
                 if (quiz) {
@@ -177,20 +158,49 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 } else {
                     console.warn(`Quiz with index ${quizIndex + 1} not found in mathMiniQuizzes`);
                 }
+                return content;
             }
-
-            // Default: Render as normal text
-            else {
+    
+            // Handle underline text
+            if (line.includes('[underline]') && line.includes('[/underline]')) {
+                const underlineText = line.replace('[underline]', '').replace('[/underline]', '');
                 content.push(
-                    <Text key={`${index}-${lastIndex}-${subIndex}`} style={styles.contentText}>
-                        {line}
-                    </Text>
+                    <View key={`${index}-${lastIndex}-${subIndex}`} style={styles.underlineContainer}>
+                        <Text style={styles.contentText}>{underlineText}</Text>
+                    </View>
                 );
+                return content;
             }
-
-            return content;
+    
+            // Handle inline bold text and normal text together
+            const parts = line.split(/(\[bold\].*?\[\/bold\])/g); // Split by bold markers, keeping the markers in the result
+    
+            const lineContent = parts.map((part, partIndex) => {
+                if (part.startsWith('[bold]') && part.endsWith('[/bold]')) {
+                    const boldText = part.replace('[bold]', '').replace('[/bold]', '');
+                    return (
+                        <Text key={`${index}-${subIndex}-${partIndex}-bold`} style={[styles.contentText, { fontWeight: 'bold' }]}>
+                            {boldText}
+                        </Text>
+                    );
+                } else {
+                    return (
+                        <Text key={`${index}-${subIndex}-${partIndex}-normal`} style={styles.contentText}>
+                            {part}
+                        </Text>
+                    );
+                }
+            });
+    
+            // Render the whole line in a single <Text> component to keep everything inline
+            return (
+                <Text key={`${index}-${lastIndex}-${subIndex}-combined`} style={styles.contentText}>
+                    {lineContent}
+                </Text>
+            );
         });
     };
+    
 
     return (
         <View style={styles.container}>
@@ -261,6 +271,7 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         color: '#000',
         padding: 5,
+        letterSpacing: 1.2,
     },
     footer: {
         paddingVertical: 20,
