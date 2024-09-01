@@ -120,25 +120,26 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 return content;
             }
     
-            // Handle images
-            if (line.startsWith('[equations_')) {
-                const imageName = line.replace('[', '').replace(']', '').trim();
-                const imageSource = imageMap[imageName as keyof typeof imageMap];
-                if (imageSource) {
-                    // Apply different style for welcome images
-                    const isWelcomeImage = imageName.includes("welcome");
-                    content.push(
-                        <Image
-                            key={`${index}-${lastIndex}-${subIndex}`}
-                            source={imageSource}
-                            style={isWelcomeImage ? styles.welcomeImage : styles.image}
-                        />
-                    );
-                } else {
-                    console.warn(`Image not found for key: ${imageName}`);
-                }
-                return content;
+        // Handle images
+        if (line.startsWith('[equations_') || line.startsWith('[bigImage_')) {
+            const imageName = line.replace('[', '').replace(']', '').trim();
+            const imageSource = imageMap[imageName as keyof typeof imageMap];
+            if (imageSource) {
+                // Determine if the image is a "welcome" image or a "big" image
+                const isWelcomeImage = imageName.includes("welcome");
+                const isBigImage = imageName.includes("big");
+                content.push(
+                    <Image
+                        key={`${index}-${lastIndex}-${subIndex}`}
+                        source={imageSource}
+                        style={isWelcomeImage ? styles.welcomeImage : isBigImage ? styles.bigImage : styles.image}
+                    />
+                );
+            } else {
+                console.warn(`Image not found for key: ${imageName}`);
             }
+            return content;
+        }
     
             // Handle quizzes
             if (line.startsWith('[quiz_')) {
@@ -262,7 +263,13 @@ const styles = StyleSheet.create({
     },
     welcomeImage: {
         width: '100%',
-        height: 300, // Increase height for welcome images
+        height: 300,
+        resizeMode: 'contain',
+        marginVertical: 0,
+    },
+    bigImage: {
+        width: '100%',
+        height: 500,
         resizeMode: 'contain',
         marginVertical: 0,
     },
