@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f0f0f0',
         borderRadius: 10,
         marginBottom: 10,
+        marginTop: 15
     },
     questionText: {
         fontSize: 18,

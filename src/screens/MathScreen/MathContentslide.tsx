@@ -52,7 +52,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                     flatListRef.current.scrollToIndex({
                         index: nextPartIndex,
                         animated: true,
-                        viewPosition: 0.3, // Adjust this value as needed
+                        viewPosition: 0.10, // Adjust this value as needed
                     });
                 }
             }, 100);
@@ -257,9 +257,9 @@ const styles = StyleSheet.create({
     },
     image: {
         width: '100%',
-        height: 200,
+        height: 100,
         resizeMode: 'contain',
-        marginVertical: 0,
+        marginVertical: 8,
     },
     welcomeImage: {
         width: '100%',
@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
     },
     contentText: {
         fontSize: 20,
-        marginVertical: 10,
+        marginVertical: 1.5,
         color: '#000',
         padding: 5,
         letterSpacing: 1.2,
