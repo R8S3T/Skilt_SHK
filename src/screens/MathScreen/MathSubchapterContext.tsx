@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { MathSubchapterContextType } from 'src/types/contextTypes';
-import { MathSubchapter } from 'src/types/contentTypes';
+import { MathSubchapterContextType } from 'src/types/contextTypes'; // Ensure the path is correct
+import { MathSubchapter } from 'src/types/contentTypes'; // Ensure the path is correct
 
 const MathSubchapterContext = createContext<MathSubchapterContextType | undefined>(undefined);
 
@@ -17,29 +17,35 @@ export const useMathSubchapter = (): MathSubchapterContextType => {
 };
 
 export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ children }) => {
-    // Initialize with the SubchapterId for "Einführung Algebra"
-    const [unlockedSubchapters, setUnlockedSubchapters] = useState<number[]>([0]);  // Ensure 5 is the SubchapterId for Einführung Algebra
+    const [unlockedSubchapters, setUnlockedSubchapters] = useState<number[]>([0]); // Initial subchapter unlocked
     const [finishedSubchapters, setFinishedSubchapters] = useState<number[]>([]);
     const [currentSubchapterId, setCurrentSubchapterId] = useState<number | null>(null);
     const [currentSubchapterTitle, setCurrentSubchapterTitle] = useState<string>('');
-    const [subchapters, setSubchapters] = useState<MathSubchapter[]>([]);
+    const [subchapters, setSubchapters] = useState<MathSubchapter[]>([]); // Subchapters list
+
     // Function to unlock a subchapter based on SubchapterId
     const unlockSubchapter = (subchapterId: number) => {
         setUnlockedSubchapters((current) => {
-            const updated = [...new Set([...current, subchapterId])];  // Keep existing unlocked and add new
-            console.log('Updated unlocked subchapters in function:', updated);
+            const updated = [...new Set([...current, subchapterId])]; // Keep existing unlocked subchapters and add the new one
+            console.log('Updated unlocked subchapters:', updated);
             return updated;
         });
     };
 
+    // Function to mark a subchapter as finished and unlock the next one based on SortOrder
     const markSubchapterAsFinished = (subchapterId: number) => {
+        // Ensure subchapters are loaded before proceeding
+        if (subchapters.length === 0) {
+            console.log('Subchapters not loaded yet.');
+            return;
+        }
+    
         setFinishedSubchapters(current => {
             const updated = [...new Set([...current, subchapterId])];
             console.log('Updated finished subchapters:', updated);
             return updated;
         });
     
-        // Unlock the next subchapter based on SortOrder
         const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
         if (currentSubchapter) {
             const nextSubchapter = subchapters.find(
@@ -49,15 +55,15 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
                 console.log('Unlocking next subchapter:', nextSubchapter.SubchapterId);
                 setCurrentSubchapter(nextSubchapter.SubchapterId, nextSubchapter.SubchapterName);
             }
+        } else {
+            console.error('Current subchapter not found:', subchapterId);
         }
     };
-    
-
     // Function to set the current subchapter and unlock it if needed
     const setCurrentSubchapter = (subchapterId: number | null, subchapterTitle: string) => {
         if (subchapterId !== null && !unlockedSubchapters.includes(subchapterId)) {
-            console.log('Unlocking subchapter:', subchapterId);  // Debug log
-            unlockSubchapter(subchapterId);  // Unlock the subchapter if it's not already unlocked
+            console.log('Unlocking subchapter:', subchapterId); // Debug log
+            unlockSubchapter(subchapterId); // Unlock the subchapter if it's not already unlocked
         }
         setCurrentSubchapterId(subchapterId);
         setCurrentSubchapterTitle(subchapterTitle);
@@ -69,19 +75,24 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
     }, [unlockedSubchapters]);
 
     return (
-        <MathSubchapterContext.Provider value={{
-            unlockedSubchapters,
-            finishedSubchapters,
-            currentSubchapterId,
-            currentSubchapterTitle,
-            unlockSubchapter,
-            markSubchapterAsFinished,
-            setCurrentSubchapter
-        }}>
+        <MathSubchapterContext.Provider
+            value={{
+                unlockedSubchapters,
+                finishedSubchapters,
+                currentSubchapterId,
+                currentSubchapterTitle,
+                unlockSubchapter,
+                markSubchapterAsFinished,
+                setCurrentSubchapter,
+                subchapters,
+                setSubchapters // Expose setSubchapters so it can be updated externally
+            }}
+        >
             {children}
         </MathSubchapterContext.Provider>
     );
 };
 
 export { MathSubchapterContext };
+
 

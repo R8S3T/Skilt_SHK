@@ -269,7 +269,7 @@ const styles = StyleSheet.create({
     },
     bigImage: {
         width: '100%',
-        height: 500,
+        height: 300,
         resizeMode: 'contain',
         marginVertical: 0,
     },
