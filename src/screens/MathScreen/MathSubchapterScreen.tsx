@@ -55,7 +55,7 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
 
     useEffect(() => {
         if (subchapters.length > 0) {
-            const firstSubchapter = subchapters.find(sub => sub.SortOrder === 1);
+            const firstSubchapter = subchapters.find(sub => sub.SortOrder === 1); // Unlock the first subchapter
             if (firstSubchapter && !unlockedSubchapters.includes(firstSubchapter.SubchapterId)) {
                 console.log('Unlocking first subchapter of the chapter:', firstSubchapter.SubchapterId);
                 setCurrentSubchapter(firstSubchapter.SubchapterId, firstSubchapter.SubchapterName);
@@ -75,6 +75,18 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
             setSelectedSubchapter(selected);
             setModalVisible(true);
         } else {
+            // Unlock the next subchapter based on SortOrder
+            const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
+            if (currentSubchapter) {
+                const nextSubchapter = subchapters.find(
+                    sub => sub.SortOrder === currentSubchapter.SortOrder + 1
+                );
+                if (nextSubchapter && !unlockedSubchapters.includes(nextSubchapter.SubchapterId)) {
+                    console.log('Unlocking next subchapter:', nextSubchapter.SubchapterId);
+                    setCurrentSubchapter(nextSubchapter.SubchapterId, nextSubchapter.SubchapterName);
+                }
+            }
+
             setCurrentSubchapter(subchapterId, subchapterTitle);
             navigation.navigate('MathSubchapterContentScreen', {
                 subchapterId,

@@ -1,3 +1,5 @@
+import { MathSubchapter } from "./contentTypes";
+
 export interface SubchapterContextType {
     unlockedSubchapters: number[];
     finishedSubchapters: number[];
@@ -16,4 +18,6 @@ export interface MathSubchapterContextType {
     unlockSubchapter: (subchapterId: number) => void;
     markSubchapterAsFinished: (subchapterId: number) => void;
     setCurrentSubchapter: (subchapterId: number | null, subchapterTitle: string) => void;
+    subchapters: MathSubchapter[]; // Add this to the context type
+    setSubchapters: (subchapters: MathSubchapter[]) => void;
 }

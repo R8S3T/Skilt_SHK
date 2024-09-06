@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { MathSubchapterContextType } from 'src/types/contextTypes'; // Adjust this path as necessary
+import { MathSubchapterContextType } from 'src/types/contextTypes';
+import { MathSubchapter } from 'src/types/contentTypes';
 
 const MathSubchapterContext = createContext<MathSubchapterContextType | undefined>(undefined);
 
@@ -17,11 +18,11 @@ export const useMathSubchapter = (): MathSubchapterContextType => {
 
 export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ children }) => {
     // Initialize with the SubchapterId for "Einführung Algebra"
-    const [unlockedSubchapters, setUnlockedSubchapters] = useState<number[]>([5]);  // Ensure 5 is the SubchapterId for Einführung Algebra
+    const [unlockedSubchapters, setUnlockedSubchapters] = useState<number[]>([0]);  // Ensure 5 is the SubchapterId for Einführung Algebra
     const [finishedSubchapters, setFinishedSubchapters] = useState<number[]>([]);
     const [currentSubchapterId, setCurrentSubchapterId] = useState<number | null>(null);
     const [currentSubchapterTitle, setCurrentSubchapterTitle] = useState<string>('');
-
+    const [subchapters, setSubchapters] = useState<MathSubchapter[]>([]);
     // Function to unlock a subchapter based on SubchapterId
     const unlockSubchapter = (subchapterId: number) => {
         setUnlockedSubchapters((current) => {
@@ -31,17 +32,26 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
         });
     };
 
-    // Function to mark a subchapter as finished and unlock the next one
     const markSubchapterAsFinished = (subchapterId: number) => {
         setFinishedSubchapters(current => {
             const updated = [...new Set([...current, subchapterId])];
-            console.log('Updated finished subchapters:', updated);  // Debug log
+            console.log('Updated finished subchapters:', updated);
             return updated;
         });
-        
-        // Unlock the next subchapter (assuming sequential unlock)
-        unlockSubchapter(subchapterId + 1);  // Adjust this logic based on your unlock requirements
+    
+        // Unlock the next subchapter based on SortOrder
+        const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
+        if (currentSubchapter) {
+            const nextSubchapter = subchapters.find(
+                sub => sub.SortOrder === currentSubchapter.SortOrder + 1
+            );
+            if (nextSubchapter && !unlockedSubchapters.includes(nextSubchapter.SubchapterId)) {
+                console.log('Unlocking next subchapter:', nextSubchapter.SubchapterId);
+                setCurrentSubchapter(nextSubchapter.SubchapterId, nextSubchapter.SubchapterName);
+            }
+        }
     };
+    
 
     // Function to set the current subchapter and unlock it if needed
     const setCurrentSubchapter = (subchapterId: number | null, subchapterTitle: string) => {
