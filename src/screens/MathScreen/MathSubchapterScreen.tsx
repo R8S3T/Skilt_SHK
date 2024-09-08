@@ -72,9 +72,11 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
         const selected = subchapters.find(sub => sub.SubchapterId === subchapterId);
 
         if (isFinished && selected) {
+            console.log('Opening modal for subchapter:', selected.SubchapterName); 
             setSelectedSubchapter(selected);
             setModalVisible(true);
         } else {
+            console.log('All subchapters:', subchapters);
             // Unlock the next subchapter based on SortOrder
             const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
             if (currentSubchapter) {

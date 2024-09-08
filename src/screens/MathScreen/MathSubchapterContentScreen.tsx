@@ -79,6 +79,7 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
             markSubchapterAsFinished(subchapterId);
             unlockSubchapter(subchapterId + 1);
             navigation.navigate('MathCongratsScreen', {
+                subchapterId: subchapterId,  // Pass subchapterId here
                 targetScreen: 'MathSubchapterScreen',
                 targetParams: {
                     chapterId: chapterId,

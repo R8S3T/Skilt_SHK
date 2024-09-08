@@ -31,6 +31,7 @@ export type MathStackParamList = {
     MathSubchapterContentScreen: { subchapterId: number; subchapterTitle: string; chapterId: number; chapterTitle: string };
     MathSubchapterScreen: { chapterId: number; chapterTitle: string };
     MathCongratsScreen: {
+        subchapterId: number;
         targetScreen: keyof MathStackParamList;
         targetParams: { chapterId: number; chapterTitle: string };
     };

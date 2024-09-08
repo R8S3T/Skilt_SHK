@@ -34,30 +34,13 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
 
     // Function to mark a subchapter as finished and unlock the next one based on SortOrder
     const markSubchapterAsFinished = (subchapterId: number) => {
-        // Ensure subchapters are loaded before proceeding
-        if (subchapters.length === 0) {
-            console.log('Subchapters not loaded yet.');
-            return;
-        }
-    
         setFinishedSubchapters(current => {
             const updated = [...new Set([...current, subchapterId])];
             console.log('Updated finished subchapters:', updated);
             return updated;
         });
     
-        const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
-        if (currentSubchapter) {
-            const nextSubchapter = subchapters.find(
-                sub => sub.SortOrder === currentSubchapter.SortOrder + 1
-            );
-            if (nextSubchapter && !unlockedSubchapters.includes(nextSubchapter.SubchapterId)) {
-                console.log('Unlocking next subchapter:', nextSubchapter.SubchapterId);
-                setCurrentSubchapter(nextSubchapter.SubchapterId, nextSubchapter.SubchapterName);
-            }
-        } else {
-            console.error('Current subchapter not found:', subchapterId);
-        }
+        unlockSubchapter(subchapterId + 1);  // Temporarily revert to previous unlocking logic
     };
     // Function to set the current subchapter and unlock it if needed
     const setCurrentSubchapter = (subchapterId: number | null, subchapterTitle: string) => {

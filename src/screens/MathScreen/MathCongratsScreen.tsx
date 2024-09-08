@@ -3,15 +3,18 @@ import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { MathStackParamList } from 'src/types/navigationTypes';
+import { useMathSubchapter } from './MathSubchapterContext';
 
 type MathCongratsScreenRouteProp = RouteProp<MathStackParamList, 'MathCongratsScreen'>;
 
 const MathCongratsScreen: React.FC = () => {
     const navigation = useNavigation<any>();
     const route = useRoute<MathCongratsScreenRouteProp>();
+    const { markSubchapterAsFinished } = useMathSubchapter();  // Access context to mark subchapter as finished
 
     const targetScreen = route.params?.targetScreen as keyof MathStackParamList;
     const targetParams = route.params?.targetParams as any;
+    const subchapterId = route.params?.subchapterId;  // Pass subchapterId in route params
 
     if (!targetScreen || !targetParams) {
         return (
@@ -22,7 +25,10 @@ const MathCongratsScreen: React.FC = () => {
     }
 
     const handleContinue = () => {
-        navigation.navigate(targetScreen, targetParams);
+        if (subchapterId) {
+            markSubchapterAsFinished(subchapterId);  // Mark the subchapter as finished here
+        }
+        navigation.navigate(targetScreen, targetParams);  // Navigate to the next screen
     };
 
     return (
@@ -39,7 +45,6 @@ const MathCongratsScreen: React.FC = () => {
         </View>
     );
 };
-
 
 const styles = StyleSheet.create({
     container: {
@@ -71,4 +76,5 @@ const styles = StyleSheet.create({
 });
 
 export default MathCongratsScreen;
+
 
