@@ -21,6 +21,7 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
     const [subchapters, setSubchapters] = useState<Subchapter[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [isJumpAhead, setIsJumpAhead] = useState<boolean>(false); // New state to handle Jump Ahead modal
     const [selectedSubchapter, setSelectedSubchapter] = useState<Subchapter | null>(null);
     const navigation = useNavigation<NavigationType>();
     const context = useContext(SubchapterContext);
@@ -29,7 +30,7 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
         throw new Error('SubchapterContext must be used within a SubchapterProvider');
     }
 
-    const { unlockedSubchapters, finishedSubchapters, setCurrentSubchapter } = context;
+    const { unlockedSubchapters, finishedSubchapters, setCurrentSubchapter, unlockSubchapter } = context;
 
     useEffect(() => {
         const loadData = async () => {
@@ -48,12 +49,21 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
 
     const handleNodePress = (subchapterId: number, subchapterTitle: string) => {
         const isFinished = finishedSubchapters.includes(subchapterId);
+        const isLocked = !unlockedSubchapters.includes(subchapterId);
         const selected = subchapters.find(sub => sub.SubchapterId === subchapterId);
 
         if (isFinished && selected) {
+            // Subchapter is finished, show review modal
             setSelectedSubchapter(selected);
             setModalVisible(true);
+            setIsJumpAhead(false); // Not a jump ahead scenario
+        } else if (isLocked && selected) {
+            // Subchapter is locked and user wants to jump ahead, show jump ahead modal
+            setSelectedSubchapter(selected);
+            setModalVisible(true);
+            setIsJumpAhead(true); // It's a jump ahead scenario
         } else {
+            // Subchapter is unlocked, navigate to the content screen
             setCurrentSubchapter(subchapterId, subchapterTitle);
             navigation.navigate('SubchapterContentScreen', {
                 subchapterId,
@@ -77,6 +87,24 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
         setModalVisible(false);
     };
 
+    const handleJumpAheadConfirm = () => {
+        if (selectedSubchapter) {
+            // Unlock the selected subchapter
+            unlockSubchapter(selectedSubchapter.SubchapterId);
+            
+            // Set it as the current subchapter and navigate to the content screen
+            setCurrentSubchapter(selectedSubchapter.SubchapterId, selectedSubchapter.SubchapterName);
+            navigation.navigate('SubchapterContentScreen', {
+                subchapterId: selectedSubchapter.SubchapterId,
+                subchapterTitle: selectedSubchapter.SubchapterName,
+                chapterId,
+                chapterTitle
+            });
+        }
+        setModalVisible(false);
+    };
+    
+
     const renderedSubchapters = subchapters.map(subchapter => ({
         id: subchapter.SubchapterId,
         title: subchapter.SubchapterName,
@@ -99,12 +127,15 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
                     visible={modalVisible}
                     onClose={() => setModalVisible(false)}
                     subchapterName={selectedSubchapter.SubchapterName}
-                    onReviewLesson={handleReviewLesson}
+                    onReviewLesson={isJumpAhead ? handleJumpAheadConfirm : handleReviewLesson} // Handle based on scenario
+                    isJumpAhead={isJumpAhead} // Pass the jump ahead scenario
+                    onJumpAheadConfirm={handleJumpAheadConfirm} // Confirm jump ahead action
                 />
             )}
         </ScrollView>
     );
 };
+
 
 const styles = StyleSheet.create({
     screenContainer: {

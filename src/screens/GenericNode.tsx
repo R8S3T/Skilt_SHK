@@ -40,7 +40,7 @@ const GenericNode: React.FC<GenericNodeProps> = ({
             borderRadius: 20,  // Reduced border radius
             borderWidth: 2,
             borderColor: isLocked ? '#A9A9A9' : isFinished ? finishedColor : '#A9A9A9',
-            backgroundColor: isLocked ? 'transparent' : '#FFFFFF',  // Transparent background for lock state
+            backgroundColor: isLocked ? '#f0f0f0' : '#FFFFFF',  // Different background for locked state
             paddingVertical: 8,  // Adjusted padding
             paddingHorizontal: 15,
         },
@@ -60,20 +60,23 @@ const GenericNode: React.FC<GenericNodeProps> = ({
         text: {
             flex: 1,
             fontSize: 15, // Adjust font size for compact layout
-            color: isLocked ? '#A9A9A9' : '#000000',
+            color: isLocked ? '#A9A9A9' : '#000000',  // Text color based on lock status
         },
     });
 
     return (
-        <TouchableOpacity onPress={onPress} disabled={isLocked} style={dynamicStyles.container}>
+        <TouchableOpacity 
+            onPress={onPress}  // Allow press even when locked
+            style={dynamicStyles.container} 
+        >
             <View style={dynamicStyles.iconContainer}>
-                {/* No gradient for the locked state, just the icon */}
                 <Image source={iconSource} style={dynamicStyles.icon} resizeMode="contain" />
             </View>
             <Text style={dynamicStyles.text}>{title}</Text>
         </TouchableOpacity>
     );
 };
+
 
 
 export default GenericNode;

@@ -3,4 +3,6 @@ export type SubchapterInfoModalProps = {
     onClose: () => void;
     subchapterName: string;
     onReviewLesson: () => void;
+    isJumpAhead?: boolean;
+    onJumpAheadConfirm?: () => void;
 };

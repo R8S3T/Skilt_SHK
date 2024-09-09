@@ -6,7 +6,9 @@ const SubchapterInfoModal: React.FC<SubchapterInfoModalProps> = ({
     visible,
     onClose,
     subchapterName,
-    onReviewLesson
+    onReviewLesson,
+    isJumpAhead = false,
+    onJumpAheadConfirm,
 }) => {
     const opacity = useRef(new Animated.Value(0)).current;
 
@@ -39,10 +41,15 @@ const SubchapterInfoModal: React.FC<SubchapterInfoModalProps> = ({
                         <Animated.View style={[styles.modalView, { opacity }]}>
                             <Text style={styles.subchapterName}>{subchapterName}</Text>
                             <Text style={styles.description}>
-                                Du hast diese Lektion abgeschlossen. Möchtest du sie wiederholen?
+                                {isJumpAhead ? 'Do you really want to jump ahead to this subchapter?' : 'You have completed this lesson. Do you want to review it?'}
                             </Text>
-                            <TouchableOpacity style={styles.button} onPress={onReviewLesson}>
-                                <Text style={styles.buttonText}>Wiederholen</Text>
+                            <TouchableOpacity 
+                                style={styles.button} 
+                                onPress={isJumpAhead ? onJumpAheadConfirm : onReviewLesson}
+                            >
+                                <Text style={styles.buttonText}>
+                                    {isJumpAhead ? 'Jump Ahead' : 'Review'}
+                                </Text>
                             </TouchableOpacity>
                         </Animated.View>
                     </TouchableWithoutFeedback>
@@ -98,6 +105,7 @@ const styles = StyleSheet.create({
 });
 
 export default SubchapterInfoModal;
+
 
 
 
