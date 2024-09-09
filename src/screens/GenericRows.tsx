@@ -36,7 +36,7 @@ const GenericRows: React.FC<GenericRowsProps> = ({ items, onNodePress, color, fi
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         flexWrap: 'wrap',
         justifyContent: 'center',
         alignItems: 'center',

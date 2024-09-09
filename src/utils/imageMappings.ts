@@ -1,6 +1,4 @@
 
-const img_LF1DINA = require('../../assets/DbImages/LF_1_DIN_A.png');
-const img_LF1screwdrawing = require('../../assets/DbImages/LF_1_screw_drawing.png');
 const img_equations1 = require('../../assets/DbImages/MathImages/equations_1.png');
 const img_equations10 = require('../../assets/DbImages/MathImages/equations_10.png');
 const img_equations11 = require('../../assets/DbImages/MathImages/equations_11.png');
@@ -161,10 +159,14 @@ const img_equationsmechanicwelcome = require('../../assets/DbImages/MathImages/e
 const img_equationsmechanicwinkelhebel = require('../../assets/DbImages/MathImages/equations_mechanic_winkelhebel.png');
 const img_equationstypeswelcome = require('../../assets/DbImages/MathImages/equations_types_welcome.png');
 const img_equationswelcome = require('../../assets/DbImages/MathImages/equations_welcome.png');
+const img_LF1DINA = require('../../assets/DbImages/SubchapterContent/LF_1_DIN_A.png');
+const img_LF1Kreuzlinienlaser = require('../../assets/DbImages/SubchapterContent/LF_1_Kreuzlinienlaser.png');
+const img_LF1Messschieber = require('../../assets/DbImages/SubchapterContent/LF_1_Messschieber.png');
+const img_LF1Winkelmesser = require('../../assets/DbImages/SubchapterContent/LF_1_Winkelmesser.png');
+const img_LF1Zollstock = require('../../assets/DbImages/SubchapterContent/LF_1_Zollstock.png');
+const img_LF1screwdrawing = require('../../assets/DbImages/SubchapterContent/LF_1_screw_drawing.png');
 
 export const imageMap = {
-    "LF_1_DIN_A": img_LF1DINA,
-    "LF_1_screw_drawing": img_LF1screwdrawing,
     "equations_1": img_equations1,
     "equations_10": img_equations10,
     "equations_11": img_equations11,
@@ -324,5 +326,11 @@ export const imageMap = {
     "equations_mechanic_welcome": img_equationsmechanicwelcome,
     "equations_mechanic_winkelhebel": img_equationsmechanicwinkelhebel,
     "equations_types_welcome": img_equationstypeswelcome,
-    "equations_welcome": img_equationswelcome
+    "equations_welcome": img_equationswelcome,
+    "LF_1_DIN_A": img_LF1DINA,
+    "LF_1_Kreuzlinienlaser": img_LF1Kreuzlinienlaser,
+    "LF_1_Messschieber": img_LF1Messschieber,
+    "LF_1_Winkelmesser": img_LF1Winkelmesser,
+    "LF_1_Zollstock": img_LF1Zollstock,
+    "LF_1_screw_drawing": img_LF1screwdrawing
 };

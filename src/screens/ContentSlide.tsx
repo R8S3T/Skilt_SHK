@@ -32,25 +32,25 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
                         isBold = true;
                         return null;
                     }
-
+    
                     // Handle [/bold] marker end
                     if (part === '[/bold]') {
                         isBold = false;
                         return null;
                     }
-
+    
                     // Handle [underline] marker start
                     if (part === '[underline]') {
                         isUnderline = true;
                         return null;
                     }
-
+    
                     // Handle [/underline] marker end
                     if (part === '[/underline]') {
                         isUnderline = false;
                         return null;
                     }
-
+    
                     // Handle [bgcolor-line=] marker start
                     if (part.startsWith('[bgcolor-line=')) {
                         bgColor = part.match(/\[bgcolor-line=(#[0-9a-fA-F]{6})\]/)?.[1] || '';
@@ -60,55 +60,55 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
                             </Text>
                         );
                     }
-
+    
                     // Skip rendering the part that follows the [bgcolor-line=] marker since it has already been rendered
                     if (parts[index - 1]?.startsWith('[bgcolor-line=') && part !== '[/bgcolor-line]') {
                         return null;
                     }
-
+    
                     // Handle [/bgcolor-line] marker end
                     if (part === '[/bgcolor-line]') {
                         return null;
                     }
-
+    
                     // Handle [bgcolor-block=] marker start
                     if (part.startsWith('[bgcolor-block=')) {
                         bgColor = part.match(/\[bgcolor-block=(#[0-9a-fA-F]{6})\]/)?.[1] || '';
                         isBgBlock = true;
                         return null;
                     }
-
+    
                     // Handle [/bgcolor-block] marker end
                     if (part === '[/bgcolor-block]') {
                         isBgBlock = false;
                         bgColor = '';
                         return null;
                     }
-
+    
                     // Handle [frame] marker start
                     if (part === '[frame]') {
                         isFrame = true;
                         return null;
                     }
-
+    
                     // Handle [/frame] marker end
                     if (part === '[/frame]') {
                         isFrame = false;
                         return null;
                     }
-
+    
                     // Handle [line] marker start
                     if (part === '[line]') {
                         isLine = true;
                         return null;
                     }
-
+    
                     // Handle [/line] marker end
                     if (part === '[/line]') {
                         isLine = false;
                         return null;
                     }
-
+    
                     // Handle image placeholders for LF_ markers
                     if (part.startsWith('[LF_')) {
                         const imageName = part.replace('[', '').replace(']', '').trim();
@@ -125,7 +125,7 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
                             console.warn(`Image not found for key: ${imageName}`);
                         }
                     }
-
+    
                     // Handle equations images (assuming this was the original placeholder handling)
                     const imageSource = imageMap[part.trim() as keyof typeof imageMap];
                     if (imageSource) {
@@ -134,14 +134,14 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
                             : styles.image;
                         return <Image key={index} source={imageSource} style={imageStyle} />;
                     }
-
+    
                     // Apply styles based on the markers
                     const textStyle = [
                         styles.contentText,
-                        isBold && styles.boldText,
+                        isBold && styles.boldText, // Apply bold if [bold] marker is active
                         isBgBlock && { backgroundColor: bgColor, padding: 10, borderRadius: 5 },
                     ].filter(Boolean); // Filter out any false values
-
+    
                     // Handle underline text
                     if (isUnderline) {
                         return (
@@ -150,7 +150,7 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
                             </View>
                         );
                     }
-
+    
                     // If inside a frame, include the info sign image left and center with the text
                     if (isFrame) {
                         return (
@@ -160,7 +160,7 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
                             </View>
                         );
                     }
-
+    
                     return (
                         <Text key={index} style={textStyle}>
                             {part}
@@ -178,6 +178,7 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
             </View>
         </View>
     );
+    
 };
 
 const styles = StyleSheet.create({
@@ -189,12 +190,15 @@ const styles = StyleSheet.create({
     },
     imageContainer: {
         alignItems: 'center',
+        marginVertical: 0,
     },
     image: {
         width: '100%',
         height: 350,
         resizeMode: 'contain',
-        marginVertical: 10,
+        marginVertical: 0,
+        marginTop: -5,
+        marginBottom: -5,
     },
     welcomeImage: {
         width: '100%',
@@ -205,7 +209,7 @@ const styles = StyleSheet.create({
     },
     contentText: {
         fontSize: 20,
-        marginVertical: 10,
+        marginVertical: 0,
     },
     boldText: {
         fontWeight: 'bold',
@@ -235,9 +239,11 @@ const styles = StyleSheet.create({
     line: {
         height: 1.5,
         backgroundColor: 'orange',
-        marginVertical: 10,
+        marginVertical: 0,
+        marginBottom: -5,
         width: '100%',
     },
+    
     buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'center',

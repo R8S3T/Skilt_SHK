@@ -22,8 +22,8 @@ const GenericNode: React.FC<GenericNodeProps> = ({
     finishedColor,
     id
 }) => {
-    const dynamicNodeSize = getDynamicIconSize(90, 110);
-    const dynamicIconSize = getDynamicIconSize(50, 60);
+    const dynamicNodeSize = getDynamicIconSize(70, 90);  // Adjusted node size
+    const dynamicIconSize = getDynamicIconSize(40, 50);  // Adjusted icon size
 
     const iconSource = isLocked
         ? require('../../assets/Images/lock_icon.png')
@@ -33,55 +33,48 @@ const GenericNode: React.FC<GenericNodeProps> = ({
 
     const dynamicStyles = StyleSheet.create({
         container: {
+            flexDirection: 'row', // Align icon and text side by side
+            alignItems: 'center',
+            width: '100%',
+            marginVertical: 5,  // Reduced vertical margin for compactness
+            borderRadius: 20,  // Reduced border radius
+            borderWidth: 2,
+            borderColor: isLocked ? '#A9A9A9' : isFinished ? finishedColor : '#A9A9A9',
+            backgroundColor: isLocked ? 'transparent' : '#FFFFFF',  // Transparent background for lock state
+            paddingVertical: 8,  // Adjusted padding
+            paddingHorizontal: 15,
+        },
+        iconContainer: {
             width: dynamicNodeSize,
             height: dynamicNodeSize,
             justifyContent: 'center',
             alignItems: 'center',
-            marginVertical: 10,
-            borderRadius: 25,
-            borderWidth: 2.5,
-            borderColor: isLocked ? '#A9A9A9' : isFinished ? finishedColor : '#A9A9A9',
-            backgroundColor: isLocked ? 'transparent' : '#FFFFFF',
-            marginHorizontal: 26,
+            borderRadius: 20,
+            marginRight: 15, // Reduced space between the icon and text
         },
         icon: {
             width: dynamicIconSize,
             height: dynamicIconSize,
-            tintColor: isLocked ? '#FFFFFF' : isFinished ? finishedColor : '#A9A9A9',
+            tintColor: isLocked ? '#A9A9A9' : isFinished ? finishedColor : '#A9A9A9',  // Adjust lock tint
+        },
+        text: {
+            flex: 1,
+            fontSize: 15, // Adjust font size for compact layout
+            color: isLocked ? '#A9A9A9' : '#000000',
         },
     });
 
     return (
-        <View style={dynamicStyles.container}>
-            <TouchableOpacity onPress={onPress} disabled={isLocked} style={{ width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', borderRadius: 25 }}>
-                {isLocked ? (
-                    <LinearGradient
-                        colors={['#dcd9d9', '#bfbfbf']}
-                        style={styles.gradient}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 1 }}
-                    >
-                        <Image source={iconSource} style={dynamicStyles.icon} resizeMode="contain" />
-                    </LinearGradient>
-                ) : (
-                    <>
-                        <Image source={iconSource} style={dynamicStyles.icon} />
-                    </>
-                )}
-            </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={onPress} disabled={isLocked} style={dynamicStyles.container}>
+            <View style={dynamicStyles.iconContainer}>
+                {/* No gradient for the locked state, just the icon */}
+                <Image source={iconSource} style={dynamicStyles.icon} resizeMode="contain" />
+            </View>
+            <Text style={dynamicStyles.text}>{title}</Text>
+        </TouchableOpacity>
     );
 };
 
-const styles = StyleSheet.create({
-    gradient: {
-        width: '100%',
-        height: '100%',
-        borderRadius: 22,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-});
 
 export default GenericNode;
 
