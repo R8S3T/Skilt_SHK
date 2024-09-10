@@ -155,6 +155,7 @@ const img_equationsmechanic6 = require('../../assets/DbImages/MathImages/equatio
 const img_equationsmechanic7 = require('../../assets/DbImages/MathImages/equations_mechanic_7.png');
 const img_equationsmechanic8 = require('../../assets/DbImages/MathImages/equations_mechanic_8.png');
 const img_equationsmechanic9 = require('../../assets/DbImages/MathImages/equations_mechanic_9.png');
+const img_equationsmechanicFormel = require('../../assets/DbImages/MathImages/equations_mechanic_Formel.png');
 const img_equationsmechanicwelcome = require('../../assets/DbImages/MathImages/equations_mechanic_welcome.png');
 const img_equationsmechanicwinkelhebel = require('../../assets/DbImages/MathImages/equations_mechanic_winkelhebel.png');
 const img_equationstypeswelcome = require('../../assets/DbImages/MathImages/equations_types_welcome.png');
@@ -165,6 +166,9 @@ const img_LF1Messschieber = require('../../assets/DbImages/SubchapterContent/LF_
 const img_LF1Winkelmesser = require('../../assets/DbImages/SubchapterContent/LF_1_Winkelmesser.png');
 const img_LF1Zollstock = require('../../assets/DbImages/SubchapterContent/LF_1_Zollstock.png');
 const img_LF1screwdrawing = require('../../assets/DbImages/SubchapterContent/LF_1_screw_drawing.png');
+const img_LF3Ausdehnungwelcome = require('../../assets/DbImages/SubchapterContent/LF_3_Ausdehnung_welcome.png');
+const img_LF3Formel = require('../../assets/DbImages/SubchapterContent/LF_3_Formel.png');
+const img_LF3Rohrewelcome = require('../../assets/DbImages/SubchapterContent/LF_3_Rohre_welcome.png');
 
 export const imageMap = {
     "equations_1": img_equations1,
@@ -323,6 +327,7 @@ export const imageMap = {
     "equations_mechanic_7": img_equationsmechanic7,
     "equations_mechanic_8": img_equationsmechanic8,
     "equations_mechanic_9": img_equationsmechanic9,
+    "equations_mechanic_Formel": img_equationsmechanicFormel,
     "equations_mechanic_welcome": img_equationsmechanicwelcome,
     "equations_mechanic_winkelhebel": img_equationsmechanicwinkelhebel,
     "equations_types_welcome": img_equationstypeswelcome,
@@ -332,5 +337,8 @@ export const imageMap = {
     "LF_1_Messschieber": img_LF1Messschieber,
     "LF_1_Winkelmesser": img_LF1Winkelmesser,
     "LF_1_Zollstock": img_LF1Zollstock,
-    "LF_1_screw_drawing": img_LF1screwdrawing
+    "LF_1_screw_drawing": img_LF1screwdrawing,
+    "LF_3_Ausdehnung_welcome": img_LF3Ausdehnungwelcome,
+    "LF_3_Formel": img_LF3Formel,
+    "LF_3_Rohre_welcome": img_LF3Rohrewelcome
 };

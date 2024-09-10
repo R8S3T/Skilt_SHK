@@ -105,7 +105,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
         const lines = text.split('\n');
         return lines.map((line, subIndex) => {
             const content = [];
-    
+
             // Handle single-line background color
             const bgColorLineRegex = /\[bgcolor-line=(#?[a-zA-Z0-9]+)\](.*?)\[\/bgcolor-line\]/;
             const bgColorLineMatch = line.match(bgColorLineRegex);
@@ -119,7 +119,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 );
                 return content;
             }
-    
+
         // Handle images
         if (line.startsWith('[equations_') || line.startsWith('[bigImage_')) {
             const imageName = line.replace('[', '').replace(']', '').trim();
@@ -140,7 +140,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
             }
             return content;
         }
-    
+
             // Handle quizzes
             if (line.startsWith('[quiz_')) {
                 const quizIndex = parseInt(line.split('_')[1], 10) - 1;
@@ -161,7 +161,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 }
                 return content;
             }
-    
+
             // Handle underline text
             if (line.includes('[underline]') && line.includes('[/underline]')) {
                 const underlineText = line.replace('[underline]', '').replace('[/underline]', '');
@@ -172,10 +172,10 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 );
                 return content;
             }
-    
+
             // Handle inline bold text and normal text together
             const parts = line.split(/(\[bold\].*?\[\/bold\])/g); // Split by bold markers, keeping the markers in the result
-    
+
             const lineContent = parts.map((part, partIndex) => {
                 if (part.startsWith('[bold]') && part.endsWith('[/bold]')) {
                     const boldText = part.replace('[bold]', '').replace('[/bold]', '');
@@ -192,7 +192,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                     );
                 }
             });
-    
+
             // Render the whole line in a single <Text> component to keep everything inline
             return (
                 <Text key={`${index}-${lastIndex}-${subIndex}-combined`} style={styles.contentText}>
@@ -201,7 +201,6 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
             );
         });
     };
-    
 
     return (
         <View style={styles.container}>
