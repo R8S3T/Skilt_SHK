@@ -9,5 +9,6 @@ export async function loadFonts() {
 
         // Open Sans for body content
         'OpenSans-Regular': require('../../assets/Fonts/open-sans/OpenSans-Regular.ttf'),
+        'OpenSans-Semibold': require('../../assets/Fonts/open-sans/OpenSans-Semibold.ttf')
     });
 }

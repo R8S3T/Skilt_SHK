@@ -13,14 +13,31 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
     const { ContentData } = contentData;
 
     const processText = (text: string) => {
-        const parts = text.split(/(\[bold\].*?\[\/bold\])/g); // Split by bold markers
+        const parts = text.split(/(\[bold\].*?\[\/bold\])|(\[heading\].*?\[\/heading\])|(\[subheading\].*?\[\/subheading\])/g); // Added subheading marker
+    
         return parts.map((part, index) => {
+            if (!part) return null; // Safeguard against undefined or null parts
+    
+            // Handle heading marker
+            if (part.startsWith('[heading]') && part.endsWith('[/heading]')) {
+                const headingText = part.replace('[heading]', '').replace('[/heading]', '');
+                return <Text key={index} style={styles.headingText}>{headingText}</Text>;
+            }
+    
+            // Handle subheading marker
+            if (part.startsWith('[subheading]') && part.endsWith('[/subheading]')) {
+                const subheadingText = part.replace('[subheading]', '').replace('[/subheading]', '');
+                return <Text key={index} style={styles.subheadingText}>{subheadingText}</Text>;
+            }
+
+            // Handle bold marker
             if (part.startsWith('[bold]') && part.endsWith('[/bold]')) {
                 const boldText = part.replace('[bold]', '').replace('[/bold]', '');
                 return <Text key={index} style={styles.boldText}>{boldText}</Text>;
-            } else {
-                return <Text key={index} style={styles.contentText}>{part}</Text>;
             }
+
+            // Default to regular content text
+            return <Text key={index} style={styles.contentText}>{part}</Text>;
         });
     };
 
@@ -73,7 +90,7 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
                         }
                     }
 
-                    // Process text (including bold markers)
+                    // Process text (including bold and heading markers)
                     return (
                         <Text key={index} style={styles.contentText}>
                             {processText(part)}
@@ -101,11 +118,21 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     contentText: {
+        fontFamily: 'OpenSans-Regular',  // Default font for body text
         fontSize: 20,
-        marginVertical: 0,
     },
     boldText: {
-        fontWeight: 'bold',
+        fontFamily: 'OpenSans-Semibold', // Use OpenSans-SemiBold for subtle bold effect
+        fontSize: 20,
+        color: '#333',                   // Slightly darker color to make it stand out
+    },
+    headingText: {
+        fontFamily: 'Lato-Bold',         // Use Lato for headings
+        fontSize: 24,
+    },
+    subheadingText: {
+        fontFamily: 'Lato-Medium',
+        fontSize: 22,
     },
     underlineContainer: {
         borderBottomWidth: 2,
@@ -121,18 +148,18 @@ const styles = StyleSheet.create({
     },
     image: {
         width: '100%',
-        height: 150,
+        height: 180,
         resizeMode: 'contain',
         marginVertical: 0,
-        marginTop: -5,
-        marginBottom: -5,
+        marginTop: 10,
+        marginBottom: 10,
     },
     welcomeImage: {
         width: '100%',
         height: 300,
         resizeMode: 'contain',
-        marginTop: 100,
-        marginBottom: 50,
+        marginTop: 50,
+        marginBottom: 20,
     },
     frameWithBulb: {
         position: 'relative',
@@ -160,5 +187,3 @@ const styles = StyleSheet.create({
 });
 
 export default ContentSlide;
-
-

@@ -28,6 +28,11 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "assetBundlePatterns": [
+      "assets/fonts/**/*",
+      "assets/images/**/*",
+      "assets/icons/**/*"
+    ],
     "plugins": [
       "expo-font"
     ]

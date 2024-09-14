@@ -161,11 +161,13 @@ const img_equationsmechanicwinkelhebel = require('../../assets/DbImages/MathImag
 const img_equationstypeswelcome = require('../../assets/DbImages/MathImages/equations_types_welcome.png');
 const img_equationswelcome = require('../../assets/DbImages/MathImages/equations_welcome.png');
 const img_LF1DINA = require('../../assets/DbImages/SubchapterContent/LF_1_DIN_A.png');
+const img_LF1DINAwelcome = require('../../assets/DbImages/SubchapterContent/LF_1_DIN_A_welcome.png');
 const img_LF1Kreuzlinienlaser = require('../../assets/DbImages/SubchapterContent/LF_1_Kreuzlinienlaser.png');
 const img_LF1Messschieber = require('../../assets/DbImages/SubchapterContent/LF_1_Messschieber.png');
 const img_LF1Winkelmesser = require('../../assets/DbImages/SubchapterContent/LF_1_Winkelmesser.png');
 const img_LF1Zollstock = require('../../assets/DbImages/SubchapterContent/LF_1_Zollstock.png');
 const img_LF1screwdrawing = require('../../assets/DbImages/SubchapterContent/LF_1_screw_drawing.png');
+const img_LF1technZeichnungwelcome = require('../../assets/DbImages/SubchapterContent/LF_1_techn_Zeichnung_welcome.png');
 const img_LF3Ausdehnungwelcome = require('../../assets/DbImages/SubchapterContent/LF_3_Ausdehnung_welcome.png');
 const img_LF3Formel = require('../../assets/DbImages/SubchapterContent/LF_3_Formel.png');
 const img_LF3Rohrewelcome = require('../../assets/DbImages/SubchapterContent/LF_3_Rohre_welcome.png');
@@ -333,11 +335,13 @@ export const imageMap = {
     "equations_types_welcome": img_equationstypeswelcome,
     "equations_welcome": img_equationswelcome,
     "LF_1_DIN_A": img_LF1DINA,
+    "LF_1_DIN_A_welcome": img_LF1DINAwelcome,
     "LF_1_Kreuzlinienlaser": img_LF1Kreuzlinienlaser,
     "LF_1_Messschieber": img_LF1Messschieber,
     "LF_1_Winkelmesser": img_LF1Winkelmesser,
     "LF_1_Zollstock": img_LF1Zollstock,
     "LF_1_screw_drawing": img_LF1screwdrawing,
+    "LF_1_techn_Zeichnung_welcome": img_LF1technZeichnungwelcome,
     "LF_3_Ausdehnung_welcome": img_LF3Ausdehnungwelcome,
     "LF_3_Formel": img_LF3Formel,
     "LF_3_Rohre_welcome": img_LF3Rohrewelcome
