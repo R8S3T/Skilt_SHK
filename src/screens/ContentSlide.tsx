@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, Image, Text, ScrollView } from 'react-native';
+import { View, StyleSheet, Image, Text } from 'react-native';
 import NextSlideButton from './NextSlideButton';
 import { imageMap } from 'src/utils/imageMappings';
 import { GenericContent } from 'src/types/contentTypes';
-
+import { ScrollView } from 'react-native-gesture-handler';
 interface ContentSlideProps {
     contentData: GenericContent;
     onNext: () => void;
@@ -43,8 +43,8 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
 
     return (
         <View style={styles.container}>
-            <ScrollView contentContainerStyle={styles.scrollContent}>
-                {ContentData.split(/\n/).map((part, index) => {
+            <ScrollView contentContainerStyle={styles.scrollContent} nestedScrollEnabled={true}>
+            {ContentData.split(/\n/).map((part, index) => {
                     // Handle underline markers
                     if (part.startsWith('[underline]') && part.endsWith('[/underline]')) {
                         const underlineText = part.replace('[underline]', '').replace('[/underline]', '');
