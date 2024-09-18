@@ -54,7 +54,6 @@ const ChaptersScreen: React.FC<ChaptersScreenRouteProps> = ({ route }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.header}>{`${year}. Lehrjahr`}</Text>
             {loading ? (
                 <Text>Loading...</Text>
             ) : (
@@ -74,6 +73,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: 'transparent',
+        marginTop: 25
     },
     header: {
         fontFamily: 'Lato-Bold',

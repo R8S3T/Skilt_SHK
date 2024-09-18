@@ -10,7 +10,7 @@ const Stack = createStackNavigator<MathStackParamList>();
 
 const MathStackNavigator: React.FC = () => {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="MathChapterScreen" component={MathChapterScreen} />
             <Stack.Screen name="MathSubchapterScreen" component={MathSubchapterScreen} />
             <Stack.Screen name="MathSubchapterContentScreen" component={MathSubchapterContentScreen} />

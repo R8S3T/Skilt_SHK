@@ -77,18 +77,25 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
                         );
                     }
 
-                    // Handle images
-                    if (part.startsWith('[LF_')) {
-                        const imageName = part.replace('[', '').replace(']', '').trim();
-                        const imageSource = imageMap[imageName as keyof typeof imageMap];
-                        if (imageSource) {
-                            const isWelcomeImage = imageName.includes('welcome');
-                            const imageStyle = isWelcomeImage ? styles.welcomeImage : styles.image;
-                            return <Image key={index} source={imageSource} style={imageStyle} />;
-                        } else {
-                            console.warn(`Image not found for key: ${imageName}`);
+                // Handle images
+                if (part.startsWith('[LF_')) {
+                    const imageName = part.replace('[', '').replace(']', '').trim();
+                    const imageSource = imageMap[imageName as keyof typeof imageMap];
+                    
+                    if (imageSource) {
+                        let imageStyle = styles.image; // Default to regular image style
+
+                        if (imageName.includes('welcome')) {
+                            imageStyle = styles.welcomeImage;
+                        } else if (imageName.includes('small')) {
+                            imageStyle = styles.smallImage;
                         }
+
+                        return <Image key={index} source={imageSource} style={imageStyle} />;
+                    } else {
+                        console.warn(`Image not found for key: ${imageName}`);
                     }
+                }
 
                     // Process text (including bold and heading markers)
                     return (
@@ -118,21 +125,23 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     contentText: {
-        fontFamily: 'OpenSans-Regular',  // Default font for body text
-        fontSize: 20,
+        fontFamily: 'OpenSans-Regular',
+        fontSize: 18,
+        letterSpacing: 0.8,
     },
     boldText: {
-        fontFamily: 'OpenSans-Semibold', // Use OpenSans-SemiBold for subtle bold effect
-        fontSize: 20,
-        color: '#333',                   // Slightly darker color to make it stand out
+        fontFamily: 'OpenSans-Bold', // Stronger font weight
+        fontSize: 20, // Slightly larger to give emphasis
+        color: '#000', // Darker color for more emphasis
     },
     headingText: {
-        fontFamily: 'Lato-Bold',         // Use Lato for headings
+        fontFamily: 'Lato-Bold',
         fontSize: 24,
     },
     subheadingText: {
         fontFamily: 'Lato-Medium',
-        fontSize: 22,
+        fontSize: 20,
+        fontStyle: 'italic',
     },
     underlineContainer: {
         borderBottomWidth: 2,
@@ -151,15 +160,18 @@ const styles = StyleSheet.create({
         height: 180,
         resizeMode: 'contain',
         marginVertical: 0,
-        marginTop: 10,
-        marginBottom: 10,
     },
     welcomeImage: {
         width: '100%',
         height: 300,
         resizeMode: 'contain',
-        marginTop: 50,
-        marginBottom: 20,
+        marginVertical: 10,
+    },
+    smallImage: {
+        width: '100%',
+        height: 80,
+        resizeMode: 'contain',
+        marginVertical: 5,
     },
     frameWithBulb: {
         position: 'relative',
@@ -185,5 +197,6 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
 });
+
 
 export default ContentSlide;

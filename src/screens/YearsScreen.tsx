@@ -65,6 +65,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 10,
         alignItems: 'center',
+        marginTop: 25
     },
     card: {
         width: '85%',
@@ -73,8 +74,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: '#f0f0f0',
-        marginTop: 25,
-        marginBottom: 25,
+        marginTop: 0,
+        marginBottom: 45,
         overflow: 'hidden',
         paddingTop: 0,
         paddingBottom: 30,
@@ -100,7 +101,7 @@ const styles = StyleSheet.create({
     },
     number: {
         fontFamily: 'Lato-Bold',
-        fontSize: scaleFontSize(18),
+        fontSize: scaleFontSize(16),
         color: '#fff',
     },
     learnArea: {

@@ -15,26 +15,68 @@ const Stack = createStackNavigator<LearnStackParamList>();
 const LearnStackNavigator: React.FC = () => {
     return (
         <Stack.Navigator>
-            <Stack.Screen name="HomeScreen" component={HomeScreen} />
-            <Stack.Screen name="YearsScreen" component={YearsScreen} />
-            <Stack.Screen name="ChaptersScreen" component={ChaptersScreen} />
+            <Stack.Screen 
+                name="HomeScreen" 
+                component={HomeScreen}
+            />
+            <Stack.Screen
+                name="YearsScreen"
+                component={YearsScreen}
+                options={{
+                    title: 'Wähle dein Lehrjahr',
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: {
+                        fontWeight: '600', // Slightly bolder
+                    },
+                }}
+            />
+            <Stack.Screen
+                name="ChaptersScreen"
+                component={ChaptersScreen}
+                options={({ route }) => ({
+                    title: `${route.params.year}. Lehrjahr`,
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: {
+                        fontWeight: '600', // Slightly bolder
+                    },
+                })}
+            />
             <Stack.Screen
                 name="SubchaptersScreen"
                 component={SubchaptersScreen}
-                options={{ title: 'Subchapters' }}
+                options={({ route }) => ({
+                    title: route.params.chapterTitle,
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: {
+                        fontWeight: '600', // Slightly bolder
+                    },
+                })}
             />
             <Stack.Screen
                 name="SubchapterContentScreen"
                 component={SubchapterContentScreen}
-                options={{ title: 'Subchapter Content' }}
+                options={{ 
+                    title: 'Subchapter Content',
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: {
+                        fontWeight: '600', // Slightly bolder
+                    },
+                }}
             />
             <Stack.Screen
                 name="CongratsScreen"
                 component={CongratsScreen}
-                options={{ title: 'Congratulations' }}
+                options={{ 
+                    title: 'Congratulations',
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: {
+                        fontWeight: '600', // Slightly bolder
+                    },
+                }}
             />
         </Stack.Navigator>
     );
 };
 
 export default LearnStackNavigator;
+

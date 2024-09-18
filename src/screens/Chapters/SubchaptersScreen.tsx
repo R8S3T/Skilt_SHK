@@ -114,7 +114,6 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
 
     return (
         <ScrollView style={styles.screenContainer}>
-            <Text style={styles.heading}>{chapterTitle}</Text>
             <View style={styles.separator} />
             {loading ? (
                 <Text>Loading...</Text>
