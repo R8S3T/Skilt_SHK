@@ -9,7 +9,7 @@ import { GenericContent } from 'src/types/contentTypes';
 import { fetchSubchapterContentBySubchapterId, fetchQuizByContentId } from 'src/database/databaseServices';
 import { useSubchapter } from './SubchapterContext';
 import { LinearGradient } from 'expo-linear-gradient';
-import { PanGestureHandler, State } from 'react-native-gesture-handler';
+import { PanGestureHandler, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
 
 type SubchapterContentScreenRouteProp = RouteProp<LearnStackParamList, 'SubchapterContentScreen'>;
 type SubchapterContentScreenNavigationProp = StackNavigationProp<LearnStackParamList, 'SubchapterContentScreen'>;
@@ -28,11 +28,9 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     const [canSwipeNext, setCanSwipeNext] = useState<boolean>(false);
 
     const scrollViewRef = useRef<ScrollView>(null); // Create a ref for ScrollView
-    const [isVerticalSwipe, setIsVerticalSwipe] = useState<boolean>(false);
+    const isSwiping = useRef(false); // Flag to track swiping state
 
     const { markSubchapterAsFinished, unlockSubchapter } = useSubchapter();
-
-    const isSwiping = useRef(false); // Flag to track swiping state
 
     useEffect(() => {
         navigation.setOptions({ title: subchapterTitle });
@@ -67,22 +65,23 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         });
     }, [currentIndex, contentData.length]);
 
-    // Handle swipe gestures with debounce and swipe control
+    // Handle swipe gestures with horizontal swipe only
     const handleSwipe = (event: any) => {
-        if (isSwiping.current) return; // Prevent double swipes
-        const { translationX } = event.nativeEvent;
+        const { translationX, translationY } = event.nativeEvent;
 
-        if (translationX > 50 && currentIndex > 0) {
-            // Swipe right to go back to the previous slide
-            isSwiping.current = true;
-            setCurrentIndex((prevIndex) => prevIndex - 1);
-            setTimeout(() => (isSwiping.current = false), 500); // Delay before allowing the next swipe
-        } else if (translationX < -50 && currentIndex < contentData.length - 1 && canSwipeNext) {
-            // Swipe left to go to the next slide, only if the next button has been pressed
-            isSwiping.current = true;
-            setCurrentIndex((prevIndex) => prevIndex + 1);
-            setCanSwipeNext(false); // Reset the flag for the next slide
-            setTimeout(() => (isSwiping.current = false), 500); // Delay before allowing the next swipe
+        // Only handle horizontal swipes, ignore vertical swipes for scrolling
+        if (Math.abs(translationX) > Math.abs(translationY)) {
+            if (isSwiping.current) return; // Prevent double swipes
+            if (translationX > 50 && currentIndex > 0) {
+                isSwiping.current = true;
+                setCurrentIndex((prevIndex) => prevIndex - 1);
+                setTimeout(() => (isSwiping.current = false), 500); // Delay before allowing the next swipe
+            } else if (translationX < -50 && currentIndex < contentData.length - 1 && canSwipeNext) {
+                isSwiping.current = true;
+                setCurrentIndex((prevIndex) => prevIndex + 1);
+                setCanSwipeNext(false); // Reset the flag for the next slide
+                setTimeout(() => (isSwiping.current = false), 500); // Delay before allowing the next swipe
+            }
         }
     };
 
@@ -139,15 +138,17 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     }
 
     return (
-        <PanGestureHandler onGestureEvent={handleSwipe}>
-            <View style={styles.container}>
-                {showQuiz ? (
-                    <QuizSlide contentId={contentData[currentIndex].ContentId} onContinue={nextContent} />
-                ) : (
-                    <ContentSlide contentData={contentData[currentIndex]} onNext={nextContent} />
-                )}
-            </View>
-        </PanGestureHandler>
+        <GestureHandlerRootView style={styles.container}>
+            <PanGestureHandler onGestureEvent={handleSwipe}>
+                <View style={styles.container}>
+                    {showQuiz ? (
+                        <QuizSlide contentId={contentData[currentIndex].ContentId} onContinue={nextContent} />
+                    ) : (
+                        <ContentSlide contentData={contentData[currentIndex]} onNext={nextContent} />
+                    )}
+                </View>
+            </PanGestureHandler>
+        </GestureHandlerRootView>
     );
 };
 
@@ -175,8 +176,8 @@ const styles = StyleSheet.create({
     },
 });
 
-
 export default SubchapterContentScreen;
+
 
 
 

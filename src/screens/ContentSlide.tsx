@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import NextSlideButton from './NextSlideButton';
-import TextProcessor from 'src/components/TextProcessor';
-import ContentMarkerHandler from 'src/components/ContentMarkerHandler';
+import ContentHandler from 'src/components/ContentHandler';
 import { GenericContent } from 'src/types/contentTypes';
+import { ScrollView } from 'react-native-gesture-handler';
 
 interface ContentSlideProps {
     contentData: GenericContent;
@@ -16,16 +16,9 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
     return (
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContent} nestedScrollEnabled={true}>
-                {ContentData.split(/\n/).map((part, index) => {
-                    // First handle all special markers
-                    return (
-                        <React.Fragment key={index}>
-                            <ContentMarkerHandler part={part} />
-                            {/* Process the remaining text */}
-                            <TextProcessor text={part} />
-                        </React.Fragment>
-                    );
-                })}
+                {ContentData.split(/\n/).map((part, index) => (
+                    <ContentHandler key={index} part={part} />
+                ))}
             </ScrollView>
             <View style={styles.buttonContainer}>
                 <NextSlideButton
@@ -57,4 +50,3 @@ const styles = StyleSheet.create({
 });
 
 export default ContentSlide;
-

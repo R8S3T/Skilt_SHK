@@ -4,8 +4,8 @@ import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { BottomTabParamList } from 'src/types/navigationTypes';
 import LearnTracker from '../LearnTracking/LearnTracker';
 import Section1 from './Section1';
-import Section2 from './Section2';
-import Section3 from './Section3';
+import MathModulSection from './MathModulSection';
+import FlashcardsSection from './FlashCardsSection';
 
 type HomeRouteProp = RouteProp<BottomTabParamList, 'Home'>;
 
@@ -17,7 +17,7 @@ const HomeScreen = () => {
     useEffect(() => {
         // Set the header title dynamically based on the username
         navigation.setOptions({
-            headerTitle: `Hallo, ${username}`
+            headerTitle: `Hallo, ${username}`,
         });
     }, [navigation, username]);
 
@@ -26,25 +26,27 @@ const HomeScreen = () => {
     };
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
+        <ScrollView contentContainerStyle={styles.scrollContentContainer}>
             <LearnTracker />
             <Section1 onButtonPress={handleButtonPress} />
-            <Section2 onButtonPress={handleButtonPress} />
+            <MathModulSection onButtonPress={handleButtonPress} />
+            <FlashcardsSection onButtonPress={handleButtonPress} />
         </ScrollView>
     );
-}
+};
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
+    scrollContentContainer: {
+        flexGrow: 1,
         alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#fff'
+        justifyContent: 'flex-start', // Ensure components are aligned at the top
+        paddingVertical: 20, // Add some padding for visual spacing
+        backgroundColor: '#fff',
     },
-    greeting: {
-        fontSize: 24,
-        fontWeight: 'bold',
-    }
+    sectionSpacing: {
+        marginBottom: 20, // Add space between sections
+    },
 });
 
 export default HomeScreen;
+

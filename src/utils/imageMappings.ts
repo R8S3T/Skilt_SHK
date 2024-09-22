@@ -161,6 +161,14 @@ const img_equationsmechanicwelcome = require('../../assets/DbImages/MathImages/e
 const img_equationsmechanicwinkelhebel = require('../../assets/DbImages/MathImages/equations_mechanic_winkelhebel.png');
 const img_equationstypeswelcome = require('../../assets/DbImages/MathImages/equations_types_welcome.png');
 const img_equationswelcome = require('../../assets/DbImages/MathImages/equations_welcome.png');
+const img_LF1Blattfaltung500 = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Blattfaltung_500.png');
+const img_LF1Blattfaltung800 = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Blattfaltung_800.png');
+const img_LF1FarbkennzeichnungRohre = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Farbkennzeichnung_Rohre.png');
+const img_LF1Sinnbilder = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Sinnbilder.png');
+const img_LF1SinnbilderArmaturen = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Sinnbilder_Armaturen.png');
+const img_LF1Symbolewelcome = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Symbole_welcome.png');
+const img_LF1isometrischeInstallation = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_isometrische_Installation.png');
+const img_LF1isometrischeZeichnung = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_isometrische_Zeichnung.png');
 const img_LF12BaustoffeMauerwerksmall = require('../../assets/DbImages/SubchapterContent/LF_1_2_Baustoffe_Mauerwerk_small.png');
 const img_LF12BaustoffeZiegel = require('../../assets/DbImages/SubchapterContent/LF_1_2_Baustoffe_Ziegel.png');
 const img_LF12BaustoffeZiegelsmall = require('../../assets/DbImages/SubchapterContent/LF_1_2_Baustoffe_Ziegel_small.png');
@@ -375,6 +383,14 @@ export const imageMap = {
     "equations_mechanic_winkelhebel": img_equationsmechanicwinkelhebel,
     "equations_types_welcome": img_equationstypeswelcome,
     "equations_welcome": img_equationswelcome,
+    "LF_1_Blattfaltung_500": img_LF1Blattfaltung500,
+    "LF_1_Blattfaltung_800": img_LF1Blattfaltung800,
+    "LF_1_Farbkennzeichnung_Rohre": img_LF1FarbkennzeichnungRohre,
+    "LF_1_Sinnbilder": img_LF1Sinnbilder,
+    "LF_1_Sinnbilder_Armaturen": img_LF1SinnbilderArmaturen,
+    "LF_1_Symbole_welcome": img_LF1Symbolewelcome,
+    "LF_1_isometrische_Installation": img_LF1isometrischeInstallation,
+    "LF_1_isometrische_Zeichnung": img_LF1isometrischeZeichnung,
     "LF_1_2_Baustoffe_Mauerwerk_small": img_LF12BaustoffeMauerwerksmall,
     "LF_1_2_Baustoffe_Ziegel": img_LF12BaustoffeZiegel,
     "LF_1_2_Baustoffe_Ziegel_small": img_LF12BaustoffeZiegelsmall,
