@@ -10,7 +10,8 @@ import {
     GenericContent,
     Quiz,
     MultipleChoiceOption,
-    ClozeTestOption
+    ClozeTestOption,
+    Flashcard
 } from 'src/types/contentTypes';
 
     // Use here Expo IP adress
@@ -190,6 +191,39 @@ export async function fetchMathMiniQuizByContentId(contentId: number): Promise<M
         return [];
     }
 }
+
+// Fetch flashcards by ChapterId
+export async function fetchFlashcardsByChapterId(chapterId: number): Promise<Flashcard[]> {
+    try {
+        const response = await fetch(`${API_URL}/flashcards/${chapterId}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        const flashcards: Flashcard[] = await response.json();
+        console.log(`Fetched Flashcards for ChapterId ${chapterId}:`, flashcards);
+        return flashcards;
+    } catch (error) {
+        console.error(`Failed to fetch flashcards for ChapterId ${chapterId}:`, error);
+        return []; // Return empty array on error
+    }
+}
+
+// Fetch random flashcards
+export async function fetchRandomFlashcards(): Promise<Flashcard[]> {
+    try {
+        const response = await fetch(`${API_URL}/flashcards/random`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        const flashcards: Flashcard[] = await response.json();
+        console.log('Fetched Random Flashcards:', flashcards);
+        return flashcards;
+    } catch (error) {
+        console.error('Failed to fetch random flashcards:', error);
+        return []; // Return empty array on error
+    }
+}
+
 
 
 

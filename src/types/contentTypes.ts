@@ -80,3 +80,13 @@ export interface MathMiniQuiz {
     Option2: string;
     Option3: string;
 }
+
+export interface Flashcard {
+    FlashcardId: number;
+    Question: string;
+    Answer: string;
+    ChapterId: number;
+    SubchapterId: number;
+    TopicName: string;
+    Status: string;
+}

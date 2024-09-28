@@ -15,7 +15,8 @@ import {
     createQuizTable,
     createMultipleChoiceOptionsTable,
     createClozeTestOptionsTable,
-    createMathMiniQuizTable
+    createMathMiniQuizTable,
+    createFlashcardsTable
 } from './createTables';
 
 
@@ -45,6 +46,7 @@ export const initializeDatabase = (): Promise<void> => {
                     await createMultipleChoiceOptionsTable(db);
                     await createClozeTestOptionsTable(db);
                     await createMathMiniQuizTable(db);
+                    await createFlashcardsTable(db);
                     resolve();
                 } catch (error) {
                     reject(error);
@@ -78,11 +80,11 @@ export const fetchChaptersByYear = (year: number): Promise<any[]> => {
 };
 
 
-// Fetch subchapters by chapter id
+// Fetch subchapters by chapter id and order by SortOrder
 export const fetchSubchaptersByChapterId = (chapterId: number): Promise<any[]> => {
     return new Promise((resolve, reject) => {
         const db = new sqlite3.Database(dbPath);
-        db.all('SELECT * FROM Subchapters WHERE ChapterId = ?', [chapterId], (err, rows) => {
+        db.all('SELECT * FROM Subchapters WHERE ChapterId = ? ORDER BY SortOrder ASC', [chapterId], (err, rows) => {
             db.close();
             if (err) {
                 console.error('Failed to fetch subchapters:', err);
@@ -94,6 +96,7 @@ export const fetchSubchaptersByChapterId = (chapterId: number): Promise<any[]> =
         });
     });
 };
+
 
 // Fetch subchapter content by subchapter id
 export const fetchSubchapterContentBySubchapterId = (subchapterId: number): Promise<any[]> => {
@@ -258,9 +261,47 @@ export const fetchMathMiniQuizByContentId = (contentId: number): Promise<any[]> 
                         Answer: typedRow.Answer.split(',').map((answer: string) => answer.trim()) // Convert to array
                     };
                 });
-                
+
                 resolve(processedRows);
             }
         });
     });
 };
+
+// Fetch flashcards by ChapterId
+export const fetchFlashcardsByChapterId = (chapterId: number): Promise<any[]> => {
+    return new Promise((resolve, reject) => {
+        const db = new sqlite3.Database(dbPath);
+        db.all('SELECT * FROM Flashcards WHERE ChapterId = ?', [chapterId], (err, rows) => {
+            db.close();
+            if (err) {
+                console.error('Failed to fetch flashcards:', err);
+                reject(err);
+            } else {
+                console.log(`Fetched Flashcards for ChapterId ${chapterId}:`, rows);
+                resolve(rows);
+            }
+        });
+    });
+};
+
+// Fetch random flashcards
+export const fetchRandomFlashcards = (): Promise<any[]> => {
+    return new Promise((resolve, reject) => {
+        const db = new sqlite3.Database(dbPath);
+
+        console.log('Database path being used:', dbPath); // Log the db path
+
+        db.all('SELECT * FROM Flashcards ORDER BY RANDOM() LIMIT 10', [], (err, rows) => {
+            db.close();
+            if (err) {
+                console.error('Failed to fetch random flashcards:', err);
+                reject(err);
+            } else {
+                console.log('Fetched Random Flashcards from DB:', rows); // Log the fetched rows
+                resolve(rows);
+            }
+        });
+    });
+};
+

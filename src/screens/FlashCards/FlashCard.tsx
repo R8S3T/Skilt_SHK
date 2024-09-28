@@ -4,7 +4,12 @@ import { scaleFontSize, dynamicMargin, dynamicCardHeight } from 'src/utils/scree
 
 const { width: screenWidth } = Dimensions.get('window');
 
-const FlashCard: React.FC = () => {
+interface FlashCardProps {
+    question: string;
+    answer: string;
+}
+
+const FlashCard: React.FC<FlashCardProps> = ({ question, answer }) => {
     const [flipped, setFlipped] = useState(false);
     const [rotateAnim] = useState(new Animated.Value(0));
 
@@ -41,7 +46,7 @@ const FlashCard: React.FC = () => {
                             },
                         ]}
                     >
-                        <Text style={styles.questionText}>Welche Rohre eignen sich für die Trinkwasserinstallation?</Text>
+                        <Text style={styles.questionText}>{question}</Text>
                     </Animated.View>
 
                     {/* Back Side */}
@@ -57,7 +62,7 @@ const FlashCard: React.FC = () => {
                             },
                         ]}
                     >
-                        <Text style={styles.answerText}>Für die Trinkwasserinstallation eignen sich Kunststoff-, Kupfer- und Edelstahlrohre.</Text>
+                        <Text style={styles.answerText}>{answer}</Text>
                     </Animated.View>
                 </View>
             </TouchableOpacity>

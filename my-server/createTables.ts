@@ -225,3 +225,30 @@ export const createMathMiniQuizTable = (db: sqlite3.Database): Promise<void> => 
         });
     });
 };
+
+export const createFlashcardsTable = (db: sqlite3.Database): Promise<void> => {
+    return new Promise((resolve, reject) => {
+        db.run(`
+            CREATE TABLE IF NOT EXISTS Flashcards (
+                FlashcardId INTEGER PRIMARY KEY AUTOINCREMENT,
+                Question TEXT NOT NULL,
+                Answer TEXT NOT NULL,
+                ChapterId INTEGER,
+                SubchapterId INTEGER,
+                TopicName TEXT,
+                Status TEXT DEFAULT 'learning',
+                FOREIGN KEY (ChapterId) REFERENCES Chapters(ChapterId) ON DELETE CASCADE,
+                FOREIGN KEY (SubchapterId) REFERENCES Subchapters(SubchapterId) ON DELETE CASCADE
+            )
+        `, (err) => {
+            if (err) {
+                console.error('Failed to create Flashcards table:', err.message);
+                reject(err);
+            } else {
+                console.log('Flashcards table created or already exists.');
+                resolve();
+            }
+        });
+    });
+};
+

@@ -161,14 +161,26 @@ const img_equationsmechanicwelcome = require('../../assets/DbImages/MathImages/e
 const img_equationsmechanicwinkelhebel = require('../../assets/DbImages/MathImages/equations_mechanic_winkelhebel.png');
 const img_equationstypeswelcome = require('../../assets/DbImages/MathImages/equations_types_welcome.png');
 const img_equationswelcome = require('../../assets/DbImages/MathImages/equations_welcome.png');
+const img_LF1Anschlagwinkel = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Anschlagwinkel.png');
+const img_LF1Beton = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Beton.png');
 const img_LF1Blattfaltung500 = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Blattfaltung_500.png');
 const img_LF1Blattfaltung800 = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Blattfaltung_800.png');
 const img_LF1FarbkennzeichnungRohre = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Farbkennzeichnung_Rohre.png');
+const img_LF1Haarlineal = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Haarlineal.png');
+const img_LF1Leichtmetalle = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Leichtmetalle.png');
+const img_LF1Linienlaser = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Linienlaser.png');
+const img_LF1Metalle = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Metalle.png');
+const img_LF1Senklot = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Senklot.png');
 const img_LF1Sinnbilder = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Sinnbilder.png');
 const img_LF1SinnbilderArmaturen = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Sinnbilder_Armaturen.png');
 const img_LF1Symbolewelcome = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Symbole_welcome.png');
+const img_LF1Wasserwaage = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Wasserwaage.png');
+const img_LF1Winkelmesser = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Winkelmesser.png');
+const img_LF1Zollstock = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Zollstock.png');
+const img_LF1bewehrterBeton = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_bewehrter_Beton.png');
 const img_LF1isometrischeInstallation = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_isometrische_Installation.png');
 const img_LF1isometrischeZeichnung = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_isometrische_Zeichnung.png');
+const img_LF6BerechnungGeflle = require('../../assets/DbImages/SubchapterContent/LF_1/LF_6_Berechnung_Gefälle.png');
 const img_LF12BaustoffeMauerwerksmall = require('../../assets/DbImages/SubchapterContent/LF_1_2_Baustoffe_Mauerwerk_small.png');
 const img_LF12BaustoffeZiegel = require('../../assets/DbImages/SubchapterContent/LF_1_2_Baustoffe_Ziegel.png');
 const img_LF12BaustoffeZiegelsmall = require('../../assets/DbImages/SubchapterContent/LF_1_2_Baustoffe_Ziegel_small.png');
@@ -198,27 +210,67 @@ const img_LF1Verbotsschilder = require('../../assets/DbImages/SubchapterContent/
 const img_LF1Volllinie = require('../../assets/DbImages/SubchapterContent/LF_1_Volllinie.png');
 const img_LF1Warnzeichen = require('../../assets/DbImages/SubchapterContent/LF_1_Warnzeichen.png');
 const img_LF1Werkstoffewelcome = require('../../assets/DbImages/SubchapterContent/LF_1_Werkstoffe_welcome.png');
-const img_LF1Winkelmesser = require('../../assets/DbImages/SubchapterContent/LF_1_Winkelmesser.png');
-const img_LF1Zollstock = require('../../assets/DbImages/SubchapterContent/LF_1_Zollstock.png');
 const img_LF1screwdrawing = require('../../assets/DbImages/SubchapterContent/LF_1_screw_drawing.png');
 const img_LF1technZeichnungwelcome = require('../../assets/DbImages/SubchapterContent/LF_1_techn_Zeichnung_welcome.png');
+const img_LF2Winkelschleifer = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Winkelschleifer.png');
+const img_LF3Flanschverbindung = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Flanschverbindung.png');
 const img_LF3Klemmverschraubung = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Klemmverschraubung.png');
 const img_LF3KlemmverschraubungBezeichnung = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Klemmverschraubung_Bezeichnung.png');
+const img_LF3SteckmuffeSchnittwelcome = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Steckmuffe_Schnitt_welcome.png');
+const img_LF3Steckmuffewelcome = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Steckmuffe_welcome.png');
 const img_LF3VerschraubungBezeichnung = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Verschraubung_Bezeichnung.png');
 const img_LF3Verschraubungflachdichtend = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Verschraubung_flachdichtend.png');
 const img_LF3Verschraubungkonisch = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Verschraubung_konisch.png');
 const img_LF3VerschraubungkonischBezeichnung = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Verschraubung_konisch_Bezeichnung.png');
+const img_LF3Weichlten = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Weichlöten.png');
+const img_LF3axialwelcome = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_axial_welcome.png');
+const img_LF3minDurchmesser = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_min_Durchmesser.png');
+const img_LF3radialKunststoffwelcome = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_radial_Kunststoff_welcome.png');
+const img_LF3radialwelcome = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_radial_welcome.png');
 const img_LF3Ausdehnungwelcome = require('../../assets/DbImages/SubchapterContent/LF_3_Ausdehnung_welcome.png');
 const img_LF3Formel = require('../../assets/DbImages/SubchapterContent/LF_3_Formel.png');
 const img_LF3Rohrewelcome = require('../../assets/DbImages/SubchapterContent/LF_3_Rohre_welcome.png');
+const img_LF4AC = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_AC.png');
+const img_LF4DC = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_DC.png');
+const img_LF4Elektrotechnikwelcome = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Elektrotechnik_welcome.png');
+const img_LF4Kopfhrersmall = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Kopfhörer_small.png');
+const img_LF4Schutzeinrichtungenwelcome = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Schutzeinrichtungen_welcome.png');
+const img_LF4Spannung = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Spannung.png');
+const img_LF4Widerstand = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Widerstand.png');
+const img_LF4Widerstand1small = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Widerstand_1_small.png');
+const img_LF4Widerstand2small = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Widerstand_2_small.png');
+const img_LF4Widerstandsmall = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Widerstand_small.png');
+const img_LF4geschlossen = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_geschlossen.png');
+const img_LF4offen = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_offen.png');
 const img_LF5Trinkwasserwelcome = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Trinkwasser_welcome.png');
 const img_LF5Trinkwasserrohrewelcome = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Trinkwasserrohre_welcome.png');
+const img_LF6Anschlusskanal = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Anschlusskanal.png');
+const img_LF6Anschlusskanalwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Anschlusskanal_welcome.png');
+const img_LF6Einzelanschlussleitung = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Einzelanschlussleitung.png');
+const img_LF6Falleitung = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Falleitung.png');
+const img_LF6Falleitungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Falleitung_welcome.png');
+const img_LF6Fllungsgrad = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Füllungsgrad.png');
 const img_LF6Geflle = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Gefälle.png');
+const img_LF6Geflle2 = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Gefälle_2.png');
+const img_LF6Grundleitung = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Grundleitung.png');
+const img_LF6Grundleitungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Grundleitung_welcome.png');
 const img_LF6Leitungenbersicht = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Leitungen_Übersicht.png');
+const img_LF6Leitungenbersichtwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Leitungen_Übersicht_welcome.png');
+const img_LF6Lftungsleitung = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Lüftungsleitung.png');
+const img_LF6Lftungsleitungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Lüftungsleitung_welcome.png');
+const img_LF6Sammelanschlussleitung = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Sammelanschlussleitung.png');
+const img_LF6Sammelleitungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Sammelleitung_welcome.png');
 const img_LF6TrennsystemAbwasser = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Trennsystem_Abwasser.png');
+const img_LF6Umgehungsleitungenwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Umgehungsleitungen_welcome.png');
+const img_LF6Verbindungsleitung = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Verbindungsleitung.png');
+const img_LF6hoherFllungsgrad = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_hoher_Füllungsgrad.png');
+const img_LF6niedrigerFllungsgrad = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_niedriger_Füllungsgrad.png');
+const img_LF6optimalerFllungsgrad = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_optimaler_Füllungsgrad.png');
 const img_LF6welcome = require('../../assets/DbImages/SubchapterContent/LF_6_welcome.png');
 const img_LF7Gebudeenergiegesetz = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Gebäudeenergiegesetz.png');
 const img_LF7Gebudeenergiegesetzwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Gebäudeenergiegesetz_welcome.png');
+const img_LF8Dichtungwelcome = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Dichtung_welcome.png');
+const img_LF8Sanitrplanungwelcome = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Sanitärplanung_welcome.png');
 
 export const imageMap = {
     "LF_devider_dots_petrol": img_LFdeviderdotspetrol,
@@ -383,14 +435,26 @@ export const imageMap = {
     "equations_mechanic_winkelhebel": img_equationsmechanicwinkelhebel,
     "equations_types_welcome": img_equationstypeswelcome,
     "equations_welcome": img_equationswelcome,
+    "LF_1_Anschlagwinkel": img_LF1Anschlagwinkel,
+    "LF_1_Beton": img_LF1Beton,
     "LF_1_Blattfaltung_500": img_LF1Blattfaltung500,
     "LF_1_Blattfaltung_800": img_LF1Blattfaltung800,
     "LF_1_Farbkennzeichnung_Rohre": img_LF1FarbkennzeichnungRohre,
+    "LF_1_Haarlineal": img_LF1Haarlineal,
+    "LF_1_Leichtmetalle": img_LF1Leichtmetalle,
+    "LF_1_Linienlaser": img_LF1Linienlaser,
+    "LF_1_Metalle": img_LF1Metalle,
+    "LF_1_Senklot": img_LF1Senklot,
     "LF_1_Sinnbilder": img_LF1Sinnbilder,
     "LF_1_Sinnbilder_Armaturen": img_LF1SinnbilderArmaturen,
     "LF_1_Symbole_welcome": img_LF1Symbolewelcome,
+    "LF_1_Wasserwaage": img_LF1Wasserwaage,
+    "LF_1_Winkelmesser": img_LF1Winkelmesser,
+    "LF_1_Zollstock": img_LF1Zollstock,
+    "LF_1_bewehrter_Beton": img_LF1bewehrterBeton,
     "LF_1_isometrische_Installation": img_LF1isometrischeInstallation,
     "LF_1_isometrische_Zeichnung": img_LF1isometrischeZeichnung,
+    "LF_6_Berechnung_Gefälle": img_LF6BerechnungGeflle,
     "LF_1_2_Baustoffe_Mauerwerk_small": img_LF12BaustoffeMauerwerksmall,
     "LF_1_2_Baustoffe_Ziegel": img_LF12BaustoffeZiegel,
     "LF_1_2_Baustoffe_Ziegel_small": img_LF12BaustoffeZiegelsmall,
@@ -420,25 +484,65 @@ export const imageMap = {
     "LF_1_Volllinie": img_LF1Volllinie,
     "LF_1_Warnzeichen": img_LF1Warnzeichen,
     "LF_1_Werkstoffe_welcome": img_LF1Werkstoffewelcome,
-    "LF_1_Winkelmesser": img_LF1Winkelmesser,
-    "LF_1_Zollstock": img_LF1Zollstock,
     "LF_1_screw_drawing": img_LF1screwdrawing,
     "LF_1_techn_Zeichnung_welcome": img_LF1technZeichnungwelcome,
+    "LF_2_Winkelschleifer": img_LF2Winkelschleifer,
+    "LF_3_Flanschverbindung": img_LF3Flanschverbindung,
     "LF_3_Klemmverschraubung": img_LF3Klemmverschraubung,
     "LF_3_Klemmverschraubung_Bezeichnung": img_LF3KlemmverschraubungBezeichnung,
+    "LF_3_Steckmuffe_Schnitt_welcome": img_LF3SteckmuffeSchnittwelcome,
+    "LF_3_Steckmuffe_welcome": img_LF3Steckmuffewelcome,
     "LF_3_Verschraubung_Bezeichnung": img_LF3VerschraubungBezeichnung,
     "LF_3_Verschraubung_flachdichtend": img_LF3Verschraubungflachdichtend,
     "LF_3_Verschraubung_konisch": img_LF3Verschraubungkonisch,
     "LF_3_Verschraubung_konisch_Bezeichnung": img_LF3VerschraubungkonischBezeichnung,
+    "LF_3_Weichlöten": img_LF3Weichlten,
+    "LF_3_axial_welcome": img_LF3axialwelcome,
+    "LF_3_min_Durchmesser": img_LF3minDurchmesser,
+    "LF_3_radial_Kunststoff_welcome": img_LF3radialKunststoffwelcome,
+    "LF_3_radial_welcome": img_LF3radialwelcome,
     "LF_3_Ausdehnung_welcome": img_LF3Ausdehnungwelcome,
     "LF_3_Formel": img_LF3Formel,
     "LF_3_Rohre_welcome": img_LF3Rohrewelcome,
+    "LF_4_AC": img_LF4AC,
+    "LF_4_DC": img_LF4DC,
+    "LF_4_Elektrotechnik_welcome": img_LF4Elektrotechnikwelcome,
+    "LF_4_Kopfhörer_small": img_LF4Kopfhrersmall,
+    "LF_4_Schutzeinrichtungen_welcome": img_LF4Schutzeinrichtungenwelcome,
+    "LF_4_Spannung": img_LF4Spannung,
+    "LF_4_Widerstand": img_LF4Widerstand,
+    "LF_4_Widerstand_1_small": img_LF4Widerstand1small,
+    "LF_4_Widerstand_2_small": img_LF4Widerstand2small,
+    "LF_4_Widerstand_small": img_LF4Widerstandsmall,
+    "LF_4_geschlossen": img_LF4geschlossen,
+    "LF_4_offen": img_LF4offen,
     "LF_5_Trinkwasser_welcome": img_LF5Trinkwasserwelcome,
     "LF_5_Trinkwasserrohre_welcome": img_LF5Trinkwasserrohrewelcome,
+    "LF_6_Anschlusskanal": img_LF6Anschlusskanal,
+    "LF_6_Anschlusskanal_welcome": img_LF6Anschlusskanalwelcome,
+    "LF_6_Einzelanschlussleitung": img_LF6Einzelanschlussleitung,
+    "LF_6_Falleitung": img_LF6Falleitung,
+    "LF_6_Falleitung_welcome": img_LF6Falleitungwelcome,
+    "LF_6_Füllungsgrad": img_LF6Fllungsgrad,
     "LF_6_Gefälle": img_LF6Geflle,
+    "LF_6_Gefälle_2": img_LF6Geflle2,
+    "LF_6_Grundleitung": img_LF6Grundleitung,
+    "LF_6_Grundleitung_welcome": img_LF6Grundleitungwelcome,
     "LF_6_Leitungen_Übersicht": img_LF6Leitungenbersicht,
+    "LF_6_Leitungen_Übersicht_welcome": img_LF6Leitungenbersichtwelcome,
+    "LF_6_Lüftungsleitung": img_LF6Lftungsleitung,
+    "LF_6_Lüftungsleitung_welcome": img_LF6Lftungsleitungwelcome,
+    "LF_6_Sammelanschlussleitung": img_LF6Sammelanschlussleitung,
+    "LF_6_Sammelleitung_welcome": img_LF6Sammelleitungwelcome,
     "LF_6_Trennsystem_Abwasser": img_LF6TrennsystemAbwasser,
+    "LF_6_Umgehungsleitungen_welcome": img_LF6Umgehungsleitungenwelcome,
+    "LF_6_Verbindungsleitung": img_LF6Verbindungsleitung,
+    "LF_6_hoher_Füllungsgrad": img_LF6hoherFllungsgrad,
+    "LF_6_niedriger_Füllungsgrad": img_LF6niedrigerFllungsgrad,
+    "LF_6_optimaler_Füllungsgrad": img_LF6optimalerFllungsgrad,
     "LF_6_welcome": img_LF6welcome,
     "LF_7_Gebäudeenergiegesetz": img_LF7Gebudeenergiegesetz,
-    "LF_7_Gebäudeenergiegesetz_welcome": img_LF7Gebudeenergiegesetzwelcome
+    "LF_7_Gebäudeenergiegesetz_welcome": img_LF7Gebudeenergiegesetzwelcome,
+    "LF_8_Dichtung_welcome": img_LF8Dichtungwelcome,
+    "LF_8_Sanitärplanung_welcome": img_LF8Sanitrplanungwelcome
 };

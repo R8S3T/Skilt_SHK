@@ -10,7 +10,7 @@ interface Module {
 }
 
 interface MathModulProps {
-    onButtonPress?: (title: string) => void; // Add optional onButtonPress prop
+    onButtonPress?: (title: string) => void; // Optional onButtonPress prop
 }
 
 const MathModulSection: React.FC<MathModulProps> = ({ onButtonPress }) => {
@@ -24,11 +24,15 @@ const MathModulSection: React.FC<MathModulProps> = ({ onButtonPress }) => {
     ];
 
     const handleButtonPress = (title: string) => {
+        console.log('Button pressed:', title);
+
         if (onButtonPress) {
-            // If onButtonPress is provided, use it
+            console.log('onButtonPress is provided');
             onButtonPress(title);
-        } else if (title === 'Alle Module') {
-            // Navigate to MathChapterScreen if "Alle Module" is pressed
+        }
+
+        if (title === 'Alle Module') {
+            console.log('Navigating to MathChapterScreen');
             navigation.navigate('Math', { screen: 'MathChapterScreen' });
         } else {
             console.log(`${title} pressed`);
@@ -100,4 +104,3 @@ const styles = StyleSheet.create({
 });
 
 export default MathModulSection;
-

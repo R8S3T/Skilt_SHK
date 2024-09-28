@@ -15,7 +15,9 @@ import {
     fetchQuizByContentId,
     fetchMultipleChoiceOptionsByQuizId,
     fetchClozeTestOptionsByQuizId,
-    fetchMathMiniQuizByContentId
+    fetchMathMiniQuizByContentId,
+    fetchFlashcardsByChapterId,
+    fetchRandomFlashcards,
 } from './databaseSetup';
 
 const app = express();
@@ -178,6 +180,34 @@ app.get('/mathminiquiz/:contentId', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch MathMiniQuiz' });
     }
 });
+
+// Handle GET requests to fetch flashcards by Chapter ID
+app.get('/flashcards/:chapterId', async (req, res) => {
+    const chapterId = parseInt(req.params.chapterId);
+    console.log(`Received request for flashcards of ChapterId: ${chapterId}`);
+    try {
+        const flashcards = await fetchFlashcardsByChapterId(chapterId);
+        console.log(`Fetched flashcards for ChapterId ${chapterId}:`, flashcards);
+        res.json(flashcards);
+    } catch (error) {
+        console.error(`Error fetching flashcards for ChapterId ${chapterId}:`, error);
+        res.status(500).json({ error: 'Failed to fetch flashcards' });
+    }
+});
+
+// Handle GET requests to fetch random flashcards
+app.get('/flashcards/random', async (req, res) => {
+    console.log('Received request for random flashcards'); // Add this log to ensure the request is received
+    try {
+        const flashcards = await fetchRandomFlashcards();
+        console.log('Fetched random flashcards:', flashcards);
+        res.json(flashcards);
+    } catch (error) {
+        console.error('Error fetching random flashcards:', error);
+        res.status(500).json({ error: 'Failed to fetch random flashcards' });
+    }
+});
+
 
 // Start the server on the specified port and IP address
 app.listen(PORT, '0.0.0.0', () => {
