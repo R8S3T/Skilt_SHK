@@ -244,28 +244,47 @@ const img_LF4geschlossen = require('../../assets/DbImages/SubchapterContent/LF_4
 const img_LF4offen = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_offen.png');
 const img_LF5Trinkwasserwelcome = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Trinkwasser_welcome.png');
 const img_LF5Trinkwasserrohrewelcome = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Trinkwasserrohre_welcome.png');
-const img_LF6Anschlusskanal = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Anschlusskanal.png');
+const img_LF6Abstndewelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Abstände_welcome.png');
+const img_LF6Abzweige1 = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Abzweige_1.png');
+const img_LF6Abzweige1welcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Abzweige_1_welcome.png');
+const img_LF6Abzweige2welcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Abzweige_2_welcome.png');
+const img_LF6AnschlussRohrbelfterwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Anschluss_Rohrbelüfter_welcome.png');
 const img_LF6Anschlusskanalwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Anschlusskanal_welcome.png');
+const img_LF6Dimensionssprungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Dimensionssprung_welcome.png');
+const img_LF6Doppelabzweig = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Doppelabzweig.png');
+const img_LF6Doppelabzweige = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Doppelabzweige.png');
 const img_LF6Einzelanschlussleitung = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Einzelanschlussleitung.png');
-const img_LF6Falleitung = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Falleitung.png');
+const img_LF6Einzelhauptlftungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Einzelhauptlüftung_welcome.png');
 const img_LF6Falleitungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Falleitung_welcome.png');
+const img_LF6Fallleitungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Fallleitung_welcome.png');
+const img_LF6Fallleitungen38welcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Fallleitungen_3_8_welcome.png');
+const img_LF6Fallleitungsverziehungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Fallleitungsverziehung_welcome.png');
 const img_LF6Fllungsgrad = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Füllungsgrad.png');
 const img_LF6Geflle = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Gefälle.png');
 const img_LF6Geflle2 = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Gefälle_2.png');
-const img_LF6Grundleitung = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Grundleitung.png');
 const img_LF6Grundleitungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Grundleitung_welcome.png');
-const img_LF6Leitungenbersicht = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Leitungen_Übersicht.png');
 const img_LF6Leitungenbersichtwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Leitungen_Übersicht_welcome.png');
-const img_LF6Lftungsleitung = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Lüftungsleitung.png');
+const img_LF6Lftungsleitungfalschwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Lüftungsleitung_falsch_welcome.png');
 const img_LF6Lftungsleitungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Lüftungsleitung_welcome.png');
+const img_LF6Mindestsohlenabstand = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Mindestsohlenabstand.png');
+const img_LF6Mindestsohlenabstand2 = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Mindestsohlenabstand_2.png');
+const img_LF6Reinigungsffnung = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Reinigungsöffnung.png');
+const img_LF6Rohrbelfterinnenwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Rohrbelüfter_innen_welcome.png');
+const img_LF6Rohrbelfterwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Rohrbelüfter_welcome.png');
 const img_LF6Sammelanschlussleitung = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Sammelanschlussleitung.png');
+const img_LF6Sammelhauptleitungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Sammelhauptleitung_welcome.png');
 const img_LF6Sammelleitungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Sammelleitung_welcome.png');
 const img_LF6TrennsystemAbwasser = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Trennsystem_Abwasser.png');
+const img_LF6Umgehungsleitung2welcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Umgehungsleitung_2_welcome.png');
 const img_LF6Umgehungsleitungenwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Umgehungsleitungen_welcome.png');
+const img_LF6UmlftungsleitungVerziehungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Umlüftungsleitung_Verziehung_welcome.png');
+const img_LF6Umlftungsleitungrichtigwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Umlüftungsleitung_richtig_welcome.png');
+const img_LF6Umlftungsleitungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Umlüftungsleitung_welcome.png');
 const img_LF6Verbindungsleitung = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Verbindungsleitung.png');
 const img_LF6hoherFllungsgrad = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_hoher_Füllungsgrad.png');
 const img_LF6niedrigerFllungsgrad = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_niedriger_Füllungsgrad.png');
 const img_LF6optimalerFllungsgrad = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_optimaler_Füllungsgrad.png');
+const img_LF6bergangsstckewelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Übergangsstücke_welcome.png');
 const img_LF6welcome = require('../../assets/DbImages/SubchapterContent/LF_6_welcome.png');
 const img_LF7Gebudeenergiegesetz = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Gebäudeenergiegesetz.png');
 const img_LF7Gebudeenergiegesetzwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Gebäudeenergiegesetz_welcome.png');
@@ -518,28 +537,47 @@ export const imageMap = {
     "LF_4_offen": img_LF4offen,
     "LF_5_Trinkwasser_welcome": img_LF5Trinkwasserwelcome,
     "LF_5_Trinkwasserrohre_welcome": img_LF5Trinkwasserrohrewelcome,
-    "LF_6_Anschlusskanal": img_LF6Anschlusskanal,
+    "LF_6_Abstände_welcome": img_LF6Abstndewelcome,
+    "LF_6_Abzweige_1": img_LF6Abzweige1,
+    "LF_6_Abzweige_1_welcome": img_LF6Abzweige1welcome,
+    "LF_6_Abzweige_2_welcome": img_LF6Abzweige2welcome,
+    "LF_6_Anschluss_Rohrbelüfter_welcome": img_LF6AnschlussRohrbelfterwelcome,
     "LF_6_Anschlusskanal_welcome": img_LF6Anschlusskanalwelcome,
+    "LF_6_Dimensionssprung_welcome": img_LF6Dimensionssprungwelcome,
+    "LF_6_Doppelabzweig": img_LF6Doppelabzweig,
+    "LF_6_Doppelabzweige": img_LF6Doppelabzweige,
     "LF_6_Einzelanschlussleitung": img_LF6Einzelanschlussleitung,
-    "LF_6_Falleitung": img_LF6Falleitung,
+    "LF_6_Einzelhauptlüftung_welcome": img_LF6Einzelhauptlftungwelcome,
     "LF_6_Falleitung_welcome": img_LF6Falleitungwelcome,
+    "LF_6_Fallleitung_welcome": img_LF6Fallleitungwelcome,
+    "LF_6_Fallleitungen_3_8_welcome": img_LF6Fallleitungen38welcome,
+    "LF_6_Fallleitungsverziehung_welcome": img_LF6Fallleitungsverziehungwelcome,
     "LF_6_Füllungsgrad": img_LF6Fllungsgrad,
     "LF_6_Gefälle": img_LF6Geflle,
     "LF_6_Gefälle_2": img_LF6Geflle2,
-    "LF_6_Grundleitung": img_LF6Grundleitung,
     "LF_6_Grundleitung_welcome": img_LF6Grundleitungwelcome,
-    "LF_6_Leitungen_Übersicht": img_LF6Leitungenbersicht,
     "LF_6_Leitungen_Übersicht_welcome": img_LF6Leitungenbersichtwelcome,
-    "LF_6_Lüftungsleitung": img_LF6Lftungsleitung,
+    "LF_6_Lüftungsleitung_falsch_welcome": img_LF6Lftungsleitungfalschwelcome,
     "LF_6_Lüftungsleitung_welcome": img_LF6Lftungsleitungwelcome,
+    "LF_6_Mindestsohlenabstand": img_LF6Mindestsohlenabstand,
+    "LF_6_Mindestsohlenabstand_2": img_LF6Mindestsohlenabstand2,
+    "LF_6_Reinigungsöffnung": img_LF6Reinigungsffnung,
+    "LF_6_Rohrbelüfter_innen_welcome": img_LF6Rohrbelfterinnenwelcome,
+    "LF_6_Rohrbelüfter_welcome": img_LF6Rohrbelfterwelcome,
     "LF_6_Sammelanschlussleitung": img_LF6Sammelanschlussleitung,
+    "LF_6_Sammelhauptleitung_welcome": img_LF6Sammelhauptleitungwelcome,
     "LF_6_Sammelleitung_welcome": img_LF6Sammelleitungwelcome,
     "LF_6_Trennsystem_Abwasser": img_LF6TrennsystemAbwasser,
+    "LF_6_Umgehungsleitung_2_welcome": img_LF6Umgehungsleitung2welcome,
     "LF_6_Umgehungsleitungen_welcome": img_LF6Umgehungsleitungenwelcome,
+    "LF_6_Umlüftungsleitung_Verziehung_welcome": img_LF6UmlftungsleitungVerziehungwelcome,
+    "LF_6_Umlüftungsleitung_richtig_welcome": img_LF6Umlftungsleitungrichtigwelcome,
+    "LF_6_Umlüftungsleitung_welcome": img_LF6Umlftungsleitungwelcome,
     "LF_6_Verbindungsleitung": img_LF6Verbindungsleitung,
     "LF_6_hoher_Füllungsgrad": img_LF6hoherFllungsgrad,
     "LF_6_niedriger_Füllungsgrad": img_LF6niedrigerFllungsgrad,
     "LF_6_optimaler_Füllungsgrad": img_LF6optimalerFllungsgrad,
+    "LF_6_Übergangsstücke_welcome": img_LF6bergangsstckewelcome,
     "LF_6_welcome": img_LF6welcome,
     "LF_7_Gebäudeenergiegesetz": img_LF7Gebudeenergiegesetz,
     "LF_7_Gebäudeenergiegesetz_welcome": img_LF7Gebudeenergiegesetzwelcome,

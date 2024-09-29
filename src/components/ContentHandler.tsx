@@ -37,6 +37,17 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
         );
     }
 
+    // Handle bullet point marker
+    if (part.startsWith('[bullet]') && part.endsWith('[/bullet]')) {
+        const bulletText = part.replace('[bullet]', '').replace('[/bullet]', '');
+        return (
+            <View style={styles.bulletTextContainer}>
+                <Text style={styles.bulletPoint}>○</Text>
+                <Text style={styles.bulletText}>{bulletText}</Text>
+            </View>
+        );
+    }
+
     if (part.startsWith('[LF_')) {
         const imageName = part.replace('[', '').replace(']', '').trim();
         const imageSource = imageMap[imageName as keyof typeof imageMap];
@@ -58,7 +69,7 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
 
     // Process text formatting (heading, subheading, bold, etc.)
     const processText = (text: string) => {
-        const parts = text.split(/(\[bold\].*?\[\/bold\])|(\[heading\].*?\[\/heading\])|(\[subheading\].*?\[\/subheading\])|(\[section\].*?\[\/section\])/g);
+        const parts = text.split(/(\[bold\].*?\[\/bold\])|(\[heading\].*?\[\/heading\])|(\[subheading\].*?\[\/subheading\])|(\[section\].*?\[\/section\])|(\[bullet\].*?\[\/bullet\])/g);
     
         return (
             <Text style={styles.contentText}>
@@ -104,7 +115,7 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
                             </Text>
                         );
                     }
-    
+
                     // Default case for regular text
                     return part.trim() !== '' ? (
                         <Text key={index} style={styles.contentText}>
@@ -163,16 +174,16 @@ const styles = StyleSheet.create({
         position: 'relative',
         padding: 20,
         marginVertical: 5,
-        marginHorizontal: 30,
+        marginHorizontal: 20,
         alignSelf: 'center',
         justifyContent: 'center',
     },
     infoSign: {
-        width: 38,
-        height: 38,
+        width: 32,
+        height: 32,
         position: 'absolute',
         top: 30,
-        left: -40,
+        left: -30,
     },
     image: {
         width: '100%',
@@ -191,6 +202,27 @@ const styles = StyleSheet.create({
         height: 80,
         resizeMode: 'contain',
         marginVertical: 5,
+    },
+    bulletTextContainer: {
+        flexDirection: 'row',   // Align bullet and text in a row
+        alignItems: 'flex-start', // Align at the top of the row
+        flexWrap: 'wrap',     // Prevent wrapping of the container
+        marginBottom: 5,        // Add space between bullet point lines
+        width: '100%',          // Ensure full width of the container
+    },
+    bulletPoint: {
+        width: 10,              // Fixed width for bullet to prevent text overlap
+        fontSize: 18,           // Same size as text
+        lineHeight: 24,
+        marginRight: 10,         // Align bullet point with text line
+        textAlign: 'center',    // Center bullet horizontally
+    },
+    bulletText: {
+        fontFamily: 'OpenSans-Regular',
+        fontSize: 18,
+        lineHeight: 24,         // Keep the same line height
+        flex: 1,                // Allow text to take remaining space
+        flexWrap: 'wrap',       // Allow text to wrap within the container
     },
 });
 
