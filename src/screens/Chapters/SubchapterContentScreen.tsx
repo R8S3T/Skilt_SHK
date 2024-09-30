@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import ContentSlide from '../ContentSlide';
 import QuizSlide from '../Quiz/QuizSlide';
 import { RouteProp } from '@react-navigation/native';
@@ -9,7 +9,8 @@ import { GenericContent } from 'src/types/contentTypes';
 import { fetchSubchapterContentBySubchapterId, fetchQuizByContentId } from 'src/database/databaseServices';
 import { useSubchapter } from './SubchapterContext';
 import { LinearGradient } from 'expo-linear-gradient';
-import { PanGestureHandler, GestureDetector, GestureHandlerRootView } from 'react-native-gesture-handler';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Ionicons } from '@expo/vector-icons'; // Import icon library
 
 type SubchapterContentScreenRouteProp = RouteProp<LearnStackParamList, 'SubchapterContentScreen'>;
 type SubchapterContentScreenNavigationProp = StackNavigationProp<LearnStackParamList, 'SubchapterContentScreen'>;
@@ -24,11 +25,8 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     const [contentData, setContentData] = useState<GenericContent[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
+    const [maxIndexVisited, setMaxIndexVisited] = useState<number>(0); // Track the max index visited
     const [showQuiz, setShowQuiz] = useState<boolean>(false);
-    const [canSwipeNext, setCanSwipeNext] = useState<boolean>(false);
-
-    const scrollViewRef = useRef<ScrollView>(null); // Create a ref for ScrollView
-    const isSwiping = useRef(false); // Flag to track swiping state
 
     const { markSubchapterAsFinished, unlockSubchapter } = useSubchapter();
 
@@ -65,32 +63,15 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         });
     }, [currentIndex, contentData.length]);
 
-    // Handle swipe gestures with horizontal swipe only
-    const handleSwipe = (event: any) => {
-        const { translationX, translationY } = event.nativeEvent;
-
-        // Only handle horizontal swipes, ignore vertical swipes for scrolling
-        if (Math.abs(translationX) > Math.abs(translationY)) {
-            if (isSwiping.current) return; // Prevent double swipes
-            if (translationX > 50 && currentIndex > 0) {
-                isSwiping.current = true;
-                setCurrentIndex((prevIndex) => prevIndex - 1);
-                setTimeout(() => (isSwiping.current = false), 500); // Delay before allowing the next swipe
-            } else if (translationX < -50 && currentIndex < contentData.length - 1 && canSwipeNext) {
-                isSwiping.current = true;
-                setCurrentIndex((prevIndex) => prevIndex + 1);
-                setCanSwipeNext(false); // Reset the flag for the next slide
-                setTimeout(() => (isSwiping.current = false), 500); // Delay before allowing the next swipe
-            }
-        }
-    };
-
     const nextContent = async () => {
-        setCanSwipeNext(true); // Allow swiping to the next slide once the button is pressed
         if (showQuiz) {
             setShowQuiz(false);
             if (currentIndex < contentData.length - 1) {
-                setCurrentIndex(currentIndex + 1);
+                setCurrentIndex((prevIndex) => {
+                    const newIndex = prevIndex + 1;
+                    setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
+                    return newIndex;
+                });
             } else {
                 markSubchapterAsFinished(subchapterId);
                 unlockSubchapter(subchapterId + 1);
@@ -110,7 +91,11 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                     setShowQuiz(true);
                 } else {
                     if (currentIndex < contentData.length - 1) {
-                        setCurrentIndex(currentIndex + 1);
+                        setCurrentIndex((prevIndex) => {
+                            const newIndex = prevIndex + 1;
+                            setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
+                            return newIndex;
+                        });
                     } else {
                         markSubchapterAsFinished(subchapterId);
                         unlockSubchapter(subchapterId + 1);
@@ -129,6 +114,18 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         }
     };
 
+    const goBack = () => {
+        if (currentIndex > 0) {
+            setCurrentIndex(currentIndex - 1);
+        }
+    };
+
+    const goForward = () => {
+        if (currentIndex < maxIndexVisited) {
+            setCurrentIndex(currentIndex + 1);
+        }
+    };
+
     if (loading) {
         return (
             <View style={styles.container}>
@@ -139,15 +136,37 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
 
     return (
         <GestureHandlerRootView style={styles.container}>
-            <PanGestureHandler onGestureEvent={handleSwipe}>
-                <View style={styles.container}>
-                    {showQuiz ? (
-                        <QuizSlide contentId={contentData[currentIndex].ContentId} onContinue={nextContent} />
-                    ) : (
-                        <ContentSlide contentData={contentData[currentIndex]} onNext={nextContent} />
-                    )}
+            <View style={styles.container}>
+                {showQuiz ? (
+                    <QuizSlide contentId={contentData[currentIndex].ContentId} onContinue={nextContent} />
+                ) : (
+                    <ContentSlide contentData={contentData[currentIndex]} onNext={nextContent} />
+                )}
+                <View style={styles.bottomNavContainer}>
+                    <TouchableOpacity onPress={goBack} disabled={currentIndex === 0}>
+                        <Ionicons 
+                            name="chevron-back" 
+                            size={30}  // Subtle arrow size
+                            color={currentIndex === 0 ? 'lightgray' : 'gray'}  // Gray for disabled state
+                            style={styles.arrowStyle}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={nextContent} disabled={currentIndex === contentData.length - 1}>
+                        <Text style={{ color: 'black', fontSize: 18 }}></Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                        onPress={goForward} 
+                        disabled={currentIndex >= maxIndexVisited || currentIndex === contentData.length - 1}
+                    >
+                        <Ionicons 
+                            name="chevron-forward" 
+                            size={30}  // Subtle arrow size
+                            color={currentIndex >= maxIndexVisited || currentIndex === contentData.length - 1 ? 'lightgray' : 'gray'}  // Gray for disabled state
+                            style={styles.arrowStyle}
+                        />
+                    </TouchableOpacity>
                 </View>
-            </PanGestureHandler>
+            </View>
         </GestureHandlerRootView>
     );
 };
@@ -156,6 +175,19 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 0,
+    },
+    bottomNavContainer: {
+        flexDirection: 'row',  // Horizontal row for arrows and Next button
+        justifyContent: 'space-between',  // Space between arrows and button
+        alignItems: 'center',  // Center items vertically
+        paddingHorizontal: 20,
+        paddingVertical: 10,  // Some padding at the bottom
+        position: 'absolute',  // Position it at the bottom
+        bottom: 20,  // Adjust as needed for positioning
+        width: '100%',  // Full width of the screen
+    },
+    arrowStyle: {
+        opacity: 0.8,  // Slightly less subtle
     },
     progressBarContainer: {
         height: 16,
@@ -176,13 +208,6 @@ const styles = StyleSheet.create({
     },
 });
 
+
 export default SubchapterContentScreen;
-
-
-
-
-
-
-
-
 
