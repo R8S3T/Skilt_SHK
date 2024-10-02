@@ -13,12 +13,12 @@ export type LearnStackParamList = {
     HomeScreen: undefined;
     YearsScreen: undefined;
     ChaptersScreen: { year: string };
-    SubchaptersScreen: { chapterId: number; chapterTitle: string };
+    SubchaptersScreen: { chapterId: number; chapterTitle?: string };
     SubchapterContentScreen: {
         subchapterId: number;
         subchapterTitle: string;
-        chapterId: number;
-        chapterTitle: string;
+        chapterId?: number;
+        chapterTitle?: string;
     };
     CongratsScreen: {
         targetScreen: keyof LearnStackParamList | keyof MathStackParamList;
@@ -50,6 +50,8 @@ export type RootStackParamList = {
     };
     FlashCardsScreen: undefined;
     FlashCardsRandom: undefined;
-    FlashCardsOrganised: undefined;
+    FlashCardsOrganised: { topic: string };
+    FlashCardsTopicScreen: undefined;
+    SubchapterContentScreen: { subchapterId: number; subchapterTitle: string };
 };
 

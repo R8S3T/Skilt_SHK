@@ -204,25 +204,25 @@ const styles = StyleSheet.create({
         marginVertical: 5,
     },
     bulletTextContainer: {
-        flexDirection: 'row',   // Align bullet and text in a row
-        alignItems: 'flex-start', // Align at the top of the row
-        flexWrap: 'wrap',     // Prevent wrapping of the container
-        marginBottom: 5,        // Add space between bullet point lines
-        width: '100%',          // Ensure full width of the container
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        flexWrap: 'wrap',
+        marginBottom: 5,
+        width: '100%',
     },
     bulletPoint: {
-        width: 10,              // Fixed width for bullet to prevent text overlap
-        fontSize: 18,           // Same size as text
+        width: 10,
+        fontSize: 18,
         lineHeight: 24,
-        marginRight: 10,         // Align bullet point with text line
-        textAlign: 'center',    // Center bullet horizontally
+        marginRight: 10,
+        textAlign: 'center',
     },
     bulletText: {
         fontFamily: 'OpenSans-Regular',
         fontSize: 18,
-        lineHeight: 24,         // Keep the same line height
-        flex: 1,                // Allow text to take remaining space
-        flexWrap: 'wrap',       // Allow text to wrap within the container
+        lineHeight: 24,
+        flex: 1,
+        flexWrap: 'wrap',
     },
 });
 

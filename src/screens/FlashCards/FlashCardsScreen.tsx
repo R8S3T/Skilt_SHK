@@ -9,7 +9,7 @@ const FlashCardsScreen: React.FC = () => {
     const handleSectionPress = (section: string) => {
         console.log(`${section} pressed`);
         if (section === 'Lernkarten nach Lernfeldern') {
-            navigation.navigate('FlashCardsOrganised');
+            navigation.navigate('FlashCardsTopicScreen');  // Navigate to topic selection screen
         } else if (section === 'Zufällige Karten') {
             navigation.navigate('FlashCardsRandom');
         }

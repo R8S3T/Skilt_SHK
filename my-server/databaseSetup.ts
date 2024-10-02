@@ -61,7 +61,8 @@ export const fetchChaptersByYear = (year: number): Promise<any[]> => {
     const db = new sqlite3.Database(dbPath);
     return new Promise((resolve, reject) => {
         try {
-            db.all('SELECT * FROM Chapters WHERE Year = ?', [year], (err, rows) => {
+            // Update the SQL query to only select the relevant columns: ChapterName and ChapterIntro
+            db.all('SELECT ChapterId, ChapterName, ChapterIntro FROM Chapters WHERE Year = ?', [year], (err, rows) => {
                 if (err) {
                     console.error('Failed to fetch chapters:', err);
                     reject(err);
@@ -299,6 +300,30 @@ export const fetchRandomFlashcards = (): Promise<any[]> => {
                 reject(err);
             } else {
                 console.log('Fetched Random Flashcards from DB:', rows); // Log the fetched rows
+                resolve(rows);
+            }
+        });
+    });
+};
+
+// Search subchapters and content by a search query
+export const searchSubchapters = (searchQuery: string): Promise<any[]> => {
+    const db = new sqlite3.Database(dbPath);
+    return new Promise((resolve, reject) => {
+        const query = `
+            SELECT s.SubchapterId, s.SubchapterName, GROUP_CONCAT(c.ContentData, ' ') AS ContentPreview
+            FROM Subchapters s
+            LEFT JOIN SubchapterContent c ON s.SubchapterId = c.SubchapterId
+            WHERE s.SubchapterName LIKE ? OR c.ContentData LIKE ?
+            GROUP BY s.SubchapterId
+            ORDER BY s.SortOrder;
+        `;
+        db.all(query, [`%${searchQuery}%`, `%${searchQuery}%`], (err, rows) => {
+            db.close();
+            if (err) {
+                console.error('Search query failed:', err);
+                reject(err);
+            } else {
                 resolve(rows);
             }
         });

@@ -224,6 +224,23 @@ export async function fetchRandomFlashcards(): Promise<Flashcard[]> {
     }
 }
 
+// Search subchapters by query
+export async function searchSubchapters(query: string): Promise<Subchapter[]> {
+    try {
+        const response = await fetch(`${API_URL}/search/${query}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        const results: Subchapter[] = await response.json();
+        console.log(`Search results for query "${query}":`, results);
+        return results;
+    } catch (error) {
+        console.error(`Failed to fetch search results for query "${query}":`, error);
+        return [];
+    }
+}
+
+
 
 
 

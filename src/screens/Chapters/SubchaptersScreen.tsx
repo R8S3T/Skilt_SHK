@@ -91,7 +91,7 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
         if (selectedSubchapter) {
             // Unlock the selected subchapter
             unlockSubchapter(selectedSubchapter.SubchapterId);
-            
+
             // Set it as the current subchapter and navigate to the content screen
             setCurrentSubchapter(selectedSubchapter.SubchapterId, selectedSubchapter.SubchapterName);
             navigation.navigate('SubchapterContentScreen', {
@@ -126,9 +126,9 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
                     visible={modalVisible}
                     onClose={() => setModalVisible(false)}
                     subchapterName={selectedSubchapter.SubchapterName}
-                    onReviewLesson={isJumpAhead ? handleJumpAheadConfirm : handleReviewLesson} // Handle based on scenario
-                    isJumpAhead={isJumpAhead} // Pass the jump ahead scenario
-                    onJumpAheadConfirm={handleJumpAheadConfirm} // Confirm jump ahead action
+                    onReviewLesson={isJumpAhead ? handleJumpAheadConfirm : handleReviewLesson}
+                    isJumpAhead={isJumpAhead}
+                    onJumpAheadConfirm={handleJumpAheadConfirm}
                 />
             )}
         </ScrollView>

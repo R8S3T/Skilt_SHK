@@ -177,17 +177,17 @@ const styles = StyleSheet.create({
         padding: 0,
     },
     bottomNavContainer: {
-        flexDirection: 'row',  // Horizontal row for arrows and Next button
-        justifyContent: 'space-between',  // Space between arrows and button
-        alignItems: 'center',  // Center items vertically
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         paddingHorizontal: 20,
-        paddingVertical: 10,  // Some padding at the bottom
-        position: 'absolute',  // Position it at the bottom
-        bottom: 20,  // Adjust as needed for positioning
-        width: '100%',  // Full width of the screen
+        paddingVertical: 10,
+        position: 'absolute',
+        bottom: 20,
+        width: '100%',
     },
     arrowStyle: {
-        opacity: 0.8,  // Slightly less subtle
+        opacity: 0.8,
     },
     progressBarContainer: {
         height: 16,

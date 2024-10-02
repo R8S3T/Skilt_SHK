@@ -6,6 +6,7 @@ import BottomTabNavigator from './BottomTabNavigator';
 import LearnStackNavigator from './LearnStackNavigator';
 import MathStackNavigator from './MathStackNavigator';
 import FlashCardsScreen from 'src/screens/FlashCards/FlashCardsScreen';
+import FlashCardsTopicScreen from 'src/screens/FlashCards/FlashCardsTopicScreen';
 import FlashCardsOrganised from 'src/screens/FlashCards/FlashCardsOrganised';
 import FlashCardsRandom from 'src/screens/FlashCards/FlashCardsRandom';
 import { SubchapterProvider } from 'src/screens/Chapters/SubchapterContext';
@@ -53,6 +54,10 @@ const AppNavigator = () => {
                 name="FlashCardsScreen"
                 component={FlashCardsScreen}
                 options={{ headerShown: true, title: 'Lernkarten' }}
+            />
+            <Stack.Screen
+                name="FlashCardsTopicScreen"
+                component={FlashCardsTopicScreen}
             />
             <Stack.Screen
                 name="FlashCardsRandom"

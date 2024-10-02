@@ -18,6 +18,7 @@ import {
     fetchMathMiniQuizByContentId,
     fetchFlashcardsByChapterId,
     fetchRandomFlashcards,
+    searchSubchapters,
 } from './databaseSetup';
 
 const app = express();
@@ -208,6 +209,20 @@ app.get('/flashcards/random', async (req, res) => {
     }
 });
 
+// Handle GET requests for search
+app.get('/search/:query', async (req, res) => {
+    const searchQuery = req.params.query;
+    console.log(`Received search query: ${searchQuery}`);
+
+    try {
+        const searchResults = await searchSubchapters(searchQuery); // Use the DB function to search subchapters and content
+        console.log('Search results:', searchResults);
+        res.json(searchResults); // Return the search results to the client
+    } catch (error) {
+        console.error('Error fetching search results:', error);
+        res.status(500).json({ error: 'Failed to fetch search results' });
+    }
+});
 
 // Start the server on the specified port and IP address
 app.listen(PORT, '0.0.0.0', () => {

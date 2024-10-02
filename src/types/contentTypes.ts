@@ -13,6 +13,15 @@ export interface Subchapter {
     isFinished: boolean;
 }
 
+export interface SubchapterWithPreview {
+    SubchapterId: number;
+    SubchapterName: string;
+    ContentPreview?: string;
+    ChapterTitle?: string; // Add this if it's available
+    ChapterId?: number; // Add if needed
+}
+
+
 export interface MathChapter {
     ChapterId: number;
     ChapterName: string;

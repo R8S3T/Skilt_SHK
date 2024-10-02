@@ -1,121 +1,169 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { LearnStackParamList } from 'src/types/navigationTypes';
-import { dynamicCardHeight, scaleFontSize, screenWidth } from 'src/utils/screenDimensions';
-
-interface EducationYear {
-    year: number;
-    learnAreas: number;
-}
-
-type YearsScreenNavigationProp = NavigationProp<LearnStackParamList, 'YearsScreen'>;
+import { fetchChaptersByYear } from 'src/database/databaseServices';
+import { NavigationProp } from '@react-navigation/native';
 
 const YearsScreen: React.FC = () => {
-    const navigation = useNavigation<YearsScreenNavigationProp>();
+    const navigation = useNavigation<NavigationProp<LearnStackParamList>>();
+    const [expandedYear, setExpandedYear] = React.useState<number | null>(null);
+    const [chapters, setChapters] = React.useState<{ [key: number]: { chapterId: number; chapterTitle?: string; chapterIntro?: string }[] }>({});
+    const [loading, setLoading] = React.useState<boolean>(false);
 
-    const educationData: EducationYear[] = [
+    const educationData = [
         { year: 1, learnAreas: 4 },
         { year: 2, learnAreas: 4 },
         { year: 3, learnAreas: 5 },
         { year: 4, learnAreas: 2 },
     ];
 
-    const backgroundColors = [
-        'rgba(155, 166, 165, 0.9)',
-        'rgba(43, 67, 83, 0.9)',
-        'rgba(232, 99, 10, 0.7)',
-        'rgba(168, 209, 209, 0.9)'
-    ];
-    const handlePress = (year: number) => {
-        navigation.navigate('ChaptersScreen', { year: year.toString() });
+    const handlePress = async (year: number) => {
+        setExpandedYear(expandedYear === year ? null : year);
+        if (!chapters[year]) {
+            setLoading(true);
+            try {
+                const fetchedChapters = await fetchChaptersByYear(year);
+                setChapters((prevChapters) => ({
+                    ...prevChapters,
+                    [year]: fetchedChapters.map(ch => ({
+                        chapterId: ch.ChapterId,
+                        chapterIntro: ch.ChapterIntro ?? '',
+                    })),
+                }));
+            } catch (error) {
+                console.error(`Failed to fetch chapters for year ${year}:`, error);
+            }
+            setLoading(false);
+        }
     };
 
+    const handleChapterPress = (chapterId: number) => {
+        navigation.navigate('SubchaptersScreen', { chapterId });
+    };
+
+    const renderChapter = (chapter: { chapterId: number; chapterIntro?: string }) => (
+        <TouchableOpacity
+            key={chapter.chapterId}
+            style={styles.chapterContainer}
+            onPress={() => handleChapterPress(chapter.chapterId)}
+        >
+            <Image
+                source={require('../../assets/Images/play_icon.png')}
+                style={styles.playButton}
+            />
+            {chapter.chapterIntro && <Text style={styles.introText}>{chapter.chapterIntro}</Text>}
+        </TouchableOpacity>
+    );
+
     return (
-        <ScrollView style={styles.scrollView}>
-            <View style={styles.container}>
-                {educationData.map((item) => (
-                    <TouchableOpacity
-                        key={item.year}
-                        style={[styles.card, {
-                            borderColor: backgroundColors[item.year - 1],
-                            borderWidth: 1,
-                        }]}
-                        onPress={() => handlePress(item.year)}
-                    >
-                        <View style={[styles.yearRectangle, {
-                            backgroundColor: backgroundColors[item.year - 1],
-                            width: '85%', // Covering 85% of the card's width
-                        }]}>
+        <ScrollView style={styles.container}>
+            <Text style={styles.title}>Wähle dein Lehrjahr</Text>
+
+            {educationData.map((item, index) => (
+                <View key={index} style={styles.cardContainer}>
+                    <TouchableOpacity onPress={() => handlePress(item.year)} style={styles.card}>
+                        <View style={styles.yearRectangle}>
                             <Text style={styles.number}>{`${item.year}. Lehrjahr`}</Text>
                         </View>
-                        <Text style={[styles.learnArea, { left: '90%' }]}>{`${item.learnAreas} Lernfelder`}</Text>
+                        <Text style={styles.learnArea}>{`${item.learnAreas} Lernfelder`}</Text>
                     </TouchableOpacity>
-                ))}
-            </View>
+
+                    {expandedYear === item.year && (
+                        <View style={styles.chaptersContainer}>
+                            {loading ? (
+                                <Text>Loading...</Text>
+                            ) : (
+                                chapters[item.year]?.map((chapter) => renderChapter(chapter))
+                            )}
+                        </View>
+                    )}
+                </View>
+            ))}
         </ScrollView>
-    )
+    );
 };
 
+const iconSize = 24;
+
 const styles = StyleSheet.create({
-    scrollView: {
-        flex: 1,
-    },
     container: {
         flex: 1,
-        padding: 10,
-        alignItems: 'center',
-        marginTop: 25
+        backgroundColor: '#f0f0f0',
+        paddingVertical: 30,
+        marginHorizontal: 15,
+    },
+    title: {
+        fontSize: 22,
+        fontWeight: '600',
+        marginVertical: 20,
+        textAlign: 'center',
+        color: '#333',
+    },
+    cardContainer: {
+        marginBottom: 15,
+        borderRadius: 12,
+        paddingVertical: 20,
+        paddingHorizontal: 15,
+        shadowColor: '#000', // Subtle shadow color
+        shadowOffset: { width: 0, height: 2 }, // Small shadow offset for depth
+        shadowOpacity: 0.1, // Light shadow opacity for subtle effect
+        shadowRadius: 4, // Soft shadow edges
+        elevation: 2, // Low elevation for Android subtle shadow
+        borderWidth: 1, // Thin border
+        borderColor: '#d3d3d3', // Light grey border for a subtle effect
+        backgroundColor: '#f5f5f5', // White background for contrast
     },
     card: {
-        width: '85%',
-        minHeight: dynamicCardHeight(85, 120),
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#f0f0f0',
-        marginTop: 0,
-        marginBottom: 45,
-        overflow: 'hidden',
-        paddingTop: 0,
-        paddingBottom: 30,
+        paddingVertical: 20,
         paddingHorizontal: 20,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 3,
     },
     yearRectangle: {
-        width: '75%',
-        height: screenWidth > 375 ? 45 : 35,
-        borderBottomRightRadius: 20,
+        width: '100%',
         justifyContent: 'center',
         alignItems: 'flex-start',
         paddingHorizontal: 10,
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        zIndex: 1,
-        backgroundColor: '#f0f0f0',
     },
     number: {
         fontFamily: 'Lato-Bold',
-        fontSize: scaleFontSize(16),
-        color: '#fff',
+        fontSize: 22,
+        color: '#2b4353',
     },
     learnArea: {
         fontFamily: 'OpenSans-Regular',
-        fontSize: scaleFontSize(14),
+        fontSize: 18,
+        color: '#4f5f6f',
+        alignSelf: 'flex-end',
+        marginTop: 10,
+        marginRight: 10,
+    },
+    chaptersContainer: {
+        marginTop: 10,
+        paddingHorizontal: 10,
+    },
+    chapterContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 18,
+        marginVertical: 12,
+        borderWidth: 0.8,
+        borderColor: '#2b4353',
+        borderRadius: 10,
+        backgroundColor: 'transparent', // Removed background color
+    },
+    introText: {
+        flex: 1,
+        marginLeft: 28,
+        fontFamily: 'OpenSans-Regular',
         color: '#2b4353',
-        position: 'absolute',
-        bottom: 10,
-        left: '85%',
-        transform: [{ translateX: -scaleFontSize(14) * 3 }],
+        fontSize: 16,
+    },
+    playButton: {
+        width: iconSize,
+        height: iconSize,
+        tintColor: '#e8630a',
     },
 });
 
+
 export default YearsScreen;
-
-
-
