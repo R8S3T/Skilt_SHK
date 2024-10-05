@@ -40,8 +40,5 @@ export default {
     plugins: [
       "expo-font"
     ],
-    extra: {
-      SHOW_QUIZZES: process.env.SHOW_QUIZZES // Dynamically set the environment variable
-    }
   }
 };

@@ -1,139 +1,97 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, LayoutAnimation } from 'react-native';
-import { useNavigation, NavigationProp } from '@react-navigation/native';
-import { RootStackParamList } from 'src/types/navigationTypes';
+import React, { useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, StyleSheet, ActivityIndicator } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from 'src/types/navigationTypes'; // Import the correct RootStackParamList
+import { fetchFlashcardTopicsBySubchapterId } from 'src/database/databaseServices';
+
+// Type for navigation prop
+type FlashCardsTopicScreenNavigationProp = StackNavigationProp<RootStackParamList, 'FlashCardsTopicScreen'>;
+
+// Define the route params type
+interface FlashCardsTopicScreenRouteParams {
+    subchapterId: number;
+}
 
 const FlashCardsTopicScreen: React.FC = () => {
-    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+    const [topics, setTopics] = useState<string[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
 
-    const [expandedSection, setExpandedSection] = useState<number | null>(null);
+    // Get the route params (subchapterId)
+    const route = useRoute();
+    const { subchapterId } = route.params as FlashCardsTopicScreenRouteParams;
 
-    const handleSectionPress = (sectionIndex: number) => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut); 
-        setExpandedSection(expandedSection === sectionIndex ? null : sectionIndex);
-    };
+    // Get the navigation prop with correct typing
+    const navigation = useNavigation<FlashCardsTopicScreenNavigationProp>();
 
+    // Fetch topics when the component mounts
+    useEffect(() => {
+        async function loadTopics() {
+            try {
+                const fetchedTopics = await fetchFlashcardTopicsBySubchapterId(subchapterId);
+                setTopics(fetchedTopics);
+            } catch (error) {
+                console.error(`Error fetching topics for subchapterId ${subchapterId}:`, error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        loadTopics();
+    }, [subchapterId]);
+
+    // Navigate to FlashCardScreen with the selected topic and subchapterId
     const handleTopicPress = (topic: string) => {
-        navigation.navigate('FlashCardsOrganised', { topic });
+        navigation.navigate('FlashCardScreen', { subchapterId, topic });
     };
 
-    const backgroundColors = ['#9ba6a5', '#2b4353', '#e8630a', '#a8d1d1'];
+    if (loading) {
+        return <ActivityIndicator size="large" color="#0000ff" />;
+    }
+
+    if (topics.length === 0) {
+        return (
+            <View style={styles.container}>
+                <Text>No topics available for this subchapter.</Text>
+            </View>
+        );
+    }
 
     return (
-        <ScrollView style={styles.container}>
-            <Text style={styles.title}>Wähle ein Thema</Text>
-
-            {/* Section 1 */}
-            <View style={styles.sectionContainer}>
-                <TouchableOpacity onPress={() => handleSectionPress(1)}>
-                    <Text style={[styles.sectionTitle, { color: backgroundColors[0] }]}>Lehrjahr 1</Text>
+        <ScrollView contentContainerStyle={styles.container}>
+            <Text style={styles.title}>Choose a Topic</Text>
+            {topics.map((topic, index) => (
+                <TouchableOpacity key={index} style={styles.topicButton} onPress={() => handleTopicPress(topic)}>
+                    <Text style={styles.topicText}>{topic}</Text>
                 </TouchableOpacity>
-                {expandedSection === 1 && (
-                    <>
-                        <TouchableOpacity style={styles.button} onPress={() => handleTopicPress('Werkstoffkunde')}>
-                            <Text style={styles.buttonText}>Werkstoffkunde</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={() => handleTopicPress('Rohrmaterialien')}>
-                            <Text style={styles.buttonText}>Rohrmaterialien</Text>
-                        </TouchableOpacity>
-                    </>
-                )}
-            </View>
-
-            {/* Section 2 */}
-            <View style={styles.sectionContainer}>
-                <TouchableOpacity onPress={() => handleSectionPress(2)}>
-                    <Text style={[styles.sectionTitle, { color: backgroundColors[1] }]}>Lehrjahr 2</Text>
-                </TouchableOpacity>
-                {expandedSection === 2 && (
-                    <>
-                        <TouchableOpacity style={styles.button} onPress={() => handleTopicPress('Installationstechnik')}>
-                            <Text style={styles.buttonText}>Installationstechnik</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={() => handleTopicPress('Materialkunde')}>
-                            <Text style={styles.buttonText}>Materialkunde</Text>
-                        </TouchableOpacity>
-                    </>
-                )}
-            </View>
-
-            {/* Section 3 */}
-            <View style={styles.sectionContainer}>
-                <TouchableOpacity onPress={() => handleSectionPress(3)}>
-                    <Text style={[styles.sectionTitle, { color: backgroundColors[2] }]}>Lehrjahr 3</Text>
-                </TouchableOpacity>
-                {expandedSection === 3 && (
-                    <>
-                        <TouchableOpacity style={styles.button} onPress={() => handleTopicPress('Hydraulik')}>
-                            <Text style={styles.buttonText}>Hydraulik</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={() => handleTopicPress('Wärmetechnik')}>
-                            <Text style={styles.buttonText}>Wärmetechnik</Text>
-                        </TouchableOpacity>
-                    </>
-                )}
-            </View>
-
-            {/* Section 4 */}
-            <View style={styles.sectionContainer}>
-                <TouchableOpacity onPress={() => handleSectionPress(4)}>
-                    <Text style={[styles.sectionTitle, { color: backgroundColors[3] }]}>Lehrjahr 4</Text>
-                </TouchableOpacity>
-                {expandedSection === 4 && (
-                    <>
-                        <TouchableOpacity style={styles.button} onPress={() => handleTopicPress('Löttechnik')}>
-                            <Text style={styles.buttonText}>Löttechnik</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.button} onPress={() => handleTopicPress('Schweißtechnik')}>
-                            <Text style={styles.buttonText}>Schweißtechnik</Text>
-                        </TouchableOpacity>
-                    </>
-                )}
-            </View>
+            ))}
         </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#fff',
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
     },
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        margin: 20,
-        textAlign: 'center',
+        marginBottom: 20,
     },
-    sectionContainer: {
-        padding: 25,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ddd',
-        marginBottom: 10,
-    },
-    sectionTitle: {
-        fontSize: 22,
-        fontWeight: '600',
-        paddingVertical: 10,
-    },
-    button: {
-        backgroundColor: '#f9f9f9',
-        borderColor: '#ddd',
-        borderWidth: 1,
+    topicButton: {
+        backgroundColor: '#2b4353',
         padding: 15,
-        borderRadius: 5,
-        marginBottom: 10,
-        width: '100%',
+        borderRadius: 10,
+        marginVertical: 10,
+        width: '80%',
         alignItems: 'center',
     },
-    buttonText: {
-        color: '#2b4353',
+    topicText: {
+        color: '#fff',
         fontSize: 18,
-        fontWeight: '600',
     },
 });
 
 export default FlashCardsTopicScreen;
-
-
-

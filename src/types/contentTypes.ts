@@ -94,8 +94,6 @@ export interface Flashcard {
     FlashcardId: number;
     Question: string;
     Answer: string;
-    ChapterId: number;
-    SubchapterId: number;
     TopicName: string;
-    Status: string;
+    SubchapterId: number;
 }

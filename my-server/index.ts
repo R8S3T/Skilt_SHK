@@ -16,9 +16,9 @@ import {
     fetchMultipleChoiceOptionsByQuizId,
     fetchClozeTestOptionsByQuizId,
     fetchMathMiniQuizByContentId,
-    fetchFlashcardsByChapterId,
-    fetchRandomFlashcards,
     searchSubchapters,
+    fetchFlashcardTopicsBySubchapterId,
+    fetchFlashcardsByTopic,
 } from './databaseSetup';
 
 const app = express();
@@ -182,32 +182,6 @@ app.get('/mathminiquiz/:contentId', async (req, res) => {
     }
 });
 
-// Handle GET requests to fetch flashcards by Chapter ID
-app.get('/flashcards/:chapterId', async (req, res) => {
-    const chapterId = parseInt(req.params.chapterId);
-    console.log(`Received request for flashcards of ChapterId: ${chapterId}`);
-    try {
-        const flashcards = await fetchFlashcardsByChapterId(chapterId);
-        console.log(`Fetched flashcards for ChapterId ${chapterId}:`, flashcards);
-        res.json(flashcards);
-    } catch (error) {
-        console.error(`Error fetching flashcards for ChapterId ${chapterId}:`, error);
-        res.status(500).json({ error: 'Failed to fetch flashcards' });
-    }
-});
-
-// Handle GET requests to fetch random flashcards
-app.get('/flashcards/random', async (req, res) => {
-    console.log('Received request for random flashcards'); // Add this log to ensure the request is received
-    try {
-        const flashcards = await fetchRandomFlashcards();
-        console.log('Fetched random flashcards:', flashcards);
-        res.json(flashcards);
-    } catch (error) {
-        console.error('Error fetching random flashcards:', error);
-        res.status(500).json({ error: 'Failed to fetch random flashcards' });
-    }
-});
 
 // Handle GET requests for search
 app.get('/search/:query', async (req, res) => {
@@ -221,6 +195,37 @@ app.get('/search/:query', async (req, res) => {
     } catch (error) {
         console.error('Error fetching search results:', error);
         res.status(500).json({ error: 'Failed to fetch search results' });
+    }
+});
+
+// Handle GET requests to fetch flashcard topics by SubchapterId
+app.get('/flashcards/topics/subchapter/:subchapterId', async (req, res) => {
+    const subchapterId = parseInt(req.params.subchapterId);
+    console.log(`Received request to fetch flashcard topics for subchapterId: ${subchapterId}`);
+    
+    try {
+        const topics = await fetchFlashcardTopicsBySubchapterId(subchapterId);
+        console.log(`Fetched flashcard topics for subchapterId ${subchapterId}:`, topics);
+        res.json(topics);
+    } catch (error) {
+        console.error(`Error fetching flashcard topics for subchapterId ${subchapterId}:`, error);
+        res.status(500).json({ error: 'Failed to fetch flashcard topics' });
+    }
+});
+
+// Fetch flashcards (Question and Answer) by TopicName and SubchapterId
+app.get('/flashcards/subchapter/:subchapterId/topic/:topicName', async (req, res) => {
+    const subchapterId = parseInt(req.params.subchapterId);
+    const topicName = req.params.topicName;
+    console.log(`Received request to fetch flashcards for topic: ${topicName} and subchapterId: ${subchapterId}`);
+    
+    try {
+        const flashcards = await fetchFlashcardsByTopic(subchapterId, topicName);
+        console.log(`Fetched flashcards for topic ${topicName} and subchapterId ${subchapterId}:`, flashcards);
+        res.json(flashcards);
+    } catch (error) {
+        console.error(`Error fetching flashcards for topic ${topicName} and subchapterId ${subchapterId}:`, error);
+        res.status(500).json({ error: 'Failed to fetch flashcards' });
     }
 });
 

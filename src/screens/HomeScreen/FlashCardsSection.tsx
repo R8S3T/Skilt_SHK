@@ -6,16 +6,15 @@ import { scaleFontSize, screenWidth } from 'src/utils/screenDimensions';
 
 interface FlashcardsSectionProps {
     onButtonPress: (title: string) => void;
+    subchapterId: number;  // Add subchapterId as a prop
 }
 
-const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({ onButtonPress }) => {
-    // Use NavigationProp for type safety
+const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({ onButtonPress, subchapterId }) => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
     const handlePress = () => {
-        console.log('Flashcards Section Pressed');
-        onButtonPress('FlashcardsScreen');
-        navigation.navigate('FlashCardsScreen'); // Navigate to the FlashCards screen
+        console.log('Navigating to FlashCardsTopicScreen with subchapterId:', subchapterId);
+        navigation.navigate('FlashCardsTopicScreen', { subchapterId });  // Pass subchapterId
     };
 
     return (
@@ -60,5 +59,3 @@ const styles = StyleSheet.create({
 });
 
 export default FlashcardsSection;
-
-

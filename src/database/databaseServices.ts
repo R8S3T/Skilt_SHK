@@ -191,38 +191,6 @@ export async function fetchMathMiniQuizByContentId(contentId: number): Promise<M
     }
 }
 
-// Fetch flashcards by ChapterId
-export async function fetchFlashcardsByChapterId(chapterId: number): Promise<Flashcard[]> {
-    try {
-        const response = await fetch(`${API_URL}/flashcards/${chapterId}`);
-        if (!response.ok) {
-            throw new Error('Network response was not ok.');
-        }
-        const flashcards: Flashcard[] = await response.json();
-        console.log(`Fetched Flashcards for ChapterId ${chapterId}:`, flashcards);
-        return flashcards;
-    } catch (error) {
-        console.error(`Failed to fetch flashcards for ChapterId ${chapterId}:`, error);
-        return []; // Return empty array on error
-    }
-}
-
-// Fetch random flashcards
-export async function fetchRandomFlashcards(): Promise<Flashcard[]> {
-    try {
-        const response = await fetch(`${API_URL}/flashcards/random`);
-        if (!response.ok) {
-            throw new Error('Network response was not ok.');
-        }
-        const flashcards: Flashcard[] = await response.json();
-        console.log('Fetched Random Flashcards:', flashcards);
-        return flashcards;
-    } catch (error) {
-        console.error('Failed to fetch random flashcards:', error);
-        return []; // Return empty array on error
-    }
-}
-
 // Search subchapters by query
 export async function searchSubchapters(query: string): Promise<Subchapter[]> {
     try {
@@ -239,9 +207,48 @@ export async function searchSubchapters(query: string): Promise<Subchapter[]> {
     }
 }
 
+// Fetch flashcards by chapter ID
+export async function fetchFlashcardsByChapterId(chapterId: number): Promise<Flashcard[]> {
+    try {
+        const response = await fetch(`${API_URL}/flashcards/chapter/${chapterId}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        const flashcards: Flashcard[] = await response.json();
+        console.log(`Fetched Flashcards Data for chapterId ${chapterId}:`, flashcards);
+        return flashcards;
+    } catch (error) {
+        console.error(`Failed to fetch flashcards for chapterId ${chapterId}:`, error);
+        return [];
+    }
+}
 
+// Fetch distinct flashcard topics by SubchapterId
+export async function fetchFlashcardTopicsBySubchapterId(subchapterId: number): Promise<string[]> {
+    try {
+        const response = await fetch(`${API_URL}/flashcards/topics/subchapter/${subchapterId}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        const topics: string[] = await response.json();
+        return topics;
+    } catch (error) {
+        console.error(`Failed to fetch flashcard topics for subchapterId ${subchapterId}:`, error);
+        return [];
+    }
+}
 
-
-
-
-
+// Fetch flashcards (Question and Answer) by TopicName and SubchapterId
+export async function fetchFlashcardsByTopic(subchapterId: number, topicName: string): Promise<{ Question: string, Answer: string }[]> {
+    try {
+        const response = await fetch(`${API_URL}/flashcards/subchapter/${subchapterId}/topic/${topicName}`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        const flashcards = await response.json();
+        return flashcards;
+    } catch (error) {
+        console.error(`Failed to fetch flashcards for topic ${topicName} and subchapterId ${subchapterId}:`, error);
+        return [];
+    }
+}

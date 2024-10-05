@@ -16,7 +16,7 @@ import {
     createMultipleChoiceOptionsTable,
     createClozeTestOptionsTable,
     createMathMiniQuizTable,
-    createFlashcardsTable
+    createFlashcardsTable,
 } from './createTables';
 
 
@@ -269,43 +269,6 @@ export const fetchMathMiniQuizByContentId = (contentId: number): Promise<any[]> 
     });
 };
 
-// Fetch flashcards by ChapterId
-export const fetchFlashcardsByChapterId = (chapterId: number): Promise<any[]> => {
-    return new Promise((resolve, reject) => {
-        const db = new sqlite3.Database(dbPath);
-        db.all('SELECT * FROM Flashcards WHERE ChapterId = ?', [chapterId], (err, rows) => {
-            db.close();
-            if (err) {
-                console.error('Failed to fetch flashcards:', err);
-                reject(err);
-            } else {
-                console.log(`Fetched Flashcards for ChapterId ${chapterId}:`, rows);
-                resolve(rows);
-            }
-        });
-    });
-};
-
-// Fetch random flashcards
-export const fetchRandomFlashcards = (): Promise<any[]> => {
-    return new Promise((resolve, reject) => {
-        const db = new sqlite3.Database(dbPath);
-
-        console.log('Database path being used:', dbPath); // Log the db path
-
-        db.all('SELECT * FROM Flashcards ORDER BY RANDOM() LIMIT 10', [], (err, rows) => {
-            db.close();
-            if (err) {
-                console.error('Failed to fetch random flashcards:', err);
-                reject(err);
-            } else {
-                console.log('Fetched Random Flashcards from DB:', rows); // Log the fetched rows
-                resolve(rows);
-            }
-        });
-    });
-};
-
 // Search subchapters and content by a search query
 export const searchSubchapters = (searchQuery: string): Promise<any[]> => {
     const db = new sqlite3.Database(dbPath);
@@ -325,6 +288,47 @@ export const searchSubchapters = (searchQuery: string): Promise<any[]> => {
                 reject(err);
             } else {
                 resolve(rows);
+            }
+        });
+    });
+};
+
+// Fetch distinct flashcard topics by SubchapterId
+export const fetchFlashcardTopicsBySubchapterId = (subchapterId: number): Promise<string[]> => {
+    return new Promise((resolve, reject) => {
+        const db = new sqlite3.Database(dbPath);
+        const query = `SELECT DISTINCT TopicName FROM Flashcards WHERE SubchapterId = ?`;
+        
+        db.all(query, [subchapterId], (err, rows: any[]) => {  // Explicitly typing rows as any[]
+            db.close();
+            if (err) {
+                console.error(`Failed to fetch flashcard topics for subchapterId ${subchapterId}:`, err);
+                reject(err);
+            } else {
+                const topics = rows.map(row => row.TopicName);  // Now row is assumed to have TopicName
+                resolve(topics);
+            }
+        });
+    });
+};
+
+// Fetch flashcards (Question and Answer) by TopicName and SubchapterId
+export const fetchFlashcardsByTopic = (subchapterId: number, topicName: string): Promise<{ Question: string, Answer: string }[]> => {
+    return new Promise((resolve, reject) => {
+        const db = new sqlite3.Database(dbPath);
+        const query = `SELECT Question, Answer FROM Flashcards WHERE SubchapterId = ? AND TopicName = ?`;
+
+        db.all(query, [subchapterId, topicName], (err, rows: any[]) => {  // Explicitly typing rows as any[]
+            db.close();
+            if (err) {
+                console.error(`Failed to fetch flashcards for topic ${topicName} and subchapterId ${subchapterId}:`, err);
+                reject(err);
+            } else {
+                const flashcards = rows.map(row => ({
+                    Question: row.Question,
+                    Answer: row.Answer,
+                }));
+                resolve(flashcards);
             }
         });
     });

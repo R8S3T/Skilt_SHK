@@ -13,6 +13,7 @@ const HomeScreen = () => {
     const navigation = useNavigation();
     const route = useRoute<HomeRouteProp>();
     const username = route.params?.username || 'Default User';
+    const subchapterId = 1;  // Hardcode subchapterId for now
 
     useEffect(() => {
         // Set the header title dynamically based on the username
@@ -30,10 +31,14 @@ const HomeScreen = () => {
             <LearnTracker />
             <Section1 onButtonPress={handleButtonPress} />
             <MathModulSection onButtonPress={handleButtonPress} />
-            <FlashcardsSection onButtonPress={handleButtonPress} />
+            <FlashcardsSection
+                onButtonPress={handleButtonPress}
+                subchapterId={subchapterId}  // Pass the subchapterId here
+            />
         </ScrollView>
     );
 };
+
 
 const styles = StyleSheet.create({
     scrollContentContainer: {

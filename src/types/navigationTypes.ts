@@ -48,10 +48,7 @@ export type RootStackParamList = {
         targetScreen: keyof RootStackParamList;
         targetParams: { chapterId: number; chapterTitle: string };
     };
-    FlashCardsScreen: undefined;
-    FlashCardsRandom: undefined;
-    FlashCardsOrganised: { topic: string };
-    FlashCardsTopicScreen: undefined;
-    SubchapterContentScreen: { subchapterId: number; subchapterTitle: string };
+    FlashCardsTopicScreen: { subchapterId: number };
+    FlashCardScreen: { subchapterId: number; topic: string };
 };
 
