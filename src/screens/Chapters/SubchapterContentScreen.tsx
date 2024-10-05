@@ -10,7 +10,8 @@ import { fetchSubchapterContentBySubchapterId, fetchQuizByContentId } from 'src/
 import { useSubchapter } from './SubchapterContext';
 import { LinearGradient } from 'expo-linear-gradient';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { Ionicons } from '@expo/vector-icons'; // Import icon library
+import { Ionicons } from '@expo/vector-icons';
+import Constants from 'expo-constants'; 
 
 type SubchapterContentScreenRouteProp = RouteProp<LearnStackParamList, 'SubchapterContentScreen'>;
 type SubchapterContentScreenNavigationProp = StackNavigationProp<LearnStackParamList, 'SubchapterContentScreen'>;
@@ -21,7 +22,7 @@ type Props = {
 };
 
 const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
-    const { subchapterId, subchapterTitle, chapterId, chapterTitle } = route.params;
+    const { subchapterId, subchapterTitle, chapterId=0, chapterTitle='' } = route.params;
     const [contentData, setContentData] = useState<GenericContent[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -84,35 +85,63 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                 });
             }
         } else {
-            const currentContentId = contentData[currentIndex].ContentId;
-            try {
-                const quizData = await fetchQuizByContentId(currentContentId);
-                if (quizData.length > 0) {
-                    setShowQuiz(true);
+            // Check if SHOW_QUIZZES is false
+            const showQuizzes = Constants.manifest?.extra?.SHOW_QUIZZES === 'true';
+    
+            // If quizzes are disabled, skip directly to the next content
+            if (!showQuizzes || currentIndex === contentData.length - 1) {
+                // Proceed to the next content
+                if (currentIndex < contentData.length - 1) {
+                    setCurrentIndex((prevIndex) => {
+                        const newIndex = prevIndex + 1;
+                        setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
+                        return newIndex;
+                    });
                 } else {
-                    if (currentIndex < contentData.length - 1) {
-                        setCurrentIndex((prevIndex) => {
-                            const newIndex = prevIndex + 1;
-                            setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
-                            return newIndex;
-                        });
-                    } else {
-                        markSubchapterAsFinished(subchapterId);
-                        unlockSubchapter(subchapterId + 1);
-                        navigation.navigate('CongratsScreen', {
-                            targetScreen: 'SubchaptersScreen',
-                            targetParams: {
-                                chapterId: chapterId,
-                                chapterTitle: chapterTitle,
-                            },
-                        });
-                    }
+                    markSubchapterAsFinished(subchapterId);
+                    unlockSubchapter(subchapterId + 1);
+                    navigation.navigate('CongratsScreen', {
+                        targetScreen: 'SubchaptersScreen',
+                        targetParams: {
+                            chapterId: chapterId,
+                            chapterTitle: chapterTitle,
+                        },
+                    });
                 }
-            } catch (error) {
-                console.error('Failed to check for quiz:', error);
+            } else {
+                // Check if quiz exists for the current content
+                const currentContentId = contentData[currentIndex].ContentId;
+                try {
+                    const quizData = await fetchQuizByContentId(currentContentId);
+                    if (quizData.length > 0) {
+                        setShowQuiz(true);
+                    } else {
+                        // No quiz, move to next content
+                        if (currentIndex < contentData.length - 1) {
+                            setCurrentIndex((prevIndex) => {
+                                const newIndex = prevIndex + 1;
+                                setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
+                                return newIndex;
+                            });
+                        } else {
+                            markSubchapterAsFinished(subchapterId);
+                            unlockSubchapter(subchapterId + 1);
+                            navigation.navigate('CongratsScreen', {
+                                targetScreen: 'SubchaptersScreen',
+                                targetParams: {
+                                    chapterId: chapterId,
+                                    chapterTitle: chapterTitle,
+                                },
+                            });
+                        }
+                    }
+                } catch (error) {
+                    console.error('Failed to check for quiz:', error);
+                }
             }
         }
     };
+    
 
     const goBack = () => {
         if (currentIndex > 0) {
@@ -207,7 +236,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
     },
 });
-
 
 export default SubchapterContentScreen;
 

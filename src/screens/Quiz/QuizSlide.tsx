@@ -4,6 +4,7 @@ import MultipleChoice from './MultipleChoice';
 import ClozeTest from './ClozeTest';
 import { fetchQuizByContentId, fetchMultipleChoiceOptionsByQuizId, fetchClozeTestOptionsByQuizId } from 'src/database/databaseServices';
 import { Quiz, MultipleChoiceOption, ClozeTestOption } from 'src/types/contentTypes';
+import Constants from 'expo-constants'; // Import Constants to access environment variables
 
 interface QuizSlideProps {
     contentId: number;
@@ -12,6 +13,14 @@ interface QuizSlideProps {
 }
 
 const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) => {
+    // Access the SHOW_QUIZZES variable from the environment
+    const showQuizzes = Constants.manifest?.extra?.SHOW_QUIZZES === 'true';
+
+    // If quizzes are disabled, return a message
+    if (!showQuizzes) {
+        return <Text>Quizzes are disabled in settings.</Text>;
+    }
+
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
     const [options, setOptions] = useState<(MultipleChoiceOption[] | ClozeTestOption[])>([]);
     const [currentQuizIndex, setCurrentQuizIndex] = useState<number>(0);
@@ -131,4 +140,5 @@ const styles = StyleSheet.create({
 });
 
 export default QuizSlide;
+
 
