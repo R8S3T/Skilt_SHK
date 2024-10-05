@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Button, ViewStyle } from 'react-native';
+import { View, Text, StyleSheet, ViewStyle } from 'react-native';
 import MultipleChoice from './MultipleChoice';
 import ClozeTest from './ClozeTest';
 import { fetchQuizByContentId, fetchMultipleChoiceOptionsByQuizId, fetchClozeTestOptionsByQuizId } from 'src/database/databaseServices';
@@ -12,37 +12,40 @@ interface QuizSlideProps {
 }
 
 const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) => {
-    const [quiz, setQuiz] = useState<Quiz | null>(null);
+    const [quizzes, setQuizzes] = useState<Quiz[]>([]);
     const [options, setOptions] = useState<(MultipleChoiceOption[] | ClozeTestOption[])>([]);
+    const [currentQuizIndex, setCurrentQuizIndex] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+
+    const loadQuizOptions = async (quiz: Quiz) => {
+        try {
+            let fetchedOptions: MultipleChoiceOption[] | ClozeTestOption[] = [];
+            if (quiz.QuizType === 'multiple_choice') {
+                fetchedOptions = await fetchMultipleChoiceOptionsByQuizId(quiz.QuizId);
+            } else if (quiz.QuizType === 'cloze_test') {
+                const clozeTestOptions = await fetchClozeTestOptionsByQuizId(quiz.QuizId);
+                fetchedOptions = clozeTestOptions.map(option => ({
+                    ...option,
+                    OptionTexts: typeof option.OptionTexts === 'string'
+                        ? option.OptionTexts.split(', ').map(text => text.trim())
+                        : option.OptionTexts
+                }));
+            }
+            setOptions(fetchedOptions);
+        } catch (err) {
+            setError('Failed to load quiz options.');
+            console.error(err);
+        }
+    };
 
     useEffect(() => {
         const loadQuizData = async () => {
             try {
-                const fetchedQuiz = await fetchQuizByContentId(contentId);
-                if (fetchedQuiz.length > 0) {
-                    const quizData = fetchedQuiz[0];
-                    const quiz = {
-                        ...quizData,
-                        Type: quizData.QuizType // Map QuizType to Type
-                    };
-                    setQuiz(quiz);
-
-                    let fetchedOptions: MultipleChoiceOption[] | ClozeTestOption[] = [];
-                    if (quiz.Type === 'multiple_choice') {
-                        fetchedOptions = await fetchMultipleChoiceOptionsByQuizId(quiz.QuizId);
-                    } else if (quiz.Type === 'cloze_test') {
-                        const clozeTestOptions = await fetchClozeTestOptionsByQuizId(quiz.QuizId);
-                        fetchedOptions = clozeTestOptions.map(option => ({
-                            ...option,
-                            OptionTexts: typeof option.OptionTexts === 'string'
-                                ? option.OptionTexts.split(', ').map(text => text.trim()) // Ensure OptionTexts is a string
-                                : option.OptionTexts // If it's already an array, keep it as is
-                        }));
-                    }
-
-                    setOptions(fetchedOptions);
+                const fetchedQuizzes = await fetchQuizByContentId(contentId);
+                if (fetchedQuizzes.length > 0) {
+                    setQuizzes(fetchedQuizzes);
+                    loadQuizOptions(fetchedQuizzes[0]); // Load options for the first quiz
                 } else {
                     setError('No quiz found for this content.');
                 }
@@ -57,6 +60,17 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
         loadQuizData();
     }, [contentId]);
 
+    const handleContinue = () => {
+        const nextIndex = currentQuizIndex + 1;
+        if (nextIndex < quizzes.length) {
+            setCurrentQuizIndex(nextIndex);
+            loadQuizOptions(quizzes[nextIndex]); // Load options for the next quiz
+        } else {
+            // All quizzes completed
+            onContinue(); // Call the parent's continue function
+        }
+    };
+
     if (loading) {
         return <Text>Loading quiz...</Text>;
     }
@@ -65,34 +79,36 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
         return <Text>{error}</Text>;
     }
 
-    if (!quiz) {
+    if (quizzes.length === 0) {
         return <Text>No quiz found for this content.</Text>;
     }
 
+    const currentQuiz = quizzes[currentQuizIndex];
+
     return (
         <View style={[styles.slide, style]}>
-            {quiz.QuizType === 'multiple_choice' && (
+            {currentQuiz.QuizType === 'multiple_choice' && (
                 <MultipleChoice
-                    quiz={quiz}
+                    quiz={currentQuiz}
                     options={options as MultipleChoiceOption[]}
                     onAnswerSubmit={(isCorrect) => {
                         if (isCorrect) {
-                            onContinue();
+                            handleContinue();
                         }
                     }}
-                    onContinue={onContinue}
+                    onContinue={handleContinue}
                 />
             )}
-            {quiz.QuizType === 'cloze_test' && (
+            {currentQuiz.QuizType === 'cloze_test' && (
                 <ClozeTest
-                    quiz={quiz}
+                    quiz={currentQuiz}
                     options={options as ClozeTestOption[]}
                     onAnswerSubmit={(isCorrect) => {
                         if (isCorrect) {
-                            onContinue();
+                            handleContinue();
                         }
                     }}
-                    onContinue={onContinue}
+                    onContinue={handleContinue}
                 />
             )}
         </View>
@@ -115,7 +131,4 @@ const styles = StyleSheet.create({
 });
 
 export default QuizSlide;
-
-
-
 

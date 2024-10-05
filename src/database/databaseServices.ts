@@ -15,7 +15,7 @@ import {
 } from 'src/types/contentTypes';
 
     // Use here Expo IP adress
-    const API_URL = 'http://192.168.193.38:3000';
+    const API_URL = 'http://192.168.167.38:3000';
 
 
 // Fetch chapters by year via the server
@@ -141,7 +141,6 @@ export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
         return [];
     }
 }
-
 
 // Fetch multiple-choice options by quiz ID
 export async function fetchMultipleChoiceOptionsByQuizId(quizId: number): Promise<MultipleChoiceOption[]> {
