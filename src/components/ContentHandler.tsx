@@ -1,6 +1,9 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 import { imageMap } from 'src/utils/imageMappings';
+import Zoom from 'react-native-zoom-reanimated';
+
+const deviceWidth = Dimensions.get('window').width;
 
 interface ContentHandlerProps {
     part: string;
@@ -8,14 +11,6 @@ interface ContentHandlerProps {
 
 const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
     // Handle special markers like underline, bgcolor-block, images, etc.
-    if (part.startsWith('[underline]') && part.endsWith('[/underline]')) {
-        const underlineText = part.replace('[underline]', '').replace('[/underline]', '');
-        return (
-            <View style={styles.underlineContainer}>
-                <Text style={styles.contentText}>{underlineText}</Text>
-            </View>
-        );
-    }
 
     if (part.startsWith('[bgcolor-block=')) {
         const bgColor = part.match(/\[bgcolor-block=(#[0-9a-fA-F]{6})\]/)?.[1] || '';
@@ -51,17 +46,40 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
     if (part.startsWith('[LF_')) {
         const imageName = part.replace('[', '').replace(']', '').trim();
         const imageSource = imageMap[imageName as keyof typeof imageMap];
-
+        
         if (imageSource) {
-            let imageStyle = styles.image;
+            // Split the marker to check for different tags
+            const markers = imageName.split('_').map(marker => marker.toLowerCase());
 
-            if (imageName.includes('welcome')) {
+            let imageStyle = styles.image;
+            const isZoomable = markers.includes('zoom');
+            const isWelcome = markers.includes('welcome');
+            const isSmall = markers.includes('small');
+            
+            // Apply styles based on markers
+            if (isWelcome) {
                 imageStyle = styles.welcomeImage;
-            } else if (imageName.includes('small')) {
+            } else if (isSmall) {
                 imageStyle = styles.smallImage;
             }
 
-            return <Image source={imageSource} style={imageStyle} />;
+            // If image is marked as zoomable, wrap it in the Zoom component
+            if (isZoomable) {
+                return (
+                    <View style={styles.imageContainer}>
+                        <Zoom style={{ width: deviceWidth, height: deviceWidth * 0.75 }}>
+                            <Image source={imageSource} style={imageStyle} resizeMode="contain" />
+                        </Zoom>
+                    </View>
+                );
+            }
+
+            // Default case for non-zoomable images
+            return (
+                <View style={styles.imageContainer}>
+                    <Image source={imageSource} style={imageStyle} resizeMode="contain" />
+                </View>
+            );
         } else {
             console.warn(`Image not found for key: ${imageName}`);
         }
@@ -70,7 +88,7 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
     // Process text formatting (heading, subheading, bold, etc.)
     const processText = (text: string) => {
         const parts = text.split(/(\[bold\].*?\[\/bold\])|(\[heading\].*?\[\/heading\])|(\[subheading\].*?\[\/subheading\])|(\[section\].*?\[\/section\])|(\[bullet\].*?\[\/bullet\])/g);
-    
+
         return (
             <Text style={styles.contentText}>
                 {parts.map((part, index) => {
@@ -126,7 +144,6 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
             </Text>
         );
     };
-    
 
     // Return the processed text
     return <>{processText(part)}</>;
@@ -138,6 +155,10 @@ const styles = StyleSheet.create({
         fontSize: 18,
         letterSpacing: 0.8,
         marginTop: 5,
+    },
+    imageContainer: {
+        marginVertical: 10,
+        alignItems: 'center',
     },
     boldText: {
         fontFamily: 'OpenSans-Bold',
@@ -193,7 +214,7 @@ const styles = StyleSheet.create({
     },
     welcomeImage: {
         width: '100%',
-        height: 300,
+        height: 400,
         resizeMode: 'contain',
         marginVertical: 10,
     },
@@ -202,6 +223,12 @@ const styles = StyleSheet.create({
         height: 80,
         resizeMode: 'contain',
         marginVertical: 5,
+    },
+    zoomContainer: {
+        flex: 1,
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     bulletTextContainer: {
         flexDirection: 'row',

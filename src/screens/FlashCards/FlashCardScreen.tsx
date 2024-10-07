@@ -1,33 +1,46 @@
-// FlashCardScreen.tsx
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import FlipCard from 'react-native-flip-card';
 import { fetchFlashcardsByTopic } from 'src/database/databaseServices';
+
+interface Flashcard {
+    question: string;
+    answer: string;
+    topic: string;
+}
 
 const FlashCardScreen: React.FC = () => {
     const route = useRoute();
     const { subchapterId, topic } = route.params as { subchapterId: number, topic: string };
-    const [flashcards, setFlashcards] = useState<{ Question: string, Answer: string }[]>([]);
+    const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
+    const [currentCardIndex, setCurrentCardIndex] = useState(0);
     const [loading, setLoading] = useState(true);
-    const [currentCard, setCurrentCard] = useState(0);
-    const [showAnswer, setShowAnswer] = useState(false);
 
     useEffect(() => {
         async function loadFlashcards() {
-            const fetchedFlashcards = await fetchFlashcardsByTopic(subchapterId, topic);
-            setFlashcards(fetchedFlashcards);
-            setLoading(false);
+            try {
+                const fetchedFlashcards = await fetchFlashcardsByTopic(subchapterId, topic);
+                setFlashcards(fetchedFlashcards.map((flashcard: any) => ({
+                    question: flashcard.Question,
+                    answer: flashcard.Answer,
+                    topic: flashcard.topic,
+                })));
+            } catch (error) {
+                console.error(`Error fetching flashcards for topic ${topic}:`, error);
+            } finally {
+                setLoading(false);
+            }
         }
         loadFlashcards();
     }, [subchapterId, topic]);
 
-    const handleFlipCard = () => {
-        setShowAnswer(!showAnswer);
-    };
-
     const handleNextCard = () => {
-        setShowAnswer(false);
-        setCurrentCard((prev) => (prev + 1) % flashcards.length);  // Cycle through cards
+        if (currentCardIndex < flashcards.length - 1) {
+            setCurrentCardIndex(currentCardIndex + 1);
+        } else {
+            alert('No more cards!');
+        }
     };
 
     if (loading) {
@@ -44,13 +57,29 @@ const FlashCardScreen: React.FC = () => {
 
     return (
         <View style={styles.container}>
-            <TouchableOpacity onPress={handleFlipCard} style={styles.card}>
-                <Text style={styles.cardText}>
-                    {showAnswer ? flashcards[currentCard].Answer : flashcards[currentCard].Question}
-                </Text>
-            </TouchableOpacity>
+            <FlipCard
+                style={styles.cardContainer}
+                friction={6}
+                perspective={1000}
+                flipHorizontal={true}
+                flipVertical={false}
+                clickable={true}
+                onFlipEnd={(isFlipEnd) => { console.log('isFlipEnd', isFlipEnd); }}
+            >
+                {/* Front Side */}
+                <View style={styles.face}>
+                    <Text style={styles.text}>{flashcards[currentCardIndex].question}</Text>
+                </View>
+
+                {/* Back Side */}
+                <View style={styles.back}>
+                    <Text style={styles.text}>{flashcards[currentCardIndex].answer}</Text>
+                </View>
+            </FlipCard>
+
+            {/* Button to move to the next card */}
             <TouchableOpacity onPress={handleNextCard} style={styles.nextButton}>
-                <Text style={styles.nextText}>Next</Text>
+                <Text style={styles.buttonText}>Next Card</Text>
             </TouchableOpacity>
         </View>
     );
@@ -62,29 +91,59 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
+        backgroundColor: '#f5f5f5',
     },
-    card: {
-        backgroundColor: '#2b4353',
-        padding: 30,
+    cardContainer: {
+        width: 300,
+        height: 200,
+        marginBottom: 20,
+    },
+    face: {
+        width: 300,
+        height: 200,
+        backgroundColor: '#fff',
         borderRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 20,
-        width: '80%',
+        borderWidth: 1,
+        borderColor: '#ccc',
+        shadowColor: '#000',
+        shadowOpacity: 0.2,
+        shadowOffset: { width: 0, height: 3 },
+        shadowRadius: 4,
     },
-    cardText: {
-        color: '#fff',
+    back: {
+        width: 300,
+        height: 200,
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderWidth: 1,
+        borderColor: '#ccc',
+        shadowColor: '#000',
+        shadowOpacity: 0.2,
+        shadowOffset: { width: 0, height: 3 },
+        shadowRadius: 4,
+    },
+    text: {
         fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
     },
     nextButton: {
-        backgroundColor: '#1e90ff',
-        padding: 15,
-        borderRadius: 10,
+        backgroundColor: '#007bff',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+        alignSelf: 'center',
     },
-    nextText: {
+    buttonText: {
         color: '#fff',
-        fontSize: 18,
+        fontSize: 16,
     },
 });
 
 export default FlashCardScreen;
+
+
