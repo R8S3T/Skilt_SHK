@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { View, Modal, StyleSheet, TouchableOpacity, Image, Dimensions, ImageSourcePropType } from 'react-native';
+import { View, Modal, StyleSheet, TouchableOpacity, Image, Dimensions, ImageSourcePropType, Text } from 'react-native';
 import Zoom from 'react-native-zoom-reanimated';
-import { gestureHandlerRootHOC, GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -11,14 +10,17 @@ const ZoomableImage: React.FC<{ source: ImageSourcePropType; style?: any }> = ({
   return (
     <>
       {/* Touchable Image to Open Modal */}
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
-        <Image source={source} style={style} resizeMode="contain" />
+      <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.touchableContainer}>
+        <Image source={source} style={[style, styles.zoomableImage]} resizeMode="contain" />
       </TouchableOpacity>
 
       {/* Modal for Focused Zoom */}
       <Modal visible={isModalVisible} transparent={false} onRequestClose={() => setModalVisible(false)}>
-        <GestureHandlerRootView style={styles.modalContainer}>
-          <Zoom style={styles.zoomContainer}>
+        <View style={styles.modalContainer}>
+          <TouchableOpacity style={styles.closeButton} onPress={() => setModalVisible(false)}>
+            <Text style={styles.closeButtonText}>X</Text>
+          </TouchableOpacity>
+          <Zoom>
             <Image
               source={source}
               resizeMode="contain"
@@ -28,26 +30,39 @@ const ZoomableImage: React.FC<{ source: ImageSourcePropType; style?: any }> = ({
               }}
             />
           </Zoom>
-        </GestureHandlerRootView>
+        </View>
       </Modal>
     </>
   );
 };
 
-// Wrap the component with gestureHandlerRootHOC before exporting
-export default gestureHandlerRootHOC(ZoomableImage);
-
 const styles = StyleSheet.create({
+  touchableContainer: {
+    borderWidth: 1,
+    borderColor: '#d3d3d3', // Subtle border color to indicate zoomable
+    borderRadius: 8,
+    padding: 5,
+  },
+  zoomableImage: {
+    opacity: 0.9, // Slight opacity to indicate interactivity
+  },
   modalContainer: {
     flex: 1,
     backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  zoomContainer: {
-    flex: 1,
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+  closeButton: {
+    position: 'absolute',
+    top: 40,
+    right: 20,
+    zIndex: 1,
+  },
+  closeButtonText: {
+    color: '#888', // Darker color for the close button
+    fontSize: 24,
+    fontWeight: 'bold',
   },
 });
+
+export default ZoomableImage;
