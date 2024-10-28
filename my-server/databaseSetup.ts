@@ -85,7 +85,7 @@ export const fetchChaptersByYear = (year: number): Promise<any[]> => {
 export const fetchSubchaptersByChapterId = (chapterId: number): Promise<any[]> => {
     return new Promise((resolve, reject) => {
         const db = new sqlite3.Database(dbPath);
-        db.all('SELECT * FROM Subchapters WHERE ChapterId = ? ORDER BY SortOrder ASC', [chapterId], (err, rows) => {
+        db.all('SELECT SubchapterId, ChapterId, SubchapterName, SortOrder, ImageName FROM Subchapters WHERE ChapterId = ? ORDER BY SortOrder ASC', [chapterId], (err, rows) => {
             db.close();
             if (err) {
                 console.error('Failed to fetch subchapters:', err);
@@ -97,7 +97,6 @@ export const fetchSubchaptersByChapterId = (chapterId: number): Promise<any[]> =
         });
     });
 };
-
 
 // Fetch subchapter content by subchapter id
 export const fetchSubchapterContentBySubchapterId = (subchapterId: number): Promise<any[]> => {

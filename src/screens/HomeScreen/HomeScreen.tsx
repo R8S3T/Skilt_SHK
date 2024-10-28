@@ -31,7 +31,7 @@ const HomeScreen = () => {
         <ScrollView contentContainerStyle={styles.scrollContentContainer}>
             <LearnTracker />
             <Section1 onButtonPress={handleButtonPress} />
-            <ResumeSection sectionTitle="Resume Learning" />
+            <ResumeSection sectionTitle="Weiterlernen" />
             <MathModulSection onButtonPress={handleButtonPress} />
             <FlashcardsSection
                 onButtonPress={handleButtonPress}

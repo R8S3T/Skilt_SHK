@@ -9,6 +9,7 @@ export interface Subchapter {
     SubchapterId: number;
     ChapterId: number;
     SubchapterName: string;
+    ImageName: string;
     isLocked: boolean;
     isFinished: boolean;
 }

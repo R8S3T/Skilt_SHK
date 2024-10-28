@@ -1,13 +1,24 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationProp } from '@react-navigation/native';
+import { fetchSubchaptersByChapterId } from 'src/database/databaseServices';
+
 
 // Function to save progress (updated to save subchapterId and currentIndex)
-export const saveProgress = async (sectionKey: string, chapterId: number, subchapterId: number, currentIndex: number) => {
+export const saveProgress = async (
+    sectionKey: string,
+    chapterId: number,
+    subchapterId: number,
+    subchapterName: string,
+    currentIndex: number,
+    imageName: string | null // Add imageName parameter
+) => {
     try {
         const progressData = {
             chapterId,
             subchapterId,
+            subchapterName,
             currentIndex,
+            imageName,
         };
         await AsyncStorage.setItem(`progress_${sectionKey}`, JSON.stringify(progressData));
     } catch (e) {
@@ -17,13 +28,18 @@ export const saveProgress = async (sectionKey: string, chapterId: number, subcha
 
 
 // Function to load progress
+// In progressUtils.ts
 export const loadProgress = async (sectionKey: string) => {
     try {
         const savedProgress = await AsyncStorage.getItem(`progress_${sectionKey}`);
-        return savedProgress ? JSON.parse(savedProgress) : { subchapterId: null, currentIndex: null };
+        const parsedProgress = savedProgress ? JSON.parse(savedProgress) : { chapterId: null, subchapterId: null, subchapterName: null, currentIndex: null, imageName: null };
+        
+        console.log("Loaded Progress Data:", parsedProgress); // Fügen Sie dies hinzu, um den gespeicherten Fortschritt zu prüfen.
+        
+        return parsedProgress;
     } catch (e) {
         console.error('Error loading progress.', e);
-        return { subchapterId: null, currentIndex: null };
+        return { chapterId: null, subchapterId: null, subchapterName: null, currentIndex: null, imageName: null };
     }
 };
 
@@ -47,16 +63,22 @@ export const loadContentSlideIndex = async (subchapterId: number) => {
 };
 
 // Function to handle exiting the content screen and saving progress
-export const handleExit = async (chapterId: number, subchapterId: number, currentIndex: number, navigation: NavigationProp<any>) => {
+export const handleExit = async (
+    chapterId: number,
+    subchapterId: number,
+    subchapterName: string,
+    currentIndex: number,
+    navigation: NavigationProp<any>
+) => {
     try {
-        // Use the correct `currentIndex` instead of `newIndex`
-        await saveProgress('section1', chapterId, subchapterId, currentIndex); // Save progress when moving to next slide
+        // Fetch subchapters and get image name
+        const subchapters = await fetchSubchaptersByChapterId(chapterId);
+        const currentSubchapter = subchapters.find((sub) => sub.SubchapterId === subchapterId);
+        const imageName = currentSubchapter?.ImageName || null;
 
-        navigation.navigate('HomeScreen'); // Navigate back to Home Screen
+        await saveProgress('section1', chapterId, subchapterId, subchapterName, currentIndex, imageName);
+        navigation.navigate('HomeScreen');
     } catch (error) {
         console.error('Error handling exit:', error);
     }
 };
-
-
-

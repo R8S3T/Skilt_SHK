@@ -1,28 +1,37 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, TextStyle } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { loadProgress } from 'src/utils/progressUtils';
 import { NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from 'src/types/navigationTypes';
+import { imageMap } from 'src/utils/imageMappings'; // Updated import to use imageMap
+import { screenWidth } from 'src/utils/screenDimensions';
 
 interface ResumeSectionProps {
     sectionTitle?: string;
 }
 
-const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Resume Learning" }) => {
+const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fortsetzen" }) => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
     const [lastChapterId, setLastChapterId] = useState<number | null>(null);
     const [lastChapterTitle, setLastChapterTitle] = useState<string | null>(null);
     const [lastSubchapter, setLastSubchapter] = useState<number | null>(null);
+    const [lastSubchapterName, setLastSubchapterName] = useState<string | null>(null);
     const [lastContentId, setLastContentId] = useState<number | null>(null);
+    const [lastImageName, setLastImageName] = useState<string | null>(null);
 
     const loadLastViewed = async () => {
-        const { chapterId, chapterTitle, subchapterId, currentIndex } = await loadProgress('section1');
+        const { chapterId, chapterTitle, subchapterId, subchapterName, currentIndex, imageName } = await loadProgress('section1');
         if (chapterId) setLastChapterId(chapterId);
         if (chapterTitle) setLastChapterTitle(chapterTitle);
         if (subchapterId) setLastSubchapter(subchapterId);
+        if (subchapterName) setLastSubchapterName(subchapterName);
         if (currentIndex !== null) setLastContentId(currentIndex);
+        if (imageName) setLastImageName(imageName);
+
+        console.log('Last Image Name:', imageName);
+        console.log('Available Keys in imageMap:', Object.keys(imageMap));
     };
 
     // Use useFocusEffect to load the latest progress whenever the screen is focused
@@ -38,9 +47,9 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Resume Le
                 screen: 'SubchapterContentScreen',
                 params: {
                     subchapterId: lastSubchapter,
-                    subchapterTitle: `Kapitel ${lastSubchapter}`,
+                    subchapterTitle: lastSubchapterName || `Kapitel ${lastSubchapter}`,
                     chapterId: lastChapterId ?? 1,
-                    chapterTitle: lastChapterTitle ?? "Default Chapter Title",
+                    chapterTitle: lastChapterTitle ?? "Standard Kapitel Titel",
                     contentId: lastContentId,
                 },
             });
@@ -49,36 +58,65 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Resume Le
         }
     };
 
+    // Type cast the imageMap with lastImageName
+    const imageSource = lastImageName ? imageMap[lastImageName as keyof typeof imageMap] : null;
+
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>{sectionTitle}</Text>
-            <Text style={styles.subtitle}>
-                {lastSubchapter ? `Continue from Subchapter ${lastSubchapter}` : "No recent activity"}
-            </Text>
-            <Button
-                title="Resume"
-                onPress={handleContinue}
-                disabled={lastSubchapter === null || lastContentId === null}
-            />
+            <Text style={styles.resumeTitle}>{sectionTitle}</Text>
+            <TouchableOpacity style={styles.newContainer} onPress={handleContinue} disabled={lastSubchapter === null || lastContentId === null}>
+                {imageSource && (
+                    <Image
+                        source={imageSource}
+                        style={styles.resumeImage}
+                    />
+                )}
+                <Text style={styles.subtitle}>
+                    {lastSubchapterName ? <Text style={styles.bold}>{lastSubchapterName}</Text> : "Keine kürzliche Aktivität"}
+                </Text>
+            </TouchableOpacity>
         </View>
     );
 };
+
 const styles = StyleSheet.create({
     container: {
-        padding: 20,
-        backgroundColor: '#f0f0f0',
-        borderRadius: 10,
-        alignItems: 'center',
-        marginVertical: 10,
+        alignItems: 'flex-start',
+        marginBottom: 20,
+        marginTop: 20, // Added marginTop to align "Lernen fortsetzen" title
     },
-    title: {
-        fontSize: 18,
-        fontWeight: 'bold',
+    newContainer: {
+        padding: 20,
+        width: screenWidth * 0.90,
+        borderRadius: 5,
+        marginTop: 10,
         marginBottom: 5,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 3,
+        borderWidth: 1,
+        borderColor: '#e3e3e3',
+        backgroundColor: '#ffffff',
+    },
+    resumeTitle: {
+        fontSize: 22,
+        fontWeight: 'bold',
+        marginBottom: 10,
     },
     subtitle: {
-        fontSize: 14,
+        fontSize: 20,
         color: '#555',
+        marginTop: 10,
+    },
+    bold: {
+        fontWeight: 'bold',
+    },
+    resumeImage: {
+        width: '80%',
+        height: 200,
         marginBottom: 15,
     },
 });

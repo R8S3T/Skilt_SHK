@@ -12,6 +12,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 import { saveProgress } from 'src/utils/progressUtils';
+import { fetchSubchaptersByChapterId } from 'src/database/databaseServices';
+import { Subchapter } from 'src/types/contentTypes'; 
 
 type SubchapterContentScreenRouteProp = RouteProp<LearnStackParamList, 'SubchapterContentScreen'>;
 type SubchapterContentScreenNavigationProp = StackNavigationProp<LearnStackParamList, 'SubchapterContentScreen'>;
@@ -71,7 +73,25 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                 const newIndex = currentIndex + 1;
                 setCurrentIndex(newIndex);
                 setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
-                await saveProgress('section1', chapterId, subchapterId, newIndex);
+    
+                // Fetch the subchapter details to get the ImageName
+                try {
+                    const subchapters = await fetchSubchaptersByChapterId(chapterId);
+                    const currentSubchapter: Subchapter | undefined = subchapters.find((sub: Subchapter) => sub.SubchapterId === subchapterId);
+    
+                    if (currentSubchapter) {
+                        await saveProgress(
+                            'section1',
+                            chapterId,
+                            subchapterId,
+                            subchapterTitle,
+                            newIndex,
+                            currentSubchapter.ImageName // Save the imageName here
+                        );
+                    }
+                } catch (error) {
+                    console.error("Error fetching subchapter details: ", error);
+                }
             } else {
                 markSubchapterAsFinished(subchapterId);
                 unlockSubchapter(subchapterId + 1);
@@ -99,7 +119,25 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                         const newIndex = currentIndex + 1;
                         setCurrentIndex(newIndex);
                         setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
-                        await saveProgress('section1', chapterId, subchapterId, newIndex);
+    
+                        // Fetch the subchapter details to get the ImageName
+                        try {
+                            const subchapters = await fetchSubchaptersByChapterId(chapterId);
+                            const currentSubchapter: Subchapter | undefined = subchapters.find((sub: Subchapter) => sub.SubchapterId === subchapterId);
+    
+                            if (currentSubchapter) {
+                                await saveProgress(
+                                    'section1',
+                                    chapterId,
+                                    subchapterId,
+                                    subchapterTitle,
+                                    newIndex,
+                                    currentSubchapter.ImageName // Save the imageName here
+                                );
+                            }
+                        } catch (error) {
+                            console.error("Error fetching subchapter details: ", error);
+                        }
                     } else {
                         markSubchapterAsFinished(subchapterId);
                         unlockSubchapter(subchapterId + 1);
@@ -108,8 +146,8 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                             navigation.navigate('CongratsScreen', {
                                 targetScreen: 'SubchaptersScreen',
                                 targetParams: {
-                                    chapterId,      // Pass the correct chapterId here
-                                    chapterTitle,   // Pass the correct chapterTitle here
+                                    chapterId,
+                                    chapterTitle,
                                 },
                             });
                         } else {
@@ -122,7 +160,6 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
             }
         }
     };
-    
     
     const goBack = () => {
         if (currentIndex > 0) {
