@@ -23,8 +23,13 @@ const CongratsScreen: React.FC = () => {
     }
 
     const handleContinue = () => {
-        navigation.navigate(targetScreen, targetParams);
+        if (targetScreen && targetParams) {
+            navigation.navigate(targetScreen, targetParams);
+        } else {
+            console.error('Navigation parameters missing.');
+        }
     };
+    
 
     return (
         <View style={styles.container}>

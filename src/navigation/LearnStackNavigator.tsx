@@ -41,14 +41,14 @@ const LearnStackNavigator: React.FC = () => {
                     },
                 })}
             />
-            <Stack.Screen
-                name="SubchaptersScreen"
+                        <Stack.Screen
+                name="SubchaptersScreen" // Add SubchaptersScreen here
                 component={SubchaptersScreen}
                 options={({ route }) => ({
                     title: route.params.chapterTitle,
                     headerTitleAlign: 'center',
                     headerTitleStyle: {
-                        fontWeight: '600', // Slightly bolder
+                        fontWeight: '600',
                     },
                 })}
             />

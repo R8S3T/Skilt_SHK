@@ -10,7 +10,8 @@ import { fetchSubchapterContentBySubchapterId, fetchQuizByContentId } from 'src/
 import { useSubchapter } from './SubchapterContext';
 import { LinearGradient } from 'expo-linear-gradient';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { Ionicons } from '@expo/vector-icons'; // Import icon library
+import { Ionicons } from '@expo/vector-icons';
+import { saveProgress } from 'src/utils/progressUtils';
 
 type SubchapterContentScreenRouteProp = RouteProp<LearnStackParamList, 'SubchapterContentScreen'>;
 type SubchapterContentScreenNavigationProp = StackNavigationProp<LearnStackParamList, 'SubchapterContentScreen'>;
@@ -67,21 +68,25 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         if (showQuiz) {
             setShowQuiz(false);
             if (currentIndex < contentData.length - 1) {
-                setCurrentIndex((prevIndex) => {
-                    const newIndex = prevIndex + 1;
-                    setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
-                    return newIndex;
-                });
+                const newIndex = currentIndex + 1;
+                setCurrentIndex(newIndex);
+                setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
+                await saveProgress('section1', chapterId, subchapterId, newIndex);
             } else {
                 markSubchapterAsFinished(subchapterId);
                 unlockSubchapter(subchapterId + 1);
-                navigation.navigate('CongratsScreen', {
-                    targetScreen: 'SubchaptersScreen',
-                    targetParams: {
-                        chapterId: chapterId,
-                        chapterTitle: chapterTitle,
-                    },
-                });
+    
+                if (chapterId && chapterTitle) {
+                    navigation.navigate('CongratsScreen', {
+                        targetScreen: 'SubchaptersScreen',
+                        targetParams: {
+                            chapterId,
+                            chapterTitle,
+                        },
+                    });
+                } else {
+                    console.error("Missing chapterId or chapterTitle, unable to navigate.");
+                }
             }
         } else {
             const currentContentId = contentData[currentIndex].ContentId;
@@ -91,21 +96,25 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                     setShowQuiz(true);
                 } else {
                     if (currentIndex < contentData.length - 1) {
-                        setCurrentIndex((prevIndex) => {
-                            const newIndex = prevIndex + 1;
-                            setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
-                            return newIndex;
-                        });
+                        const newIndex = currentIndex + 1;
+                        setCurrentIndex(newIndex);
+                        setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
+                        await saveProgress('section1', chapterId, subchapterId, newIndex);
                     } else {
                         markSubchapterAsFinished(subchapterId);
                         unlockSubchapter(subchapterId + 1);
-                        navigation.navigate('CongratsScreen', {
-                            targetScreen: 'SubchaptersScreen',
-                            targetParams: {
-                                chapterId: chapterId,
-                                chapterTitle: chapterTitle,
-                            },
-                        });
+    
+                        if (chapterId && chapterTitle) {
+                            navigation.navigate('CongratsScreen', {
+                                targetScreen: 'SubchaptersScreen',
+                                targetParams: {
+                                    chapterId,      // Pass the correct chapterId here
+                                    chapterTitle,   // Pass the correct chapterTitle here
+                                },
+                            });
+                        } else {
+                            console.error("Missing chapterId or chapterTitle, unable to navigate.");
+                        }
                     }
                 }
             } catch (error) {
@@ -113,7 +122,8 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
             }
         }
     };
-
+    
+    
     const goBack = () => {
         if (currentIndex > 0) {
             setCurrentIndex(currentIndex - 1);

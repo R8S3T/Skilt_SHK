@@ -135,7 +135,6 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
     );
 };
 
-
 const styles = StyleSheet.create({
     screenContainer: {
         flex: 1,

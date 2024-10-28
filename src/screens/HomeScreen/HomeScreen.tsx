@@ -4,6 +4,7 @@ import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { BottomTabParamList } from 'src/types/navigationTypes';
 import LearnTracker from '../LearnTracking/LearnTracker';
 import Section1 from './Section1';
+import ResumeSection from './ResumeSection';
 import MathModulSection from './MathModulSection';
 import FlashcardsSection from './FlashCardsSection';
 
@@ -30,6 +31,7 @@ const HomeScreen = () => {
         <ScrollView contentContainerStyle={styles.scrollContentContainer}>
             <LearnTracker />
             <Section1 onButtonPress={handleButtonPress} />
+            <ResumeSection sectionTitle="Resume Learning" />
             <MathModulSection onButtonPress={handleButtonPress} />
             <FlashcardsSection
                 onButtonPress={handleButtonPress}
