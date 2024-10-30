@@ -24,15 +24,12 @@ const MathModulSection: React.FC<MathModulProps> = ({ onButtonPress }) => {
     ];
 
     const handleButtonPress = (title: string) => {
-        console.log('Button pressed:', title);
 
         if (onButtonPress) {
-            console.log('onButtonPress is provided');
             onButtonPress(title);
         }
 
         if (title === 'Alle Module') {
-            console.log('Navigating to MathChapterScreen');
             navigation.navigate('Math', { screen: 'MathChapterScreen' });
         } else {
             console.log(`${title} pressed`);

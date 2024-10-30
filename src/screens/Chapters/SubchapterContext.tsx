@@ -1,6 +1,7 @@
 // Creates and provides a context for managing subchapter-related state, such as unlocked and finished subchapters, and the current subchapter details.
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SubchapterContextType } from 'src/types/contextTypes';
 
 const SubchapterContext = createContext<SubchapterContextType | undefined>(undefined);
@@ -23,17 +24,38 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
     const [currentSubchapterId, setCurrentSubchapterId] = useState<number | null>(null);
     const [currentSubchapterTitle, setCurrentSubchapterTitle] = useState<string>('');
 
-    const unlockSubchapter = (subchapterId: number) => {
-        setUnlockedSubchapters((current) => [...new Set([...current, subchapterId])]);
-    };
+    // Load saved progress on component mount
+    useEffect(() => {
+        const loadSavedProgress = async () => {
+            try {
+                const savedUnlocked = await AsyncStorage.getItem('unlockedSubchapters');
+                const savedFinished = await AsyncStorage.getItem('finishedSubchapters');
+                if (savedUnlocked) setUnlockedSubchapters(JSON.parse(savedUnlocked));
+                if (savedFinished) setFinishedSubchapters(JSON.parse(savedFinished));
+            } catch (error) {
+                console.error("Error loading saved progress:", error);
+            }
+        };
+        loadSavedProgress();
+    }, []);
 
-    const markSubchapterAsFinished = (subchapterId: number) => {
-        setFinishedSubchapters(current => {
+    // Unlocks a subchapter and updates AsyncStorage
+    const unlockSubchapter = async (subchapterId: number) => {
+        setUnlockedSubchapters((current) => {
             const updated = [...new Set([...current, subchapterId])];
-            console.log('Updated finished subchapters:', updated); // Debug log
+            AsyncStorage.setItem('unlockedSubchapters', JSON.stringify(updated)); // Persist the data
             return updated;
         });
-        unlockSubchapter(subchapterId + 1);
+    };
+
+    // Marks a subchapter as finished and saves to AsyncStorage
+    const markSubchapterAsFinished = async (subchapterId: number) => {
+        setFinishedSubchapters((current) => {
+            const updated = [...new Set([...current, subchapterId])];
+            AsyncStorage.setItem('finishedSubchapters', JSON.stringify(updated)); // Persist the data
+            return updated;
+        });
+        unlockSubchapter(subchapterId + 1); // Optionally unlock the next subchapter
     };
 
     const setCurrentSubchapter = (subchapterId: number | null, subchapterTitle: string) => {

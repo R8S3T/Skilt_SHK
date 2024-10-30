@@ -1,4 +1,6 @@
-import React from 'react';
+// src/navigation/AppNavigator.tsx
+
+import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { RootStackParamList } from 'src/types/navigationTypes';
 import IntroScreen from '../screens/IntroScreen';
@@ -9,16 +11,25 @@ import { SubchapterProvider } from 'src/screens/Chapters/SubchapterContext';
 import { MathSubchapterProvider } from 'src/screens/MathScreen/MathSubchapterContext';
 import FlashCardsTopicScreen from 'src/screens/FlashCards/FlashCardsTopicScreen';
 import FlashCardScreen from 'src/screens/FlashCards/FlashCardScreen';
-FlashCardScreen
+import { hasCompletedOnboarding } from 'src/utils/onBoardingUtils';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNavigator = () => {
+    const [initialRoute, setInitialRoute] = useState<keyof RootStackParamList | null>(null);
 
-    const shouldShowLearnStack = true;
+    useEffect(() => {
+        const checkOnboarding = async () => {
+            const hasOnboarded = await hasCompletedOnboarding();
+            setInitialRoute(hasOnboarded ? 'HomeScreen' : 'Intro');
+        };
+        checkOnboarding();
+    }, []);
+
+    if (initialRoute === null) return null; // Or a loading screen
 
     return (
-        <Stack.Navigator initialRouteName="Intro">
+        <Stack.Navigator initialRouteName={initialRoute}>
             <Stack.Screen
                 name="Intro"
                 component={IntroScreen}

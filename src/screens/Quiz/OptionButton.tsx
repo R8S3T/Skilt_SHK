@@ -8,7 +8,6 @@ interface OptionButtonProps {
 }
 
 const OptionButton: React.FC<OptionButtonProps> = ({ option, onSelect, isSelected }) => {
-    console.log('Option:', option, 'Is Selected:', isSelected);
     return (
         <TouchableOpacity
             style={styles.option}

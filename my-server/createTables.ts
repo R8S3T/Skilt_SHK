@@ -14,7 +14,6 @@ export const createChaptersTable = (db: sqlite3.Database): Promise<void> => {
                 console.error('Error creating Chapters table:', err.message);
                 reject(err);
             } else {
-                console.log('Table Chapters created successfully.');
                 resolve();
             }
         });
@@ -35,7 +34,6 @@ export const createSubchaptersTable = (db: sqlite3.Database): Promise<void> => {
                 console.error('Error creating Subchapters table:', err.message);
                 reject(err);
             } else {
-                console.log('Table Subchapters created successfully.');
                 resolve();
             }
         });
@@ -57,7 +55,6 @@ export const createSubchapterContentTable = (db: sqlite3.Database): Promise<void
                 console.error('Error creating SubchapterContent table:', err.message);
                 reject(err);
             } else {
-                console.log('Table SubchapterContent created successfully.');
                 resolve();
             }
         });
@@ -78,7 +75,6 @@ export const createMathChaptersTable = (db: sqlite3.Database): Promise<void> => 
                 console.error('Error creating MathChapters table:', err.message);
                 reject(err);
             } else {
-                console.log('Table MathChapters created successfully.');
                 resolve();
             }
         });
@@ -100,7 +96,6 @@ export const createMathSubchaptersTable = (db: sqlite3.Database): Promise<void> 
                 console.error('Error creating MathSubchapters table:', err.message);
                 reject(err);
             } else {
-                console.log('Table MathSubchapters created successfully.');
                 resolve();
             }
         });
@@ -125,7 +120,6 @@ export const createMathSubchapterContentTable = (db: sqlite3.Database): Promise<
                 console.error('Error creating MathSubchapterContent table:', err.message);
                 reject(err);
             } else {
-                console.log('Table MathSubchapterContent created successfully.');
                 resolve();
             }
         });
@@ -148,7 +142,6 @@ export const createQuizTable = (db: sqlite3.Database): Promise<void> => {
                 console.error('Error creating Quiz table:', err.message);
                 reject(err);
             } else {
-                console.log('Table Quiz created successfully.');
                 resolve();
             }
         });

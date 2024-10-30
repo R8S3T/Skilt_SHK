@@ -55,7 +55,6 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
 
       // If image is marked as zoomable, use ImageModal for zoom and modal functionality
       if (isZoomable) {
-        console.log("Rendering zoomable image:", imageName);
         return (
           <View style={styles.imageContainer}>
             <ImageModal

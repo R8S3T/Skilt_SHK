@@ -27,7 +27,6 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
     const unlockSubchapter = (subchapterId: number) => {
         setUnlockedSubchapters((current) => {
             const updated = [...new Set([...current, subchapterId])]; // Keep existing unlocked subchapters and add the new one
-            console.log('Updated unlocked subchapters:', updated);
             return updated;
         });
     };
@@ -36,7 +35,6 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
     const markSubchapterAsFinished = (subchapterId: number) => {
         setFinishedSubchapters(current => {
             const updated = [...new Set([...current, subchapterId])];
-            console.log('Updated finished subchapters:', updated);
             return updated;
         });
     
@@ -45,7 +43,6 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
     // Function to set the current subchapter and unlock it if needed
     const setCurrentSubchapter = (subchapterId: number | null, subchapterTitle: string) => {
         if (subchapterId !== null && !unlockedSubchapters.includes(subchapterId)) {
-            console.log('Unlocking subchapter:', subchapterId); // Debug log
             unlockSubchapter(subchapterId); // Unlock the subchapter if it's not already unlocked
         }
         setCurrentSubchapterId(subchapterId);
@@ -54,7 +51,6 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
 
     // Example effect to debug state after component mounts or updates
     useEffect(() => {
-        console.log('Rendering subchapters with unlockedSubchapters:', unlockedSubchapters);
     }, [unlockedSubchapters]);
 
     return (

@@ -515,6 +515,7 @@ const img_LF6Kanalisationsmall = require('../../assets/DbImages/SubchapterConten
 const img_LF6Leitungenbersichtzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Leitungen_Übersicht_zoom.png');
 const img_LF6Leitungsteilewelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Leitungsteile_welcome.png');
 const img_LF6Leitungsverlegungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Leitungsverlegung_welcome.png');
+const img_LF6Lngenausgleichzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Längenausgleich_zoom.png');
 const img_LF6Lftungsleitungfalschwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Lüftungsleitung_falsch_welcome.png');
 const img_LF6Lftungsleitungfalschzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Lüftungsleitung_falsch_zoom.png');
 const img_LF6Lftungsleitungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Lüftungsleitung_welcome.png');
@@ -523,6 +524,7 @@ const img_LF6Mindestsohlenabstand = require('../../assets/DbImages/SubchapterCon
 const img_LF6Mindestsohlenabstand2 = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Mindestsohlenabstand_2.png');
 const img_LF6Mindestsohlenabstand2zoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Mindestsohlenabstand_2_zoom.png');
 const img_LF6Mindestsohlenabstandzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Mindestsohlenabstand_zoom.png');
+const img_LF6Mischsystemzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Mischsystem_zoom.png');
 const img_LF6NeigungsverhltnisBerechnungsmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Neigungsverhältnis_Berechnung_small.png');
 const img_LF6Neigungsverhltnissmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Neigungsverhältnis_small.png');
 const img_LF6PEHDsmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_PEHD_small.png');
@@ -578,6 +580,7 @@ const img_LF6niedrigerFllungsgradzoom = require('../../assets/DbImages/Subchapte
 const img_LF6optimalerFllungsgradzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_optimaler_Füllungsgrad_zoom.png');
 const img_LF6prozentualesGeflleBerechnungsmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_prozentuales_Gefälle_Berechnung_small.png');
 const img_LF6prozentualesGefllesmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_prozentuales_Gefälle_small.png');
+const img_LF6sohlegleichzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_sohlegleich_zoom.png');
 const img_LF6welcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_welcome.png');
 const img_LF6bergangsstckewelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Übergangsstücke_welcome.png');
 const img_LF6bergangsstckezoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Übergangsstücke_zoom.png');
@@ -1103,6 +1106,7 @@ export const imageMap = {
     "LF_6_Leitungen_Übersicht_zoom": img_LF6Leitungenbersichtzoom,
     "LF_6_Leitungsteile_welcome": img_LF6Leitungsteilewelcome,
     "LF_6_Leitungsverlegung_welcome": img_LF6Leitungsverlegungwelcome,
+    "LF_6_Längenausgleich_zoom": img_LF6Lngenausgleichzoom,
     "LF_6_Lüftungsleitung_falsch_welcome": img_LF6Lftungsleitungfalschwelcome,
     "LF_6_Lüftungsleitung_falsch_zoom": img_LF6Lftungsleitungfalschzoom,
     "LF_6_Lüftungsleitung_welcome": img_LF6Lftungsleitungwelcome,
@@ -1111,6 +1115,7 @@ export const imageMap = {
     "LF_6_Mindestsohlenabstand_2": img_LF6Mindestsohlenabstand2,
     "LF_6_Mindestsohlenabstand_2_zoom": img_LF6Mindestsohlenabstand2zoom,
     "LF_6_Mindestsohlenabstand_zoom": img_LF6Mindestsohlenabstandzoom,
+    "LF_6_Mischsystem_zoom": img_LF6Mischsystemzoom,
     "LF_6_Neigungsverhältnis_Berechnung_small": img_LF6NeigungsverhltnisBerechnungsmall,
     "LF_6_Neigungsverhältnis_small": img_LF6Neigungsverhltnissmall,
     "LF_6_PEHD_small": img_LF6PEHDsmall,
@@ -1166,6 +1171,7 @@ export const imageMap = {
     "LF_6_optimaler_Füllungsgrad_zoom": img_LF6optimalerFllungsgradzoom,
     "LF_6_prozentuales_Gefälle_Berechnung_small": img_LF6prozentualesGeflleBerechnungsmall,
     "LF_6_prozentuales_Gefälle_small": img_LF6prozentualesGefllesmall,
+    "LF_6_sohlegleich_zoom": img_LF6sohlegleichzoom,
     "LF_6_welcome": img_LF6welcome,
     "LF_6_Übergangsstücke_welcome": img_LF6bergangsstckewelcome,
     "LF_6_Übergangsstücke_zoom": img_LF6bergangsstckezoom,

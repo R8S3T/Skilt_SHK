@@ -31,7 +31,6 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
         if (imageName) setLastImageName(imageName);
 
         console.log('Last Image Name:', imageName);
-        console.log('Available Keys in imageMap:', Object.keys(imageMap));
     };
 
     // Use useFocusEffect to load the latest progress whenever the screen is focused

@@ -11,9 +11,10 @@ import { useSubchapter } from './SubchapterContext';
 import { LinearGradient } from 'expo-linear-gradient';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
-import { saveProgress } from 'src/utils/progressUtils';
+import { saveProgress, loadProgress } from 'src/utils/progressUtils';
+import { setProgressComplete } from 'src/utils/onBoardingUtils';
 import { fetchSubchaptersByChapterId } from 'src/database/databaseServices';
-import { Subchapter } from 'src/types/contentTypes'; 
+import { Subchapter } from 'src/types/contentTypes';
 
 type SubchapterContentScreenRouteProp = RouteProp<LearnStackParamList, 'SubchapterContentScreen'>;
 type SubchapterContentScreenNavigationProp = StackNavigationProp<LearnStackParamList, 'SubchapterContentScreen'>;
@@ -24,15 +25,29 @@ type Props = {
 };
 
 const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
-    const { subchapterId, subchapterTitle, chapterId=0, chapterTitle=''  } = route.params;
+    const { subchapterId, subchapterTitle, chapterId = 0, chapterTitle = '' } = route.params;
     const [contentData, setContentData] = useState<GenericContent[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
-    const [maxIndexVisited, setMaxIndexVisited] = useState<number>(0); // Track the max index visited
+    const [maxIndexVisited, setMaxIndexVisited] = useState<number>(0);
     const [showQuiz, setShowQuiz] = useState<boolean>(false);
+    
+    const { finishedSubchapters, markSubchapterAsFinished, unlockSubchapter } = useSubchapter();
 
-    const { markSubchapterAsFinished, unlockSubchapter } = useSubchapter();
+    // Load saved slide index on first render or reset to 0 if finished
+    useEffect(() => {
+        const initializeProgress = async () => {
+            const savedProgress = await loadProgress('section1');
+            if (finishedSubchapters.includes(subchapterId)) {
+                setCurrentIndex(0);
+            } else if (savedProgress?.subchapterId === subchapterId && savedProgress.currentIndex !== null) {
+                setCurrentIndex(savedProgress.currentIndex);
+            }
+        };
+        initializeProgress();
+    }, [finishedSubchapters, subchapterId]);
 
+    // Load content data for the subchapter
     useEffect(() => {
         navigation.setOptions({ title: subchapterTitle });
         const loadData = async () => {
@@ -48,6 +63,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         loadData();
     }, [navigation, subchapterId, subchapterTitle]);
 
+    // Update header progress bar
     useEffect(() => {
         const progress = (currentIndex + 1) / contentData.length;
         navigation.setOptions({
@@ -55,7 +71,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                 <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%' }}>
                     <View style={styles.progressBarContainer}>
                         <LinearGradient
-                            colors={['#4CAF50', '#81C784']} // Gradient colors
+                            colors={['#4CAF50', '#81C784']}
                             start={[0, 0]}
                             end={[1, 0]}
                             style={[styles.progressBar, { width: `${progress * 100}%` }]}
@@ -66,101 +82,59 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         });
     }, [currentIndex, contentData.length]);
 
+    // Handle navigating to the next slide or finish
     const nextContent = async () => {
         if (showQuiz) {
             setShowQuiz(false);
-            if (currentIndex < contentData.length - 1) {
-                const newIndex = currentIndex + 1;
-                setCurrentIndex(newIndex);
-                setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
-    
-                // Fetch the subchapter details to get the ImageName
-                try {
-                    const subchapters = await fetchSubchaptersByChapterId(chapterId);
-                    const currentSubchapter: Subchapter | undefined = subchapters.find((sub: Subchapter) => sub.SubchapterId === subchapterId);
-    
-                    if (currentSubchapter) {
-                        await saveProgress(
-                            'section1',
-                            chapterId,
-                            subchapterId,
-                            subchapterTitle,
-                            newIndex,
-                            currentSubchapter.ImageName // Save the imageName here
-                        );
-                    }
-                } catch (error) {
-                    console.error("Error fetching subchapter details: ", error);
-                }
-            } else {
-                markSubchapterAsFinished(subchapterId);
-                unlockSubchapter(subchapterId + 1);
-    
-                if (chapterId && chapterTitle) {
-                    navigation.navigate('CongratsScreen', {
-                        targetScreen: 'SubchaptersScreen',
-                        targetParams: {
-                            chapterId,
-                            chapterTitle,
-                        },
-                    });
-                } else {
-                    console.error("Missing chapterId or chapterTitle, unable to navigate.");
-                }
-            }
+            moveToNextSlide();
         } else {
-            const currentContentId = contentData[currentIndex].ContentId;
-            try {
-                const quizData = await fetchQuizByContentId(currentContentId);
-                if (quizData.length > 0) {
-                    setShowQuiz(true);
-                } else {
-                    if (currentIndex < contentData.length - 1) {
-                        const newIndex = currentIndex + 1;
-                        setCurrentIndex(newIndex);
-                        setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
-    
-                        // Fetch the subchapter details to get the ImageName
-                        try {
-                            const subchapters = await fetchSubchaptersByChapterId(chapterId);
-                            const currentSubchapter: Subchapter | undefined = subchapters.find((sub: Subchapter) => sub.SubchapterId === subchapterId);
-    
-                            if (currentSubchapter) {
-                                await saveProgress(
-                                    'section1',
-                                    chapterId,
-                                    subchapterId,
-                                    subchapterTitle,
-                                    newIndex,
-                                    currentSubchapter.ImageName // Save the imageName here
-                                );
-                            }
-                        } catch (error) {
-                            console.error("Error fetching subchapter details: ", error);
-                        }
-                    } else {
-                        markSubchapterAsFinished(subchapterId);
-                        unlockSubchapter(subchapterId + 1);
-    
-                        if (chapterId && chapterTitle) {
-                            navigation.navigate('CongratsScreen', {
-                                targetScreen: 'SubchaptersScreen',
-                                targetParams: {
-                                    chapterId,
-                                    chapterTitle,
-                                },
-                            });
-                        } else {
-                            console.error("Missing chapterId or chapterTitle, unable to navigate.");
-                        }
-                    }
-                }
-            } catch (error) {
-                console.error('Failed to check for quiz:', error);
-            }
+            moveToNextSlide();
         }
     };
-    
+
+    const moveToNextSlide = async () => {
+        if (currentIndex < contentData.length - 1) {
+            const newIndex = currentIndex + 1;
+            setCurrentIndex(newIndex);
+            setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
+            await saveCurrentProgress(newIndex);
+        } else {
+            await completeSubchapter();
+        }
+    };
+
+    const saveCurrentProgress = async (newIndex: number) => {
+        try {
+            const subchapters = await fetchSubchaptersByChapterId(chapterId);
+            const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
+            if (currentSubchapter) {
+                await saveProgress(
+                    'section1',
+                    chapterId,
+                    subchapterId,
+                    subchapterTitle,
+                    newIndex,
+                    currentSubchapter.ImageName
+                );
+            }
+        } catch (error) {
+            console.error("Error saving progress:", error);
+        }
+    };
+
+    // Finish subchapter, mark as finished, and unlock the next
+    const completeSubchapter = async () => {
+        markSubchapterAsFinished(subchapterId);
+        unlockSubchapter(subchapterId + 1);
+        await saveProgress('section1', chapterId, subchapterId, subchapterTitle, currentIndex, null);
+
+        navigation.navigate('CongratsScreen', {
+            targetScreen: 'SubchaptersScreen',
+            targetParams: { chapterId, chapterTitle },
+        });
+    };
+
+    // Navigation for back and forward buttons
     const goBack = () => {
         if (currentIndex > 0) {
             setCurrentIndex(currentIndex - 1);

@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
+// src/screens/HomeScreen.tsx
+
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BottomTabParamList } from 'src/types/navigationTypes';
-import LearnTracker from '../LearnTracking/LearnTracker';
 import Section1 from './Section1';
 import ResumeSection from './ResumeSection';
 import MathModulSection from './MathModulSection';
 import FlashcardsSection from './FlashCardsSection';
+import { hasMadeProgress } from 'src/utils/onBoardingUtils';
 
 type HomeRouteProp = RouteProp<BottomTabParamList, 'Home'>;
 
@@ -14,7 +17,16 @@ const HomeScreen = () => {
     const navigation = useNavigation();
     const route = useRoute<HomeRouteProp>();
     const username = route.params?.username || 'Default User';
-    const subchapterId = 1;  // Hardcode subchapterId for now
+    const [showResume, setShowResume] = useState(false);
+
+    useEffect(() => {
+        // Check if the user has made progress in the app
+        const checkProgress = async () => {
+            const hasProgress = await hasMadeProgress();
+            setShowResume(hasProgress);
+        };
+        checkProgress();
+    }, []);
 
     useEffect(() => {
         // Set the header title dynamically based on the username
@@ -29,31 +41,30 @@ const HomeScreen = () => {
 
     return (
         <ScrollView contentContainerStyle={styles.scrollContentContainer}>
-            <LearnTracker />
             <Section1 onButtonPress={handleButtonPress} />
-            <ResumeSection sectionTitle="Weiterlernen" />
+            {showResume && <ResumeSection sectionTitle="Weiterlernen" />}
             <MathModulSection onButtonPress={handleButtonPress} />
             <FlashcardsSection
                 onButtonPress={handleButtonPress}
-                subchapterId={subchapterId}  // Pass the subchapterId here
+                subchapterId={1}  // Replace with dynamic ID as needed
             />
         </ScrollView>
     );
 };
 
-
 const styles = StyleSheet.create({
     scrollContentContainer: {
         flexGrow: 1,
         alignItems: 'center',
-        justifyContent: 'flex-start', // Ensure components are aligned at the top
-        paddingVertical: 20, // Add some padding for visual spacing
+        justifyContent: 'flex-start',
+        paddingVertical: 20,
         backgroundColor: '#fff',
     },
     sectionSpacing: {
-        marginBottom: 20, // Add space between sections
+        marginBottom: 20,
     },
 });
 
 export default HomeScreen;
+
 

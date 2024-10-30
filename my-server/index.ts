@@ -29,7 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 initializeDatabase().then(() => {
-    console.log('Database initialized');
+
 }).catch(error => {
     console.error('Failed to initialize database:', error);
 });
@@ -42,10 +42,9 @@ app.get('/form', (req, res) => {
 // Handle GET requests to fetch chapters by year
 app.get('/chapters/:year', async (req, res) => {
     const year = parseInt(req.params.year);
-    console.log(`Received request for year: ${year}`);
+
     try {
         const chapters = await fetchChaptersByYear(year);
-        console.log(`Query result for year ${year}:`, chapters);
         res.json(chapters);
     } catch (error) {
         console.error(`Error fetching data for year ${year}:`, error);
@@ -55,9 +54,7 @@ app.get('/chapters/:year', async (req, res) => {
 
 // Handle POST requests to add a new chapter
 app.post('/chapters', async (req, res) => {
-    console.log("Raw request body:", req.body);
     const { chapterName, chapterIntro, year } = req.body;
-    console.log("Extracted fields:", chapterName, chapterIntro, year);
     if (!chapterName || !chapterIntro || !year) {
         return res.status(400).json({ error: 'All fields are required' });
     }
@@ -73,10 +70,8 @@ app.post('/chapters', async (req, res) => {
 // Handle GET requests to fetch subchapters by chapter ID
 app.get('/subchapters/:chapterId', async (req, res) => {
     const chapterId = parseInt(req.params.chapterId);
-    console.log(`Received request for subchapters of chapterId: ${chapterId}`);
     try {
         const subchapters = await fetchSubchaptersByChapterId(chapterId);
-        console.log(`Query result for chapterId ${chapterId}:`, subchapters);
         res.json(subchapters);
     } catch (error) {
         console.error(`Error fetching subchapters for chapterId ${chapterId}:`, error);
@@ -87,10 +82,8 @@ app.get('/subchapters/:chapterId', async (req, res) => {
 // Handle GET requests to fetch content by subchapter ID
 app.get('/subchaptercontent/:subchapterId', async (req, res) => {
     const subchapterId = parseInt(req.params.subchapterId);
-    console.log(`Received request for content of subchapterId: ${subchapterId}`);
     try {
         const subchapterContent = await fetchSubchapterContentBySubchapterId(subchapterId);
-        console.log(`Query result for subchapterId ${subchapterId}:`, subchapterContent);
         res.json(subchapterContent);
     } catch (error) {
         console.error(`Error fetching content for subchapterId ${subchapterId}:`, error);
@@ -186,11 +179,9 @@ app.get('/mathminiquiz/:contentId', async (req, res) => {
 // Handle GET requests for search
 app.get('/search/:query', async (req, res) => {
     const searchQuery = req.params.query;
-    console.log(`Received search query: ${searchQuery}`);
 
     try {
         const searchResults = await searchSubchapters(searchQuery); // Use the DB function to search subchapters and content
-        console.log('Search results:', searchResults);
         res.json(searchResults); // Return the search results to the client
     } catch (error) {
         console.error('Error fetching search results:', error);
@@ -201,11 +192,9 @@ app.get('/search/:query', async (req, res) => {
 // Handle GET requests to fetch flashcard topics by SubchapterId
 app.get('/flashcards/topics/subchapter/:subchapterId', async (req, res) => {
     const subchapterId = parseInt(req.params.subchapterId);
-    console.log(`Received request to fetch flashcard topics for subchapterId: ${subchapterId}`);
     
     try {
         const topics = await fetchFlashcardTopicsBySubchapterId(subchapterId);
-        console.log(`Fetched flashcard topics for subchapterId ${subchapterId}:`, topics);
         res.json(topics);
     } catch (error) {
         console.error(`Error fetching flashcard topics for subchapterId ${subchapterId}:`, error);
@@ -217,11 +206,9 @@ app.get('/flashcards/topics/subchapter/:subchapterId', async (req, res) => {
 app.get('/flashcards/subchapter/:subchapterId/topic/:topicName', async (req, res) => {
     const subchapterId = parseInt(req.params.subchapterId);
     const topicName = req.params.topicName;
-    console.log(`Received request to fetch flashcards for topic: ${topicName} and subchapterId: ${subchapterId}`);
     
     try {
         const flashcards = await fetchFlashcardsByTopic(subchapterId, topicName);
-        console.log(`Fetched flashcards for topic ${topicName} and subchapterId ${subchapterId}:`, flashcards);
         res.json(flashcards);
     } catch (error) {
         console.error(`Error fetching flashcards for topic ${topicName} and subchapterId ${subchapterId}:`, error);

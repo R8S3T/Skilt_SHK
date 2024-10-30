@@ -15,7 +15,6 @@ interface GenericRowsProps {
 }
 
 const GenericRows: React.FC<GenericRowsProps> = ({ items, onNodePress, color, finishedColor }) => {
-    console.log('GenericRows items:', items);
     return (
         <View style={styles.container}>
             {items.map(item => (

@@ -50,8 +50,6 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
     }, [navigation, subchapterId, subchapterTitle, currentIndex]);
 
     useEffect(() => {
-        console.log('Current Index:', currentIndex);
-
         if (scrollViewRef.current) {
             scrollViewRef.current.scrollTo({ y: 0, animated: false });
         }
@@ -97,7 +95,6 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
                     mathMiniQuizzes={mathMiniQuizzes}
                     onQuizComplete={(isCorrect) => {
                         // Handle quiz completion
-                        console.log('Quiz completed:', isCorrect);
                     }}
                     onQuizLayout={(event) => {
                         // Handle quiz layout changes if needed

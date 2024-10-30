@@ -24,7 +24,6 @@ const ChaptersScreen: React.FC<ChaptersScreenRouteProps> = ({ route }) => {
         const loadData = async () => {
             try {
                 const data = await fetchChaptersByYear(parseInt(year));
-                console.log("Fetched Chapters Data for year " + year + ":", data);
                 setChapters(data);
                 setLoading(false);
             } catch (error) {

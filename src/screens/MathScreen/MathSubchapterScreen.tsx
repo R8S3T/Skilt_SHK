@@ -33,8 +33,6 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
     const { unlockedSubchapters, finishedSubchapters, setCurrentSubchapter } = context;
 
     useEffect(() => {
-        console.log('MathSubchapterScreen rendered with finishedSubchapters:', finishedSubchapters);
-        console.log('MathSubchapterScreen rendered with unlockedSubchapters:', unlockedSubchapters);
     }, [finishedSubchapters, unlockedSubchapters]);
 
     useEffect(() => {
@@ -42,7 +40,6 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
         const loadSubchapters = async () => {
             try {
                 const data = await fetchMathSubchaptersByChapterId(chapterId);
-                console.log('Loaded subchapters:', data);
                 setSubchapters(data);
                 setLoading(false);
             } catch (error) {
@@ -57,14 +54,12 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
         if (subchapters.length > 0) {
             const firstSubchapter = subchapters.find(sub => sub.SortOrder === 1); // Unlock the first subchapter
             if (firstSubchapter && !unlockedSubchapters.includes(firstSubchapter.SubchapterId)) {
-                console.log('Unlocking first subchapter of the chapter:', firstSubchapter.SubchapterId);
                 setCurrentSubchapter(firstSubchapter.SubchapterId, firstSubchapter.SubchapterName);
             }
         }
     }, [subchapters, unlockedSubchapters]);
 
     useEffect(() => {
-        console.log('Unlocked subchapters after load:', unlockedSubchapters);
     }, [unlockedSubchapters]);
 
     const handleNodePress = (subchapterId: number, subchapterTitle: string) => {
@@ -72,11 +67,9 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
         const selected = subchapters.find(sub => sub.SubchapterId === subchapterId);
 
         if (isFinished && selected) {
-            console.log('Opening modal for subchapter:', selected.SubchapterName); 
             setSelectedSubchapter(selected);
             setModalVisible(true);
         } else {
-            console.log('All subchapters:', subchapters);
             // Unlock the next subchapter based on SortOrder
             const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
             if (currentSubchapter) {
@@ -84,7 +77,6 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
                     sub => sub.SortOrder === currentSubchapter.SortOrder + 1
                 );
                 if (nextSubchapter && !unlockedSubchapters.includes(nextSubchapter.SubchapterId)) {
-                    console.log('Unlocking next subchapter:', nextSubchapter.SubchapterId);
                     setCurrentSubchapter(nextSubchapter.SubchapterId, nextSubchapter.SubchapterName);
                 }
             }

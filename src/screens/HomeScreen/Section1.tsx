@@ -12,17 +12,33 @@ interface Section1Props {
 const Section1: React.FC<Section1Props> = ({ onButtonPress }) => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
+    // Define initial parameters
+    const initialChapterId = 1; // Set a default or the starting chapter ID
+    const initialChapterTitle = 'Einführung'; // Set the starting chapter title
+    const initialSubchapterId = 1; // Set a default or the starting subchapter ID
+    const initialSubchapterTitle = 'Grundlagen'; // Set the starting subchapter title
+
     return (
         <View style={styles.newContainer}>
             <Text style={styles.heading}>Meistere Dein Handwerk</Text>
-            <Text style={styles.description}>Vertiefe Dein Wissen mit maßgeschneiderten Lernhäppchen, die auf deine Ausbildung abgestimmt sind.</Text>
+            <Text style={styles.description}>
+                Vertiefe Dein Wissen mit maßgeschneiderten Lernhäppchen, die auf deine Ausbildung abgestimmt sind.
+            </Text>
             <View style={styles.horizontalContainer}>
                 <Image source={require('../../../assets/Images/rocket.png')} style={styles.image} />
                 <RenderButton
                     title='Starte hier'
                     onPress={() => {
                         onButtonPress('Starte hier');
-                        navigation.navigate('Learn', { screen: 'YearsScreen' });
+                        navigation.navigate('Learn', {
+                            screen: 'YearsScreen',
+                            params: {
+                                chapterId: initialChapterId,
+                                chapterTitle: initialChapterTitle,
+                                subchapterId: initialSubchapterId,
+                                subchapterTitle: initialSubchapterTitle,
+                            },
+                        });
                     }}
                     buttonStyle={styles.ovalButton}
                     textStyle={styles.topButtonText}

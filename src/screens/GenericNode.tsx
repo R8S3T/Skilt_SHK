@@ -22,8 +22,8 @@ const GenericNode: React.FC<GenericNodeProps> = ({
     finishedColor,
     id
 }) => {
-    const dynamicNodeSize = getDynamicIconSize(70, 90);  // Adjusted node size
-    const dynamicIconSize = getDynamicIconSize(40, 50);  // Adjusted icon size
+    const dynamicNodeSize = getDynamicIconSize(70, 90);
+    const dynamicIconSize = getDynamicIconSize(40, 50);
 
     const iconSource = isLocked
         ? require('../../assets/Images/lock_icon.png')
@@ -33,15 +33,15 @@ const GenericNode: React.FC<GenericNodeProps> = ({
 
     const dynamicStyles = StyleSheet.create({
         container: {
-            flexDirection: 'row', // Align icon and text side by side
+            flexDirection: 'row',
             alignItems: 'center',
             width: '100%',
-            marginVertical: 5,  // Reduced vertical margin for compactness
-            borderRadius: 20,  // Reduced border radius
+            marginVertical: 5,
+            borderRadius: 20,
             borderWidth: 2,
             borderColor: isLocked ? '#A9A9A9' : isFinished ? finishedColor : '#A9A9A9',
             backgroundColor: isLocked ? '#f0f0f0' : '#FFFFFF',  // Different background for locked state
-            paddingVertical: 8,  // Adjusted padding
+            paddingVertical: 8,
             paddingHorizontal: 15,
         },
         iconContainer: {
@@ -55,7 +55,7 @@ const GenericNode: React.FC<GenericNodeProps> = ({
         icon: {
             width: dynamicIconSize,
             height: dynamicIconSize,
-            tintColor: isLocked ? '#A9A9A9' : isFinished ? finishedColor : '#A9A9A9',  // Adjust lock tint
+            tintColor: isLocked ? '#A9A9A9' : isFinished ? finishedColor : '#A9A9A9',
         },
         text: {
             flex: 1,

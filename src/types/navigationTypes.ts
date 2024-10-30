@@ -11,7 +11,12 @@ export type BottomTabParamList = {
 
 export type LearnStackParamList = {
     HomeScreen: undefined;
-    YearsScreen: undefined;
+    YearsScreen: {
+        chapterId?: number;
+        chapterTitle?: string;
+        subchapterId?: number;
+        subchapterTitle?: string;
+    };
     ChaptersScreen: { year: string };
     SubchaptersScreen: { chapterId: number; chapterTitle?: string };
     SubchapterContentScreen: {
@@ -20,6 +25,7 @@ export type LearnStackParamList = {
         chapterId?: number;
         chapterTitle?: string;
         contentId?: number;
+        onCompletion?: () => void;
     };
     CongratsScreen: {
         targetScreen: keyof LearnStackParamList | keyof MathStackParamList;

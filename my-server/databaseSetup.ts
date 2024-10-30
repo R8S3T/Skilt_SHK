@@ -21,7 +21,7 @@ import {
 
 
 const dbPath = path.resolve(__dirname, 'skiltSHK.db');
-console.log("Database path: ", dbPath);
+
 
 export const initializeDatabase = (): Promise<void> => {
     return new Promise((resolve, reject) => {
@@ -67,7 +67,6 @@ export const fetchChaptersByYear = (year: number): Promise<any[]> => {
                     console.error('Failed to fetch chapters:', err);
                     reject(err);
                 } else {
-                    console.log(`Fetched Chapters Data for year ${year}:`, rows);
                     resolve(rows);
                 }
             });
@@ -91,7 +90,6 @@ export const fetchSubchaptersByChapterId = (chapterId: number): Promise<any[]> =
                 console.error('Failed to fetch subchapters:', err);
                 reject(err);
             } else {
-                console.log(`Fetched Subchapters Data for chapterId ${chapterId}:`, rows);
                 resolve(rows);
             }
         });
@@ -108,7 +106,6 @@ export const fetchSubchapterContentBySubchapterId = (subchapterId: number): Prom
                 console.error('Failed to fetch subchapter content:', err);
                 reject(err);
             } else {
-                console.log(`Fetched Subchapter Content Data for subchapterId ${subchapterId}:`, rows);
                 resolve(rows);
             }
         });
@@ -125,8 +122,6 @@ export const fetchMathChapters = (): Promise<any[]> => {
                     console.error('Failed to fetch math chapters:', err);
                     reject(err);
                 } else {
-                    console.log('Fetched Math Chapters Data:', rows);
-                    resolve(rows);
                 }
             });
         } catch (error) {
@@ -148,7 +143,6 @@ export const fetchMathSubchaptersByChapterId = (chapterId: number): Promise<any[
                 console.error('Failed to fetch subchapters:', err);
                 reject(err);
             } else {
-                console.log(`Fetched Math Subchapters Data for chapterId ${chapterId}:`, rows);
                 resolve(rows);
             }
         });
@@ -165,7 +159,6 @@ export const fetchMathSubchapterContentBySubchapterId = (subchapterId: number): 
                 console.error('Failed to fetch subchapter content:', err);
                 reject(err);
             } else {
-                console.log(`Fetched Math Subchapter Content Data for subchapterId ${subchapterId}:`, rows);
                 resolve(rows);
             }
         });
@@ -184,7 +177,6 @@ export const addChapter = (chapterName: string, chapterIntro: string, year: numb
                 console.error('Error adding chapter:', err.message);
                 reject(err);
             } else {
-                console.log('Chapter added successfully.');
                 resolve();
             }
         });

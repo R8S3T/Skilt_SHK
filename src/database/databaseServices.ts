@@ -26,7 +26,6 @@ export async function fetchChaptersByYear(year: number): Promise<Chapter[]> {
             throw new Error('Network response was not ok.');
         }
         const chapters: Chapter[] = await response.json();
-        console.log(`Fetched Chapters Data for year ${year}:`, chapters);
         return chapters;
     } catch (error) {
         console.error(`Failed to fetch chapters for year ${year}:`, error);
@@ -43,7 +42,7 @@ export async function fetchSubchaptersByChapterId(chapterId: number): Promise<Su
             throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
         }
         const subchapters: Subchapter[] = await response.json();
-        console.log(`Fetched Subchapters Data for chapterId ${chapterId}:`, subchapters);
+
         return subchapters;
     } catch (error) {
         console.error(`Failed to fetch subchapters for chapterId ${chapterId}:`, error);
@@ -59,7 +58,6 @@ export async function fetchSubchapterContentBySubchapterId(subchapterId: number)
             throw new Error('Network response was not ok.');
         }
         const subchapterContent: GenericContent[] = await response.json();
-        console.log(`Fetched Subchapter Content Data for subchapterId ${subchapterId}:`, subchapterContent);
         return subchapterContent;
     } catch (error) {
         console.error(`Failed to fetch subchapter content for subchapterId ${subchapterId}:`, error);
@@ -75,7 +73,6 @@ export async function fetchMathChapters(): Promise<MathChapter[]> {
             throw new Error('Network response was not ok.');
         }
         const mathChapters: MathChapter[] = await response.json();
-        console.log('Fetched Math Chapters Data:', mathChapters);
         return mathChapters;
     } catch (error) {
         console.error('Failed to fetch math chapters:', error);
@@ -91,7 +88,6 @@ export async function fetchMathSubchaptersByChapterId(chapterId: number): Promis
             throw new Error('Network response was not ok.');
         }
         const subchapters: MathSubchapter[] = await response.json();
-        console.log(`Fetched Math Subchapters Data for chapterId ${chapterId}:`, subchapters);
         return subchapters;
     } catch (error) {
         console.error(`Failed to fetch math subchapters for chapterId ${chapterId}`, error);
@@ -107,7 +103,6 @@ export async function fetchMathContentBySubchapterId(subchapterId: number): Prom
             throw new Error('Network response was not ok.');
         }
         const mathSubchapterContent: GenericContent[] = await response.json();
-        console.log(`Fetched Math Subchapter Content Data for subchapterId ${subchapterId}:`, mathSubchapterContent);
         return mathSubchapterContent;
     } catch (error) {
         console.error(`Failed to fetch math subchapter content for subchapterId ${subchapterId}`, error);
@@ -123,7 +118,6 @@ export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
             throw new Error('Network response was not ok.');
         }
         const quizzes: Quiz[] = await response.json();
-        console.log(`Fetched Quiz Data for contentId ${contentId}:`, quizzes);
 
         for (let quiz of quizzes) {
             if (quiz.QuizType === 'cloze_test') {
@@ -150,7 +144,6 @@ export async function fetchMultipleChoiceOptionsByQuizId(quizId: number): Promis
             throw new Error('Network response was not ok.');
         }
         const options: MultipleChoiceOption[] = await response.json();
-        console.log(`Fetched MultipleChoiceOptions for quizId ${quizId}:`, options); // Verify the data here
         return options;
     } catch (error) {
         console.error(`Failed to fetch multiple choice options for quizId ${quizId}:`, error);
@@ -166,7 +159,6 @@ export async function fetchClozeTestOptionsByQuizId(quizId: number): Promise<Clo
             throw new Error('Network response was not ok.');
         }
         const options: ClozeTestOption[] = await response.json();
-        console.log(`Fetched ClozeTestOptions for quizId ${quizId}:`, options);
         return options;
     } catch (error) {
         console.error(`Failed to fetch cloze test options for quizId ${quizId}:`, error);
@@ -183,7 +175,6 @@ export async function fetchMathMiniQuizByContentId(contentId: number): Promise<M
         }
         // No need to process Answer as array, it is already processed server-side
         const quizzes: MathMiniQuiz[] = await response.json();
-        console.log(`Fetched MathMiniQuiz Data for contentId ${contentId}:`, quizzes);
         return quizzes;
     } catch (error) {
         console.error(`Failed to fetch MathMiniQuiz for contentId ${contentId}:`, error);
@@ -199,7 +190,6 @@ export async function searchSubchapters(query: string): Promise<Subchapter[]> {
             throw new Error('Network response was not ok.');
         }
         const results: Subchapter[] = await response.json();
-        console.log(`Search results for query "${query}":`, results);
         return results;
     } catch (error) {
         console.error(`Failed to fetch search results for query "${query}":`, error);
@@ -215,7 +205,6 @@ export async function fetchFlashcardsByChapterId(chapterId: number): Promise<Fla
             throw new Error('Network response was not ok.');
         }
         const flashcards: Flashcard[] = await response.json();
-        console.log(`Fetched Flashcards Data for chapterId ${chapterId}:`, flashcards);
         return flashcards;
     } catch (error) {
         console.error(`Failed to fetch flashcards for chapterId ${chapterId}:`, error);

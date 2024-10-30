@@ -4,6 +4,7 @@ import AppIntroSlider from 'react-native-app-intro-slider';
 import LottieView from 'lottie-react-native';
 import { NavigationProp, ParamListBase } from '@react-navigation/native';
 import { Slide, slides } from 'src/components/introScreenSlides';
+import { setOnboardingComplete } from 'src/utils/onBoardingUtils';
 
 interface IntroScreenProps {
     navigation: NavigationProp<ParamListBase>;
@@ -12,13 +13,14 @@ interface IntroScreenProps {
 const IntroScreen: React.FC<IntroScreenProps> = ({ navigation }) => {
     const [username, setUsername] = useState('');
 
-    const handleDone = () => {
+    const handleDone = async () => {
+        await setOnboardingComplete();
         navigation.navigate('HomeScreen', {
             screen: 'Home',
-            params: { username: username }
+            params: { username: username },
         });
     };
-    
+
     const renderSlide = ({ item } : { item: Slide }) => {
         return (
             <View style={[styles.slide, { backgroundColor: item.backgroundColor }]}>
