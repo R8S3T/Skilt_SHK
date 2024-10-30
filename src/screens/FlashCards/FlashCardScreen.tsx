@@ -3,7 +3,6 @@ import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity } from 'rea
 import { useRoute } from '@react-navigation/native';
 import FlipCard from 'react-native-flip-card';
 import { fetchFlashcardsByTopic } from 'src/database/databaseServices';
-import { LinearGradient } from 'expo-linear-gradient';
 
 interface Flashcard {
     question: string;
@@ -68,20 +67,24 @@ const FlashCardScreen: React.FC = () => {
                     clickable={true}
                 >
                     {/* Front Side */}
-                    <LinearGradient colors={['#ffffff', '#e0eafc']} style={styles.front}>
-                        <Text style={styles.headerText}>{topic || "Topic Name"}</Text>
-                        <Text style={styles.frontText}>{flashcards[currentCardIndex].question}</Text>
-                    </LinearGradient>
+                    <View style={styles.front}>
+                        <View style={styles.header}>
+                            <Text style={styles.headerText}>{topic || "Topic Name"}</Text>
+                        </View>
+                        <View style={styles.innerBox}>
+                            <Text style={styles.frontText}>{flashcards[currentCardIndex].question}</Text>
+                        </View>
+                    </View>
 
                     {/* Back Side */}
-                    <LinearGradient colors={['#d3cce3', '#e9e4f0']} style={styles.back}>
-                        <Text style={styles.headerText}>{topic || "Topic Name"}</Text>
-                        <Text style={styles.backText}>{flashcards[currentCardIndex].answer}</Text>
-                    </LinearGradient>
+                    <View style={styles.back}>
+                        <View style={styles.innerBox}>
+                            <Text style={styles.backText}>{flashcards[currentCardIndex].answer}</Text>
+                        </View>
+                    </View>
                 </FlipCard>
             </View>
 
-            {/* Button to move to the next card */}
             <TouchableOpacity onPress={handleNextCard} style={styles.nextButton}>
                 <Text style={styles.buttonText}>Next Card</Text>
             </TouchableOpacity>
@@ -98,8 +101,8 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     cardWrapper: {
-        width: 320,
-        height: 450, // Increased height to fit header
+        width: 350,
+        height: 400,
         borderRadius: 15,
         overflow: 'hidden',
         backgroundColor: '#ffffff',
@@ -112,48 +115,55 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
-    front: {
-        flex: 1,
-        justifyContent: 'space-between',
+    header: {
+        width: '100%',
+        paddingVertical: 15,
         alignItems: 'center',
-        borderRadius: 15,
-        paddingVertical: 20,
-        paddingHorizontal: 15,
-        borderWidth: 2,
-        borderColor: '#8c94a9',
-        backgroundColor: '#ffffff',
-    },
-    back: {
-        flex: 1,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        borderRadius: 15,
-        paddingVertical: 20,
-        paddingHorizontal: 15,
-        borderWidth: 2,
-        borderColor: '#b4a7d6',
-        backgroundColor: '#f8f9fa',
     },
     headerText: {
         fontSize: 18,
-        fontWeight: '600',
-        color: '#333',
-        marginBottom: 10,
+        fontWeight: 'bold',
+        color: '#ffffff',
+    },
+    front: {
+        flex: 1,
+        backgroundColor: '#2b4450',
+        borderRadius: 15,
+        padding: 10,
+    },
+    innerBox: {
+        backgroundColor: '#dfebed',
+        width: '85%',
+        height: '50%',
+        justifyContent: 'center',
+        marginTop: 50,
+        alignItems: 'center',
+        borderRadius: 8,
+        alignSelf: 'center',
     },
     frontText: {
         fontSize: 22,
         fontWeight: '600',
         textAlign: 'center',
-        color: '#4a4a4a',
+        color: '#2b4450',
+    },
+    back: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#dfebed',
+        borderRadius: 15,
+        borderWidth: 8,
+        borderColor: '#2b4450',
     },
     backText: {
-        fontSize: 20,
+        fontSize: 22,
+        fontWeight: 'bold',
+        color: '#2b4450',
         textAlign: 'center',
-        color: '#555',
-        fontStyle: 'italic',
     },
     nextButton: {
-        backgroundColor: '#007bff',
+        backgroundColor: '#343A40',
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 5,
