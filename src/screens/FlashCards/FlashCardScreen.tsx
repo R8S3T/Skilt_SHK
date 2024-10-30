@@ -3,6 +3,7 @@ import { View, Text, ActivityIndicator, StyleSheet, TouchableOpacity } from 'rea
 import { useRoute } from '@react-navigation/native';
 import FlipCard from 'react-native-flip-card';
 import { fetchFlashcardsByTopic } from 'src/database/databaseServices';
+import { LinearGradient } from 'expo-linear-gradient';
 
 interface Flashcard {
     question: string;
@@ -49,33 +50,36 @@ const FlashCardScreen: React.FC = () => {
 
     if (flashcards.length === 0) {
         return (
-            <View style={styles.container}>
+            <View style={styles.outerContainer}>
                 <Text>No flashcards available for this topic.</Text>
             </View>
         );
     }
 
     return (
-        <View style={styles.container}>
-            <FlipCard
-                style={styles.cardContainer}
-                friction={6}
-                perspective={1000}
-                flipHorizontal={true}
-                flipVertical={false}
-                clickable={true}
-                onFlipEnd={(isFlipEnd) => { console.log('isFlipEnd', isFlipEnd); }}
-            >
-                {/* Front Side */}
-                <View style={styles.face}>
-                    <Text style={styles.text}>{flashcards[currentCardIndex].question}</Text>
-                </View>
+        <View style={styles.outerContainer}>
+            <View style={styles.cardWrapper}>
+                <FlipCard
+                    style={styles.cardContainer}
+                    friction={8}
+                    perspective={1200}
+                    flipHorizontal={true}
+                    flipVertical={false}
+                    clickable={true}
+                >
+                    {/* Front Side */}
+                    <LinearGradient colors={['#ffffff', '#e0eafc']} style={styles.front}>
+                        <Text style={styles.headerText}>{topic || "Topic Name"}</Text>
+                        <Text style={styles.frontText}>{flashcards[currentCardIndex].question}</Text>
+                    </LinearGradient>
 
-                {/* Back Side */}
-                <View style={styles.back}>
-                    <Text style={styles.text}>{flashcards[currentCardIndex].answer}</Text>
-                </View>
-            </FlipCard>
+                    {/* Back Side */}
+                    <LinearGradient colors={['#d3cce3', '#e9e4f0']} style={styles.back}>
+                        <Text style={styles.headerText}>{topic || "Topic Name"}</Text>
+                        <Text style={styles.backText}>{flashcards[currentCardIndex].answer}</Text>
+                    </LinearGradient>
+                </FlipCard>
+            </View>
 
             {/* Button to move to the next card */}
             <TouchableOpacity onPress={handleNextCard} style={styles.nextButton}>
@@ -86,56 +90,75 @@ const FlashCardScreen: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
-    container: {
+    outerContainer: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 20,
         backgroundColor: '#f5f5f5',
+        padding: 20,
+    },
+    cardWrapper: {
+        width: 320,
+        height: 450, // Increased height to fit header
+        borderRadius: 15,
+        overflow: 'hidden',
+        backgroundColor: '#ffffff',
+        shadowColor: '#000',
+        shadowOpacity: 0.4,
+        shadowOffset: { width: 0, height: 6 },
+        shadowRadius: 10,
     },
     cardContainer: {
-        width: 300,
-        height: 200,
-        marginBottom: 20,
+        width: '100%',
+        height: '100%',
     },
-    face: {
-        width: 300,
-        height: 200,
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        justifyContent: 'center',
+    front: {
+        flex: 1,
+        justifyContent: 'space-between',
         alignItems: 'center',
-        borderWidth: 1,
-        borderColor: '#ccc',
-        shadowColor: '#000',
-        shadowOpacity: 0.2,
-        shadowOffset: { width: 0, height: 3 },
-        shadowRadius: 4,
+        borderRadius: 15,
+        paddingVertical: 20,
+        paddingHorizontal: 15,
+        borderWidth: 2,
+        borderColor: '#8c94a9',
+        backgroundColor: '#ffffff',
     },
     back: {
-        width: 300,
-        height: 200,
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        justifyContent: 'center',
+        flex: 1,
+        justifyContent: 'space-between',
         alignItems: 'center',
-        borderWidth: 1,
-        borderColor: '#ccc',
-        shadowColor: '#000',
-        shadowOpacity: 0.2,
-        shadowOffset: { width: 0, height: 3 },
-        shadowRadius: 4,
+        borderRadius: 15,
+        paddingVertical: 20,
+        paddingHorizontal: 15,
+        borderWidth: 2,
+        borderColor: '#b4a7d6',
+        backgroundColor: '#f8f9fa',
     },
-    text: {
+    headerText: {
         fontSize: 18,
-        fontWeight: 'bold',
+        fontWeight: '600',
+        color: '#333',
+        marginBottom: 10,
+    },
+    frontText: {
+        fontSize: 22,
+        fontWeight: '600',
         textAlign: 'center',
+        color: '#4a4a4a',
+    },
+    backText: {
+        fontSize: 20,
+        textAlign: 'center',
+        color: '#555',
+        fontStyle: 'italic',
     },
     nextButton: {
         backgroundColor: '#007bff',
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 5,
+        position: 'absolute',
+        bottom: 30,
         alignSelf: 'center',
     },
     buttonText: {
@@ -145,5 +168,3 @@ const styles = StyleSheet.create({
 });
 
 export default FlashCardScreen;
-
-
