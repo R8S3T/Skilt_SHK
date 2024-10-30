@@ -29,10 +29,24 @@ export const setProgressComplete = async (): Promise<void> => {
 };
 
 /**
+/**
  * Check if the user has made progress in content (for showing ResumeSection).
  * @returns {Promise<boolean>} True if progress has been made, false otherwise.
  */
 export const hasMadeProgress = async (): Promise<boolean> => {
-    const value = await AsyncStorage.getItem(PROGRESS_KEY);
-    return value !== null;
+    try {
+        const progressData = await AsyncStorage.getItem('progress_section1'); // Ensure key matches your saved progress key
+        console.log("Progress Data Retrieved:", progressData);
+        
+        if (progressData) {
+            const parsedProgress = JSON.parse(progressData);
+            // Check if there's valid progress
+            return parsedProgress.chapterId !== null && parsedProgress.subchapterId !== null;
+        }
+        return false;
+    } catch (error) {
+        console.error("Error checking progress:", error);
+        return false;
+    }
 };
+

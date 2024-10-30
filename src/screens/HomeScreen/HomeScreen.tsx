@@ -20,10 +20,11 @@ const HomeScreen = () => {
     const [showResume, setShowResume] = useState(false);
 
     useEffect(() => {
-        // Check if the user has made progress in the app
+        // Check if the user has made progress
         const checkProgress = async () => {
             const hasProgress = await hasMadeProgress();
             setShowResume(hasProgress);
+            console.log("showResume set to:", hasProgress);  // Debug log
         };
         checkProgress();
     }, []);

@@ -4,7 +4,7 @@ import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { loadProgress } from 'src/utils/progressUtils';
 import { NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from 'src/types/navigationTypes';
-import { imageMap } from 'src/utils/imageMappings'; // Updated import to use imageMap
+import { imageMap } from 'src/utils/imageMappings';
 import { screenWidth } from 'src/utils/screenDimensions';
 
 interface ResumeSectionProps {
