@@ -122,6 +122,8 @@ export const fetchMathChapters = (): Promise<any[]> => {
                     console.error('Failed to fetch math chapters:', err);
                     reject(err);
                 } else {
+                    console.log("Fetched rows from MathChapters:", rows);  // Debug log
+                    resolve(rows);  // Resolve with the retrieved data
                 }
             });
         } catch (error) {
@@ -132,6 +134,7 @@ export const fetchMathChapters = (): Promise<any[]> => {
         }
     });
 };
+
 
 // Fetch math subchapters by chapter ID
 export const fetchMathSubchaptersByChapterId = (chapterId: number): Promise<any[]> => {

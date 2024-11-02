@@ -310,6 +310,9 @@ const img_LF3Gasbrennersmall = require('../../assets/DbImages/SubchapterContent/
 const img_LF3KlemmverschraubungBezeichnungzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Klemmverschraubung_Bezeichnung_zoom.png');
 const img_LF3Klemmverschraubungzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Klemmverschraubung_zoom.png');
 const img_LF3Kupferrohrezoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Kupferrohre_zoom.png');
+const img_LF3LngenausdehnungBiegeschenkelzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Längenausdehnung_Biegeschenkel_zoom.png');
+const img_LF3LngenausdehnungKompensatorzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Längenausdehnung_Kompensator_zoom.png');
+const img_LF3LngenausdehnungUBogenzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Längenausdehnung_UBogen_zoom.png');
 const img_LF3LsbareVerbindungenwelcome = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Lösbare_Verbindungen_welcome.png');
 const img_LF3Nherungsformelsmall = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Näherungsformel_small.png');
 const img_LF3PVCzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_PVC_zoom.png');
@@ -520,6 +523,7 @@ const img_LF6Lftungsleitungfalschwelcome = require('../../assets/DbImages/Subcha
 const img_LF6Lftungsleitungfalschzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Lüftungsleitung_falsch_zoom.png');
 const img_LF6Lftungsleitungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Lüftungsleitung_welcome.png');
 const img_LF6Lftungsleitungzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Lüftungsleitung_zoom.png');
+const img_LF6Lftungsziegelzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Lüftungsziegel_zoom.png');
 const img_LF6Mindestsohlenabstand = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Mindestsohlenabstand.png');
 const img_LF6Mindestsohlenabstand2 = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Mindestsohlenabstand_2.png');
 const img_LF6Mindestsohlenabstand2zoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Mindestsohlenabstand_2_zoom.png');
@@ -584,8 +588,21 @@ const img_LF6sohlegleichzoom = require('../../assets/DbImages/SubchapterContent/
 const img_LF6welcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_welcome.png');
 const img_LF6bergangsstckewelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Übergangsstücke_welcome.png');
 const img_LF6bergangsstckezoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Übergangsstücke_zoom.png');
+const img_LF7Berechnungwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Berechnung_welcome.png');
+const img_LF7Celsiuszoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Celsius_zoom.png');
+const img_LF7Dichteanomaliezoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Dichteanomalie_zoom.png');
+const img_LF7Energieausweiszoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Energieausweis_zoom.png');
+const img_LF7FlachheizkrperInnenansichtzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Flachheizkörper_Innenansicht_zoom.png');
+const img_LF7Flachheizkrperzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Flachheizkörper_zoom.png');
 const img_LF7Gebudeenergiegesetz = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Gebäudeenergiegesetz.png');
 const img_LF7Gebudeenergiegesetzwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Gebäudeenergiegesetz_welcome.png');
+const img_LF7Heizsystemewelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Heizsysteme_welcome.png');
+const img_LF7Heizungspumpewelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Heizungspumpe_welcome.png');
+const img_LF7HydraulischerAbgleichwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Hydraulischer_Abgleich_welcome.png');
+const img_LF7Rohrheizungwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Rohrheizung_welcome.png');
+const img_LF7RohrverlegungEinrohrheizungzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Rohrverlegung_Einrohrheizung_zoom.png');
+const img_LF7Temperatureinheitenwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Temperatureinheiten_welcome.png');
+const img_LF7Wrmetransferwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmetransfer_welcome.png');
 const img_LF8Dichtungwelcome = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Dichtung_welcome.png');
 const img_LF8Sanitrplanungwelcome = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Sanitärplanung_welcome.png');
 
@@ -901,6 +918,9 @@ export const imageMap = {
     "LF_3_Klemmverschraubung_Bezeichnung_zoom": img_LF3KlemmverschraubungBezeichnungzoom,
     "LF_3_Klemmverschraubung_zoom": img_LF3Klemmverschraubungzoom,
     "LF_3_Kupferrohre_zoom": img_LF3Kupferrohrezoom,
+    "LF_3_Längenausdehnung_Biegeschenkel_zoom": img_LF3LngenausdehnungBiegeschenkelzoom,
+    "LF_3_Längenausdehnung_Kompensator_zoom": img_LF3LngenausdehnungKompensatorzoom,
+    "LF_3_Längenausdehnung_UBogen_zoom": img_LF3LngenausdehnungUBogenzoom,
     "LF_3_Lösbare_Verbindungen_welcome": img_LF3LsbareVerbindungenwelcome,
     "LF_3_Näherungsformel_small": img_LF3Nherungsformelsmall,
     "LF_3_PVC_zoom": img_LF3PVCzoom,
@@ -1111,6 +1131,7 @@ export const imageMap = {
     "LF_6_Lüftungsleitung_falsch_zoom": img_LF6Lftungsleitungfalschzoom,
     "LF_6_Lüftungsleitung_welcome": img_LF6Lftungsleitungwelcome,
     "LF_6_Lüftungsleitung_zoom": img_LF6Lftungsleitungzoom,
+    "LF_6_Lüftungsziegel_zoom": img_LF6Lftungsziegelzoom,
     "LF_6_Mindestsohlenabstand": img_LF6Mindestsohlenabstand,
     "LF_6_Mindestsohlenabstand_2": img_LF6Mindestsohlenabstand2,
     "LF_6_Mindestsohlenabstand_2_zoom": img_LF6Mindestsohlenabstand2zoom,
@@ -1175,8 +1196,21 @@ export const imageMap = {
     "LF_6_welcome": img_LF6welcome,
     "LF_6_Übergangsstücke_welcome": img_LF6bergangsstckewelcome,
     "LF_6_Übergangsstücke_zoom": img_LF6bergangsstckezoom,
+    "LF_7_Berechnung_welcome": img_LF7Berechnungwelcome,
+    "LF_7_Celsius_zoom": img_LF7Celsiuszoom,
+    "LF_7_Dichteanomalie_zoom": img_LF7Dichteanomaliezoom,
+    "LF_7_Energieausweis_zoom": img_LF7Energieausweiszoom,
+    "LF_7_Flachheizkörper_Innenansicht_zoom": img_LF7FlachheizkrperInnenansichtzoom,
+    "LF_7_Flachheizkörper_zoom": img_LF7Flachheizkrperzoom,
     "LF_7_Gebäudeenergiegesetz": img_LF7Gebudeenergiegesetz,
     "LF_7_Gebäudeenergiegesetz_welcome": img_LF7Gebudeenergiegesetzwelcome,
+    "LF_7_Heizsysteme_welcome": img_LF7Heizsystemewelcome,
+    "LF_7_Heizungspumpe_welcome": img_LF7Heizungspumpewelcome,
+    "LF_7_Hydraulischer_Abgleich_welcome": img_LF7HydraulischerAbgleichwelcome,
+    "LF_7_Rohrheizung_welcome": img_LF7Rohrheizungwelcome,
+    "LF_7_Rohrverlegung_Einrohrheizung_zoom": img_LF7RohrverlegungEinrohrheizungzoom,
+    "LF_7_Temperatureinheiten_welcome": img_LF7Temperatureinheitenwelcome,
+    "LF_7_Wärmetransfer_welcome": img_LF7Wrmetransferwelcome,
     "LF_8_Dichtung_welcome": img_LF8Dichtungwelcome,
     "LF_8_Sanitärplanung_welcome": img_LF8Sanitrplanungwelcome
 };

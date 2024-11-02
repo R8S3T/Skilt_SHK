@@ -96,9 +96,11 @@ export const createMathSubchaptersTable = (db: sqlite3.Database): Promise<void> 
                 console.error('Error creating MathSubchapters table:', err.message);
                 reject(err);
             } else {
+                console.log('MathSubchapters table created or already exists');
                 resolve();
             }
         });
+        
     });
 };
 

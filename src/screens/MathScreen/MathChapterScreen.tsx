@@ -17,6 +17,7 @@ const MathChapterScreen: React.FC = () => {
         const loadChapters = async () => {
             try {
                 const fetchedChapters = await fetchMathChapters();
+                console.log("Fetched Chapters:", fetchedChapters);  // Debug log to check data
                 setChapters(fetchedChapters);
             } catch (error) {
                 console.error('Failed to fetch chapters:', error);
@@ -24,9 +25,10 @@ const MathChapterScreen: React.FC = () => {
                 setLoading(false);
             }
         };
-
+    
         loadChapters();
     }, []);
+    
 
     const renderItem = ({ item }: { item: MathChapter }) => (
         <TouchableOpacity
