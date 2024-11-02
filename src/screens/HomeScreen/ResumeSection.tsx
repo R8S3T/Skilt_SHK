@@ -1,11 +1,14 @@
+// src/components/ResumeSection.tsx
+
 import React, { useEffect, useState, useCallback } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, TextStyle } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { loadProgress } from 'src/utils/progressUtils';
 import { NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from 'src/types/navigationTypes';
 import { imageMap } from 'src/utils/imageMappings';
 import { screenWidth } from 'src/utils/screenDimensions';
+import { useTheme } from 'src/context/ThemeContext';
 
 interface ResumeSectionProps {
     sectionTitle?: string;
@@ -13,6 +16,7 @@ interface ResumeSectionProps {
 
 const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fortsetzen" }) => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+    const { theme } = useTheme();  // Access theme colors from context
 
     const [lastChapterId, setLastChapterId] = useState<number | null>(null);
     const [lastChapterTitle, setLastChapterTitle] = useState<string | null>(null);
@@ -33,7 +37,6 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
         console.log('Last Image Name:', imageName);
     };
 
-    // Use useFocusEffect to load the latest progress whenever the screen is focused
     useFocusEffect(
         useCallback(() => {
             loadLastViewed();
@@ -57,20 +60,26 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
         }
     };
 
-    // Type cast the imageMap with lastImageName
     const imageSource = lastImageName ? imageMap[lastImageName as keyof typeof imageMap] : null;
 
     return (
         <View style={styles.container}>
-            <Text style={styles.resumeTitle}>{sectionTitle}</Text>
-            <TouchableOpacity style={styles.newContainer} onPress={handleContinue} disabled={lastSubchapter === null || lastContentId === null}>
+            <Text style={[styles.resumeTitle, { color: theme.primaryText }]}>{sectionTitle}</Text>
+            <TouchableOpacity
+                style={[
+                    styles.newContainer,
+                    { backgroundColor: theme.surface, borderColor: theme.border }
+                ]}
+                onPress={handleContinue}
+                disabled={lastSubchapter === null || lastContentId === null}
+            >
                 {imageSource && (
                     <Image
                         source={imageSource}
                         style={styles.resumeImage}
                     />
                 )}
-                <Text style={styles.subtitle}>
+                <Text style={[styles.subtitle, { color: theme.secondaryText }]}>
                     {lastSubchapterName ? <Text style={styles.bold}>{lastSubchapterName}</Text> : "Keine kürzliche Aktivität"}
                 </Text>
             </TouchableOpacity>
@@ -82,7 +91,7 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'flex-start',
         marginBottom: 20,
-        marginTop: 20, // Added marginTop to align "Lernen fortsetzen" title
+        marginTop: 20,
     },
     newContainer: {
         padding: 20,
@@ -97,8 +106,6 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         elevation: 3,
         borderWidth: 1,
-        borderColor: '#e3e3e3',
-        backgroundColor: '#ffffff',
     },
     resumeTitle: {
         fontSize: 22,
@@ -107,7 +114,6 @@ const styles = StyleSheet.create({
     },
     subtitle: {
         fontSize: 20,
-        color: '#555',
         marginTop: 10,
     },
     bold: {

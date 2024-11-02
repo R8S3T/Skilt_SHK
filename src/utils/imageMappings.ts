@@ -254,9 +254,9 @@ const img_LF1legierterStahlzoom = require('../../assets/DbImages/SubchapterConte
 const img_LF1screwdrawing = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_screw_drawing.png');
 const img_LF1Sicherheit2 = require('../../assets/DbImages/SubchapterContent/LF_1_Sicherheit_2.png');
 const img_LF1Sicherheit3 = require('../../assets/DbImages/SubchapterContent/LF_1_Sicherheit_3.png');
-const img_LF1Strichlinie = require('../../assets/DbImages/SubchapterContent/LF_1_Strichlinie.png');
-const img_LF1Strichpunktlinie = require('../../assets/DbImages/SubchapterContent/LF_1_Strichpunktlinie.png');
-const img_LF1Volllinie = require('../../assets/DbImages/SubchapterContent/LF_1_Volllinie.png');
+const img_LF1Strichliniesmall = require('../../assets/DbImages/SubchapterContent/LF_1_Strichlinie_small.png');
+const img_LF1Strichpunktliniesmall = require('../../assets/DbImages/SubchapterContent/LF_1_Strichpunktlinie_small.png');
+const img_LF1Vollliniesmall = require('../../assets/DbImages/SubchapterContent/LF_1_Volllinie_small.png');
 const img_LF1technZeichnungwelcome = require('../../assets/DbImages/SubchapterContent/LF_1_techn_Zeichnung_welcome.png');
 const img_LF2Anziehdrehmomentwelcome = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Anziehdrehmoment_welcome.png');
 const img_LF2Anziehdrehmomentzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Anziehdrehmoment_zoom.png');
@@ -862,9 +862,9 @@ export const imageMap = {
     "LF_1_screw_drawing": img_LF1screwdrawing,
     "LF_1_Sicherheit_2": img_LF1Sicherheit2,
     "LF_1_Sicherheit_3": img_LF1Sicherheit3,
-    "LF_1_Strichlinie": img_LF1Strichlinie,
-    "LF_1_Strichpunktlinie": img_LF1Strichpunktlinie,
-    "LF_1_Volllinie": img_LF1Volllinie,
+    "LF_1_Strichlinie_small": img_LF1Strichliniesmall,
+    "LF_1_Strichpunktlinie_small": img_LF1Strichpunktliniesmall,
+    "LF_1_Volllinie_small": img_LF1Vollliniesmall,
     "LF_1_techn_Zeichnung_welcome": img_LF1technZeichnungwelcome,
     "LF_2_Anziehdrehmoment_welcome": img_LF2Anziehdrehmomentwelcome,
     "LF_2_Anziehdrehmoment_zoom": img_LF2Anziehdrehmomentzoom,

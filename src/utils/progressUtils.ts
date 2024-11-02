@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationProp } from '@react-navigation/native';
 import { fetchSubchaptersByChapterId } from 'src/database/databaseServices';
-
+import { LearnStackParamList } from 'src/types/navigationTypes';
 
 // Function to save progress (updated to save subchapterId and currentIndex)
 export const saveProgress = async (
@@ -80,5 +80,69 @@ export const handleExit = async (
         navigation.navigate('HomeScreen');
     } catch (error) {
         console.error('Error handling exit:', error);
+    }
+};
+
+// Function to handle progressing to the next content slide or completing the subchapter
+interface NextContentParams {
+    showQuiz: boolean;
+    setShowQuiz: (show: boolean) => void;
+    currentIndex: number;
+    contentData: any[];
+    setCurrentIndex: (index: number) => void;
+    maxIndexVisited: number;
+    setMaxIndexVisited: (index: number) => void;
+    subchapterId: number;
+    subchapterTitle: string;
+    chapterId: number;
+    chapterTitle: string;
+    navigation: NavigationProp<LearnStackParamList, 'SubchapterContentScreen'>;
+    markSubchapterAsFinished: (id: number) => void;
+    unlockSubchapter: (id: number) => void;
+}
+
+export const nextContent = async ({
+    showQuiz,
+    setShowQuiz,
+    currentIndex,
+    contentData,
+    setCurrentIndex,
+    maxIndexVisited,
+    setMaxIndexVisited,
+    subchapterId,
+    subchapterTitle,
+    chapterId,
+    chapterTitle,
+    navigation,
+    markSubchapterAsFinished,
+    unlockSubchapter,
+}: NextContentParams) => {
+    const moveToNextSlide = async () => {
+        if (currentIndex < contentData.length - 1) {
+            const newIndex = currentIndex + 1;
+            setCurrentIndex(newIndex);
+            setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
+            await saveProgress('section1', chapterId, subchapterId, subchapterTitle, newIndex, null);
+        } else {
+            await completeSubchapter();
+        }
+    };
+
+    const completeSubchapter = async () => {
+        markSubchapterAsFinished(subchapterId);
+        unlockSubchapter(subchapterId + 1);
+        await saveProgress('section1', chapterId, subchapterId, subchapterTitle, currentIndex, null);
+
+        navigation.navigate('CongratsScreen', {
+            targetScreen: 'SubchaptersScreen',
+            targetParams: { chapterId, chapterTitle },
+        });
+    };
+
+    if (showQuiz) {
+        setShowQuiz(false);
+        await moveToNextSlide();
+    } else {
+        await moveToNextSlide();
     }
 };

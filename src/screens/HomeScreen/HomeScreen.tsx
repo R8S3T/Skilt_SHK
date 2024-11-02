@@ -10,6 +10,7 @@ import ResumeSection from './ResumeSection';
 import MathModulSection from './MathModulSection';
 import FlashcardsSection from './FlashCardsSection';
 import { hasMadeProgress } from 'src/utils/onBoardingUtils';
+import { useTheme } from 'src/context/ThemeContext';
 
 type HomeRouteProp = RouteProp<BottomTabParamList, 'Home'>;
 
@@ -18,30 +19,40 @@ const HomeScreen = () => {
     const route = useRoute<HomeRouteProp>();
     const username = route.params?.username || 'Default User';
     const [showResume, setShowResume] = useState(false);
+    const { theme } = useTheme();  // Access theme from ThemeContext
 
     useEffect(() => {
-        // Check if the user has made progress
         const checkProgress = async () => {
             const hasProgress = await hasMadeProgress();
             setShowResume(hasProgress);
-            console.log("showResume set to:", hasProgress);  // Debug log
+            console.log("showResume set to:", hasProgress);
         };
         checkProgress();
     }, []);
 
     useEffect(() => {
-        // Set the header title dynamically based on the username
         navigation.setOptions({
             headerTitle: `Hallo, ${username}`,
+            headerStyle: {
+                backgroundColor: theme.background,  // Apply background color from theme
+            },
+            headerTintColor: theme.primaryText,
+            headerShadowVisible: false, 
         });
-    }, [navigation, username]);
+    }, [navigation, username, theme]);
 
     const handleButtonPress = (title: string) => {
         console.log(title);
     };
 
     return (
-        <ScrollView contentContainerStyle={styles.scrollContentContainer}>
+        <ScrollView
+            style={{ backgroundColor: theme.background }}
+            contentContainerStyle={[
+                styles.scrollContentContainer,
+                { backgroundColor: theme.background }  // Use centralized theme background color
+            ]}
+        >
             <Section1 onButtonPress={handleButtonPress} />
             {showResume && <ResumeSection sectionTitle="Weiterlernen" />}
             <MathModulSection onButtonPress={handleButtonPress} />
@@ -59,7 +70,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start',
         paddingVertical: 20,
-        backgroundColor: '#fff',
     },
     sectionSpacing: {
         marginBottom: 20,
@@ -67,5 +77,3 @@ const styles = StyleSheet.create({
 });
 
 export default HomeScreen;
-
-

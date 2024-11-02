@@ -1,8 +1,11 @@
+// src/components/MathModulSection.tsx
+
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { RootStackParamList } from 'src/types/navigationTypes';
 import { scaleFontSize, screenWidth } from 'src/utils/screenDimensions';
+import { useTheme } from 'src/context/ThemeContext';
 
 interface Module {
     title: string;
@@ -10,11 +13,12 @@ interface Module {
 }
 
 interface MathModulProps {
-    onButtonPress?: (title: string) => void; // Optional onButtonPress prop
+    onButtonPress?: (title: string) => void;
 }
 
 const MathModulSection: React.FC<MathModulProps> = ({ onButtonPress }) => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+    const { isDarkMode, theme } = useTheme();
 
     const modules: Module[] = [
         { title: 'Gleichungen', img: require('../../../assets/Images/math_scales.png') },
@@ -33,11 +37,16 @@ const MathModulSection: React.FC<MathModulProps> = ({ onButtonPress }) => {
             console.log(`${title} pressed`);
         }
     };
-    
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Fachmathematik</Text>
+        <View style={[
+            styles.container,
+            isDarkMode && { backgroundColor: theme.surface } // Dark mode container color
+        ]}>
+            <Text style={[
+                styles.title,
+                isDarkMode && { color: theme.primaryText } // Dark mode text color
+            ]}>Fachmathematik</Text>
             <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
@@ -46,11 +55,17 @@ const MathModulSection: React.FC<MathModulProps> = ({ onButtonPress }) => {
                 {modules.map((module, index) => (
                     <TouchableOpacity
                         key={index}
-                        style={styles.button}
+                        style={[
+                            styles.button,
+                            isDarkMode ? styles.darkButton : styles.lightButton // Individual button styles for dark and light
+                        ]}
                         onPress={() => handleButtonPress(module.title)}
                     >
                         {module.img && <Image source={module.img} style={styles.image} />}
-                        <Text style={styles.buttonText}>{module.title}</Text>
+                        <Text style={[
+                            styles.buttonText,
+                            isDarkMode && { color: theme.primaryText } // Dark mode button text color
+                        ]}>{module.title}</Text>
                     </TouchableOpacity>
                 ))}
             </ScrollView>
@@ -64,16 +79,20 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 20,
-        backgroundColor: '#fff',
         borderRadius: 5,
         margin: 5,
+        backgroundColor: '#fff', // Light mode background
     },
     scrollViewContainer: {
         alignItems: 'center',
         paddingVertical: 20,
     },
+    title: {
+        fontSize: 20,
+        marginBottom: 15,
+        color: '#333', // Light mode text color
+    },
     button: {
-        backgroundColor: '#FFF',
         borderRadius: 10,
         padding: 15,
         marginLeft: 10,
@@ -82,21 +101,27 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
+    },
+    lightButton: {
+        backgroundColor: '#FFF',
         borderColor: '#CCC',
+    },
+    darkButton: {
+        backgroundColor: '#555', // Dark mode button background color
+        borderColor: '#888',     // Dark mode button border color
     },
     image: {
         width: 100,
         height: 100,
         marginBottom: 5,
     },
-    title: {
-        fontSize: 20,
-        marginBottom: 15,
-    },
     buttonText: {
         fontSize: 16,
-        textAlign: 'center'
+        textAlign: 'center',
+        color: '#333', // Light mode button text color
     },
 });
 
 export default MathModulSection;
+
+

@@ -1,3 +1,5 @@
+// src/screens/SubchaptersScreen.tsx
+
 import React, { useState, useEffect, useContext } from 'react';
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import { RouteProp, useNavigation } from '@react-navigation/native';
@@ -5,10 +7,10 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { fetchSubchaptersByChapterId } from 'src/database/databaseServices';
 import { Subchapter } from 'src/types/contentTypes';
 import { LearnStackParamList } from 'src/types/navigationTypes';
-import { SubchapterContext } from './SubchapterContext';
+import { SubchapterContext } from '../../context/SubchapterContext';
 import SubchapterInfoModal from './SubchapterInfoModal';
 import GenericRows from '../GenericRows';
-
+import { useTheme } from 'src/context/ThemeContext';
 
 type SubchaptersScreenRouteProps = {
     route: RouteProp<LearnStackParamList, 'SubchaptersScreen'>;
@@ -21,10 +23,11 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
     const [subchapters, setSubchapters] = useState<Subchapter[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [modalVisible, setModalVisible] = useState<boolean>(false);
-    const [isJumpAhead, setIsJumpAhead] = useState<boolean>(false); // New state to handle Jump Ahead modal
+    const [isJumpAhead, setIsJumpAhead] = useState<boolean>(false);
     const [selectedSubchapter, setSelectedSubchapter] = useState<Subchapter | null>(null);
     const navigation = useNavigation<NavigationType>();
     const context = useContext(SubchapterContext);
+    const { isDarkMode, theme } = useTheme();
 
     if (!context) {
         throw new Error('SubchapterContext must be used within a SubchapterProvider');
@@ -53,17 +56,14 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
         const selected = subchapters.find(sub => sub.SubchapterId === subchapterId);
 
         if (isFinished && selected) {
-            // Subchapter is finished, show review modal
             setSelectedSubchapter(selected);
             setModalVisible(true);
-            setIsJumpAhead(false); // Not a jump ahead scenario
+            setIsJumpAhead(false);
         } else if (isLocked && selected) {
-            // Subchapter is locked and user wants to jump ahead, show jump ahead modal
             setSelectedSubchapter(selected);
             setModalVisible(true);
-            setIsJumpAhead(true); // It's a jump ahead scenario
+            setIsJumpAhead(true);
         } else {
-            // Subchapter is unlocked, navigate to the content screen
             setCurrentSubchapter(subchapterId, subchapterTitle);
             navigation.navigate('SubchapterContentScreen', {
                 subchapterId,
@@ -89,10 +89,7 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
 
     const handleJumpAheadConfirm = () => {
         if (selectedSubchapter) {
-            // Unlock the selected subchapter
             unlockSubchapter(selectedSubchapter.SubchapterId);
-
-            // Set it as the current subchapter and navigate to the content screen
             setCurrentSubchapter(selectedSubchapter.SubchapterId, selectedSubchapter.SubchapterName);
             navigation.navigate('SubchapterContentScreen', {
                 subchapterId: selectedSubchapter.SubchapterId,
@@ -103,7 +100,6 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
         }
         setModalVisible(false);
     };
-    
 
     const renderedSubchapters = subchapters.map(subchapter => ({
         id: subchapter.SubchapterId,
@@ -113,12 +109,26 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
     }));
 
     return (
-        <ScrollView style={styles.screenContainer}>
-            <View style={styles.separator} />
+        <ScrollView
+            style={[
+                styles.screenContainer,
+                isDarkMode && { backgroundColor: theme.background }
+            ]}
+        >
+            <Text style={[
+                styles.heading,
+                isDarkMode && { color: theme.primaryText }
+            ]}>{chapterTitle}</Text>
+            <View style={[styles.separator, isDarkMode && { borderBottomColor: theme.primaryText }]} />
             {loading ? (
-                <Text>Loading...</Text>
+                <Text style={isDarkMode ? { color: theme.primaryText } : undefined}>Loading...</Text>
             ) : (
-                <GenericRows items={renderedSubchapters} onNodePress={handleNodePress} color="#FFA500" finishedColor="#FFA500" />
+                <GenericRows
+                    items={renderedSubchapters}
+                    onNodePress={handleNodePress}
+                    color="#FFA500"
+                    finishedColor="#FFA500"
+                />
             )}
 
             {selectedSubchapter && (
@@ -146,11 +156,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         margin: 10,
         marginTop: 25,
-        color: '#2b4353',
+        color: '#2b4353', // Light mode text color
     },
     separator: {
         borderBottomWidth: 1,
-        borderBottomColor: '#2b4353',
+        borderBottomColor: '#2b4353', // Light mode separator color
         marginVertical: 5,
     },
 });

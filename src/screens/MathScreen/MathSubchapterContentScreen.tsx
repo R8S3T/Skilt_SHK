@@ -5,7 +5,7 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MathStackParamList } from 'src/types/navigationTypes';
 import { GenericContent, MathMiniQuiz } from 'src/types/contentTypes';
-import { useMathSubchapter } from './MathSubchapterContext';
+import { useMathSubchapter } from '../../context/MathSubchapterContext';
 import { fetchMathContentBySubchapterId, fetchMathMiniQuizByContentId } from 'src/database/databaseServices';
 
 type MathSubchapterContentScreenRouteProp = RouteProp<MathStackParamList, 'MathSubchapterContentScreen'>;

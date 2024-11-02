@@ -1,7 +1,9 @@
+// src/components/GenericNode.tsx
+
 import React from 'react';
 import { View, TouchableOpacity, Image, StyleSheet, Text } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { getDynamicIconSize } from 'src/utils/screenDimensions';
+import { useTheme } from 'src/context/ThemeContext';
 
 interface GenericNodeProps {
     id: number;
@@ -22,6 +24,7 @@ const GenericNode: React.FC<GenericNodeProps> = ({
     finishedColor,
     id
 }) => {
+    const { isDarkMode, theme } = useTheme();
     const dynamicNodeSize = getDynamicIconSize(70, 90);
     const dynamicIconSize = getDynamicIconSize(40, 50);
 
@@ -40,9 +43,13 @@ const GenericNode: React.FC<GenericNodeProps> = ({
             borderRadius: 20,
             borderWidth: 2,
             borderColor: isLocked ? '#A9A9A9' : isFinished ? finishedColor : '#A9A9A9',
-            backgroundColor: isLocked ? '#f0f0f0' : '#FFFFFF',  // Different background for locked state
+            backgroundColor: isLocked ? '#f0f0f0' : '#FFFFFF',
             paddingVertical: 8,
             paddingHorizontal: 15,
+            ...(isDarkMode && {
+                backgroundColor: isLocked ? theme.background : theme.surface,
+                borderColor: isLocked ? '#A9A9A9' : isFinished ? finishedColor : theme.primaryText,
+            }),
         },
         iconContainer: {
             width: dynamicNodeSize,
@@ -50,23 +57,31 @@ const GenericNode: React.FC<GenericNodeProps> = ({
             justifyContent: 'center',
             alignItems: 'center',
             borderRadius: 20,
-            marginRight: 15, // Reduced space between the icon and text
+            marginRight: 15,
         },
         icon: {
             width: dynamicIconSize,
             height: dynamicIconSize,
-            tintColor: isLocked ? '#A9A9A9' : isFinished ? finishedColor : '#A9A9A9',
+            // Ensure play icon remains grey in both themes and finished icon stays orange
+            tintColor: isLocked 
+                ? '#A9A9A9' 
+                : isFinished 
+                    ? finishedColor 
+                    : '#A9A9A9', // Play icon grey in both light and dark modes
         },
         text: {
             flex: 1,
-            fontSize: 15, // Adjust font size for compact layout
-            color: isLocked ? '#A9A9A9' : '#000000',  // Text color based on lock status
+            fontSize: 15,
+            color: isLocked ? '#A9A9A9' : '#000000',
+            ...(isDarkMode && {
+                color: isLocked ? '#A9A9A9' : theme.primaryText,
+            }),
         },
     });
 
     return (
         <TouchableOpacity 
-            onPress={onPress}  // Allow press even when locked
+            onPress={onPress}
             style={dynamicStyles.container} 
         >
             <View style={dynamicStyles.iconContainer}>
@@ -77,7 +92,6 @@ const GenericNode: React.FC<GenericNodeProps> = ({
     );
 };
 
-
-
 export default GenericNode;
+
 

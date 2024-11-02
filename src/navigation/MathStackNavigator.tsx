@@ -9,6 +9,7 @@ import MathCongratsScreen from 'src/screens/MathScreen/MathCongratsScreen';
 const Stack = createStackNavigator<MathStackParamList>();
 
 const MathStackNavigator: React.FC = () => {
+    console.log("MathStackNavigator is rendering");
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
             <Stack.Screen name="MathChapterScreen" component={MathChapterScreen} />

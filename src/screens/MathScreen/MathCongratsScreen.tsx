@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { MathStackParamList } from 'src/types/navigationTypes';
-import { useMathSubchapter } from './MathSubchapterContext';
+import { useMathSubchapter } from '../../context/MathSubchapterContext';
 
 type MathCongratsScreenRouteProp = RouteProp<MathStackParamList, 'MathCongratsScreen'>;
 

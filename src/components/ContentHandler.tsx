@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Image, TextStyle } from 'react-native';
 import { imageMap } from 'src/utils/imageMappings';
 import ImageModal from 'react-native-image-modal';
+import { useTheme } from 'src/context/ThemeContext';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -10,25 +11,25 @@ interface ContentHandlerProps {
 }
 
 const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
-  // Handle special markers like underline, bgcolor-block, images, etc.
+  const { theme, isDarkMode } = useTheme(); // Access theme and dark mode status
 
+  // Handle special markers like frame, bullet point, images, etc.
   if (part.startsWith('[frame]') && part.endsWith('[/frame]')) {
     const frameText = part.replace('[frame]', '').replace('[/frame]', '');
     return (
-      <View style={styles.frameWithBulb}>
+      <View style={[styles.frameWithBulb, { backgroundColor: theme.surface }]}>
         <Image source={require('assets/Images/info_sign.png')} style={styles.infoSign} />
-        <Text style={styles.contentText}>{frameText}</Text>
+        <Text style={[styles.contentText, { color: theme.primaryText }]}>{frameText}</Text>
       </View>
     );
   }
 
-  // Handle bullet point marker
   if (part.startsWith('[bullet]') && part.endsWith('[/bullet]')) {
     const bulletText = part.replace('[bullet]', '').replace('[/bullet]', '');
     return (
       <View style={styles.bulletTextContainer}>
-        <Text style={styles.bulletPoint}>○</Text>
-        <Text style={styles.bulletText}>{bulletText}</Text>
+        <Text style={[styles.bulletPoint, { color: theme.primaryText }]}>○</Text>
+        <Text style={[styles.bulletText, { color: theme.primaryText }]}>{bulletText}</Text>
       </View>
     );
   }
@@ -38,48 +39,39 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
     const imageSource = imageMap[imageName as keyof typeof imageMap];
     
     if (imageSource) {
-      // Split the marker to check for different tags
       const markers = imageName.split('_').map(marker => marker.toLowerCase());
-
       let imageStyle = styles.image;
       const isZoomable = markers.includes('zoom');
       const isWelcome = markers.includes('welcome');
       const isSmall = markers.includes('small');
-      
-      // Apply styles based on markers
+
       if (isWelcome) {
         imageStyle = styles.welcomeImage;
       } else if (isSmall) {
         imageStyle = styles.smallImage;
       }
 
-      // If image is marked as zoomable, use ImageModal for zoom and modal functionality
-      if (isZoomable) {
-        return (
-          <View style={styles.imageContainer}>
-            <ImageModal
-              source={imageSource}
-              resizeMode="contain"
-              overlayBackgroundColor="#d1d8e5"
-              style={{
-                width: deviceWidth * 0.9,
-                height: deviceWidth * 0.75,
-                alignSelf: 'center',
-              }}
-            />
-            
-            <Image 
-              source={require('../../assets/Images/zoom_icon.png')} 
-              style={styles.zoomIcon} 
-            />
-          </View>
-        );
-      }
-
-      // Default case for non-zoomable images
       return (
-        <View style={styles.imageContainer}>
-          <Image source={imageSource} style={imageStyle} resizeMode="contain" />
+        <View style={[styles.imageContainer, isDarkMode && styles.darkImageContainer]}>
+          {isZoomable ? (
+            <>
+              <ImageModal
+                source={imageSource}
+                resizeMode="contain"
+                overlayBackgroundColor="#c1c1c1"  // Darker grey color for zoomable overlay
+                style={{
+                  width: deviceWidth * 0.9,
+                  height: deviceWidth * 0.75,
+                }}
+              />
+              <Image
+                source={require('../../assets/Images/zoom_icon.png')}
+                style={[styles.zoomIcon, isDarkMode && { tintColor: '#4d4d4d' }]} // Dark gray in dark mode
+              />
+            </>
+          ) : (
+            <Image source={imageSource} style={imageStyle} resizeMode="contain" />
+          )}
         </View>
       );
     } else {
@@ -87,58 +79,53 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
     }
   }
 
-  // Process text formatting (heading, subheading, bold, etc.)
+
   const processText = (text: string) => {
-    const parts = text.split(/(\[bold\].*?\[\/bold\])|(\[heading\].*?\[\/heading\])|(\[subheading\].*?\[\/subheading\])|(\[section\].*?\[\/section\])|(\[bullet\].*?\[\/bullet\])/g);
+    const parts = text.split(/(\[bold\].*?\[\/bold\])|(\[heading\].*?\[\/heading\])|(\[subheading\].*?\[\/subheading\])|(\[section\].*?\[\/section\])/g);
 
     return (
-      <Text style={styles.contentText}>
+      <Text style={[styles.contentText, { color: theme.primaryText }]}>
         {parts.map((part, index) => {
           if (!part) return null;
 
-          // Handle heading marker
           if (part.startsWith('[heading]') && part.endsWith('[/heading]')) {
             const headingText = part.replace('[heading]', '').replace('[/heading]', '');
             return (
-              <Text key={index} style={styles.headingText}>
+              <Text key={index} style={[styles.headingText, { color: theme.primaryText }]}>
                 {headingText}
               </Text>
             );
           }
 
-          // Handle subheading marker
           if (part.startsWith('[subheading]') && part.endsWith('[/subheading]')) {
             const subheadingText = part.replace('[subheading]', '').replace('[/subheading]', '');
             return (
-              <Text key={index} style={styles.subheadingText}>
+              <Text key={index} style={[styles.subheadingText, { color: theme.secondaryText }]}>
                 {subheadingText}
               </Text>
             );
           }
 
-          // Handle section marker
           if (part.startsWith('[section]') && part.endsWith('[/section]')) {
             const sectionText = part.replace('[section]', '').replace('[/section]', '');
             return (
-              <Text key={index} style={styles.sectionText}>
+              <Text key={index} style={[styles.sectionText, { color: theme.primaryText }]}>
                 {sectionText}
               </Text>
             );
           }
 
-          // Handle bold marker
           if (part.startsWith('[bold]') && part.endsWith('[/bold]')) {
             const boldText = part.replace('[bold]', '').replace('[/bold]', '');
             return (
-              <Text key={index} style={styles.boldText}>
+              <Text key={index} style={[styles.boldText, { color: theme.primaryText }]}>
                 {boldText}
               </Text>
             );
           }
 
-          // Default case for regular text
           return part.trim() !== '' ? (
-            <Text key={index} style={styles.contentText}>
+            <Text key={index} style={[styles.contentText, { color: theme.primaryText }]}>
               {part}
             </Text>
           ) : null;
@@ -147,7 +134,6 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
     );
   };
 
-  // Return the processed text
   return <>{processText(part)}</>;
 };
 
@@ -158,14 +144,22 @@ const styles = StyleSheet.create({
     letterSpacing: 0.8,
     marginTop: 5,
   },
+  darkImageContainer: {
+    backgroundColor: '#c1c1c1',
+    paddingHorizontal: 2,
+    paddingVertical: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+  },
   imageContainer: {
     marginVertical: 10,
     alignItems: 'center',
+    width: '100%',
   },
   boldText: {
     fontFamily: 'OpenSans-Bold',
     fontSize: 18,
-    color: '#000',
   },
   headingText: {
     fontFamily: 'Lato-Bold',
@@ -213,12 +207,6 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginVertical: 5,
   },
-  zoomContainer: {
-    flex: 1,
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   zoomIcon: {
     position: 'absolute',
     bottom: 8,
@@ -250,4 +238,3 @@ const styles = StyleSheet.create({
 });
 
 export default ContentHandler;
-

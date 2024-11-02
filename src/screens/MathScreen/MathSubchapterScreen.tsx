@@ -6,7 +6,7 @@ import { MathStackParamList } from 'src/types/navigationTypes';
 import { fetchMathSubchaptersByChapterId } from 'src/database/databaseServices';
 import { MathSubchapter } from 'src/types/contentTypes';
 import GenericRows from '../GenericRows';
-import { useMathSubchapter } from './MathSubchapterContext';
+import { useMathSubchapter } from '../../context/MathSubchapterContext';
 import SubchapterInfoModal from '../Chapters/SubchapterInfoModal';
 
 type MathSubchapterScreenRouteProp = RouteProp<MathStackParamList, 'MathSubchapterScreen'>;
