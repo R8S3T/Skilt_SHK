@@ -26,16 +26,19 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
     const [lastImageName, setLastImageName] = useState<string | null>(null);
 
     const loadLastViewed = async () => {
-        const { chapterId, chapterTitle, subchapterId, subchapterName, currentIndex, imageName } = await loadProgress('section1');
+        const result = await loadProgress('section1');
+        console.log("Load Progress Result:", result);
+    
+        const { chapterId, chapterTitle, subchapterId, subchapterName, currentIndex, imageName } = result;
+        console.log("Retrieved imageName:", imageName);
         if (chapterId) setLastChapterId(chapterId);
         if (chapterTitle) setLastChapterTitle(chapterTitle);
         if (subchapterId) setLastSubchapter(subchapterId);
         if (subchapterName) setLastSubchapterName(subchapterName);
         if (currentIndex !== null) setLastContentId(currentIndex);
         if (imageName) setLastImageName(imageName);
-
-        console.log('Last Image Name:', imageName);
-    };
+        };
+    
 
     useFocusEffect(
         useCallback(() => {
@@ -61,7 +64,7 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
     };
 
     const imageSource = lastImageName ? imageMap[lastImageName as keyof typeof imageMap] : null;
-
+    console.log("Image source:", imageSource);
     return (
         <View style={styles.container}>
             <Text style={[styles.resumeTitle, { color: theme.primaryText }]}>{sectionTitle}</Text>

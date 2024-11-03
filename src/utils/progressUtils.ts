@@ -34,7 +34,7 @@ export const loadProgress = async (sectionKey: string) => {
         const savedProgress = await AsyncStorage.getItem(`progress_${sectionKey}`);
         const parsedProgress = savedProgress ? JSON.parse(savedProgress) : { chapterId: null, subchapterId: null, subchapterName: null, currentIndex: null, imageName: null };
         
-        console.log("Loaded Progress Data:", parsedProgress); // Fügen Sie dies hinzu, um den gespeicherten Fortschritt zu prüfen.
+        console.log("Loaded Progress Data:", parsedProgress);
         
         return parsedProgress;
     } catch (e) {
@@ -84,6 +84,7 @@ export const handleExit = async (
 };
 
 // Function to handle progressing to the next content slide or completing the subchapter
+
 interface NextContentParams {
     showQuiz: boolean;
     setShowQuiz: (show: boolean) => void;
@@ -100,7 +101,6 @@ interface NextContentParams {
     markSubchapterAsFinished: (id: number) => void;
     unlockSubchapter: (id: number) => void;
 }
-
 export const nextContent = async ({
     showQuiz,
     setShowQuiz,
@@ -117,12 +117,32 @@ export const nextContent = async ({
     markSubchapterAsFinished,
     unlockSubchapter,
 }: NextContentParams) => {
+
+    const saveCurrentProgress = async (newIndex: number) => {
+        try {
+            const subchapters = await fetchSubchaptersByChapterId(chapterId);
+            const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
+            if (currentSubchapter) {
+                await saveProgress(
+                    'section1',
+                    chapterId,
+                    subchapterId,
+                    subchapterTitle,
+                    newIndex,
+                    currentSubchapter.ImageName
+                );
+            }
+        } catch (error) {
+            console.error("Error saving progress:", error);
+        }
+    };
+
     const moveToNextSlide = async () => {
         if (currentIndex < contentData.length - 1) {
             const newIndex = currentIndex + 1;
             setCurrentIndex(newIndex);
             setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
-            await saveProgress('section1', chapterId, subchapterId, subchapterTitle, newIndex, null);
+            await saveCurrentProgress(newIndex); // Use saveCurrentProgress to handle image retrieval and saving
         } else {
             await completeSubchapter();
         }
@@ -131,7 +151,7 @@ export const nextContent = async ({
     const completeSubchapter = async () => {
         markSubchapterAsFinished(subchapterId);
         unlockSubchapter(subchapterId + 1);
-        await saveProgress('section1', chapterId, subchapterId, subchapterTitle, currentIndex, null);
+        await saveCurrentProgress(currentIndex); // Save progress when subchapter completes
 
         navigation.navigate('CongratsScreen', {
             targetScreen: 'SubchaptersScreen',
@@ -139,6 +159,7 @@ export const nextContent = async ({
         });
     };
 
+    // Start moveToNextSlide or completeSubchapter process
     if (showQuiz) {
         setShowQuiz(false);
         await moveToNextSlide();

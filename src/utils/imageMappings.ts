@@ -316,6 +316,7 @@ const img_LF3LngenausdehnungUBogenzoom = require('../../assets/DbImages/Subchapt
 const img_LF3LsbareVerbindungenwelcome = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Lösbare_Verbindungen_welcome.png');
 const img_LF3Nherungsformelsmall = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Näherungsformel_small.png');
 const img_LF3PVCzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_PVC_zoom.png');
+const img_LF3Przisionsstahlrohrzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Präzisionsstahlrohr_zoom.png');
 const img_LF3Rohrlngezoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Rohrlänge_zoom.png');
 const img_LF3SchnittSteckmuffezoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Schnitt_Steckmuffe_zoom.png');
 const img_LF3Steckmuffezoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Steckmuffe_zoom.png');
@@ -363,6 +364,7 @@ const img_LF4Instandsetzung = require('../../assets/DbImages/SubchapterContent/L
 const img_LF4Kabelkanal = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Kabelkanal.png');
 const img_LF4Kabelquerschnitt = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Kabelquerschnitt.png');
 const img_LF4Kopfhrersmall = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Kopfhörer_small.png');
+const img_LF4Leitungsschutzschalterzoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Leitungsschutzschalter_zoom.png');
 const img_LF4MessPrftechnikwelcome = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Mess_Prüftechnik_welcome.png');
 const img_LF4Multimeterzoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Multimeter_zoom.png');
 const img_LF4NHSicherungenzoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_NH_Sicherungen_zoom.png');
@@ -477,6 +479,7 @@ const img_LF6Doppelabzweig = require('../../assets/DbImages/SubchapterContent/LF
 const img_LF6Doppelabzweig2zoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Doppelabzweig_2_zoom.png');
 const img_LF6Doppelabzweige = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Doppelabzweige.png');
 const img_LF6Doppelabzweigezoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Doppelabzweige_zoom.png');
+const img_LF6DurchfhrungGelenkzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Durchführung_Gelenk_zoom.png');
 const img_LF6Duschesmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Dusche_small.png');
 const img_LF6Einzelanschlussleitungunbelftetzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Einzelanschlussleitung_unbelüftet_zoom.png');
 const img_LF6Einzelanschlussleitungzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Einzelanschlussleitung_zoom.png');
@@ -924,6 +927,7 @@ export const imageMap = {
     "LF_3_Lösbare_Verbindungen_welcome": img_LF3LsbareVerbindungenwelcome,
     "LF_3_Näherungsformel_small": img_LF3Nherungsformelsmall,
     "LF_3_PVC_zoom": img_LF3PVCzoom,
+    "LF_3_Präzisionsstahlrohr_zoom": img_LF3Przisionsstahlrohrzoom,
     "LF_3_Rohrlänge_zoom": img_LF3Rohrlngezoom,
     "LF_3_Schnitt_Steckmuffe_zoom": img_LF3SchnittSteckmuffezoom,
     "LF_3_Steckmuffe_zoom": img_LF3Steckmuffezoom,
@@ -971,6 +975,7 @@ export const imageMap = {
     "LF_4_Kabelkanal": img_LF4Kabelkanal,
     "LF_4_Kabelquerschnitt": img_LF4Kabelquerschnitt,
     "LF_4_Kopfhörer_small": img_LF4Kopfhrersmall,
+    "LF_4_Leitungsschutzschalter_zoom": img_LF4Leitungsschutzschalterzoom,
     "LF_4_Mess_Prüftechnik_welcome": img_LF4MessPrftechnikwelcome,
     "LF_4_Multimeter_zoom": img_LF4Multimeterzoom,
     "LF_4_NH_Sicherungen_zoom": img_LF4NHSicherungenzoom,
@@ -1085,6 +1090,7 @@ export const imageMap = {
     "LF_6_Doppelabzweig_2_zoom": img_LF6Doppelabzweig2zoom,
     "LF_6_Doppelabzweige": img_LF6Doppelabzweige,
     "LF_6_Doppelabzweige_zoom": img_LF6Doppelabzweigezoom,
+    "LF_6_Durchführung_Gelenk_zoom": img_LF6DurchfhrungGelenkzoom,
     "LF_6_Dusche_small": img_LF6Duschesmall,
     "LF_6_Einzelanschlussleitung_unbelüftet_zoom": img_LF6Einzelanschlussleitungunbelftetzoom,
     "LF_6_Einzelanschlussleitung_zoom": img_LF6Einzelanschlussleitungzoom,
