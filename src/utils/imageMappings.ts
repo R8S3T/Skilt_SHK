@@ -400,19 +400,31 @@ const img_LF4Zone3welcome = require('../../assets/DbImages/SubchapterContent/LF_
 const img_LF4geschlossen = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_geschlossen.png');
 const img_LF4offen = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_offen.png');
 const img_LF4welcome = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_welcome.png');
+const img_LF5AbflusskennzahlTabellezoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Abflusskennzahl_Tabelle_zoom.png');
 const img_LF5Aktivkohlezoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Aktivkohle_zoom.png');
 const img_LF5Anschlussleitungwelcome2 = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Anschlussleitung_welcome_2.png');
 const img_LF5Anschlussleitungzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Anschlussleitung_zoom.png');
 const img_LF5Aufbereitungwelcome = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Aufbereitung_welcome.png');
 const img_LF5Aufbewahrungsboxzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Aufbewahrungsbox_zoom.png');
+const img_LF5BerechnungBewsserungwelcome = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Berechnung_Bewässerung_welcome.png');
+const img_LF5BerechnungEinzelanschlussanlagenzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Berechnung_Einzelanschlussanlagen_zoom.png');
+const img_LF5BerechnungFallleitung = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Berechnung_Fallleitung.png');
+const img_LF5BerechnungFallleitungsmall = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Berechnung_Fallleitung_small.png');
+const img_LF5BerechnungGrundSammelleitungzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Berechnung_Grund_Sammelleitung_zoom.png');
+const img_LF5BerechnungTeilstrecke1small = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Berechnung_Teilstrecke_1_small.png');
+const img_LF5BerechnungTeilstrecke2small = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Berechnung_Teilstrecke_2_small.png');
 const img_LF5Druckminderer2zoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Druckminderer_2_zoom.png');
 const img_LF5Druckmindererwelcome = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Druckminderer_welcome.png');
 const img_LF5Druckmindererzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Druckminderer_zoom.png');
 const img_LF5Druckverlust = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Druckverlust.png');
 const img_LF5Edelstahl = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Edelstahl.png');
+const img_LF5EinzelanschlussleitungenTabellezoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Einzelanschlussleitungen_Tabelle_zoom.png');
 const img_LF5Einzelzuleitungzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Einzelzuleitung_zoom.png');
 const img_LF5Enthrtunginnenzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Enthärtung_innen_zoom.png');
 const img_LF5Enthrtungzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Enthärtung_zoom.png');
+const img_LF5Erklrung = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Erklärung.png');
+const img_LF5FallleitungenFormelsmall = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Fallleitungen_Formel_small.png');
+const img_LF5Fallleitungsberechnungzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Fallleitungsberechnung_zoom.png');
 const img_LF5H2Osmall = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_H2O_small.png');
 const img_LF5Ionenaustauschzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Ionenaustausch_zoom.png');
 const img_LF5Kalkzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Kalk_zoom.png');
@@ -440,6 +452,8 @@ const img_LF5RostRohrzoom = require('../../assets/DbImages/SubchapterContent/LF_
 const img_LF5RckflussverhindererSchnittzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Rückflussverhinderer_Schnitt_zoom.png');
 const img_LF5Rckflussverhindererzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Rückflussverhinderer_zoom.png');
 const img_LF5Salztablettenzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Salztabletten_zoom.png');
+const img_LF5SammelanschlussleitungenTabellezoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Sammelanschlussleitungen_Tabelle_zoom.png');
+const img_LF5Sammelanschlussleitungenzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Sammelanschlussleitungen_zoom.png');
 const img_LF5Schutzwelcome = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Schutz_welcome.png');
 const img_LF5Steigleitungzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Steigleitung_zoom.png');
 const img_LF5Stockwerksleitungenzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Stockwerksleitungen_zoom.png');
@@ -1011,19 +1025,31 @@ export const imageMap = {
     "LF_4_geschlossen": img_LF4geschlossen,
     "LF_4_offen": img_LF4offen,
     "LF_4_welcome": img_LF4welcome,
+    "LF_5_Abflusskennzahl_Tabelle_zoom": img_LF5AbflusskennzahlTabellezoom,
     "LF_5_Aktivkohle_zoom": img_LF5Aktivkohlezoom,
     "LF_5_Anschlussleitung_welcome_2": img_LF5Anschlussleitungwelcome2,
     "LF_5_Anschlussleitung_zoom": img_LF5Anschlussleitungzoom,
     "LF_5_Aufbereitung_welcome": img_LF5Aufbereitungwelcome,
     "LF_5_Aufbewahrungsbox_zoom": img_LF5Aufbewahrungsboxzoom,
+    "LF_5_Berechnung_Bewässerung_welcome": img_LF5BerechnungBewsserungwelcome,
+    "LF_5_Berechnung_Einzelanschlussanlagen_zoom": img_LF5BerechnungEinzelanschlussanlagenzoom,
+    "LF_5_Berechnung_Fallleitung": img_LF5BerechnungFallleitung,
+    "LF_5_Berechnung_Fallleitung_small": img_LF5BerechnungFallleitungsmall,
+    "LF_5_Berechnung_Grund_Sammelleitung_zoom": img_LF5BerechnungGrundSammelleitungzoom,
+    "LF_5_Berechnung_Teilstrecke_1_small": img_LF5BerechnungTeilstrecke1small,
+    "LF_5_Berechnung_Teilstrecke_2_small": img_LF5BerechnungTeilstrecke2small,
     "LF_5_Druckminderer_2_zoom": img_LF5Druckminderer2zoom,
     "LF_5_Druckminderer_welcome": img_LF5Druckmindererwelcome,
     "LF_5_Druckminderer_zoom": img_LF5Druckmindererzoom,
     "LF_5_Druckverlust": img_LF5Druckverlust,
     "LF_5_Edelstahl": img_LF5Edelstahl,
+    "LF_5_Einzelanschlussleitungen_Tabelle_zoom": img_LF5EinzelanschlussleitungenTabellezoom,
     "LF_5_Einzelzuleitung_zoom": img_LF5Einzelzuleitungzoom,
     "LF_5_Enthärtung_innen_zoom": img_LF5Enthrtunginnenzoom,
     "LF_5_Enthärtung_zoom": img_LF5Enthrtungzoom,
+    "LF_5_Erklärung": img_LF5Erklrung,
+    "LF_5_Fallleitungen_Formel_small": img_LF5FallleitungenFormelsmall,
+    "LF_5_Fallleitungsberechnung_zoom": img_LF5Fallleitungsberechnungzoom,
     "LF_5_H2O_small": img_LF5H2Osmall,
     "LF_5_Ionenaustausch_zoom": img_LF5Ionenaustauschzoom,
     "LF_5_Kalk_zoom": img_LF5Kalkzoom,
@@ -1051,6 +1077,8 @@ export const imageMap = {
     "LF_5_Rückflussverhinderer_Schnitt_zoom": img_LF5RckflussverhindererSchnittzoom,
     "LF_5_Rückflussverhinderer_zoom": img_LF5Rckflussverhindererzoom,
     "LF_5_Salztabletten_zoom": img_LF5Salztablettenzoom,
+    "LF_5_Sammelanschlussleitungen_Tabelle_zoom": img_LF5SammelanschlussleitungenTabellezoom,
+    "LF_5_Sammelanschlussleitungen_zoom": img_LF5Sammelanschlussleitungenzoom,
     "LF_5_Schutz_welcome": img_LF5Schutzwelcome,
     "LF_5_Steigleitung_zoom": img_LF5Steigleitungzoom,
     "LF_5_Stockwerksleitungen_zoom": img_LF5Stockwerksleitungenzoom,

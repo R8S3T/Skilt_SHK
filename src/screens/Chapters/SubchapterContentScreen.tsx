@@ -1,6 +1,6 @@
 // src/screens/SubchapterContentScreen.tsx
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import ContentSlide from '../ContentSlide';
 import QuizSlide from '../Quiz/QuizSlide';
@@ -32,6 +32,22 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     const [showQuiz, setShowQuiz] = useState<boolean>(false);
 
     const { finishedSubchapters, markSubchapterAsFinished, unlockSubchapter } = useSubchapter();
+
+     // Customize the header to include the "X" button and progress bar
+     useLayoutEffect(() => {
+        navigation.setOptions({
+            // Add an "X" icon button in the header right position to navigate back
+            headerRight: () => (
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('SubchaptersScreen', { chapterId, chapterTitle })}
+                    style={{ marginRight: 15 }}
+                >
+                    <Ionicons name="close" size={24} color="gray" />
+                </TouchableOpacity>
+            ),
+            headerLeft: () => null,  // Hide the default back arrow if it’s still showing
+        });
+    }, [navigation, chapterId, chapterTitle]);
 
     // Load saved slide index on first render or reset to 0 if finished
     useEffect(() => {
@@ -67,7 +83,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         const progress = (currentIndex + 1) / contentData.length;
         navigation.setOptions({
             headerTitle: () => (
-                <View style={{ flexDirection: 'row', alignItems: 'center', width: '100%' }}>
+                <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%' }}>
                     <View style={styles.progressBarContainer}>
                         <LinearGradient
                             colors={['#4CAF50', '#81C784']}
@@ -181,11 +197,11 @@ const styles = StyleSheet.create({
     },
     progressBarContainer: {
         height: 16,
-        width: '95%',
+        width: '90%',
         backgroundColor: '#e0e0e0',
         borderRadius: 10,
         overflow: 'hidden',
-        marginLeft: 10,
+        marginLeft: 5,
         elevation: 2,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },

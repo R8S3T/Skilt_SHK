@@ -1,6 +1,4 @@
-// src/screens/SubchaptersScreen.tsx
-
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useLayoutEffect } from 'react';
 import { Text, View, ScrollView, StyleSheet } from 'react-native';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -34,6 +32,16 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
     }
 
     const { unlockedSubchapters, finishedSubchapters, setCurrentSubchapter, unlockSubchapter } = context;
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            title: chapterTitle || 'Lehrjahre',
+            headerTitleAlign: 'left',
+            headerTitleStyle: {
+                marginLeft: -15,
+            },
+        });
+    }, [navigation, chapterTitle]);
 
     useEffect(() => {
         const loadData = async () => {
@@ -109,60 +117,76 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
     }));
 
     return (
-        <ScrollView
-            style={[
-                styles.screenContainer,
-                isDarkMode && { backgroundColor: theme.background }
-            ]}
-        >
-            <Text style={[
-                styles.heading,
-                isDarkMode && { color: theme.primaryText }
-            ]}>{chapterTitle}</Text>
-            <View style={[styles.separator, isDarkMode && { borderBottomColor: theme.primaryText }]} />
-            {loading ? (
-                <Text style={isDarkMode ? { color: theme.primaryText } : undefined}>Loading...</Text>
-            ) : (
-                <GenericRows
-                    items={renderedSubchapters}
-                    onNodePress={handleNodePress}
-                    color="#FFA500"
-                    finishedColor="#FFA500"
-                />
-            )}
+        <View style={styles.container}>
+            {/* Sticky Heading */}
+            <Text style={[styles.dynamicHeading, isDarkMode && { color: theme.primaryText }]}>
+                Lernfeld {chapterId}
+            </Text>
 
-            {selectedSubchapter && (
-                <SubchapterInfoModal
-                    visible={modalVisible}
-                    onClose={() => setModalVisible(false)}
-                    subchapterName={selectedSubchapter.SubchapterName}
-                    onReviewLesson={isJumpAhead ? handleJumpAheadConfirm : handleReviewLesson}
-                    isJumpAhead={isJumpAhead}
-                    onJumpAheadConfirm={handleJumpAheadConfirm}
-                />
-            )}
-        </ScrollView>
+            {/* Scrollable Content */}
+            <ScrollView
+                contentContainerStyle={[
+                    styles.scrollViewContent,
+                    isDarkMode && { backgroundColor: theme.background }
+                ]}
+            >
+                <Text style={[
+                    styles.heading,
+                    isDarkMode && { color: theme.primaryText }
+                ]}>{chapterTitle}</Text>
+                
+                {loading ? (
+                    <Text style={isDarkMode ? { color: theme.primaryText } : undefined}>Loading...</Text>
+                ) : (
+                    <GenericRows
+                        items={renderedSubchapters}
+                        onNodePress={handleNodePress}
+                        color="#FFA500"
+                        finishedColor="#FFA500"
+                    />
+                )}
+
+                {selectedSubchapter && (
+                    <SubchapterInfoModal
+                        visible={modalVisible}
+                        onClose={() => setModalVisible(false)}
+                        subchapterName={selectedSubchapter.SubchapterName}
+                        onReviewLesson={isJumpAhead ? handleJumpAheadConfirm : handleReviewLesson}
+                        isJumpAhead={isJumpAhead}
+                        onJumpAheadConfirm={handleJumpAheadConfirm}
+                    />
+                )}
+            </ScrollView>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
-    screenContainer: {
+    container: {
         flex: 1,
-        backgroundColor: 'transparent',
     },
-    heading: {
+    scrollViewContent: {
+        paddingTop: 20,  // Add padding to avoid overlap with sticky heading
+    },
+    dynamicHeading: {
         fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',
-        margin: 10,
-        marginTop: 25,
-        color: '#2b4353', // Light mode text color
+        color: '#2b4353',
+        paddingVertical: 10,
+        backgroundColor: 'white', // Background to make it stand out
+        zIndex: 1,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
     },
-    separator: {
-        borderBottomWidth: 1,
-        borderBottomColor: '#2b4353', // Light mode separator color
-        marginVertical: 5,
+    heading: {
+        fontSize: 18,
+        textAlign: 'center',
+        marginTop: 50,  // Offset to avoid overlap with sticky heading
     },
 });
 
 export default SubchaptersScreen;
+

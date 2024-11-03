@@ -45,7 +45,7 @@ const LearnStackNavigator: React.FC = () => {
                 name="SubchaptersScreen" // Add SubchaptersScreen here
                 component={SubchaptersScreen}
                 options={({ route }) => ({
-                    title: route.params.chapterTitle,
+                    title: route.params.chapterTitle || 'Lehrjahre',
                     headerTitleAlign: 'center',
                     headerTitleStyle: {
                         fontWeight: '600',

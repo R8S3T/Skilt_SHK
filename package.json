@@ -13,6 +13,7 @@
     "@expo/config-plugins": "~8.0.0",
     "@expo/metro-config": "~0.18.11",
     "@expo/prebuild-config": "~7.0.0",
+    "@expo/vector-icons": "^14.0.4",
     "@react-native-async-storage/async-storage": "1.23.1",
     "@react-native-community/slider": "^4.5.5",
     "@react-navigation/bottom-tabs": "^6.5.20",
