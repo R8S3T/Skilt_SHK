@@ -8,7 +8,11 @@ import { fetchMathChapters } from 'src/database/databaseServices';
 import { MathChapter } from 'src/types/contentTypes';
 import { imageMap } from 'src/utils/imageMappings';
 
-const MathModulSection: React.FC = () => {
+interface MathModulSectionProps {
+    onButtonPress?: (title: string) => void;
+}
+
+const MathModulSection: React.FC<MathModulSectionProps> = ({ onButtonPress }) => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const { isDarkMode, theme } = useTheme();
     const [displayModules, setDisplayModules] = useState<MathChapter[]>([]);
@@ -19,68 +23,49 @@ const MathModulSection: React.FC = () => {
                 const fetchedChapters = await fetchMathChapters();
                 const shuffledChapters = fetchedChapters.sort(() => 0.5 - Math.random());
                 const selectedChapters = shuffledChapters.slice(0, 3);
-
                 setDisplayModules(selectedChapters);
             } catch (error) {
                 console.error('Failed to fetch chapters:', error);
             }
         };
-
         loadModules();
     }, []);
 
     const handleButtonPress = (module: MathChapter | { ChapterName: string }) => {
+        onButtonPress?.(module.ChapterName); // Call the onButtonPress prop
+
         if (module.ChapterName === 'Alle Module') {
             navigation.navigate('Math', { screen: 'MathChapterScreen' });
-        } else {
-            // Type guard to check if module is a MathChapter
-            if ('ChapterId' in module) {
-                navigation.navigate('Math', { 
-                    screen: 'MathSubchapterScreen', 
-                    params: { 
-                        chapterId: module.ChapterId, 
-                        chapterTitle: module.ChapterName,
-                        source: 'HomeScreen'
-                    }
-                });
-            }
+        } else if ('ChapterId' in module) {  // Check if it's a MathChapter type
+            navigation.navigate('Math', { 
+                screen: 'MathSubchapterScreen', 
+                params: { 
+                    chapterId: module.ChapterId, 
+                    chapterTitle: module.ChapterName,
+                    source: 'HomeScreen'
+                }
+            });
         }
     };
     
     return (
-        <View style={[
-            styles.container,
-            isDarkMode && { backgroundColor: theme.surface }
-        ]}>
-            <Text style={[
-                styles.title,
-                isDarkMode && { color: theme.primaryText }
-            ]}>Fachmathematik</Text>
+        <View style={[styles.container, isDarkMode && { backgroundColor: theme.surface }]}>
+            <Text style={[styles.title, isDarkMode && { color: theme.primaryText }]}>Fachmathematik</Text>
             <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={styles.scrollViewContainer}
             >
-                {displayModules.map((module, index) => (
+                {displayModules.map((module) => (
                     <TouchableOpacity
                         key={module.ChapterId}
-                        style={[
-                            styles.button,
-                            isDarkMode ? styles.darkButton : styles.lightButton
-                        ]}
+                        style={[styles.button, isDarkMode ? styles.darkButton : styles.lightButton]}
                         onPress={() => handleButtonPress(module)}
                     >
                         {module.Image && imageMap[module.Image as keyof typeof imageMap] && (
                             <Image source={imageMap[module.Image as keyof typeof imageMap]} style={styles.image} />
                         )}
-                        <Text 
-                            style={[
-                                styles.buttonText,
-                                isDarkMode && { color: theme.primaryText }
-                            ]}
-                            numberOfLines={2}
-                            ellipsizeMode="tail"
-                        >
+                        <Text style={[styles.buttonText, isDarkMode && { color: theme.primaryText }]} numberOfLines={2} ellipsizeMode="tail">
                             {module.ChapterName}
                         </Text>
                     </TouchableOpacity>
@@ -90,18 +75,8 @@ const MathModulSection: React.FC = () => {
                     style={[styles.button, isDarkMode ? styles.darkButton : styles.lightButton]}
                     onPress={() => handleButtonPress({ ChapterName: 'Alle Module' })}
                 >
-                    <Image 
-                        source={require('../../../assets/Images/math_all.png')} 
-                        style={styles.image} 
-                    />
-                    <Text 
-                        style={[
-                            styles.buttonText,
-                            isDarkMode && { color: theme.primaryText }
-                        ]}
-                        numberOfLines={2}
-                        ellipsizeMode="tail"
-                    >
+                    <Image source={require('../../../assets/Images/math_all.png')} style={styles.image} />
+                    <Text style={[styles.buttonText, isDarkMode && { color: theme.primaryText }]} numberOfLines={2} ellipsizeMode="tail">
                         Alle Module
                     </Text>
                 </TouchableOpacity>

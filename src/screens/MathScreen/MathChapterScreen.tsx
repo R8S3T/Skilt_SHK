@@ -20,7 +20,7 @@ const MathChapterScreen: React.FC = () => {
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            headerTitle: 'Fachmathematik',
+            headerTitle: 'Start',
             headerStyle: { backgroundColor: theme.surface },
             headerTintColor: theme.primaryText,
         });
@@ -66,6 +66,12 @@ const MathChapterScreen: React.FC = () => {
     return (
         <ThemeWrapper>
             <View style={[styles.container, { backgroundColor: theme.background }]}>
+                {/* Sticky Header */}
+                <Text style={[styles.stickyHeader, { color: theme.primaryText, backgroundColor: theme.surface }]}>
+                    Fachmathematik
+                </Text>
+    
+                {/* Scrollable Content */}
                 <FlatList
                     contentContainerStyle={styles.flatListContent}
                     data={chapters}
@@ -75,6 +81,7 @@ const MathChapterScreen: React.FC = () => {
             </View>
         </ThemeWrapper>
     );
+    
 };
 
 const styles = StyleSheet.create({
@@ -98,6 +105,12 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         zIndex: 1,
+    },
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        paddingVertical: 15,
     },
     flatListContent: {
         paddingTop: 60,

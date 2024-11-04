@@ -3,7 +3,7 @@ import React from 'react';
 // Define the TypeScript type for the slides
 export interface Slide {
     key: string;
-    animation: any; // Use any for now, adjust if you have a specific type for animations
+    animation: any;
     title: string;
     text: string;
     backgroundColor: string;

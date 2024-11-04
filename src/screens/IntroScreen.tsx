@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import LottieView from 'lottie-react-native';
 import { NavigationProp, ParamListBase } from '@react-navigation/native';
@@ -13,23 +14,27 @@ interface IntroScreenProps {
 const IntroScreen: React.FC<IntroScreenProps> = ({ navigation }) => {
     const [username, setUsername] = useState('');
 
+    const saveName = async (name: string) => {
+        try {
+            await AsyncStorage.setItem('userName', name);
+        } catch (error) {
+            console.error("Failed to save the name:", error);
+        }
+    };
+
     const handleDone = async () => {
         await setOnboardingComplete();
+        await saveName(username);  // Save the user's name in AsyncStorage
         navigation.navigate('HomeScreen', {
             screen: 'Home',
             params: { username: username },
         });
     };
 
-    const renderSlide = ({ item } : { item: Slide }) => {
+    const renderSlide = ({ item }: { item: Slide }) => {
         return (
             <View style={[styles.slide, { backgroundColor: item.backgroundColor }]}>
-                <LottieView
-                    source={item.animation}
-                    autoPlay
-                    loop
-                    style={styles.animation}
-                />
+                <LottieView source={item.animation} autoPlay loop style={styles.animation} />
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.text}>{item.text}</Text>
                 {item.renderInputField && (
@@ -40,7 +45,7 @@ const IntroScreen: React.FC<IntroScreenProps> = ({ navigation }) => {
                             placeholder='Dein Name'
                             style={styles.textInput}
                         />
-                        <Button title="Done" onPress={() => handleDone()} />
+                        <Button title="Done" onPress={handleDone} />
                     </View>
                 )}
             </View>
@@ -48,12 +53,7 @@ const IntroScreen: React.FC<IntroScreenProps> = ({ navigation }) => {
     };
 
     return (
-        <AppIntroSlider
-            renderItem={renderSlide}
-            data={slides}
-            onDone={handleDone}
-            showSkipButton={true}
-        />
+        <AppIntroSlider renderItem={renderSlide} data={slides} onDone={handleDone} showSkipButton />
     );
 };
 
