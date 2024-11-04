@@ -68,7 +68,8 @@ export const createMathChaptersTable = (db: sqlite3.Database): Promise<void> => 
                 ChapterId INTEGER PRIMARY KEY AUTOINCREMENT,
                 ChapterName TEXT NOT NULL,
                 Description TEXT,
-                SortOrder INTEGER
+                SortOrder INTEGER,
+                Image TEXT
             );
         `, (err) => {
             if (err) {

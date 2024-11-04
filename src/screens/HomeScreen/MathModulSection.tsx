@@ -1,73 +1,110 @@
-// src/components/MathModulSection.tsx
-
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { RootStackParamList } from 'src/types/navigationTypes';
-import { scaleFontSize, screenWidth } from 'src/utils/screenDimensions';
+import { screenWidth } from 'src/utils/screenDimensions';
 import { useTheme } from 'src/context/ThemeContext';
+import { fetchMathChapters } from 'src/database/databaseServices';
+import { MathChapter } from 'src/types/contentTypes';
+import { imageMap } from 'src/utils/imageMappings';
 
-interface Module {
-    title: string;
-    img?: any;
-}
-
-interface MathModulProps {
-    onButtonPress?: (title: string) => void;
-}
-
-const MathModulSection: React.FC<MathModulProps> = ({ onButtonPress }) => {
+const MathModulSection: React.FC = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const { isDarkMode, theme } = useTheme();
+    const [displayModules, setDisplayModules] = useState<MathChapter[]>([]);
 
-    const modules: Module[] = [
-        { title: 'Gleichungen', img: require('../../../assets/Images/math_scales.png') },
-        { title: 'Geometrie', img: require('../../../assets/Images/math_geometry.png') },
-        { title: 'Bruchrechnung', img: require('../../../assets/Images/math_fraction.png') },
-        { title: 'Alle Module', img: require('../../../assets/Images/math_all.png') }
-    ];
+    useEffect(() => {
+        const loadModules = async () => {
+            try {
+                const fetchedChapters = await fetchMathChapters();
+                const shuffledChapters = fetchedChapters.sort(() => 0.5 - Math.random());
+                const selectedChapters = shuffledChapters.slice(0, 3);
 
-    const handleButtonPress = (title: string) => {
-        console.log("Button Pressed in MathModulSection:", title);
-    
-        if (title === 'Alle Module') {
-            console.log("Navigating to Math stack with MathChapterScreen");
+                setDisplayModules(selectedChapters);
+            } catch (error) {
+                console.error('Failed to fetch chapters:', error);
+            }
+        };
+
+        loadModules();
+    }, []);
+
+    const handleButtonPress = (module: MathChapter | { ChapterName: string }) => {
+        if (module.ChapterName === 'Alle Module') {
             navigation.navigate('Math', { screen: 'MathChapterScreen' });
         } else {
-            console.log(`${title} pressed`);
+            // Type guard to check if module is a MathChapter
+            if ('ChapterId' in module) {
+                navigation.navigate('Math', { 
+                    screen: 'MathSubchapterScreen', 
+                    params: { 
+                        chapterId: module.ChapterId, 
+                        chapterTitle: module.ChapterName,
+                        source: 'HomeScreen'
+                    }
+                });
+            }
         }
     };
-
+    
     return (
         <View style={[
             styles.container,
-            isDarkMode && { backgroundColor: theme.surface } // Dark mode container color
+            isDarkMode && { backgroundColor: theme.surface }
         ]}>
             <Text style={[
                 styles.title,
-                isDarkMode && { color: theme.primaryText } // Dark mode text color
+                isDarkMode && { color: theme.primaryText }
             ]}>Fachmathematik</Text>
             <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={styles.scrollViewContainer}
             >
-                {modules.map((module, index) => (
+                {displayModules.map((module, index) => (
                     <TouchableOpacity
-                        key={index}
+                        key={module.ChapterId}
                         style={[
                             styles.button,
-                            isDarkMode ? styles.darkButton : styles.lightButton // Individual button styles for dark and light
+                            isDarkMode ? styles.darkButton : styles.lightButton
                         ]}
-                        onPress={() => handleButtonPress(module.title)}
+                        onPress={() => handleButtonPress(module)}
                     >
-                        {module.img && <Image source={module.img} style={styles.image} />}
-                        <Text style={[
-                            styles.buttonText,
-                            isDarkMode && { color: theme.primaryText } // Dark mode button text color
-                        ]}>{module.title}</Text>
+                        {module.Image && imageMap[module.Image as keyof typeof imageMap] && (
+                            <Image source={imageMap[module.Image as keyof typeof imageMap]} style={styles.image} />
+                        )}
+                        <Text 
+                            style={[
+                                styles.buttonText,
+                                isDarkMode && { color: theme.primaryText }
+                            ]}
+                            numberOfLines={2}
+                            ellipsizeMode="tail"
+                        >
+                            {module.ChapterName}
+                        </Text>
                     </TouchableOpacity>
                 ))}
+
+                <TouchableOpacity
+                    style={[styles.button, isDarkMode ? styles.darkButton : styles.lightButton]}
+                    onPress={() => handleButtonPress({ ChapterName: 'Alle Module' })}
+                >
+                    <Image 
+                        source={require('../../../assets/Images/math_all.png')} 
+                        style={styles.image} 
+                    />
+                    <Text 
+                        style={[
+                            styles.buttonText,
+                            isDarkMode && { color: theme.primaryText }
+                        ]}
+                        numberOfLines={2}
+                        ellipsizeMode="tail"
+                    >
+                        Alle Module
+                    </Text>
+                </TouchableOpacity>
             </ScrollView>
         </View>
     );
@@ -81,7 +118,7 @@ const styles = StyleSheet.create({
         padding: 20,
         borderRadius: 5,
         margin: 5,
-        backgroundColor: '#fff', // Light mode background
+        backgroundColor: '#fff',
     },
     scrollViewContainer: {
         alignItems: 'center',
@@ -90,7 +127,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 20,
         marginBottom: 15,
-        color: '#333', // Light mode text color
+        color: '#333',
     },
     button: {
         borderRadius: 10,
@@ -98,6 +135,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
         width: screenWidth * 0.4,
+        height: 180,
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
@@ -107,21 +145,21 @@ const styles = StyleSheet.create({
         borderColor: '#CCC',
     },
     darkButton: {
-        backgroundColor: '#555', // Dark mode button background color
-        borderColor: '#888',     // Dark mode button border color
+        backgroundColor: '#555',
+        borderColor: '#888',
     },
     image: {
-        width: 100,
-        height: 100,
+        width: 80,
+        height: 80,
         marginBottom: 5,
+        resizeMode: 'contain',
     },
     buttonText: {
         fontSize: 16,
         textAlign: 'center',
-        color: '#333', // Light mode button text color
+        color: '#333',
     },
 });
 
 export default MathModulSection;
-
 

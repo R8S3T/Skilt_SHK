@@ -41,8 +41,8 @@ const LearnStackNavigator: React.FC = () => {
                     },
                 })}
             />
-                        <Stack.Screen
-                name="SubchaptersScreen" // Add SubchaptersScreen here
+            <Stack.Screen
+                name="SubchaptersScreen"
                 component={SubchaptersScreen}
                 options={({ route }) => ({
                     title: route.params.chapterTitle || 'Lehrjahre',

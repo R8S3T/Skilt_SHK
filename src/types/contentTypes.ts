@@ -28,6 +28,7 @@ export interface MathChapter {
     ChapterName: string;
     Description: string;
     SortOrder: number;
+    Image?: string;
 }
 
 export interface MathSubchapter {

@@ -1,5 +1,6 @@
+import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState, useRef } from 'react';
-import { View, ScrollView, StyleSheet, Text } from 'react-native';
+import { View, ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import MathContentSlide from './MathContentslide';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -25,6 +26,20 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
     const { markSubchapterAsFinished, unlockSubchapter } = useMathSubchapter();
     const [mathMiniQuizzes, setMathMiniQuizzes] = useState<MathMiniQuiz[]>([]);
     const [completedQuizzes, setCompletedQuizzes] = useState<boolean[]>([]);
+
+    // Set the "X" button on the left side of the header
+    useEffect(() => {
+        navigation.setOptions({
+            headerLeft: () => (
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('MathSubchapterScreen', { chapterId, chapterTitle })}
+                    style={{ marginLeft: 15 }}
+                >
+                    <Ionicons name="close" size={24} color="gray" />
+                </TouchableOpacity>
+            ),
+        });
+    }, [navigation, chapterId, chapterTitle]);
 
     useEffect(() => {
         navigation.setOptions({ title: subchapterTitle });
@@ -77,7 +92,7 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
             markSubchapterAsFinished(subchapterId);
             unlockSubchapter(subchapterId + 1);
             navigation.navigate('MathCongratsScreen', {
-                subchapterId: subchapterId,  // Pass subchapterId here
+                subchapterId: subchapterId,
                 targetScreen: 'MathSubchapterScreen',
                 targetParams: {
                     chapterId: chapterId,
@@ -100,7 +115,7 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
                         // Handle quiz layout changes if needed
                     }}
                     completedQuizzes={completedQuizzes}
-                    onNextSlide={nextContent}  // Move to the next slide
+                    onNextSlide={nextContent}
                 />
             )}
         </View>
@@ -123,8 +138,3 @@ const styles = StyleSheet.create({
 });
 
 export default MathSubchapterContentScreen;
-
-
-
-
-

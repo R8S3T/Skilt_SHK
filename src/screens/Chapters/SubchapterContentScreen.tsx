@@ -36,16 +36,16 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
      // Customize the header to include the "X" button and progress bar
      useLayoutEffect(() => {
         navigation.setOptions({
-            // Add an "X" icon button in the header right position to navigate back
-            headerRight: () => (
+            // Place an "X" icon button in the header left position
+            headerLeft: () => (
                 <TouchableOpacity
                     onPress={() => navigation.navigate('SubchaptersScreen', { chapterId, chapterTitle })}
-                    style={{ marginRight: 15 }}
+                    style={{ marginLeft: 15 }}
                 >
                     <Ionicons name="close" size={24} color="gray" />
                 </TouchableOpacity>
             ),
-            headerLeft: () => null,  // Hide the default back arrow if it’s still showing
+            headerRight: () => null,  // Remove any headerRight component if it exists
         });
     }, [navigation, chapterId, chapterTitle]);
 
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#e0e0e0',
         borderRadius: 10,
         overflow: 'hidden',
-        marginLeft: 5,
+        marginLeft: 25,
         elevation: 2,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 1 },

@@ -96,6 +96,11 @@ const img_equationslinear71 = require('../../assets/DbImages/MathImages/equation
 const img_equationslinear8 = require('../../assets/DbImages/MathImages/equations_linear_8.png');
 const img_equationslinear9 = require('../../assets/DbImages/MathImages/equations_linear_9.png');
 const img_equationslinear91 = require('../../assets/DbImages/MathImages/equations_linear_9_1.png');
+const img_equationsmathalgebra = require('../../assets/DbImages/MathImages/equations_math_algebra.png');
+const img_equationsmathgeometry = require('../../assets/DbImages/MathImages/equations_math_geometry.png');
+const img_equationsmathmeasurements = require('../../assets/DbImages/MathImages/equations_math_measurements.png');
+const img_equationsmathmechanic = require('../../assets/DbImages/MathImages/equations_math_mechanic.png');
+const img_equationsmathscales = require('../../assets/DbImages/MathImages/equations_math_scales.png');
 const img_equationsmeasure1 = require('../../assets/DbImages/MathImages/equations_measure_1.png');
 const img_equationsmeasure10 = require('../../assets/DbImages/MathImages/equations_measure_10.png');
 const img_equationsmeasure11 = require('../../assets/DbImages/MathImages/equations_measure_11.png');
@@ -721,6 +726,11 @@ export const imageMap = {
     "equations_linear_8": img_equationslinear8,
     "equations_linear_9": img_equationslinear9,
     "equations_linear_9_1": img_equationslinear91,
+    "equations_math_algebra": img_equationsmathalgebra,
+    "equations_math_geometry": img_equationsmathgeometry,
+    "equations_math_measurements": img_equationsmathmeasurements,
+    "equations_math_mechanic": img_equationsmathmechanic,
+    "equations_math_scales": img_equationsmathscales,
     "equations_measure_1": img_equationsmeasure1,
     "equations_measure_10": img_equationsmeasure10,
     "equations_measure_11": img_equationsmeasure11,

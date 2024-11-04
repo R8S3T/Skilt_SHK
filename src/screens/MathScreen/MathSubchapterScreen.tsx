@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { RouteProp, useNavigation } from '@react-navigation/native';
+import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MathStackParamList } from 'src/types/navigationTypes';
 import { fetchMathSubchaptersByChapterId } from 'src/database/databaseServices';
@@ -19,48 +19,35 @@ type Props = {
 };
 
 const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
-    const { chapterId, chapterTitle } = route.params;
+    const { chapterId, chapterTitle, source } = route.params as { chapterId: number; chapterTitle: string; source?: string }; 
     const [subchapters, setSubchapters] = useState<MathSubchapter[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const context = useMathSubchapter();
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [selectedSubchapter, setSelectedSubchapter] = useState<MathSubchapter | null>(null);
 
-    if (!context) {
-        throw new Error('MathSubchapterContext must be used within a MathSubchapterProvider');
-    }
-
     const { unlockedSubchapters, finishedSubchapters, setCurrentSubchapter } = context;
 
-    useEffect(() => {
-    }, [finishedSubchapters, unlockedSubchapters]);
+    useLayoutEffect(() => {
+        console.log("Source parameter received:", source);
+        navigation.setOptions({
+            headerTitle: source === 'HomeScreen' ? 'Home' : 'Module',
+        });
+    }, [navigation, source]);
 
     useEffect(() => {
-        navigation.setOptions({ title: chapterTitle });
         const loadSubchapters = async () => {
             try {
                 const data = await fetchMathSubchaptersByChapterId(chapterId);
                 setSubchapters(data);
-                setLoading(false);
             } catch (error) {
                 console.error('Failed to load subchapters:', error);
+            } finally {
                 setLoading(false);
             }
         };
         loadSubchapters();
-    }, [navigation, chapterId, chapterTitle]);
-
-    useEffect(() => {
-        if (subchapters.length > 0) {
-            const firstSubchapter = subchapters.find(sub => sub.SortOrder === 1); // Unlock the first subchapter
-            if (firstSubchapter && !unlockedSubchapters.includes(firstSubchapter.SubchapterId)) {
-                setCurrentSubchapter(firstSubchapter.SubchapterId, firstSubchapter.SubchapterName);
-            }
-        }
-    }, [subchapters, unlockedSubchapters]);
-
-    useEffect(() => {
-    }, [unlockedSubchapters]);
+    }, [chapterId]);
 
     const handleNodePress = (subchapterId: number, subchapterTitle: string) => {
         const isFinished = finishedSubchapters.includes(subchapterId);
@@ -70,7 +57,6 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
             setSelectedSubchapter(selected);
             setModalVisible(true);
         } else {
-            // Unlock the next subchapter based on SortOrder
             const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
             if (currentSubchapter) {
                 const nextSubchapter = subchapters.find(
@@ -80,7 +66,6 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
                     setCurrentSubchapter(nextSubchapter.SubchapterId, nextSubchapter.SubchapterName);
                 }
             }
-
             setCurrentSubchapter(subchapterId, subchapterTitle);
             navigation.navigate('MathSubchapterContentScreen', {
                 subchapterId,
@@ -112,14 +97,24 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
     }));
 
     return (
-        <ScrollView style={styles.container}>
-            <Text style={styles.heading}>{chapterTitle}</Text>
-            <View style={styles.separator} />
-            {loading ? (
-                <Text>Loading...</Text>
-            ) : (
-                <GenericRows items={formattedSubchapters} onNodePress={handleNodePress} color="#FF5733" finishedColor="#52ab95" />
-            )}
+        <View style={styles.container}>
+            {/* Sticky Heading */}
+            <Text style={styles.stickyHeading}>{chapterTitle}</Text>
+
+            {/* Scrollable Content */}
+            <ScrollView contentContainerStyle={styles.scrollViewContent}>
+                {loading ? (
+                    <Text>Loading...</Text>
+                ) : (
+                    <GenericRows
+                        items={formattedSubchapters}
+                        onNodePress={handleNodePress}
+                        color="#FF5733"
+                        finishedColor="#52ab95"
+                    />
+                )}
+            </ScrollView>
+
             {selectedSubchapter && (
                 <SubchapterInfoModal
                     visible={modalVisible}
@@ -128,31 +123,33 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
                     onReviewLesson={handleReviewLesson}
                 />
             )}
-        </ScrollView>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'transparent',
+        backgroundColor: 'white',
     },
-    heading: {
+    stickyHeading: {
         fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',
-        margin: 10,
-        marginTop: 25,
-        color: '#2b4353',
+        paddingVertical: 10,
+        backgroundColor: 'white',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 1,
     },
-    separator: {
-        borderBottomWidth: 1,
-        borderBottomColor: '#2b4353',
-        marginVertical: 5,
+    scrollViewContent: {
+        paddingTop: 60,  // Offset to avoid overlap with sticky heading
     },
 });
 
-
 export default MathSubchapterScreen;
+
 
 

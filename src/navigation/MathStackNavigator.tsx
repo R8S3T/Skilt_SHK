@@ -3,19 +3,56 @@ import { createStackNavigator } from '@react-navigation/stack';
 import MathChapterScreen from 'src/screens/MathScreen/MathChapterScreen';
 import MathSubchapterContentScreen from 'src/screens/MathScreen/MathSubchapterContentScreen';
 import MathSubchapterScreen from 'src/screens/MathScreen/MathSubchapterScreen';
-import { MathStackParamList } from 'src/types/navigationTypes';
 import MathCongratsScreen from 'src/screens/MathScreen/MathCongratsScreen';
+import { MathStackParamList } from 'src/types/navigationTypes';
 
 const Stack = createStackNavigator<MathStackParamList>();
 
 const MathStackNavigator: React.FC = () => {
-    console.log("MathStackNavigator is rendering");
     return (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="MathChapterScreen" component={MathChapterScreen} />
-            <Stack.Screen name="MathSubchapterScreen" component={MathSubchapterScreen} />
-            <Stack.Screen name="MathSubchapterContentScreen" component={MathSubchapterContentScreen} />
-            <Stack.Screen name="MathCongratsScreen" component={MathCongratsScreen} />
+        <Stack.Navigator
+            screenOptions={{
+                headerTitleAlign: 'center',
+                headerTitleStyle: {
+                    fontWeight: '600',
+                },
+            }}
+        >
+            <Stack.Screen 
+                name="MathChapterScreen" 
+                component={MathChapterScreen}
+                options={{ 
+                    title: 'Home',
+                    headerTitleAlign: 'left',
+                    headerTitleStyle: {
+                        paddingLeft: -20, // Adjust this value as needed
+                        fontWeight: '600',
+                    },
+                }}
+            />
+            <Stack.Screen
+                name="MathSubchapterScreen"
+                component={MathSubchapterScreen}
+                options={{
+                    title: 'Module',
+                    headerTitleAlign: 'left',
+                    headerBackTitleVisible: false,
+                    headerTitleStyle: {
+                        fontWeight: '600',
+                        paddingLeft: -20, // Adjust this as needed to position closer to the arrow
+                    },
+                }}
+            />
+            <Stack.Screen
+                name="MathSubchapterContentScreen"
+                component={MathSubchapterContentScreen}
+                options={{ title: 'Math Content' }}
+            />
+            <Stack.Screen
+                name="MathCongratsScreen"
+                component={MathCongratsScreen}
+                options={{ title: 'Congratulations' }}
+            />
         </Stack.Navigator>
     );
 };
