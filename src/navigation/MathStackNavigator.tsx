@@ -22,7 +22,7 @@ const MathStackNavigator: React.FC = () => {
                 name="MathChapterScreen" 
                 component={MathChapterScreen}
                 options={{ 
-                    title: 'Home',
+                    title: 'Start',
                     headerTitleAlign: 'left',
                     headerTitleStyle: {
                         paddingLeft: -20, // Adjust this value as needed

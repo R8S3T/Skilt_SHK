@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+// MathChapterScreen.tsx
+import React, { useEffect, useState, useLayoutEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MathStackParamList } from 'src/types/navigationTypes';
@@ -6,19 +7,29 @@ import { useNavigation } from '@react-navigation/native';
 import { fetchMathChapters } from 'src/database/databaseServices';
 import { MathChapter } from "src/types/contentTypes";
 import { imageMap } from "src/utils/imageMappings";
+import { useTheme } from 'src/context/ThemeContext';
+import ThemeWrapper from 'src/components/ThemeWrapper';
 
 type MathChapterScreenNavigationProp = StackNavigationProp<MathStackParamList, 'MathChapterScreen'>;
 
 const MathChapterScreen: React.FC = () => {
     const navigation = useNavigation<MathChapterScreenNavigationProp>();
+    const { isDarkMode, theme } = useTheme();
     const [chapters, setChapters] = useState<MathChapter[]>([]);
     const [loading, setLoading] = useState(true);
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerTitle: 'Fachmathematik',
+            headerStyle: { backgroundColor: theme.surface },
+            headerTintColor: theme.primaryText,
+        });
+    }, [navigation, theme]);
 
     useEffect(() => {
         const loadChapters = async () => {
             try {
                 const fetchedChapters = await fetchMathChapters();
-                console.log("Fetched Chapters:", fetchedChapters);  // Debug log to check data
                 setChapters(fetchedChapters);
             } catch (error) {
                 console.error('Failed to fetch chapters:', error);
@@ -26,14 +37,13 @@ const MathChapterScreen: React.FC = () => {
                 setLoading(false);
             }
         };
-    
+
         loadChapters();
     }, []);
-    
 
     const renderItem = ({ item }: { item: MathChapter }) => (
         <TouchableOpacity
-            style={styles.itemContainer}
+            style={[styles.itemContainer, { borderColor: theme.border }]}
             onPress={() => {
                 navigation.navigate('MathSubchapterScreen', { chapterId: item.ChapterId, chapterTitle: item.ChapterName });
             }}
@@ -41,45 +51,35 @@ const MathChapterScreen: React.FC = () => {
             {item.Image && imageMap[item.Image as keyof typeof imageMap] && (
                 <Image source={imageMap[item.Image as keyof typeof imageMap]} style={styles.image} />
             )}
-            <Text style={styles.itemText}>{item.ChapterName}</Text>
+            <Text style={[styles.itemText, { color: theme.primaryText }]}>{item.ChapterName}</Text>
         </TouchableOpacity>
     );
 
     if (loading) {
         return (
             <View style={styles.container}>
-                <Text>Loading...</Text>
+                <Text style={{ color: theme.primaryText }}>Loading...</Text>
             </View>
         );
     }
 
-
     return (
-        <View style={styles.container}>
-            {/* Sticky Header */}
-            <Text style={styles.stickyHeader}>Fachmathematik</Text>
-
-            {/* Scrollable Content */}
-            <FlatList
-                contentContainerStyle={styles.flatListContent} // Prevents overlap with sticky header
-                data={chapters}
-                renderItem={renderItem}
-                keyExtractor={item => item.ChapterId.toString()}
-            />
-        </View>
+        <ThemeWrapper>
+            <View style={[styles.container, { backgroundColor: theme.background }]}>
+                <FlatList
+                    contentContainerStyle={styles.flatListContent}
+                    data={chapters}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.ChapterId.toString()}
+                />
+            </View>
+        </ThemeWrapper>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
-    },
-    header: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginVertical: 20,
     },
     itemContainer: {
         flexDirection: 'row',
@@ -87,14 +87,12 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         paddingHorizontal: 15,
         borderBottomWidth: 1,
-        borderColor: '#e0e0e0',
     },
     stickyHeader: {
         fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',
         paddingVertical: 10,
-        backgroundColor: 'white', // Background color to make the header stand out
         position: 'absolute',
         top: 0,
         left: 0,
@@ -102,7 +100,7 @@ const styles = StyleSheet.create({
         zIndex: 1,
     },
     flatListContent: {
-        paddingTop: 60,  // Offset to avoid overlap with sticky header
+        paddingTop: 60,
     },
     image: {
         width: 100,
@@ -112,15 +110,11 @@ const styles = StyleSheet.create({
     },
     itemText: {
         fontSize: 18,
-        flexShrink: 1, // Allow text to shrink to fit within available space
-        flexWrap: 'wrap', // Allow wrapping onto the next line
-        maxWidth: '75%', // Limit width to leave space for the image
+        flexShrink: 1,
+        flexWrap: 'wrap',
+        maxWidth: '75%',
     },
 });
 
 export default MathChapterScreen;
-
-
-
-
 

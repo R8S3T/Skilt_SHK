@@ -1,3 +1,4 @@
+// MathSubchapterScreen.tsx
 import React, { useEffect, useState, useLayoutEffect } from "react";
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
@@ -8,9 +9,9 @@ import { MathSubchapter } from 'src/types/contentTypes';
 import GenericRows from '../GenericRows';
 import { useMathSubchapter } from '../../context/MathSubchapterContext';
 import SubchapterInfoModal from '../Chapters/SubchapterInfoModal';
+import { useTheme } from 'src/context/ThemeContext';
 
 type MathSubchapterScreenRouteProp = RouteProp<MathStackParamList, 'MathSubchapterScreen'>;
-
 type MathSubchapterScreenNavigationProp = StackNavigationProp<MathStackParamList, 'MathSubchapterScreen'>;
 
 type Props = {
@@ -20,20 +21,22 @@ type Props = {
 
 const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
     const { chapterId, chapterTitle, source } = route.params as { chapterId: number; chapterTitle: string; source?: string }; 
+    const { isDarkMode, theme } = useTheme();
     const [subchapters, setSubchapters] = useState<MathSubchapter[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const context = useMathSubchapter();
     const [modalVisible, setModalVisible] = useState<boolean>(false);
     const [selectedSubchapter, setSelectedSubchapter] = useState<MathSubchapter | null>(null);
-
     const { unlockedSubchapters, finishedSubchapters, setCurrentSubchapter } = context;
 
     useLayoutEffect(() => {
         console.log("Source parameter received:", source);
         navigation.setOptions({
-            headerTitle: source === 'HomeScreen' ? 'Home' : 'Module',
+            headerTitle: source === 'HomeScreen' ? 'Start' : 'Module',
+            headerStyle: { backgroundColor: theme.surface },
+            headerTintColor: theme.primaryText,
         });
-    }, [navigation, source]);
+    }, [navigation, source, theme]);
 
     useEffect(() => {
         const loadSubchapters = async () => {
@@ -97,20 +100,20 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
     }));
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: theme.background }]}>
             {/* Sticky Heading */}
-            <Text style={styles.stickyHeading}>{chapterTitle}</Text>
+            <Text style={[styles.stickyHeading, { color: theme.primaryText, backgroundColor: theme.surface }]}>{chapterTitle}</Text>
 
             {/* Scrollable Content */}
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
                 {loading ? (
-                    <Text>Loading...</Text>
+                    <Text style={{ color: theme.primaryText }}>Loading...</Text>
                 ) : (
                     <GenericRows
                         items={formattedSubchapters}
                         onNodePress={handleNodePress}
-                        color="#FF5733"
-                        finishedColor="#52ab95"
+                        color={isDarkMode ? theme.accent : '#FF5733'}
+                        finishedColor={isDarkMode ? theme.accent : '#52ab95'}
                     />
                 )}
             </ScrollView>
@@ -130,14 +133,12 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
     },
     stickyHeading: {
         fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',
         paddingVertical: 10,
-        backgroundColor: 'white',
         position: 'absolute',
         top: 0,
         left: 0,
@@ -150,6 +151,7 @@ const styles = StyleSheet.create({
 });
 
 export default MathSubchapterScreen;
+
 
 
 

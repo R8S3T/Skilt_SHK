@@ -38,10 +38,15 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
             title: chapterTitle || 'Lehrjahre',
             headerTitleAlign: 'left',
             headerTitleStyle: {
+                color: theme.primaryText,
                 marginLeft: -15,
             },
+            headerStyle: {
+                backgroundColor: theme.background,
+            },
+            headerTintColor: theme.primaryText,
         });
-    }, [navigation, chapterTitle]);
+    }, [navigation, theme, chapterTitle]);
 
     useEffect(() => {
         const loadData = async () => {
@@ -118,8 +123,8 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
 
     return (
         <View style={styles.container}>
-            {/* Sticky Heading */}
-            <Text style={[styles.dynamicHeading, isDarkMode && { color: theme.primaryText }]}>
+            {/* Dynamic Heading */}
+            <Text style={[styles.dynamicHeading, { color: theme.primaryText, backgroundColor: theme.background }]}>
                 Lernfeld {chapterId}
             </Text>
 
@@ -127,16 +132,16 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
             <ScrollView
                 contentContainerStyle={[
                     styles.scrollViewContent,
-                    isDarkMode && { backgroundColor: theme.background }
+                    { backgroundColor: theme.background }
                 ]}
             >
                 <Text style={[
                     styles.heading,
-                    isDarkMode && { color: theme.primaryText }
+                    { color: theme.primaryText }
                 ]}>{chapterTitle}</Text>
                 
                 {loading ? (
-                    <Text style={isDarkMode ? { color: theme.primaryText } : undefined}>Loading...</Text>
+                    <Text style={{ color: theme.primaryText }}>Loading...</Text>
                 ) : (
                     <GenericRows
                         items={renderedSubchapters}
@@ -166,15 +171,13 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     scrollViewContent: {
-        paddingTop: 20,  // Add padding to avoid overlap with sticky heading
+        paddingTop: 20,
     },
     dynamicHeading: {
         fontSize: 24,
         fontWeight: 'bold',
         textAlign: 'center',
-        color: '#2b4353',
         paddingVertical: 10,
-        backgroundColor: 'white', // Background to make it stand out
         zIndex: 1,
         position: 'absolute',
         top: 0,
@@ -184,9 +187,10 @@ const styles = StyleSheet.create({
     heading: {
         fontSize: 18,
         textAlign: 'center',
-        marginTop: 50,  // Offset to avoid overlap with sticky heading
+        marginTop: 50,
     },
 });
 
 export default SubchaptersScreen;
+
 

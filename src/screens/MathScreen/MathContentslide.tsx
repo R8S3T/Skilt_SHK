@@ -5,6 +5,7 @@ import { MathMiniQuiz, GenericContent } from 'src/types/contentTypes';
 import MathMiniQuizComponent from '../Quiz/MathMiniQuiz';
 import NextSlideButton from '../NextSlideButton';
 import ContinueButton from './MathContinueButton';
+import { useTheme } from 'src/context/ThemeContext';
 
 interface MathContentSlideProps {
     contentData: GenericContent;
@@ -22,82 +23,53 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
     onQuizLayout,
     onNextSlide,
 }) => {
+    const { isDarkMode, theme } = useTheme();
     const { ContentData } = contentData;
     const [currentPartIndex, setCurrentPartIndex] = useState<number>(0);
     const [quizAnswered, setQuizAnswered] = useState<boolean>(false);
     const flatListRef = useRef<FlatList>(null);
 
-    // Split the content by the [continue] marker
     const parts = ContentData.split(/\[continue\]/);
 
-    // Reset state when slide changes
     useEffect(() => {
         setCurrentPartIndex(0);
         setQuizAnswered(false);
-
-        if (flatListRef.current) {
-            flatListRef.current.scrollToOffset({ offset: 0, animated: true }); // Scroll to top when Slide changes
-        }
+        flatListRef.current?.scrollToOffset({ offset: 0, animated: true });
     }, [contentData]);
 
     const handleContinue = () => {
         const nextPartIndex = currentPartIndex + 1;
-
         if (nextPartIndex < parts.length) {
             setCurrentPartIndex(nextPartIndex);
-            setQuizAnswered(false); // Reset quizAnswered when moving to the next part
-
+            setQuizAnswered(false);
             setTimeout(() => {
-                if (flatListRef.current) {
-                    flatListRef.current.scrollToIndex({
-                        index: nextPartIndex,
-                        animated: true,
-                        viewPosition: 0.10, // Adjust this value as needed
-                    });
-                }
+                flatListRef.current?.scrollToIndex({ index: nextPartIndex, animated: true, viewPosition: 0.10 });
             }, 100);
         }
     };
 
-    const handleQuizAnswered = () => {
-        setQuizAnswered(true);
-    };
-
     const renderPart = (part: string, index: number) => {
-        // Match all [bgcolor-block] blocks and process content inside and outside the blocks
-        const bgColorBlockRegex = /\[bgcolor-block=(#?[a-zA-Z0-9]+)\]([\s\S]*?)\[\/bgcolor-block\]/g;
-        let lastIndex = 0;
         const content = [];
+        const bgColorBlockRegex = /\[bgcolor-block=(#?[a-zA-Z0-9]+)\]([\s\S]*?)\[\/bgcolor-block\]/g;
+        let lastIndex = 0, match;
 
-        let match;
         while ((match = bgColorBlockRegex.exec(part)) !== null) {
-            // Add any text before the [bgcolor-block] as normal content
             if (match.index > lastIndex) {
-                const normalText = part.slice(lastIndex, match.index);
-                content.push(...processNormalText(normalText, index, lastIndex));
+                content.push(...processNormalText(part.slice(lastIndex, match.index), index, lastIndex));
             }
-
-            // Extract the background color and text inside the [bgcolor-block] block
-            const bgColor = match[1];
+            const bgColor = isDarkMode ? '#333333' : match[1];
             const bgText = match[2];
-
-            // Add the [bgcolor-block]
             content.push(
                 <View key={`${index}-bgcolor-block-${lastIndex}`} style={[styles.bgColorBlock, { backgroundColor: bgColor }]}>
-                    <Text style={styles.contentText}>{bgText}</Text>
+                    <Text style={[styles.contentText, { color: theme.primaryText }]}>{bgText}</Text>
                 </View>
             );
-
-            // Update lastIndex to continue from the end of this [bgcolor-block]
             lastIndex = match.index + match[0].length;
         }
 
-        // Add any remaining text after the last [bgcolor-block]
         if (lastIndex < part.length) {
-            const remainingText = part.slice(lastIndex);
-            content.push(...processNormalText(remainingText, index, lastIndex));
+            content.push(...processNormalText(part.slice(lastIndex), index, lastIndex));
         }
-
         return <View style={styles.fullWidthPartContainer}>{content}</View>;
     };
 
@@ -106,42 +78,37 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
         return lines.map((line, subIndex) => {
             const content = [];
 
-            // Handle single-line background color
+            // Inline background line
             const bgColorLineRegex = /\[bgcolor-line=(#?[a-zA-Z0-9]+)\](.*?)\[\/bgcolor-line\]/;
             const bgColorLineMatch = line.match(bgColorLineRegex);
             if (bgColorLineMatch) {
                 const bgColor = bgColorLineMatch[1];
                 const bgText = bgColorLineMatch[2];
                 content.push(
-                    <Text key={`${index}-${lastIndex}-${subIndex}`} style={[styles.contentText, { backgroundColor: bgColor, padding: 5 }]}>
+                    <Text key={`${index}-${lastIndex}-${subIndex}`} style={[styles.contentText, { backgroundColor: bgColor, color: theme.primaryText, padding: 5 }]}>
                         {bgText}
                     </Text>
                 );
                 return content;
             }
 
-        // Handle images
-        if (line.startsWith('[equations_') || line.startsWith('[bigImage_')) {
-            const imageName = line.replace('[', '').replace(']', '').trim();
-            const imageSource = imageMap[imageName as keyof typeof imageMap];
-            if (imageSource) {
-                // Determine if the image is a "welcome" image or a "big" image
-                const isWelcomeImage = imageName.includes("welcome");
-                const isBigImage = imageName.includes("big");
-                content.push(
-                    <Image
-                        key={`${index}-${lastIndex}-${subIndex}`}
-                        source={imageSource}
-                        style={isWelcomeImage ? styles.welcomeImage : isBigImage ? styles.bigImage : styles.image}
-                    />
-                );
-            } else {
-                console.warn(`Image not found for key: ${imageName}`);
+            // Image handling
+            if (line.startsWith('[equations_') || line.startsWith('[bigImage_')) {
+                const imageName = line.replace('[', '').replace(']', '').trim();
+                const imageSource = imageMap[imageName as keyof typeof imageMap];
+                if (imageSource) {
+                    content.push(
+                        <Image
+                            key={`${index}-${lastIndex}-${subIndex}`}
+                            source={imageSource}
+                            style={imageName.includes("welcome") ? styles.welcomeImage : imageName.includes("big") ? styles.bigImage : styles.image}
+                        />
+                    );
+                }
+                return content;
             }
-            return content;
-        }
 
-            // Handle quizzes
+            // Quiz handling
             if (line.startsWith('[quiz_')) {
                 const quizIndex = parseInt(line.split('_')[1], 10) - 1;
                 const quiz = mathMiniQuizzes[quizIndex];
@@ -152,58 +119,39 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                             quiz={quiz}
                             onQuizComplete={onQuizComplete}
                             onQuizLayout={onQuizLayout}
-                            onQuizAnswered={handleQuizAnswered}
+                            onQuizAnswered={() => setQuizAnswered(true)}
                             onContinue={handleContinue}
                         />
                     );
-                } else {
-                    console.warn(`Quiz with index ${quizIndex + 1} not found in mathMiniQuizzes`);
                 }
                 return content;
             }
 
-            // Handle underline text
+            // Underline text
             if (line.includes('[underline]') && line.includes('[/underline]')) {
                 const underlineText = line.replace('[underline]', '').replace('[/underline]', '');
                 content.push(
-                    <View key={`${index}-${lastIndex}-${subIndex}`} style={styles.underlineContainer}>
-                        <Text style={styles.contentText}>{underlineText}</Text>
+                    <View key={`${index}-${lastIndex}-${subIndex}`} style={[styles.underlineContainer, { borderBottomColor: isDarkMode ? '#FFFFFF' : '#000000' }]}>
+                        <Text style={[styles.contentText, { color: theme.primaryText }]}>{underlineText}</Text>
                     </View>
                 );
                 return content;
             }
 
-            // Handle inline bold text and normal text together
-            const parts = line.split(/(\[bold\].*?\[\/bold\])/g); // Split by bold markers, keeping the markers in the result
-
-            const lineContent = parts.map((part, partIndex) => {
-                if (part.startsWith('[bold]') && part.endsWith('[/bold]')) {
-                    const boldText = part.replace('[bold]', '').replace('[/bold]', '');
-                    return (
-                        <Text key={`${index}-${subIndex}-${partIndex}-bold`} style={[styles.contentText, { fontWeight: 'bold' }]}>
-                            {boldText}
-                        </Text>
-                    );
-                } else {
-                    return (
-                        <Text key={`${index}-${subIndex}-${partIndex}-normal`} style={styles.contentText}>
-                            {part}
-                        </Text>
-                    );
-                }
-            });
-
-            // Render the whole line in a single <Text> component to keep everything inline
-            return (
-                <Text key={`${index}-${lastIndex}-${subIndex}-combined`} style={styles.contentText}>
-                    {lineContent}
-                </Text>
+            // Bold and normal text
+            const parts = line.split(/(\[bold\].*?\[\/bold\])/g);
+            const lineContent = parts.map((part, partIndex) =>
+                part.startsWith('[bold]') && part.endsWith('[/bold]')
+                    ? <Text key={`${index}-${subIndex}-${partIndex}-bold`} style={[styles.contentText, { fontWeight: 'bold', color: theme.primaryText }]}>{part.replace('[bold]', '').replace('[/bold]', '')}</Text>
+                    : <Text key={`${index}-${subIndex}-${partIndex}-normal`} style={[styles.contentText, { color: theme.primaryText }]}>{part}</Text>
             );
+
+            return <Text key={`${index}-${lastIndex}-${subIndex}-combined`} style={[styles.contentText, { color: theme.primaryText }]}>{lineContent}</Text>;
         });
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: theme.background }]}>
             <FlatList
                 ref={flatListRef}
                 data={parts.slice(0, currentPartIndex + 1)}
@@ -239,7 +187,6 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'white',
     },
     fullWidthPartContainer: {
         flex: 1,
@@ -286,7 +233,6 @@ const styles = StyleSheet.create({
     },
     underlineContainer: {
         borderBottomWidth: 2,
-        borderBottomColor: 'black',
         paddingBottom: 5,
         width: '100%',
         marginVertical: 10,
@@ -296,9 +242,8 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginVertical: 0,
         borderWidth: 1.5,
-        borderColor: 'orange'
+        borderColor: 'orange',
     },
 });
 
 export default MathContentSlide;
-

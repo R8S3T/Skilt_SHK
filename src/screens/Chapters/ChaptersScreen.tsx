@@ -1,4 +1,6 @@
 // src/screens/ChaptersScreen.tsx
+// For dropdown only!!
+
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
 import { RouteProp, useNavigation } from '@react-navigation/native';

@@ -1,6 +1,4 @@
-// src/components/YearsScreen.tsx
-
-import React from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { LearnStackParamList } from 'src/types/navigationTypes';
@@ -11,9 +9,26 @@ import { useTheme } from 'src/context/ThemeContext';
 const YearsScreen: React.FC = () => {
     const navigation = useNavigation<NavigationProp<LearnStackParamList>>();
     const { isDarkMode, theme } = useTheme();
-    const [expandedYear, setExpandedYear] = React.useState<number | null>(null);
-    const [chapters, setChapters] = React.useState<{ [key: number]: { chapterId: number; chapterTitle?: string; chapterIntro?: string }[] }>({});
-    const [loading, setLoading] = React.useState<boolean>(false);
+    const [expandedYear, setExpandedYear] = useState<number | null>(null);
+    const [chapters, setChapters] = useState<{ [key: number]: { chapterId: number; chapterTitle?: string; chapterIntro?: string }[] }>({});
+    const [loading, setLoading] = useState<boolean>(false);
+
+    useLayoutEffect(() => {
+        // Update the header options
+        navigation.setOptions({
+            title: 'Start',
+            headerStyle: {
+                backgroundColor: theme.background,
+            },
+            headerTitleStyle: {
+                color: theme.primaryText,
+                fontSize: 20,
+                fontWeight: 'normal',
+            },
+            headerTitleAlign: 'left', // Align the header title to the left
+            headerTintColor: theme.primaryText,
+        });
+    }, [navigation, theme]);
 
     const educationData = [
         { year: 1, learnAreas: 4 },
@@ -57,38 +72,39 @@ const YearsScreen: React.FC = () => {
         >
             <Image
                 source={require('../../assets/Images/play_icon.png')}
-                style={[styles.playButton, { tintColor: '#e8630a' }]}
+                style={[styles.playButton, { tintColor: theme.accent }]}
             />
-            {chapter.chapterIntro && <Text style={[styles.introText, isDarkMode && { color: theme.primaryText }]}>{chapter.chapterIntro}</Text>}
+            {chapter.chapterIntro && (
+                <Text style={[styles.introText, { color: theme.primaryText }]}>{chapter.chapterIntro}</Text>
+            )}
         </TouchableOpacity>
     );
 
     return (
-        <ScrollView style={[styles.container, isDarkMode && { backgroundColor: theme.background }]}>
-            <Text style={[styles.title, isDarkMode && { color: theme.primaryText }]}>Wähle dein Lehrjahr</Text>
-
+        <ScrollView style={[styles.container, { backgroundColor: theme.background }]}>
+            <Text style={[styles.title, { color: theme.primaryText }]}>Wähle dein Lehrjahr</Text>
             {educationData.map((item, index) => (
                 <View
                     key={index}
                     style={[
                         styles.cardContainer,
-                        isDarkMode && {
+                        {
                             backgroundColor: theme.surface,
-                            borderColor: theme.border
+                            borderColor: theme.border,
                         }
                     ]}
                 >
                     <TouchableOpacity onPress={() => handlePress(item.year)} style={styles.card}>
                         <View style={styles.yearRectangle}>
-                            <Text style={[styles.number, isDarkMode && { color: theme.primaryText }]}>{`${item.year}. Lehrjahr`}</Text>
+                            <Text style={[styles.number, { color: theme.primaryText }]}>{`${item.year}. Lehrjahr`}</Text>
                         </View>
-                        <Text style={[styles.learnArea, isDarkMode && { color: theme.secondaryText }]}>{`${item.learnAreas} Lernfelder`}</Text>
+                        <Text style={[styles.learnArea, { color: theme.secondaryText }]}>{`${item.learnAreas} Lernfelder`}</Text>
                     </TouchableOpacity>
 
                     {expandedYear === item.year && (
                         <View style={styles.chaptersContainer}>
                             {loading ? (
-                                <Text style={isDarkMode && { color: theme.secondaryText }}>Loading...</Text>
+                                <Text style={{ color: theme.secondaryText }}>Loading...</Text>
                             ) : (
                                 chapters[item.year]?.map((chapter) => renderChapter(chapter))
                             )}
@@ -106,21 +122,17 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingVertical: 30,
-        marginHorizontal: 0,
-        backgroundColor: '#f0f0f0', // Light mode background
+        backgroundColor: '#f0f0f0',
     },
     title: {
         fontSize: 22,
         fontWeight: '600',
         marginVertical: 20,
         textAlign: 'center',
-        color: '#333', // Light mode text color
     },
     cardContainer: {
-        marginTop: 0,
+        marginHorizontal: 10,
         marginBottom: 15,
-        marginLeft: 10,
-        marginRight: 10, 
         borderRadius: 12,
         paddingVertical: 20,
         paddingHorizontal: 15,
@@ -130,8 +142,6 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 2,
         borderWidth: 1,
-        borderColor: '#d3d3d3', // Light mode border
-        backgroundColor: '#f5f5f5', // Light mode background
     },
     card: {
         paddingVertical: 20,
@@ -144,14 +154,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 10,
     },
     number: {
-        fontFamily: 'Lato-Bold',
         fontSize: 22,
-        color: '#2b4353', // Light mode text color
     },
     learnArea: {
-        fontFamily: 'OpenSans-Regular',
         fontSize: 18,
-        color: '#4f5f6f', // Light mode text color
         alignSelf: 'flex-end',
         marginTop: 10,
         marginRight: 10,
@@ -166,14 +172,11 @@ const styles = StyleSheet.create({
         padding: 18,
         marginVertical: 12,
         borderWidth: 0.8,
-        borderColor: '#2b4353', // Light mode border color
         borderRadius: 10,
     },
     introText: {
         flex: 1,
         marginLeft: 28,
-        fontFamily: 'OpenSans-Regular',
-        color: '#2b4353', // Light mode text color
         fontSize: 16,
     },
     playButton: {

@@ -8,6 +8,7 @@ import { MathStackParamList } from 'src/types/navigationTypes';
 import { GenericContent, MathMiniQuiz } from 'src/types/contentTypes';
 import { useMathSubchapter } from '../../context/MathSubchapterContext';
 import { fetchMathContentBySubchapterId, fetchMathMiniQuizByContentId } from 'src/database/databaseServices';
+import { useTheme } from 'src/context/ThemeContext';
 
 type MathSubchapterContentScreenRouteProp = RouteProp<MathStackParamList, 'MathSubchapterContentScreen'>;
 type MathSubchapterContentScreenNavigationProp = StackNavigationProp<MathStackParamList, 'MathSubchapterContentScreen'>;
@@ -19,6 +20,7 @@ type Props = {
 
 const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     const { subchapterId, subchapterTitle, chapterId, chapterTitle } = route.params;
+    const { isDarkMode, theme } = useTheme();
     const [contentData, setContentData] = useState<GenericContent[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -35,15 +37,16 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
                     onPress={() => navigation.navigate('MathSubchapterScreen', { chapterId, chapterTitle })}
                     style={{ marginLeft: 15 }}
                 >
-                    <Ionicons name="close" size={24} color="gray" />
+                    <Ionicons name="close" size={24} color={theme.primaryText} />
                 </TouchableOpacity>
             ),
+            headerStyle: { backgroundColor: theme.surface },
+            headerTintColor: theme.primaryText,
+            title: subchapterTitle,
         });
-    }, [navigation, chapterId, chapterTitle]);
+    }, [navigation, chapterId, chapterTitle, theme, subchapterTitle]);
 
     useEffect(() => {
-        navigation.setOptions({ title: subchapterTitle });
-
         const loadData = async () => {
             try {
                 const data = await fetchMathContentBySubchapterId(subchapterId);
@@ -62,7 +65,7 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
         };
 
         loadData();
-    }, [navigation, subchapterId, subchapterTitle, currentIndex]);
+    }, [subchapterId, currentIndex]);
 
     useEffect(() => {
         if (scrollViewRef.current) {
@@ -72,8 +75,8 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
 
     if (loading) {
         return (
-            <View style={styles.container}>
-                <Text>Loading ...</Text>
+            <View style={[styles.container, { backgroundColor: theme.background }]}>
+                <Text style={{ color: theme.primaryText }}>Loading ...</Text>
             </View>
         );
     }
@@ -81,39 +84,33 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
     const nextContent = () => {
         if (currentIndex < contentData.length - 1) {
             setCurrentIndex(currentIndex + 1);
-
-            // Scroll to the top of the new slide
             if (scrollViewRef.current) {
                 setTimeout(() => {
                     scrollViewRef.current?.scrollTo({ y: 0, animated: true });
-                }, 100); // Add a slight delay to ensure the new content is loaded
+                }, 100);
             }
         } else {
             markSubchapterAsFinished(subchapterId);
             unlockSubchapter(subchapterId + 1);
             navigation.navigate('MathCongratsScreen', {
-                subchapterId: subchapterId,
+                subchapterId,
                 targetScreen: 'MathSubchapterScreen',
                 targetParams: {
-                    chapterId: chapterId,
-                    chapterTitle: chapterTitle,
+                    chapterId,
+                    chapterTitle,
                 },
             });
         }
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: theme.background }]}>
             {contentData.length > 0 && (
                 <MathContentSlide
                     contentData={contentData[currentIndex]}
                     mathMiniQuizzes={mathMiniQuizzes}
-                    onQuizComplete={(isCorrect) => {
-                        // Handle quiz completion
-                    }}
-                    onQuizLayout={(event) => {
-                        // Handle quiz layout changes if needed
-                    }}
+                    onQuizComplete={(isCorrect) => {}}
+                    onQuizLayout={(event) => {}}
                     completedQuizzes={completedQuizzes}
                     onNextSlide={nextContent}
                 />
@@ -125,7 +122,6 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'blue'
     },
     buttonContainer: {
         flexDirection: 'row',

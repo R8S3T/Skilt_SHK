@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet, LayoutChangeEvent } from 'rea
 import { MathMiniQuiz } from 'src/types/contentTypes';
 import MiniQuizButton from '../MathScreen/MiniQuizButton';
 import ContinueButton from '../MathScreen/MathContinueButton';
+import { useTheme } from 'src/context/ThemeContext';
 
 interface MathMiniQuizProps {
     quiz: MathMiniQuiz;
@@ -19,6 +20,7 @@ const MathMiniQuizComponent: React.FC<MathMiniQuizProps> = ({
     onQuizAnswered,
     onContinue,
 }) => {
+    const { isDarkMode, theme } = useTheme();
     const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
     const [isAnswered, setIsAnswered] = useState<boolean>(false);
     const [showContinueButton, setShowContinueButton] = useState<boolean>(true);
@@ -50,13 +52,14 @@ const MathMiniQuizComponent: React.FC<MathMiniQuizProps> = ({
     const options = [quiz.Option1, quiz.Option2, quiz.Option3].filter(Boolean);
 
     return (
-        <View style={styles.quizContainer} onLayout={onQuizLayout}>
-            <Text style={styles.questionText}>{quiz.Question}</Text>
+        <View style={[styles.quizContainer, { backgroundColor: theme.surface }]} onLayout={onQuizLayout}>
+            <Text style={[styles.questionText, { color: theme.primaryText }]}>{quiz.Question}</Text>
             {options.map((option: string, index: number) => (
                 <TouchableOpacity
                     key={index}
                     style={[
                         styles.option,
+                        { backgroundColor: theme.background, borderColor: theme.border },
                         selectedOptions.includes(option) && styles.selectedOption,
                         isAnswered && quiz.Answer.includes(option) && styles.correctOption,
                         isAnswered && selectedOptions.includes(option) && !quiz.Answer.includes(option) && styles.incorrectOption,
@@ -64,7 +67,7 @@ const MathMiniQuizComponent: React.FC<MathMiniQuizProps> = ({
                     onPress={() => handleAnswerSelect(option)}
                     disabled={isAnswered}
                 >
-                    <Text style={styles.optionText}>{option}</Text>
+                    <Text style={[styles.optionText, { color: theme.primaryText }]}>{option}</Text>
                 </TouchableOpacity>
             ))}
             <View style={styles.buttonContainer}>
@@ -89,7 +92,6 @@ const MathMiniQuizComponent: React.FC<MathMiniQuizProps> = ({
 const styles = StyleSheet.create({
     quizContainer: {
         padding: 15,
-        backgroundColor: '#f0f0f0',
         borderRadius: 10,
         marginBottom: 10,
         marginTop: 15
@@ -100,11 +102,9 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     option: {
-        backgroundColor: '#ffffff',
         padding: 10,
         marginVertical: 5,
         borderRadius: 5,
-        borderColor: '#ddd',
         borderWidth: 1,
     },
     selectedOption: {
@@ -138,6 +138,7 @@ const styles = StyleSheet.create({
 });
 
 export default MathMiniQuizComponent;
+
 
 
 
