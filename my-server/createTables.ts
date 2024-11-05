@@ -222,6 +222,7 @@ export const createMathMiniQuizTable = (db: sqlite3.Database): Promise<void> => 
     });
 };
 
+// Function to create the Flashcards table
 export const createFlashcardsTable = (db: sqlite3.Database): Promise<void> => {
     return new Promise((resolve, reject) => {
         db.run(`
@@ -229,16 +230,15 @@ export const createFlashcardsTable = (db: sqlite3.Database): Promise<void> => {
                 FlashcardId INTEGER PRIMARY KEY AUTOINCREMENT,
                 Question TEXT NOT NULL,
                 Answer TEXT NOT NULL,
-                TopicName TEXT NOT NULL,
-                SubchapterId INTEGER NOT NULL,
-                FOREIGN KEY (SubchapterId) REFERENCES SubchapterContent(SubchapterId) ON DELETE CASCADE
+                SubchapterId INTEGER,
+                TopicName TEXT,
+                FOREIGN KEY(SubchapterId) REFERENCES Subchapters(SubchapterId) ON DELETE CASCADE
             );
         `, (err) => {
             if (err) {
-                console.error('Failed to create Flashcards table:', err.message);
+                console.error('Error creating Flashcards table:', err.message);
                 reject(err);
             } else {
-                console.log('Flashcards table created successfully.');
                 resolve();
             }
         });

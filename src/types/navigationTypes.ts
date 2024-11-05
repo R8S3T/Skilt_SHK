@@ -81,8 +81,9 @@ export type RootStackParamList = {
             previousScreen?: string; // Add previousScreen as an optional parameter
         };
     };
-    FlashCardsTopicScreen: { subchapterId: number };
-    FlashCardScreen: { subchapterId: number; topic: string };
-    PrivacyPolicyScreen: undefined;  // Add this line
+    FlashCardChoice: undefined;
+    FlashCardChapters: undefined;
+    PrivacyPolicyScreen: undefined;
 };
+
 

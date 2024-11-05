@@ -45,7 +45,15 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
             // Place an "X" icon button in the header left position
             headerLeft: () => (
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('SubchaptersScreen', { chapterId, chapterTitle })}
+                    onPress={() => {
+                        if (route.params.origin === 'ResumeSection') {
+                            // Navigate directly to HomeScreen if accessed via ResumeSection
+                            navigation.navigate('HomeScreen');
+                        } else {
+                            // Otherwise, navigate back to SubchaptersScreen
+                            navigation.navigate('SubchaptersScreen', { chapterId, chapterTitle });
+                        }
+                    }}
                     style={{ marginLeft: 15 }}
                 >
                     <Ionicons name="close" size={24} color="gray" />
@@ -53,7 +61,8 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
             ),
             headerRight: () => null,  // Remove any headerRight component if it exists
         });
-    }, [navigation, chapterId, chapterTitle]);
+    }, [navigation, chapterId, chapterTitle, route.params.origin]);
+    
 
     // Load saved slide index on first render or reset to 0 if finished
     useEffect(() => {

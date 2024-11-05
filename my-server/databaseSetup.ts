@@ -16,7 +16,7 @@ import {
     createMultipleChoiceOptionsTable,
     createClozeTestOptionsTable,
     createMathMiniQuizTable,
-    createFlashcardsTable,
+    createFlashcardsTable 
 } from './createTables';
 
 
@@ -287,44 +287,19 @@ export const searchSubchapters = (searchQuery: string): Promise<any[]> => {
     });
 };
 
-// Fetch distinct flashcard topics by SubchapterId
-export const fetchFlashcardTopicsBySubchapterId = (subchapterId: number): Promise<string[]> => {
+// Fetch unique SubchapterIds from Flashcards
+export const fetchSubchapterIds = (): Promise<number[]> => {
+    const db = new sqlite3.Database(dbPath);
     return new Promise((resolve, reject) => {
-        const db = new sqlite3.Database(dbPath);
-        const query = `SELECT DISTINCT TopicName FROM Flashcards WHERE SubchapterId = ?`;
-        
-        db.all(query, [subchapterId], (err, rows: any[]) => {  // Explicitly typing rows as any[]
-            db.close();
+        db.all('SELECT DISTINCT SubchapterId FROM Flashcards', [], (err, rows: { SubchapterId: number }[]) => {
+            db.close(); // Close the database connection here to ensure it's always closed
             if (err) {
-                console.error(`Failed to fetch flashcard topics for subchapterId ${subchapterId}:`, err);
+                console.error('Failed to fetch subchapter IDs:', err);
                 reject(err);
             } else {
-                const topics = rows.map(row => row.TopicName);  // Now row is assumed to have TopicName
-                resolve(topics);
+                const ids = rows.map(row => row.SubchapterId); // Extract the SubchapterId
+                resolve(ids);
             }
         });
     });
 };
-
-// Fetch flashcards (Question and Answer) by TopicName and SubchapterId
-export const fetchFlashcardsByTopic = (subchapterId: number, topicName: string): Promise<{ Question: string, Answer: string }[]> => {
-    return new Promise((resolve, reject) => {
-        const db = new sqlite3.Database(dbPath);
-        const query = `SELECT Question, Answer FROM Flashcards WHERE SubchapterId = ? AND TopicName = ?`;
-
-        db.all(query, [subchapterId, topicName], (err, rows: any[]) => {  // Explicitly typing rows as any[]
-            db.close();
-            if (err) {
-                console.error(`Failed to fetch flashcards for topic ${topicName} and subchapterId ${subchapterId}:`, err);
-                reject(err);
-            } else {
-                const flashcards = rows.map(row => ({
-                    Question: row.Question,
-                    Answer: row.Answer,
-                }));
-                resolve(flashcards);
-            }
-        });
-    });
-};
-

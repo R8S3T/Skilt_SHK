@@ -97,6 +97,5 @@ export interface Flashcard {
     FlashcardId: number;
     Question: string;
     Answer: string;
-    TopicName: string;
     SubchapterId: number;
 }

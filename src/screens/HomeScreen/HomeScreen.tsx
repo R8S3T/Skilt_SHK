@@ -8,7 +8,7 @@ import { BottomTabParamList } from 'src/types/navigationTypes';
 import Section1 from './Section1';
 import ResumeSection from './ResumeSection';
 import MathModulSection from './MathModulSection';
-import FlashcardsSection from './FlashCardsSection';
+import FlashcardsSection from './FlashCardSection';
 import { hasMadeProgress } from 'src/utils/onBoardingUtils';
 import { useTheme } from 'src/context/ThemeContext';
 
@@ -67,6 +67,7 @@ const HomeScreen = () => {
         console.log(title);
     };
 
+
     return (
         <ScrollView
             style={{ backgroundColor: theme.background }}
@@ -78,10 +79,7 @@ const HomeScreen = () => {
             <Section1 onButtonPress={handleButtonPress} />
             {showResume && <ResumeSection sectionTitle="Weiterlernen" />}
             <MathModulSection onButtonPress={handleButtonPress} />
-            <FlashcardsSection
-                onButtonPress={handleButtonPress}
-                subchapterId={1}  // Replace with dynamic ID as needed
-            />
+            <FlashcardsSection onButtonPress={handleButtonPress} />
         </ScrollView>
     );
 };

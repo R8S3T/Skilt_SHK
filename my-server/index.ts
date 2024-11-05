@@ -17,8 +17,7 @@ import {
     fetchClozeTestOptionsByQuizId,
     fetchMathMiniQuizByContentId,
     searchSubchapters,
-    fetchFlashcardTopicsBySubchapterId,
-    fetchFlashcardsByTopic,
+    fetchSubchapterIds
 } from './databaseSetup';
 
 const app = express();
@@ -189,30 +188,16 @@ app.get('/search/:query', async (req, res) => {
     }
 });
 
-// Handle GET requests to fetch flashcard topics by SubchapterId
-app.get('/flashcards/topics/subchapter/:subchapterId', async (req, res) => {
-    const subchapterId = parseInt(req.params.subchapterId);
-    
+// Handle GET requests to fetch unique SubchapterIds
+app.get('/flashcards/subchapterIds', async (req, res) => {
     try {
-        const topics = await fetchFlashcardTopicsBySubchapterId(subchapterId);
-        res.json(topics);
+        console.log('Request received for /flashcards/subchapterIds'); // Log request
+        const subchapterIds = await fetchSubchapterIds(); // Fetch unique IDs
+        console.log('Fetched subchapter IDs:', subchapterIds); // Log fetched IDs
+        res.json(subchapterIds); // Send the response back to the client
     } catch (error) {
-        console.error(`Error fetching flashcard topics for subchapterId ${subchapterId}:`, error);
-        res.status(500).json({ error: 'Failed to fetch flashcard topics' });
-    }
-});
-
-// Fetch flashcards (Question and Answer) by TopicName and SubchapterId
-app.get('/flashcards/subchapter/:subchapterId/topic/:topicName', async (req, res) => {
-    const subchapterId = parseInt(req.params.subchapterId);
-    const topicName = req.params.topicName;
-    
-    try {
-        const flashcards = await fetchFlashcardsByTopic(subchapterId, topicName);
-        res.json(flashcards);
-    } catch (error) {
-        console.error(`Error fetching flashcards for topic ${topicName} and subchapterId ${subchapterId}:`, error);
-        res.status(500).json({ error: 'Failed to fetch flashcards' });
+        console.error('Error fetching subchapter IDs:', error);
+        res.status(500).json({ error: 'Failed to fetch subchapter IDs' });
     }
 });
 
