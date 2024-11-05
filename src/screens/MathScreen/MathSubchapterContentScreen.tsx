@@ -34,7 +34,11 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
         navigation.setOptions({
             headerLeft: () => (
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('MathSubchapterScreen', { chapterId, chapterTitle })}
+                    onPress={() => navigation.navigate('MathSubchapterScreen', { 
+                        chapterId, 
+                        chapterTitle, 
+                        origin: 'HomeScreen'  // Pass the origin parameter here
+                    })}
                     style={{ marginLeft: 15 }}
                 >
                     <Ionicons name="close" size={24} color={theme.primaryText} />
@@ -45,6 +49,7 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
             title: subchapterTitle,
         });
     }, [navigation, chapterId, chapterTitle, theme, subchapterTitle]);
+    
 
     useEffect(() => {
         const loadData = async () => {

@@ -208,6 +208,7 @@ const img_LF1Linienlaserzoom = require('../../assets/DbImages/SubchapterContent/
 const img_LF1Maewelcome = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Maße_welcome.png');
 const img_LF1Maewelcomezoom = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Maße_welcome_zoom.png');
 const img_LF1Mastabzoom = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Maßstab_zoom.png');
+const img_LF1MessschieberAblesenzoom = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Messschieber_Ablesen_zoom.png');
 const img_LF1Messschieberzoom = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Messschieber_zoom.png');
 const img_LF1Metalle = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Metalle.png');
 const img_LF1Metallewelcome = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Metalle_welcome.png');
@@ -493,6 +494,7 @@ const img_LF6Anschlusskanalzoom = require('../../assets/DbImages/SubchapterConte
 const img_LF6AnschlusswinkelLftungsleitungzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Anschlusswinkel_Lüftungsleitung_zoom.png');
 const img_LF6BerechnungGeflle = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Berechnung_Gefälle.png');
 const img_LF6DINChecksmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_DIN_Check_small.png');
+const img_LF6Dichtheitsprfungzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Dichtheitsprüfung_zoom.png');
 const img_LF6Dimensionssprungzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Dimensionssprung_zoom.png');
 const img_LF6Doppelabzweig = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Doppelabzweig.png');
 const img_LF6Doppelabzweig2zoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Doppelabzweig_2_zoom.png');
@@ -838,6 +840,7 @@ export const imageMap = {
     "LF_1_Maße_welcome": img_LF1Maewelcome,
     "LF_1_Maße_welcome_zoom": img_LF1Maewelcomezoom,
     "LF_1_Maßstab_zoom": img_LF1Mastabzoom,
+    "LF_1_Messschieber_Ablesen_zoom": img_LF1MessschieberAblesenzoom,
     "LF_1_Messschieber_zoom": img_LF1Messschieberzoom,
     "LF_1_Metalle": img_LF1Metalle,
     "LF_1_Metalle_welcome": img_LF1Metallewelcome,
@@ -1123,6 +1126,7 @@ export const imageMap = {
     "LF_6_Anschlusswinkel_Lüftungsleitung_zoom": img_LF6AnschlusswinkelLftungsleitungzoom,
     "LF_6_Berechnung_Gefälle": img_LF6BerechnungGeflle,
     "LF_6_DIN_Check_small": img_LF6DINChecksmall,
+    "LF_6_Dichtheitsprüfung_zoom": img_LF6Dichtheitsprfungzoom,
     "LF_6_Dimensionssprung_zoom": img_LF6Dimensionssprungzoom,
     "LF_6_Doppelabzweig": img_LF6Doppelabzweig,
     "LF_6_Doppelabzweig_2_zoom": img_LF6Doppelabzweig2zoom,

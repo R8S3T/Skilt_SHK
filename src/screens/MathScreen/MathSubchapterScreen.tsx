@@ -20,7 +20,11 @@ type Props = {
 };
 
 const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
-    const { chapterId, chapterTitle, source } = route.params as { chapterId: number; chapterTitle: string; source?: string }; 
+    const { chapterId, chapterTitle, origin } = route.params as { 
+        chapterId: number; 
+        chapterTitle: string; 
+        origin?: string 
+    };
     const { isDarkMode, theme } = useTheme();
     const [subchapters, setSubchapters] = useState<MathSubchapter[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -30,13 +34,13 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
     const { unlockedSubchapters, finishedSubchapters, setCurrentSubchapter } = context;
 
     useLayoutEffect(() => {
-        console.log("Source parameter received:", source);
+        console.log("Origin parameter received:", origin);
         navigation.setOptions({
-            headerTitle: source === 'HomeScreen' ? 'Start' : 'Module',
+            headerTitle: origin === 'HomeScreen' ? 'Start' : 'Module',
             headerStyle: { backgroundColor: theme.surface },
             headerTintColor: theme.primaryText,
         });
-    }, [navigation, source, theme]);
+    }, [navigation, origin, theme]);
 
     useEffect(() => {
         const loadSubchapters = async () => {
@@ -74,7 +78,8 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
                 subchapterId,
                 subchapterTitle,
                 chapterId,
-                chapterTitle
+                chapterTitle,
+                origin // Pass origin to retain the "Start" label when navigating back
             });
         }
     };
@@ -86,7 +91,8 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
                 subchapterId: selectedSubchapter.SubchapterId,
                 subchapterTitle: selectedSubchapter.SubchapterName,
                 chapterId,
-                chapterTitle
+                chapterTitle,
+                origin // Pass origin here as well
             });
         }
         setModalVisible(false);
@@ -129,6 +135,7 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
         </View>
     );
 };
+
 
 const styles = StyleSheet.create({
     container: {

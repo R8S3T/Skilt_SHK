@@ -42,12 +42,12 @@ const MathModulSection: React.FC<MathModulSectionProps> = ({ onButtonPress }) =>
                 params: { 
                     chapterId: module.ChapterId, 
                     chapterTitle: module.ChapterName,
-                    source: 'HomeScreen'
+                    origin: 'HomeScreen'  // Pass the origin parameter
                 }
             });
         }
     };
-    
+
     return (
         <View style={[styles.container, isDarkMode && { backgroundColor: theme.surface }]}>
             <Text style={[styles.title, isDarkMode && { color: theme.primaryText }]}>Fachmathematik</Text>
