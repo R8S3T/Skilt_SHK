@@ -27,10 +27,16 @@ export type LearnStackParamList = {
         contentId?: number;
         onCompletion?: () => void;
         origin?: string;
+        previousScreen?: string;
     };
     CongratsScreen: {
         targetScreen: keyof LearnStackParamList | keyof MathStackParamList;
-        targetParams: { chapterId: number; chapterTitle: string };
+        targetParams: { 
+            chapterId: number; 
+            chapterTitle: string; 
+            origin?: string;  // Ensure origin is defined as optional
+            previousScreen?: string; 
+        };
     };
 };
 
@@ -59,8 +65,6 @@ export type MathStackParamList = {
     };
 };
 
-
-
 // A TypeScript type that defines all possible navigation paths and parameters in AppNavigator, ensuring that navigation across the entire app is type-safe and well-organized.
 
 export type RootStackParamList = {
@@ -70,7 +74,12 @@ export type RootStackParamList = {
     Math: NavigatorScreenParams<MathStackParamList>;
     CongratsScreen: {
         targetScreen: keyof RootStackParamList;
-        targetParams: { chapterId: number; chapterTitle: string };
+        targetParams: { 
+            chapterId: number; 
+            chapterTitle: string; 
+            origin?: string;        // Add origin as an optional parameter
+            previousScreen?: string; // Add previousScreen as an optional parameter
+        };
     };
     FlashCardsTopicScreen: { subchapterId: number };
     FlashCardScreen: { subchapterId: number; topic: string };

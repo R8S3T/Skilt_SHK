@@ -100,6 +100,7 @@ interface NextContentParams {
     navigation: NavigationProp<LearnStackParamList, 'SubchapterContentScreen'>;
     markSubchapterAsFinished: (id: number) => void;
     unlockSubchapter: (id: number) => void;
+    origin?: string;
 }
 export const nextContent = async ({
     showQuiz,
@@ -116,6 +117,7 @@ export const nextContent = async ({
     navigation,
     markSubchapterAsFinished,
     unlockSubchapter,
+    origin,
 }: NextContentParams) => {
 
     const saveCurrentProgress = async (newIndex: number) => {
@@ -148,14 +150,14 @@ export const nextContent = async ({
         }
     };
 
-    const completeSubchapter = async () => {
-        markSubchapterAsFinished(subchapterId);
-        unlockSubchapter(subchapterId + 1);
-        await saveCurrentProgress(currentIndex); // Save progress when subchapter completes
-
+    const completeSubchapter = () => {
         navigation.navigate('CongratsScreen', {
-            targetScreen: 'SubchaptersScreen',
-            targetParams: { chapterId, chapterTitle },
+            targetScreen: 'SubchapterContentScreen',  // Standard target screen for the next subchapter
+            targetParams: {
+                chapterId,
+                chapterTitle,
+                origin,  // Directly access origin from route.params
+            },
         });
     };
 

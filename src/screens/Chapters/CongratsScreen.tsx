@@ -23,10 +23,14 @@ const CongratsScreen: React.FC = () => {
     }
 
     const handleContinue = () => {
-        if (targetScreen && targetParams) {
-            navigation.navigate(targetScreen, targetParams);
+        const { targetScreen, targetParams } = route.params;
+    
+        if (targetParams.origin === 'ResumeSection') {
+            // Directly navigate to HomeScreen if accessed from ResumeSection
+            navigation.navigate('HomeScreen');
         } else {
-            console.error('Navigation parameters missing.');
+            // Standard navigation to the next subchapter
+            navigation.navigate(targetScreen, targetParams);
         }
     };
     

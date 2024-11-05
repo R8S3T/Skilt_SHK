@@ -56,13 +56,14 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
                     chapterId: lastChapterId ?? 1,
                     chapterTitle: lastChapterTitle ?? "Standard Kapitel Titel",
                     contentId: lastContentId,
-                    origin: 'ResumeSection'
+                    origin: 'ResumeSection',
                 },
             });
         } else {
             console.error("Cannot navigate: Missing one or more required parameters.");
         }
     };
+    
 
     const imageSource = lastImageName ? imageMap[lastImageName as keyof typeof imageMap] : null;
     console.log("Image source:", imageSource);
