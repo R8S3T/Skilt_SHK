@@ -30,15 +30,16 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
         console.log("Load Progress Result:", result);
     
         const { chapterId, chapterTitle, subchapterId, subchapterName, currentIndex, imageName } = result;
-        console.log("Retrieved imageName:", imageName);
+    
         if (chapterId) setLastChapterId(chapterId);
         if (chapterTitle) setLastChapterTitle(chapterTitle);
         if (subchapterId) setLastSubchapter(subchapterId);
-        if (subchapterName) setLastSubchapterName(subchapterName);
+        if (subchapterName) setLastSubchapterName(subchapterName); // Should reflect the actual subchapter name now
         if (currentIndex !== null) setLastContentId(currentIndex);
-        if (imageName) setLastImageName(imageName);
-        };
+        if (imageName) setLastImageName(imageName); // Should reflect the correct image for the subchapter
+    };
     
+
 
     useFocusEffect(
         useCallback(() => {

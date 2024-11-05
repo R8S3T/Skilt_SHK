@@ -12,6 +12,7 @@ export interface Subchapter {
     ImageName: string;
     isLocked: boolean;
     isFinished: boolean;
+    SortOrder: number;
 }
 
 export interface SubchapterWithPreview {
