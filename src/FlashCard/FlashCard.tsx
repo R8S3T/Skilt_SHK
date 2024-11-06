@@ -5,10 +5,15 @@ import FlipCard from 'react-native-flip-card';
 
 const Flashcard = ({ question, answer }: { question: string; answer: string }) => {
     return (
-        <View style={styles.container}>
-            <FlipCard flipHorizontal flipVertical={false} clickable>
+        <View style={styles.cardWrapper}>
+            <FlipCard
+                style={styles.flipCard}
+                flipHorizontal
+                flipVertical={false}
+                clickable
+            >
                 {/* Front Side - Question */}
-                <View style={styles.face}>
+                <View style={styles.front}>
                     <Text style={styles.text}>{question}</Text>
                 </View>
 
@@ -22,29 +27,44 @@ const Flashcard = ({ question, answer }: { question: string; answer: string }) =
 };
 
 const styles = StyleSheet.create({
-    container: {
-        marginVertical: 10,
-        alignItems: 'center',
-    },
-    face: {
+    cardWrapper: {
+        width: 300,               // Fixed width for the outer container
+        height: 400,              // Fixed height for the outer container
+        borderRadius: 15,
+        overflow: 'hidden',
+        backgroundColor: '#ffffff',
+        shadowColor: '#000',
+        shadowOpacity: 0.4,
+        shadowOffset: { width: 0, height: 6 },
+        shadowRadius: 10,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#4CAF50',
-        padding: 20,
-        borderRadius: 8,
+    },
+    flipCard: {
+        width: 300,              // Fixed width for the FlipCard itself
+        height: 400,             // Fixed height for the FlipCard itself
+    },
+    front: {
+        width: '100%',            // Ensure front fills the flipCard container
+        height: '100%',
+        backgroundColor: '#4CAF50', // Green background for the front side
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     back: {
+        width: '100%',            // Ensure back fills the flipCard container
+        height: '100%',
+        backgroundColor: '#FF7043', // Orange background for the back side
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#FF7043',
-        padding: 20,
-        borderRadius: 8,
     },
     text: {
-        color: '#fff',
+        color: '#2b4450',
         fontSize: 18,
         textAlign: 'center',
+        paddingHorizontal: 10,
     },
 });
 
 export default Flashcard;
+
