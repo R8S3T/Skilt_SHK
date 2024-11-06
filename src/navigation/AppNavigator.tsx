@@ -12,6 +12,7 @@ import { MathSubchapterProvider } from 'src/context/MathSubchapterContext';
 import PrivacyPolicyScreen from 'src/screens/Settings Screen/PrivacyPolicyScreen';
 import FlashCardChoice from 'src/FlashCard/FlashCardChoice';
 import FlashCardChapters from 'src/FlashCard/FlashCardChapters';
+import FlashcardScreen from 'src/FlashCard/FlashcardScreen';
 import { hasCompletedOnboarding } from 'src/utils/onBoardingUtils';
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -70,6 +71,11 @@ const AppNavigator = () => {
                 name="FlashCardChapters" // Register the new screen
                 component={FlashCardChapters}
                 options={{ title: 'Flashcard Chapters', headerTitleAlign: 'center' }}
+            />
+            <Stack.Screen
+                name="FlashcardScreen"
+                component={FlashcardScreen}
+                options={{ title: 'Flashcard', headerTitleAlign: 'center' }}
             />
             <Stack.Screen
                 name="PrivacyPolicyScreen"

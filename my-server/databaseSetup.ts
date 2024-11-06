@@ -287,19 +287,42 @@ export const searchSubchapters = (searchQuery: string): Promise<any[]> => {
     });
 };
 
-// Fetch unique SubchapterIds from Flashcards
-export const fetchSubchapterIds = (): Promise<number[]> => {
+// Fetch ChapterIds from Flashcards
+export const fetchFlashcardsByChapterId = (chapterId: number): Promise<{ Question: string; Answer: string }[]> => {
     const db = new sqlite3.Database(dbPath);
     return new Promise((resolve, reject) => {
-        db.all('SELECT DISTINCT SubchapterId FROM Flashcards', [], (err, rows: { SubchapterId: number }[]) => {
-            db.close(); // Close the database connection here to ensure it's always closed
-            if (err) {
-                console.error('Failed to fetch subchapter IDs:', err);
-                reject(err);
-            } else {
-                const ids = rows.map(row => row.SubchapterId); // Extract the SubchapterId
-                resolve(ids);
+        db.all(
+            'SELECT Question, Answer FROM Flashcards WHERE ChapterId = ?',
+            [chapterId],
+            (err, rows: { Question: string; Answer: string }[]) => { // Specify the type for rows
+                db.close(); // Close the database connection
+                if (err) {
+                    console.error('Failed to fetch flashcards:', err);
+                    reject(err);
+                } else {
+                    resolve(rows);
+                }
             }
-        });
+        );
+    });
+};
+
+// Function to fetch all chapters from the database
+export const fetchChaptersFromDatabase = (): Promise<{ ChapterId: number; ChapterName: string }[]> => {
+    const db = new sqlite3.Database(dbPath);
+    return new Promise((resolve, reject) => {
+        db.all(
+            'SELECT ChapterId, ChapterName FROM Chapters', // Adjust this query as needed
+            [],
+            (err, rows: { ChapterId: number; ChapterName: string }[]) => { // Specify the type for rows
+                db.close();
+                if (err) {
+                    console.error('Failed to fetch chapters:', err);
+                    reject(err);
+                } else {
+                    resolve(rows);
+                }
+            }
+        );
     });
 };

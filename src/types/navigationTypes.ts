@@ -77,12 +77,16 @@ export type RootStackParamList = {
         targetParams: { 
             chapterId: number; 
             chapterTitle: string; 
-            origin?: string;        // Add origin as an optional parameter
-            previousScreen?: string; // Add previousScreen as an optional parameter
+            origin?: string;
+            previousScreen?: string;
         };
     };
     FlashCardChoice: undefined;
     FlashCardChapters: undefined;
+    FlashcardScreen: {
+        chapterId: number;
+        chapterTitle?: string;
+    };
     PrivacyPolicyScreen: undefined;
 };
 

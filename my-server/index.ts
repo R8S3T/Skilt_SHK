@@ -17,7 +17,8 @@ import {
     fetchClozeTestOptionsByQuizId,
     fetchMathMiniQuizByContentId,
     searchSubchapters,
-    fetchSubchapterIds
+    fetchFlashcardsByChapterId,
+    fetchChaptersFromDatabase
 } from './databaseSetup';
 
 const app = express();
@@ -188,18 +189,31 @@ app.get('/search/:query', async (req, res) => {
     }
 });
 
-// Handle GET requests to fetch unique SubchapterIds
-app.get('/flashcards/subchapterIds', async (req, res) => {
+// Handle GET requests to fetch ChapterId
+app.get('/flashcards', async (req, res) => {
+    const { chapterId } = req.query;
+    if (!chapterId) {
+        return res.status(400).json({ error: 'Missing chapterId parameter' });
+    }
     try {
-        console.log('Request received for /flashcards/subchapterIds'); // Log request
-        const subchapterIds = await fetchSubchapterIds(); // Fetch unique IDs
-        console.log('Fetched subchapter IDs:', subchapterIds); // Log fetched IDs
-        res.json(subchapterIds); // Send the response back to the client
+        const flashcards = await fetchFlashcardsByChapterId(Number(chapterId));
+        res.json(flashcards);
     } catch (error) {
-        console.error('Error fetching subchapter IDs:', error);
-        res.status(500).json({ error: 'Failed to fetch subchapter IDs' });
+        console.error('Error fetching flashcards:', error);
+        res.status(500).json({ error: 'Failed to fetch flashcards' });
     }
 });
+
+app.get('/chapters', async (req, res) => {
+    try {
+        const chapters = await fetchChaptersFromDatabase(); // Replace with your function to fetch chapters from the database
+        res.json(chapters);
+    } catch (error) {
+        console.error('Error fetching chapters:', error);
+        res.status(500).json({ error: 'Failed to fetch chapters' });
+    }
+});
+
 
 // Start the server on the specified port and IP address
 app.listen(PORT, '0.0.0.0', () => {

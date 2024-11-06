@@ -11,7 +11,6 @@ import {
     Quiz,
     MultipleChoiceOption,
     ClozeTestOption,
-    Flashcard
 } from 'src/types/contentTypes';
 
     // Use here Expo IP adress
@@ -197,17 +196,32 @@ export async function searchSubchapters(query: string): Promise<Subchapter[]> {
     }
 }
 
-// Function to fetch flashcards based on a subchapterId
-export async function fetchSubchapterIds(): Promise<number[]> {
+// Function to fetch flashcards based on a chapterId
+export async function fetchFlashcardsForChapter(chapterId: number): Promise<{ Question: string; Answer: string }[]> {
     try {
-        const response = await fetch(`${API_URL}/flashcards/subchapterIds`);
+        const response = await fetch(`${API_URL}/flashcards?chapterId=${chapterId}`);
         if (!response.ok) {
             throw new Error('Network response was not ok.');
         }
-        const data: { SubchapterId: number }[] = await response.json(); // Specify the expected type
-        return data.map(item => item.SubchapterId); // Extract and return unique SubchapterIds
+        const data = await response.json();
+        return data;
     } catch (error) {
-        console.error('Failed to fetch subchapter IDs:', error);
-        return [];  // Return empty array on error
+        console.error(`Failed to fetch flashcards for ChapterId ${chapterId}:`, error);
+        return [];
+    }
+}
+
+// Fetch all chapters from the server (for displaying all "Lernfelder")
+export async function fetchChapters(): Promise<{ ChapterId: number; ChapterName: string }[]> {
+    try {
+        const response = await fetch(`${API_URL}/chapters`);
+        if (!response.ok) {
+            throw new Error('Network response was not ok.');
+        }
+        const data = await response.json();
+        return data; // Expected format: [{ ChapterId: number, ChapterName: string }]
+    } catch (error) {
+        console.error('Failed to fetch chapters:', error);
+        return [];
     }
 }

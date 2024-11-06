@@ -1,45 +1,54 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { fetchSubchapterIds } from 'src/database/databaseServices';
+import { fetchChapters } from 'src/database/databaseServices';
+import { NavigationProp } from '@react-navigation/native';
+import { RootStackParamList } from 'src/types/navigationTypes';
 
+// Memoized button component to avoid unnecessary re-renders
+const FlashCardButton = React.memo(({ id, name, onPress }: { id: number; name: string; onPress: (id: number) => void }) => (
+    <TouchableOpacity key={id} style={styles.button} onPress={() => onPress(id)}>
+        <Text style={styles.buttonText}>{name}</Text>
+    </TouchableOpacity>
+));
 
+// Main component
 const FlashCardChapters = () => {
-    const navigation = useNavigation();
-    const [subchapterIds, setSubchapterIds] = useState<number[]>([]); // State to hold unique SubchapterIds
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+    const [chapters, setChapters] = useState<{ ChapterId: number; ChapterName: string }[]>([]);
 
     useEffect(() => {
-        const getSubchapterIds = async () => {
-            const ids = await fetchSubchapterIds(); // Fetch subchapter IDs using the service
-            setSubchapterIds(ids); // Update state with fetched IDs
+        const getChapters = async () => {
+            const fetchedChapters = await fetchChapters();
+            setChapters(fetchedChapters);
         };
 
-        getSubchapterIds(); // Call the function on component mount
+        getChapters();
     }, []);
 
-    const handleButtonPress = (subchapterId: number) => {
-        console.log(`Navigating to Subchapter ID: ${subchapterId}`);
+    const handleButtonPress = (chapterId: number) => {
+        console.log(`Navigating to Chapter ID: ${chapterId}`);
+        navigation.navigate('FlashcardScreen', { chapterId, chapterTitle: `Lernfeld ${chapterId}` });
     };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Flashcard Chapters</Text>
-            <Text style={styles.description}>
-                Here you can select your flashcard chapters.
-            </Text>
-            {subchapterIds.length > 0 ? (
-                subchapterIds.map((id) => (
-                    <TouchableOpacity
-                        key={id}
-                        style={styles.button}
-                        onPress={() => handleButtonPress(id)}
-                    >
-                        <Text style={styles.buttonText}>Lernfeld {id}</Text>
-                    </TouchableOpacity>
-                ))
-            ) : (
-                <Text style={styles.description}>Loading chapters...</Text>
-            )}
+            {/* Sticky Header */}
+            <View style={styles.header}>
+                <Text style={styles.headerText}>Lernfelder</Text>
+            </View>
+            
+            {/* Scrollable Content */}
+            <ScrollView contentContainerStyle={styles.scrollContent} style={styles.scrollView}>
+                {chapters.map((chapter) => (
+                    <FlashCardButton
+                        key={chapter.ChapterId}
+                        id={chapter.ChapterId}
+                        name={chapter.ChapterName}
+                        onPress={handleButtonPress}
+                    />
+                ))}
+            </ScrollView>
         </View>
     );
 };
@@ -47,32 +56,47 @@ const FlashCardChapters = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        backgroundColor: '#f9f9f9',
+    },
+    header: {
+        backgroundColor: '#4CAF50',
+        paddingVertical: 20,
         alignItems: 'center',
-        padding: 20,
-        backgroundColor: '#f5f5f5',
+        borderBottomWidth: 1,
+        borderBottomColor: '#e0e0e0',
     },
-    title: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginBottom: 10,
+    headerText: {
+        color: '#ffffff',
+        fontSize: 26,
+        fontWeight: '600',
     },
-    description: {
-        fontSize: 16,
-        textAlign: 'center',
-        margin: 10,
+    scrollView: {
+        flex: 1,
+    },
+    scrollContent: {
+        paddingVertical: 20,
+        alignItems: 'center',
     },
     button: {
-        backgroundColor: '#007BFF',
-        padding: 15,
-        borderRadius: 5,
-        width: '100%',
+        backgroundColor: '#ffffff',
+        paddingVertical: 15,
+        paddingHorizontal: 20,
+        borderRadius: 10,
+        borderWidth: 1,
+        borderColor: '#e0e0e0',
+        width: '90%',
         alignItems: 'center',
         marginVertical: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 5,
+        elevation: 3,
     },
     buttonText: {
-        color: 'white',
+        color: '#333333',
         fontSize: 18,
+        fontWeight: '500',
     },
 });
 
