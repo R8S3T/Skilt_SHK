@@ -13,8 +13,9 @@ import PrivacyPolicyScreen from 'src/screens/Settings Screen/PrivacyPolicyScreen
 import FlashCardChoice from 'src/FlashCard/FlashCardChoice';
 import FlashCardChapters from 'src/FlashCard/FlashCardChapters';
 import FlashcardScreen from 'src/FlashCard/FlashcardScreen';
+import FlashCardRepeat from 'src/FlashCard/FlashCardRepeat';
 import { hasCompletedOnboarding } from 'src/utils/onBoardingUtils';
-
+import FlashCardStackNavigator from './FlashCardStackNavigator';
 const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNavigator = () => {
@@ -76,6 +77,11 @@ const AppNavigator = () => {
                 name="FlashcardScreen"
                 component={FlashcardScreen}
                 options={{ title: 'Flashcard', headerTitleAlign: 'center' }}
+            />
+            <Stack.Screen
+                name="FlashCardRepeat"
+                component={FlashCardRepeat}
+                options={{ title: 'Flashcard Repeat', headerTitleAlign: 'center' }}
             />
             <Stack.Screen
                 name="PrivacyPolicyScreen"

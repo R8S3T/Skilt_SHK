@@ -13,7 +13,7 @@ const FlashCardChoice = () => {
 
     const handleRepeatCardsPress = () => {
         console.log('Lernkarte wiederholen pressed');
-        // Add navigation or functionality for this button
+        navigation.navigate('FlashCardRepeat');  // Navigate to FlashCardRepeat
     };
 
     return (

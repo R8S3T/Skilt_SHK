@@ -1,9 +1,14 @@
 // src/FlashCard/Flashcard.tsx
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import FlipCard from 'react-native-flip-card';
 
-const Flashcard = ({ question, answer }: { question: string; answer: string }) => {
+const Flashcard = ({ question, answer, onMarkCorrect, onMarkIncorrect }: { 
+    question: string; 
+    answer: string; 
+    onMarkCorrect: () => void;
+    onMarkIncorrect: () => void;
+}) => {
     return (
         <View style={styles.cardWrapper}>
             <FlipCard
@@ -17,9 +22,17 @@ const Flashcard = ({ question, answer }: { question: string; answer: string }) =
                     <Text style={styles.text}>{question}</Text>
                 </View>
 
-                {/* Back Side - Answer */}
+                {/* Back Side - Answer with Correct/Incorrect Buttons */}
                 <View style={styles.back}>
                     <Text style={styles.text}>{answer}</Text>
+                    <View style={styles.buttonContainer}>
+                        <TouchableOpacity style={styles.correctButton} onPress={onMarkCorrect}>
+                            <Text style={styles.buttonText}>Correct</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.incorrectButton} onPress={onMarkIncorrect}>
+                            <Text style={styles.buttonText}>Incorrect</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </FlipCard>
         </View>
@@ -28,8 +41,8 @@ const Flashcard = ({ question, answer }: { question: string; answer: string }) =
 
 const styles = StyleSheet.create({
     cardWrapper: {
-        width: 300,               // Fixed width for the outer container
-        height: 400,              // Fixed height for the outer container
+        width: 300,
+        height: 400,
         borderRadius: 15,
         overflow: 'hidden',
         backgroundColor: '#ffffff',
@@ -41,30 +54,51 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     flipCard: {
-        width: 300,              // Fixed width for the FlipCard itself
-        height: 400,             // Fixed height for the FlipCard itself
+        width: 300,
+        height: 400,
     },
     front: {
-        width: '100%',            // Ensure front fills the flipCard container
+        width: '100%',
         height: '100%',
-        backgroundColor: '#4CAF50', // Green background for the front side
+        backgroundColor: '#5585b5',
         justifyContent: 'center',
         alignItems: 'center',
     },
     back: {
-        width: '100%',            // Ensure back fills the flipCard container
+        width: '100%',
         height: '100%',
-        backgroundColor: '#FF7043', // Orange background for the back side
+        backgroundColor: '#FF7043',
         justifyContent: 'center',
         alignItems: 'center',
     },
     text: {
-        color: '#2b4450',
+        color: 'white',
         fontSize: 18,
         textAlign: 'center',
         paddingHorizontal: 10,
     },
+    buttonContainer: {
+        flexDirection: 'row',
+        marginTop: 20,
+    },
+    correctButton: {
+        backgroundColor: '#4CAF50',
+        padding: 10,
+        borderRadius: 5,
+        marginHorizontal: 10,
+    },
+    incorrectButton: {
+        backgroundColor: '#FF7043',
+        padding: 10,
+        borderRadius: 5,
+        marginHorizontal: 10,
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 16,
+    },
 });
 
 export default Flashcard;
+
 

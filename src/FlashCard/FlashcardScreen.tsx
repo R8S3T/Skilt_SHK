@@ -1,9 +1,12 @@
+// src/FlashCard/FlashcardScreen.tsx
+
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 import Flashcard from './FlashCard';
 import { fetchFlashcardsForChapter } from 'src/database/databaseServices';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from 'src/types/navigationTypes';
+import { addIncorrectCardToStorage } from 'src/utils/flashcardStorageUtils'; // Import storage utility
 
 type FlashcardScreenRouteProp = RouteProp<RootStackParamList, 'FlashcardScreen'>;
 
@@ -27,6 +30,17 @@ const FlashcardScreen = () => {
         }
     };
 
+    const markCardAsCorrect = () => {
+        console.log("Marked as correct");
+        handleNextCard();
+    };
+
+    const markCardAsIncorrect = async () => {
+        const currentCard = flashcards[currentCardIndex];
+        await addIncorrectCardToStorage({ question: currentCard.Question, answer: currentCard.Answer }); // Save to AsyncStorage
+        handleNextCard();
+    };
+
     return (
         <View style={styles.container}>
             {flashcards.length > 0 ? (
@@ -35,9 +49,13 @@ const FlashcardScreen = () => {
                         key={currentCardIndex}
                         question={flashcards[currentCardIndex].Question}
                         answer={flashcards[currentCardIndex].Answer}
+                        onMarkCorrect={markCardAsCorrect}
+                        onMarkIncorrect={markCardAsIncorrect} 
                     />
                     {currentCardIndex < flashcards.length - 1 ? (
-                        <Button title="Next" onPress={handleNextCard} />
+                        <View style={styles.nextButtonContainer}>
+                            <Button title="Next" onPress={handleNextCard} />
+                        </View>
                     ) : (
                         <Text style={styles.noMoreCardsText}>Keine weiteren Karten verfügbar</Text>
                     )}
@@ -48,13 +66,13 @@ const FlashcardScreen = () => {
         </View>
     );
 };
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
+        paddingBottom: 150,
         backgroundColor: '#f5f5f5',
     },
     loadingText: {
@@ -65,6 +83,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#333',
         marginTop: 20,
+    },
+    nextButtonContainer: {
+        position: 'absolute',
+        bottom: 30,
+        alignSelf: 'center',
     },
 });
 

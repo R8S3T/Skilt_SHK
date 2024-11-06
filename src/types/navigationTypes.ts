@@ -87,6 +87,7 @@ export type RootStackParamList = {
         chapterId: number;
         chapterTitle?: string;
     };
+    FlashCardRepeat: undefined;
     PrivacyPolicyScreen: undefined;
 };
 
