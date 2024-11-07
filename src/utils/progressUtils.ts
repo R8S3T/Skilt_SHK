@@ -153,50 +153,62 @@ export const nextContent = async ({
     };
 
     const completeSubchapter = async () => {
+        console.log("Starting completeSubchapter function");
+    
+        // Mark the current subchapter as finished and unlock the next one
         markSubchapterAsFinished(subchapterId);
         unlockSubchapter(subchapterId + 1);
     
-        // Fetch all subchapters for the current chapter
+        console.log("Fetching subchapters for chapter:", chapterId);
         const subchapters = await fetchSubchaptersByChapterId(chapterId);
         const currentSubchapterData = subchapters.find(sub => sub.SubchapterId === subchapterId);
-        
-        // Try to find the next subchapter in the same Chapter by SortOrder
+    
+        console.log("Current subchapter data:", currentSubchapterData);
+    
+        // Determine if there is a next subchapter in the current chapter
         let nextSubchapterData = subchapters.find(sub => sub.SortOrder === (currentSubchapterData?.SortOrder ?? 0) + 1);
     
-        // If no next subchapter in the same Chapter, look for the first subchapter in the next Chapter
         if (!nextSubchapterData) {
             const nextChapterId = chapterId + 1;
             const nextChapterSubchapters = await fetchSubchaptersByChapterId(nextChapterId);
             nextSubchapterData = nextChapterSubchapters.sort((a, b) => a.SortOrder - b.SortOrder)[0];
         }
     
-        if (nextSubchapterData) {
-            // Fetch the first content item of the next subchapter
-            const nextContentData = await fetchSubchapterContentBySubchapterId(nextSubchapterData.SubchapterId);
-            const firstContent = nextContentData.sort((a, b) => a.SortOrder - b.SortOrder)[0];
-    
-            if (firstContent) {
-                await saveProgress(
-                    'section1',
-                    nextSubchapterData.ChapterId,
-                    nextSubchapterData.SubchapterId,
-                    nextSubchapterData.SubchapterName,
-                    0,  // Reset to start of new subchapter
-                    nextSubchapterData.ImageName
-                );
-    
-                navigation.navigate('HomeScreen');
-                return;
-            }
-        }
-    
-        // If no more subchapters, navigate to CongratsScreen
+// Case 1: ResumeSection - navigate back to HomeScreen but prepare ResumeSection for next content
+if (origin === 'ResumeSection') {
+    if (nextSubchapterData) {
+        await saveProgress(
+            'section1',
+            nextSubchapterData.ChapterId,
+            nextSubchapterData.SubchapterId,
+            nextSubchapterData.SubchapterName,
+            0,
+            nextSubchapterData.ImageName
+        );
+    }
+
+    navigation.navigate('CongratsScreen', {
+        targetScreen: 'HomeScreen',
+        targetParams: {
+            chapterId,               // Provide current chapterId as a placeholder
+            chapterTitle,            // Provide current chapterTitle as a placeholder
+            origin: 'ResumeSection', // Add origin to indicate source
+            previousScreen: 'CongratsScreen', // Optional but can help track navigation
+        },
+    });
+    return;
+}
+
+        // Case 2: Section1 - navigate back to SubchaptersScreen after CongratsScreen
         navigation.navigate('CongratsScreen', {
-            targetScreen: origin === 'ResumeSection' ? 'HomeScreen' : 'SubchaptersScreen',
-            targetParams: { chapterId, chapterTitle },
+            targetScreen: 'SubchaptersScreen',
+            targetParams: {
+                chapterId,
+                chapterTitle,
+                origin: 'SubchapterComplete',
+            },
         });
     };
-    
     
     // Start moveToNextSlide or completeSubchapter process
     if (showQuiz) {

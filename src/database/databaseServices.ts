@@ -14,7 +14,7 @@ import {
 } from 'src/types/contentTypes';
 
     // Use here Expo IP adress
-    const API_URL = 'http://192.168.164.38:3000';
+    const API_URL = 'http://192.168.239.38:3000';
 
 
 // Fetch chapters by year via the server
