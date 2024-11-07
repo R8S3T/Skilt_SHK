@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import HomeScreen from 'src/screens/HomeScreen/HomeScreen';
 import SettingsScreen from 'src/screens/Settings Screen/SettingsScreen';
-import SearchScreen from 'src/screens/SearchScreen';  // Import the SearchScreen
+import SearchScreen from 'src/screens/SearchScreen';
 
 type IconName = 'book' | 'book-outline' | 'settings' | 'settings-outline' | 'search' | 'search-outline';
 
@@ -12,43 +12,46 @@ const Tab = createBottomTabNavigator();
 const BottomTabNavigator = () => {
     return (
         <Tab.Navigator
+            initialRouteName="Home"
             screenOptions={({ route }) => ({
                 tabBarActiveTintColor: '#e8630a',
                 tabBarInactiveTintColor: 'gray',
                 tabBarIcon: ({ focused, color, size }) => {
-                    let iconName: IconName = 'book-outline'; // Default icon
+                    let iconName: IconName = 'book-outline';
 
                     if (route.name === 'Home') {
                         iconName = focused ? 'book' : 'book-outline';
                     } else if (route.name === 'Settings') {
                         iconName = focused ? 'settings' : 'settings-outline';
-                    } else if (route.name === 'Search') {  // Add search icon condition
+                    } else if (route.name === 'Search') {
                         iconName = focused ? 'search' : 'search-outline';
                     }
 
                     return <Ionicons name={iconName} size={size} color={color} />;
-                }
+                },
             })}
         >
             <Tab.Screen
                 name="Home"
                 component={HomeScreen}
                 options={{
-                    tabBarLabel: 'Home'
+                    tabBarLabel: 'Home',
                 }}
             />
             <Tab.Screen
-                name="Search"  // Add search screen
+                name="Search"
                 component={SearchScreen}
                 options={{
-                    tabBarLabel: 'Search'
+                    tabBarLabel: 'Search',
+                    headerTitleAlign: 'center', // Center-align the title if needed for consistency
                 }}
             />
             <Tab.Screen
                 name="Settings"
                 component={SettingsScreen}
                 options={{
-                    tabBarLabel: 'Settings'
+                    tabBarLabel: 'Settings',
+                    headerTitleAlign: 'center',
                 }}
             />
         </Tab.Navigator>
@@ -56,4 +59,5 @@ const BottomTabNavigator = () => {
 };
 
 export default BottomTabNavigator;
+
 

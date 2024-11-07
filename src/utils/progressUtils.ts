@@ -190,10 +190,10 @@ if (origin === 'ResumeSection') {
     navigation.navigate('CongratsScreen', {
         targetScreen: 'HomeScreen',
         targetParams: {
-            chapterId,               // Provide current chapterId as a placeholder
-            chapterTitle,            // Provide current chapterTitle as a placeholder
-            origin: 'ResumeSection', // Add origin to indicate source
-            previousScreen: 'CongratsScreen', // Optional but can help track navigation
+            chapterId,
+            chapterTitle,
+            origin: 'ResumeSection',
+            previousScreen: 'CongratsScreen',
         },
     });
     return;

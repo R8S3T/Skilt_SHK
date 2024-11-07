@@ -3,6 +3,7 @@ import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from 'src/types/navigationTypes';
+import { CommonActions } from '@react-navigation/native';
 
 type CongratsScreenRouteProp = RouteProp<RootStackParamList, 'CongratsScreen'>;
 
@@ -25,15 +26,19 @@ const CongratsScreen: React.FC = () => {
     const handleContinue = () => {
         const { targetScreen, targetParams } = route.params;
     
-        if (targetParams.origin === 'ResumeSection') {
-            // Directly navigate to HomeScreen if accessed from ResumeSection
-            navigation.navigate('HomeScreen');
+        if (targetScreen === 'HomeScreen') {
+            // Navigate to HomeScreen within BottomTabNavigator
+            navigation.dispatch(
+                CommonActions.navigate({
+                    name: 'Home',
+                    params: targetParams,
+                })
+            );
         } else {
-            // Standard navigation to the next subchapter
+            // For other screens, continue as normal
             navigation.navigate(targetScreen, targetParams);
         }
     };
-    
 
     return (
         <View style={styles.container}>

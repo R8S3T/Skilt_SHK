@@ -2,7 +2,6 @@
 
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import YearsScreen from 'src/screens/YearsScreen';
 import ChaptersScreen from 'src/screens/Chapters/ChaptersScreen';
 import SubchaptersScreen from 'src/screens/Chapters/SubchaptersScreen';
@@ -15,10 +14,6 @@ const Stack = createStackNavigator<LearnStackParamList>();
 const LearnStackNavigator: React.FC = () => {
     return (
         <Stack.Navigator>
-            <Stack.Screen 
-                name="HomeScreen" 
-                component={HomeScreen}
-            />
             <Stack.Screen
                 name="YearsScreen"
                 component={YearsScreen}
