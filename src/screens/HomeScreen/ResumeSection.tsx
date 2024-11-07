@@ -7,7 +7,7 @@ import { loadProgress } from 'src/utils/progressUtils';
 import { NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from 'src/types/navigationTypes';
 import { imageMap } from 'src/utils/imageMappings';
-import { screenWidth } from 'src/utils/screenDimensions';
+import { scaleFontSize, screenWidth } from "src/utils/screenDimensions";
 import { useTheme } from 'src/context/ThemeContext';
 
 interface ResumeSectionProps {
@@ -27,7 +27,6 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
 
     const loadLastViewed = async () => {
         const result = await loadProgress('section1');
-        console.log("Load Progress Result:", result);
     
         const { chapterId, chapterTitle, subchapterId, subchapterName, currentIndex, imageName } = result;
     
@@ -38,8 +37,6 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
         if (currentIndex !== null) setLastContentId(currentIndex);
         if (imageName) setLastImageName(imageName); // Should reflect the correct image for the subchapter
     };
-    
-
 
     useFocusEffect(
         useCallback(() => {
@@ -72,17 +69,18 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
         <View style={styles.container}>
             <Text style={[styles.resumeTitle, { color: theme.primaryText }]}>{sectionTitle}</Text>
             <TouchableOpacity
-                style={[
-                    styles.newContainer,
-                    { backgroundColor: theme.surface, borderColor: theme.border }
-                ]}
+    style={[
+        styles.newContainer,
+        { borderColor: theme.border } // Only set the border color, no background color
+    ]}
                 onPress={handleContinue}
                 disabled={lastSubchapter === null || lastContentId === null}
             >
                 {imageSource && (
                     <Image
                         source={imageSource}
-                        style={styles.resumeImage}
+                        style={[styles.resumeImage, { width: '85%' }]} // Adjust the width to control the image size
+                        resizeMode="contain"
                     />
                 )}
                 <Text style={[styles.subtitle, { color: theme.secondaryText }]}>
@@ -97,38 +95,36 @@ const styles = StyleSheet.create({
     container: {
         alignItems: 'flex-start',
         marginBottom: 20,
-        marginTop: 20,
+        marginTop: 5,
     },
     newContainer: {
-        padding: 20,
+        padding: 10,
         width: screenWidth * 0.90,
-        borderRadius: 5,
+        borderRadius: 10,
         marginTop: 10,
         marginBottom: 5,
         alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 5,
-        elevation: 3,
-        borderWidth: 1,
+        borderWidth: 2,
     },
     resumeTitle: {
-        fontSize: 22,
-        fontWeight: 'bold',
+        fontFamily: 'Lato-Bold',
+        fontSize: scaleFontSize(16),
         marginBottom: 10,
     },
     subtitle: {
-        fontSize: 20,
-        marginTop: 10,
+        fontFamily: 'OpenSans-Regular',
+        fontSize: scaleFontSize(14),
+        textAlign: 'center',
+        marginTop: 15,
     },
     bold: {
-        fontWeight: 'bold',
+        fontWeight: '600',
     },
     resumeImage: {
-        width: '80%',
+        width: '85%',
         height: 200,
-        marginBottom: 15,
+        marginBottom: 10,
+        marginTop: 10,
     },
 });
 

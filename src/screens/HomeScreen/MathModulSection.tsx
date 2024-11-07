@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { RootStackParamList } from 'src/types/navigationTypes';
-import { screenWidth } from 'src/utils/screenDimensions';
+import { scaleFontSize, screenWidth } from "src/utils/screenDimensions";
 import { useTheme } from 'src/context/ThemeContext';
 import { fetchMathChapters } from 'src/database/databaseServices';
 import { MathChapter } from 'src/types/contentTypes';
@@ -100,9 +100,10 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
     },
     title: {
-        fontSize: 20,
+        fontFamily: 'Lato-Bold',
+        fontSize: scaleFontSize(16),
         marginBottom: 15,
-        color: '#333',
+        alignSelf: 'flex-start',
     },
     button: {
         borderRadius: 10,

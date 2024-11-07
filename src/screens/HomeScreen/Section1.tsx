@@ -22,7 +22,7 @@ const Section1: React.FC<Section1Props> = ({ onButtonPress }) => {
     const initialSubchapterTitle = 'Grundlagen';
 
     return (
-        <View style={[styles.newContainer, { backgroundColor: isDarkMode ? theme.surface : '#e3e3e3' }]}>
+        <View style={[styles.newContainer, { backgroundColor: isDarkMode ? theme.surface : '#eeeeee' }]}>
             <Text style={[styles.heading, { color: isDarkMode ? theme.primaryText : '#2b4353' }]}>Meistere Dein Handwerk</Text>
             <Text style={[styles.description, { color: isDarkMode ? theme.secondaryText : '#2b4353' }]}>
                 Vertiefe Dein Wissen mit maßgeschneiderten Lernhäppchen, die auf deine Ausbildung abgestimmt sind.
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         width: screenWidth * 0.90,
         borderRadius: 5,
         marginTop: 10,
-        marginBottom: 5,
+        marginBottom: 20,
         alignItems: 'center',
     },
     horizontalContainer: {

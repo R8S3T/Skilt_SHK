@@ -1,61 +1,59 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons'; // Using Ionicons from Expo
 import { RootStackParamList } from 'src/types/navigationTypes';
 
 interface FlashcardsSectionProps {
     onButtonPress: (title: string) => void;
 }
 
-// Update the navigation type based on your defined navigation parameters
 const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({ onButtonPress }) => {
-    const navigation = useNavigation<NavigationProp<RootStackParamList>>(); // Specify the type
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
     const handlePress = () => {
-        onButtonPress("Lernkarten pressed"); // Call the onButtonPress function
-        navigation.navigate('FlashCardChoice'); // Navigate to FlashCardChoice
+        onButtonPress("Lernkarten pressed");
+        navigation.navigate('FlashCardChoice');
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Lernkarten</Text>
-            <TouchableOpacity onPress={handlePress}>
-                <View style={styles.button}>
-                    <Text style={styles.buttonText}>Open Flashcards</Text>
-                </View>
-            </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={handlePress} style={styles.container}>
+            <View style={styles.header}>
+                <Text style={styles.title}>Lernkarten</Text>
+                <Ionicons name="book-outline" size={40} color="#497285" style={styles.icon} />
+            </View>
+            <Text style={styles.subheader}>Teste Dein Wissen hier</Text>
+        </TouchableOpacity>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'white',
+        backgroundColor: '#eeeeee',
+        width: '90%',
+        borderColor: '#497285',
+        borderWidth: 1,
         borderRadius: 8,
         padding: 20,
         marginVertical: 10,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.3,
-        shadowRadius: 4,
-        elevation: 4, // For Android shadow
+        alignSelf: 'center',
+    },
+    header: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
     title: {
+        fontSize: 20,
+        fontWeight: '600',
+    },
+    icon: {
+        marginRight: 10,
+    },
+    subheader: {
+        marginTop: 8,
         fontSize: 18,
-        fontWeight: 'bold',
-    },
-    button: {
-        marginTop: 10,
-        padding: 10,
-        backgroundColor: '#007BFF',
-        borderRadius: 5,
-    },
-    buttonText: {
-        color: 'white',
-        textAlign: 'center',
+        color: '#4a4a4a',
     },
 });
 
