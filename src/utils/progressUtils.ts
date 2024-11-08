@@ -218,3 +218,32 @@ if (origin === 'ResumeSection') {
         await moveToNextSlide();
     }
 };
+
+// FLASHCARDS
+// Function to save flashcard progress
+export const saveFlashcardProgress = async (chapterId: number, currentIndex: number) => {
+    try {
+        const flashcardProgress = {
+            chapterId,
+            currentIndex,
+        };
+        await AsyncStorage.setItem(`flashcard_progress_${chapterId}`, JSON.stringify(flashcardProgress));
+        console.log("Saved Flashcard Progress:", flashcardProgress);
+    } catch (error) {
+        console.error('Error saving flashcard progress:', error);
+        // Optionally inform the user or log the error to a remote server
+    }
+};
+
+// Function to load flashcard progress
+export const loadFlashcardProgress = async (chapterId: number) => {
+    try {
+        const savedProgress = await AsyncStorage.getItem(`flashcard_progress_${chapterId}`);
+        return savedProgress ? JSON.parse(savedProgress) : { chapterId: null, currentIndex: 0 };
+    } catch (error) {
+        console.error('Error loading flashcard progress:', error);
+        return { chapterId: null, currentIndex: 0 }; // Return default values on error
+    }
+};
+
+

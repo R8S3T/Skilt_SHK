@@ -6,6 +6,8 @@ import { NavigationProp, RouteProp, useRoute, useNavigation } from '@react-navig
 import { RootStackParamList } from 'src/types/navigationTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
+import { loadFlashcardProgress, saveFlashcardProgress } from 'src/utils/progressUtils';
+
 
 const INCORRECT_CARDS_KEY = 'incorrect_cards';
 
@@ -17,6 +19,8 @@ const FlashcardScreen = () => {
     const { chapterId } = route.params;
     const [flashcards, setFlashcards] = useState<{ Question: string; Answer: string }[]>([]);
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
+    const [totalFlashcards, setTotalFlashcards] = useState(0);
+    const [totalCards, setTotalCards] = useState(0);
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -32,19 +36,38 @@ const FlashcardScreen = () => {
         });
     }, [navigation]);
 
+    // Load flashcard progress
     useEffect(() => {
         const getFlashcards = async () => {
             const cards = await fetchFlashcardsForChapter(chapterId);
             setFlashcards(cards);
+            setTotalCards(cards.length); // Update total cards here
         };
         getFlashcards();
     }, [chapterId]);
 
+    // handleNextCard to save the current index
     const handleNextCard = () => {
-        setCurrentCardIndex((prevIndex) => prevIndex + 1);
+        const newIndex = currentCardIndex + 1;
+        setCurrentCardIndex(newIndex);
+
+        // Save the current index after moving to the next card
+        saveFlashcardProgress(chapterId, newIndex);
     };
 
-    const markCardAsCorrect = () => {
+    useEffect(() => {
+        const loadProgress = async () => {
+            const progress = await loadFlashcardProgress(chapterId);
+            setCurrentCardIndex(progress.currentIndex || 0);
+            const cards = await fetchFlashcardsForChapter(chapterId);
+            setFlashcards(cards);
+            setTotalCards(cards.length); // Update total cards here
+        };
+        loadProgress();
+    }, [chapterId]);
+
+    const markCardAsCorrect = async () => {
+        await saveFlashcardProgress(chapterId, currentCardIndex + 1); // Save progress
         handleNextCard();
     };
 
@@ -59,7 +82,7 @@ const FlashcardScreen = () => {
         } catch (error) {
             console.error('Failed to save incorrect card:', error);
         }
-
+        await saveFlashcardProgress(chapterId, currentCardIndex + 1);
         handleNextCard();
     };
 
@@ -71,10 +94,20 @@ const FlashcardScreen = () => {
         navigation.navigate('FlashCardRepeat');
     };
 
+    useEffect(() => {
+        return () => {
+            saveFlashcardProgress(chapterId, currentCardIndex);
+        };
+    }, [currentCardIndex, chapterId]);
+    
     return (
         <View style={styles.container}>
+            <Text style={styles.counterText}>
+                {currentCardIndex + 1}/{totalCards}
+            </Text>
             {flashcards.length > 0 ? (
                 currentCardIndex < flashcards.length ? (
+                    
                     <Flashcard
                         key={currentCardIndex}
                         question={flashcards[currentCardIndex].Question}
@@ -111,6 +144,11 @@ const styles = StyleSheet.create({
     },
     closeButton: {
         marginLeft: 15,
+    },
+    counterText: {
+        fontSize: 20,
+        color: '#333',
+        marginBottom: 10, // Adjust as needed for spacing
     },
     loadingText: {
         fontSize: 18,
