@@ -65,6 +65,7 @@ const FlashCardRepeat = () => {
                         answer={currentCard.answer}
                         onMarkCorrect={markCardAsCorrect}
                         onMarkIncorrect={markCardAsIncorrect}
+                        isAlternateColor={currentCardIndex % 2 === 1}
                     />
                     {currentCardIndex < incorrectCards.length - 1 ? (
                         <View style={styles.nextButtonContainer}>

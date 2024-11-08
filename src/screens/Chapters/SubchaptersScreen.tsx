@@ -9,6 +9,7 @@ import { SubchapterContext } from '../../context/SubchapterContext';
 import SubchapterInfoModal from './SubchapterInfoModal';
 import GenericRows from '../GenericRows';
 import { useTheme } from 'src/context/ThemeContext';
+import { scaleFontSize } from "src/utils/screenDimensions";
 
 type SubchaptersScreenRouteProps = {
     route: RouteProp<LearnStackParamList, 'SubchaptersScreen'>;
@@ -42,7 +43,7 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
                 marginLeft: -15,
             },
             headerStyle: {
-                backgroundColor: theme.background,
+                backgroundColor: theme.surface,
             },
             headerTintColor: theme.primaryText,
         });
@@ -122,11 +123,13 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
     }));
 
     return (
-        <View style={styles.container}>
-            {/* Dynamic Heading */}
-            <Text style={[styles.dynamicHeading, { color: theme.primaryText, backgroundColor: theme.background }]}>
-                Lernfeld {chapterId}
-            </Text>
+        <View style={styles.mainContainer}>
+            {/* Sticky Header Section for 'Lernfeld' */}
+            <View style={[styles.dynamicHeadingContainer, { backgroundColor: theme.surface }]}>
+                <Text style={[styles.dynamicHeading, { color: theme.primaryText }]}>
+                    Lernfeld {chapterId}
+                </Text>
+            </View>
 
             {/* Scrollable Content */}
             <ScrollView
@@ -167,30 +170,30 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
 };
 
 const styles = StyleSheet.create({
-    container: {
+    mainContainer: {
         flex: 1,
     },
-    scrollViewContent: {
-        paddingTop: 20,
+    dynamicHeadingContainer: {
+        padding: 20,
+        alignItems: 'center',
+        zIndex: 1,
     },
     dynamicHeading: {
-        fontSize: 24,
-        fontWeight: 'bold',
+        fontFamily: 'Lato-Bold',
+        fontSize: scaleFontSize(16),
         textAlign: 'center',
-        paddingVertical: 10,
-        zIndex: 1,
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
+    },
+    scrollViewContent: {
+        paddingTop: 10,
     },
     heading: {
         fontSize: 18,
         textAlign: 'center',
-        marginTop: 50,
+        marginTop: 10,
     },
 });
 
 export default SubchaptersScreen;
+
 
 

@@ -8,7 +8,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import { dynamicCardHeight, scaleFontSize } from 'src/utils/screenDimensions';
 import { Chapter } from 'src/types/contentTypes';
 import { fetchChaptersByYear } from 'src/database/databaseServices';
-import { LearnStackParamList } from 'src/types/navigationTypes'; // Make sure the path matches your actual file structure
+import { LearnStackParamList } from 'src/types/navigationTypes'; 
+import { useTheme } from 'src/context/ThemeContext';
 
 type ChaptersScreenRouteProps = {
     route: RouteProp<LearnStackParamList, 'ChaptersScreen'>;
@@ -21,6 +22,7 @@ const ChaptersScreen: React.FC<ChaptersScreenRouteProps> = ({ route }) => {
     const [chapters, setChapters] = useState<Chapter[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const navigation = useNavigation<NavigationType>();
+    const { isDarkMode } = useTheme(); // Get the theme value here
 
     useEffect(() => {
         const loadData = async () => {
@@ -37,21 +39,29 @@ const ChaptersScreen: React.FC<ChaptersScreenRouteProps> = ({ route }) => {
         loadData();
     }, [year]);
 
-    const renderItem = ({ item }: { item: Chapter }) => (
-        <TouchableOpacity
-            style={styles.chapterContainer}
-            onPress={() => navigation.navigate('SubchaptersScreen', {
-                chapterId: item.ChapterId,
-                chapterTitle: item.ChapterName
-            })}
-        >
-            <Image
-                source={require('../../../assets/Images/play_icon.png')}
-                style={styles.playButton}
-            />
-            {item.ChapterIntro && <Text style={styles.introText}>{item.ChapterIntro}</Text>}
-        </TouchableOpacity>
-    );
+    const renderItem = ({ item }: { item: Chapter }) => {
+        const { theme } = useTheme();
+        return (
+            <TouchableOpacity
+                style={styles.chapterContainer}
+                onPress={() => navigation.navigate('SubchaptersScreen', {
+                    chapterId: item.ChapterId,
+                    chapterTitle: item.ChapterName
+                })}
+            >
+                <Image
+                    source={require('../../../assets/Images/play_icon.png')}
+                    style={{
+                        width: iconSize,
+                        height: iconSize,
+                        tintColor: theme.accent, // Use theme.accent for a consistent orange
+                    }}
+                />
+                {item.ChapterIntro && <Text style={styles.introText}>{item.ChapterIntro}</Text>}
+            </TouchableOpacity>
+        );
+    };
+    
 
     return (
         <View style={styles.container}>
@@ -76,15 +86,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         marginTop: 25
     },
-    header: {
-        fontFamily: 'Lato-Bold',
-        fontSize: scaleFontSize(22),
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginVertical: 20,
-        color: '#2b4353',
-        backgroundColor: 'transparent',
-    },
     chapterContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -108,7 +109,6 @@ const styles = StyleSheet.create({
     playButton: {
         width: iconSize,
         height: iconSize,
-        tintColor: '#e8630a',
     },
 });
 

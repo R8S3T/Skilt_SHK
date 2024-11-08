@@ -1,13 +1,13 @@
-// src/FlashCard/Flashcard.tsx
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import FlipCard from 'react-native-flip-card';
 
-const Flashcard = ({ question, answer, onMarkCorrect, onMarkIncorrect }: { 
+const Flashcard = ({ question, answer, onMarkCorrect, onMarkIncorrect, isAlternateColor }: { 
     question: string; 
     answer: string; 
     onMarkCorrect: () => void;
     onMarkIncorrect: () => void;
+    isAlternateColor: boolean;
 }) => {
     return (
         <View style={styles.cardWrapper}>
@@ -18,19 +18,21 @@ const Flashcard = ({ question, answer, onMarkCorrect, onMarkIncorrect }: {
                 clickable
             >
                 {/* Front Side - Question */}
-                <View style={styles.front}>
-                    <Text style={styles.text}>{question}</Text>
+                <View style={[styles.front, isAlternateColor ? styles.alternateBorder : styles.defaultBorder]}>
+                    <Text style={styles.questionText}>{question}</Text>
                 </View>
 
                 {/* Back Side - Answer with Correct/Incorrect Buttons */}
-                <View style={styles.back}>
-                    <Text style={styles.text}>{answer}</Text>
+                <View style={[styles.back, isAlternateColor ? styles.alternateBack : styles.defaultBack]}>
+                    <View style={styles.answerBox}>
+                        <Text style={styles.answerText}>{answer}</Text>
+                    </View>
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.correctButton} onPress={onMarkCorrect}>
-                            <Text style={styles.buttonText}>Correct</Text>
-                        </TouchableOpacity>
                         <TouchableOpacity style={styles.incorrectButton} onPress={onMarkIncorrect}>
-                            <Text style={styles.buttonText}>Incorrect</Text>
+                            <Text style={styles.buttonText}>Wusste ich nicht</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.correctButton} onPress={onMarkCorrect}>
+                            <Text style={styles.buttonText}>Klar gewusst</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -41,55 +43,93 @@ const Flashcard = ({ question, answer, onMarkCorrect, onMarkIncorrect }: {
 
 const styles = StyleSheet.create({
     cardWrapper: {
-        width: 300,
-        height: 400,
+        width: 350,
+        height: 450,
         borderRadius: 15,
         overflow: 'hidden',
-        backgroundColor: '#ffffff',
         shadowColor: '#000',
-        shadowOpacity: 0.4,
-        shadowOffset: { width: 0, height: 6 },
-        shadowRadius: 10,
+        shadowOpacity: 0.3,
+        shadowOffset: { width: 0, height: 4 },
+        shadowRadius: 8,
         justifyContent: 'center',
         alignItems: 'center',
     },
     flipCard: {
-        width: 300,
-        height: 400,
+        width: 350,
+        height: 450,
     },
     front: {
         width: '100%',
         height: '100%',
-        backgroundColor: '#5585b5',
+        borderWidth: 18,
+        borderRadius: 15,
         justifyContent: 'center',
         alignItems: 'center',
+        padding: 15,
+    },
+    defaultBorder: {
+        borderColor: '#9fd3c7',
+    },
+    alternateBorder: {
+        borderColor: '#a7bcb9',
     },
     back: {
         width: '100%',
         height: '100%',
-        backgroundColor: '#FF7043',
         justifyContent: 'center',
         alignItems: 'center',
+        padding: 20,
     },
-    text: {
-        color: 'white',
-        fontSize: 18,
+    defaultBack: {
+        backgroundColor: '#9fd3c7',
+    },
+    alternateBack: {
+        backgroundColor: '#a7bcb9',
+    },
+    questionText: {
+        color: '#333',
+        fontSize: 20,
+        fontWeight: 'bold',
         textAlign: 'center',
         paddingHorizontal: 10,
+        lineHeight: 30,
+    },
+    answerBox: {
+        width: '90%',
+        height: '70%',
+        borderRadius: 10,
+        backgroundColor: '#ffffff',
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 5,
+        elevation: 3,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 15,
+        marginBottom: 30,
+    },
+    answerText: {
+        color: '#333',
+        fontSize: 18,
+        textAlign: 'center',
     },
     buttonContainer: {
         flexDirection: 'row',
-        marginTop: 20,
+        position: 'absolute',
+        bottom: 20,
     },
-    correctButton: {
-        backgroundColor: '#4CAF50',
-        padding: 10,
+    incorrectButton: {
+        backgroundColor: '#24527a',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
         borderRadius: 5,
         marginHorizontal: 10,
     },
-    incorrectButton: {
-        backgroundColor: '#FF7043',
-        padding: 10,
+    correctButton: {
+        backgroundColor: '#142d4c',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
         borderRadius: 5,
         marginHorizontal: 10,
     },
@@ -100,5 +140,3 @@ const styles = StyleSheet.create({
 });
 
 export default Flashcard;
-
-

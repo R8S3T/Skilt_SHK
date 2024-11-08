@@ -1,20 +1,36 @@
-// src/FlashCard/FlashcardScreen.tsx
-
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import React, { useEffect, useState, useLayoutEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
 import Flashcard from './FlashCard';
 import { fetchFlashcardsForChapter } from 'src/database/databaseServices';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { NavigationProp, RouteProp, useRoute, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from 'src/types/navigationTypes';
-import { addIncorrectCardToStorage } from 'src/utils/flashcardStorageUtils'; // Import storage utility
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Ionicons } from '@expo/vector-icons';
+
+const INCORRECT_CARDS_KEY = 'incorrect_cards';
 
 type FlashcardScreenRouteProp = RouteProp<RootStackParamList, 'FlashcardScreen'>;
 
 const FlashcardScreen = () => {
     const route = useRoute<FlashcardScreenRouteProp>();
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const { chapterId } = route.params;
     const [flashcards, setFlashcards] = useState<{ Question: string; Answer: string }[]>([]);
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerLeft: () => (
+                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.closeButton}>
+                    <Ionicons name="close" size={24} color="#333" />
+                </TouchableOpacity>
+            ),
+            headerStyle: {
+                backgroundColor: '#ffffff',
+            },
+            headerTitleAlign: 'center',
+        });
+    }, [navigation]);
 
     useEffect(() => {
         const getFlashcards = async () => {
@@ -25,69 +41,102 @@ const FlashcardScreen = () => {
     }, [chapterId]);
 
     const handleNextCard = () => {
-        if (currentCardIndex < flashcards.length - 1) {
-            setCurrentCardIndex(currentCardIndex + 1);
-        }
+        setCurrentCardIndex((prevIndex) => prevIndex + 1);
     };
 
     const markCardAsCorrect = () => {
-        console.log("Marked as correct");
         handleNextCard();
     };
 
     const markCardAsIncorrect = async () => {
         const currentCard = flashcards[currentCardIndex];
-        await addIncorrectCardToStorage({ question: currentCard.Question, answer: currentCard.Answer }); // Save to AsyncStorage
+
+        try {
+            const storedCards = await AsyncStorage.getItem(INCORRECT_CARDS_KEY);
+            const incorrectCards = storedCards ? JSON.parse(storedCards) : [];
+            incorrectCards.push({ question: currentCard.Question, answer: currentCard.Answer });
+            await AsyncStorage.setItem(INCORRECT_CARDS_KEY, JSON.stringify(incorrectCards));
+        } catch (error) {
+            console.error('Failed to save incorrect card:', error);
+        }
+
         handleNextCard();
+    };
+
+    const resetChapterCards = () => {
+        setCurrentCardIndex(0);
+    };
+
+    const repeatIncorrectCards = () => {
+        navigation.navigate('FlashCardRepeat');
     };
 
     return (
         <View style={styles.container}>
             {flashcards.length > 0 ? (
-                <>
+                currentCardIndex < flashcards.length ? (
                     <Flashcard
                         key={currentCardIndex}
                         question={flashcards[currentCardIndex].Question}
                         answer={flashcards[currentCardIndex].Answer}
                         onMarkCorrect={markCardAsCorrect}
-                        onMarkIncorrect={markCardAsIncorrect} 
+                        onMarkIncorrect={markCardAsIncorrect}
+                        isAlternateColor={currentCardIndex % 2 === 1}
                     />
-                    {currentCardIndex < flashcards.length - 1 ? (
-                        <View style={styles.nextButtonContainer}>
-                            <Button title="Next" onPress={handleNextCard} />
-                        </View>
-                    ) : (
-                        <Text style={styles.noMoreCardsText}>Keine weiteren Karten verfügbar</Text>
-                    )}
-                </>
+                ) : (
+                    // Render message and buttons after the last card
+                    <View style={styles.endScreen}>
+                        <Text style={styles.endMessage}>Keine weiteren Karten verfügbar</Text>
+                        <TouchableOpacity style={styles.repeatButton} onPress={resetChapterCards}>
+                            <Text style={styles.buttonText}>Karten aus diesem Lernfeld wiederholen</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={styles.repeatButton} onPress={repeatIncorrectCards}>
+                            <Text style={styles.buttonText}>Alle Karten, die du nicht wusstest, wiederholen</Text>
+                        </TouchableOpacity>
+                    </View>
+                )
             ) : (
                 <Text style={styles.loadingText}>Loading flashcards...</Text>
             )}
         </View>
     );
 };
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
-        padding: 20,
-        paddingBottom: 150,
-        backgroundColor: '#f5f5f5',
+        paddingTop: 100,
+        backgroundColor: '#ffffff',
+    },
+    closeButton: {
+        marginLeft: 15,
     },
     loadingText: {
         fontSize: 18,
         color: '#666',
     },
-    noMoreCardsText: {
+    endScreen: {
+        alignItems: 'center',
+    },
+    endMessage: {
         fontSize: 16,
         color: '#333',
-        marginTop: 20,
+        marginBottom: 20,
     },
-    nextButtonContainer: {
-        position: 'absolute',
-        bottom: 30,
-        alignSelf: 'center',
+    repeatButton: {
+        backgroundColor: '#24527a',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 5,
+        marginVertical: 10,
+        alignItems: 'center',
+        width: '80%',
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: 16,
+        textAlign: 'center',
     },
 });
 

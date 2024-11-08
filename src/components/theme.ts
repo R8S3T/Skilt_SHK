@@ -5,7 +5,7 @@ export const lightTheme = {
     surface: '#f5f5f5',
     primaryText: '#333333',
     secondaryText: '#666666',
-    accent: '#6200ee',
+    accent: '#FFA500',
     border: '#e3e3e3',
 };
 
@@ -14,6 +14,6 @@ export const darkTheme = {
     surface: '#2c2c2e',
     primaryText: '#f5f5f5',
     secondaryText: '#c7c7c7',
-    accent: '#bb86fc',
+    accent: '#FFA500',
     border: '#444444',
 };

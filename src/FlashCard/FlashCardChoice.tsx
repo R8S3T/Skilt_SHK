@@ -3,84 +3,85 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from 'src/types/navigationTypes';
 import { useTheme } from 'src/context/ThemeContext';
+import { scaleFontSize, dynamicCardHeight } from "src/utils/screenDimensions";
 
 const FlashCardChoice = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-    const { isDarkMode, theme } = useTheme();
+    const { theme } = useTheme();
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            title: 'Flashcard Choices', // Title for the header
+            title: 'Start',
             headerStyle: {
-                backgroundColor: theme.background, // Use theme background color
+                backgroundColor: theme.surface,
             },
             headerTitleStyle: {
                 color: theme.primaryText,
                 fontSize: 20,
-                fontWeight: 'normal',
+                fontWeight: '600',
+                paddingLeft: -20,
             },
-            headerTitleAlign: 'left', // Align the header title to the left
+            headerTitleAlign: 'left',
             headerTintColor: theme.primaryText,
         });
     }, [navigation, theme]);
 
-    const handleFieldCardsPress = () => {
-        console.log('Karten nach Lernfeldern pressed');
-        navigation.navigate('FlashCardChapters');
-    };
-
-    const handleRepeatCardsPress = () => {
-        console.log('Lernkarte wiederholen pressed');
-        navigation.navigate('FlashCardRepeat');  // Navigate to FlashCardRepeat
-    };
-
     return (
-        <View style={[styles.container, { backgroundColor: theme.background }]}>
-            {/* Header Title */}
-            <Text style={[styles.headerTitle, { color: theme.primaryText }]}>Flashcard Choices</Text>
+        <View style={styles.mainContainer}>
+            <View style={[styles.headerContainer, { backgroundColor: theme.surface }]}>
+                <Text style={[styles.headerTitle, { color: theme.primaryText }]}>Lernkarten</Text>
+            </View>
 
-            {/* Buttons */}
-            <TouchableOpacity style={styles.button} onPress={handleFieldCardsPress}>
-                <Text style={styles.buttonText}>Karten nach Lernfeldern</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.button} onPress={handleRepeatCardsPress}>
-                <Text style={styles.buttonText}>Lernkarte wiederholen</Text>
-            </TouchableOpacity>
+            <View style={[styles.container, { backgroundColor: theme.background }]}>
+                <TouchableOpacity style={[styles.button, { backgroundColor: theme.surface }]} onPress={() => navigation.navigate('FlashCardChapters')}>
+                    <Text style={[styles.buttonText, { color: theme.primaryText }]}>Karten nach Lernfeldern</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.button, { backgroundColor: theme.surface }]} onPress={() => navigation.navigate('FlashCardRepeat')}>
+                    <Text style={[styles.buttonText, { color: theme.primaryText }]}>Lernkarte wiederholen</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container: {
+    mainContainer: {
         flex: 1,
     },
+    headerContainer: {
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        alignItems: 'center',
+    },
     headerTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
-        marginVertical: 20,
+        fontFamily: 'Lato-Bold',
+        fontSize: scaleFontSize(16),
         textAlign: 'center',
-        zIndex: 1,
+    },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        paddingTop: 20,
     },
     button: {
-        backgroundColor: 'transparent', // Set background color to transparent
-        borderRadius: 10,
-        paddingVertical: 15,
-        paddingHorizontal: 20,
-        marginVertical: 10,
-        borderWidth: 1.5,
-        borderColor: '#a2a8d3', // Set border color
+        flexDirection: 'row',
         alignItems: 'center',
-        width: '80%', // Set width for buttons
-        shadowColor: '#000',
-        shadowOpacity: 0.2,
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 5,
-        elevation: 3,
+        padding: 18,
+        marginTop: 20,
+        marginHorizontal: 18,
+        marginBottom: 20,
+        borderWidth: 1,
+        borderColor: '#2b4353',
+        borderRadius: 10,
+        height: dynamicCardHeight(95, 110),
+        width: '90%',
     },
     buttonText: {
-        color: '#a2a8d3', // Set text color to match the border
-        fontSize: 18,
-        textAlign: 'center',
+        flex: 1,
+        fontSize: scaleFontSize(13),
+        fontFamily: 'OpenSans-Regular',
+        textAlign: 'left',
+        marginLeft: 10,
     },
 });
 

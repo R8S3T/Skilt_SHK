@@ -5,6 +5,8 @@ import { LearnStackParamList } from 'src/types/navigationTypes';
 import { fetchChaptersByYear } from 'src/database/databaseServices';
 import { NavigationProp } from '@react-navigation/native';
 import { useTheme } from 'src/context/ThemeContext';
+import { scaleFontSize } from "src/utils/screenDimensions";
+
 
 const YearsScreen: React.FC = () => {
     const navigation = useNavigation<NavigationProp<LearnStackParamList>>();
@@ -14,18 +16,17 @@ const YearsScreen: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
 
     useLayoutEffect(() => {
-        // Update the header options
         navigation.setOptions({
             title: 'Start',
             headerStyle: {
-                backgroundColor: theme.background,
+                backgroundColor: theme.surface,
             },
             headerTitleStyle: {
                 color: theme.primaryText,
                 fontSize: 20,
                 fontWeight: 'normal',
             },
-            headerTitleAlign: 'left', // Align the header title to the left
+            headerTitleAlign: 'left',
             headerTintColor: theme.primaryText,
         });
     }, [navigation, theme]);
@@ -81,54 +82,67 @@ const YearsScreen: React.FC = () => {
     );
 
     return (
-        <ScrollView style={[styles.container, { backgroundColor: theme.background }]}>
-            <Text style={[styles.title, { color: theme.primaryText }]}>Wähle dein Lehrjahr</Text>
-            {educationData.map((item, index) => (
-                <View
-                    key={index}
-                    style={[
-                        styles.cardContainer,
-                        {
-                            backgroundColor: theme.surface,
-                            borderColor: theme.border,
-                        }
-                    ]}
-                >
-                    <TouchableOpacity onPress={() => handlePress(item.year)} style={styles.card}>
-                        <View style={styles.yearRectangle}>
-                            <Text style={[styles.number, { color: theme.primaryText }]}>{`${item.year}. Lehrjahr`}</Text>
-                        </View>
-                        <Text style={[styles.learnArea, { color: theme.secondaryText }]}>{`${item.learnAreas} Lernfelder`}</Text>
-                    </TouchableOpacity>
+        <View style={styles.mainContainer}>
+            {/* Sticky Header Section for 'Wähle dein Lehrjahr' */}
+            <View style={[styles.titleContainer, { backgroundColor: theme.surface }]}>
+                <Text style={[styles.title, { color: theme.primaryText }]}>Wähle dein Lehrjahr</Text>
+            </View>
 
-                    {expandedYear === item.year && (
-                        <View style={styles.chaptersContainer}>
-                            {loading ? (
-                                <Text style={{ color: theme.secondaryText }}>Loading...</Text>
-                            ) : (
-                                chapters[item.year]?.map((chapter) => renderChapter(chapter))
-                            )}
-                        </View>
-                    )}
-                </View>
-            ))}
-        </ScrollView>
+            {/* Scrollable Content */}
+            <ScrollView style={[styles.container, { backgroundColor: theme.background }]}>
+                {educationData.map((item, index) => (
+                    <View
+                        key={index}
+                        style={[
+                            styles.cardContainer,
+                            {
+                                backgroundColor: isDarkMode ? theme.surface : theme.background, // Set dynamic background
+                                borderColor: theme.border,
+                            }
+                        ]}
+                    >
+                        <TouchableOpacity onPress={() => handlePress(item.year)} style={styles.card}>
+                            <View style={styles.yearRectangle}>
+                                <Text style={[styles.number, { color: theme.primaryText }]}>{`${item.year}. Lehrjahr`}</Text>
+                            </View>
+                            <Text style={[styles.learnArea, { color: theme.secondaryText }]}>{`${item.learnAreas} Lernfelder`}</Text>
+                        </TouchableOpacity>
+
+                        {expandedYear === item.year && (
+                            <View style={styles.chaptersContainer}>
+                                {loading ? (
+                                    <Text style={{ color: theme.secondaryText }}>Loading...</Text>
+                                ) : (
+                                    chapters[item.year]?.map((chapter) => renderChapter(chapter))
+                                )}
+                            </View>
+                        )}
+                    </View>
+                ))}
+            </ScrollView>
+        </View>
     );
 };
 
 const iconSize = 24;
 
 const styles = StyleSheet.create({
+    mainContainer: {
+        flex: 1,
+    },
+    titleContainer: {
+        padding: 20,
+        alignItems: 'center',
+        zIndex: 1,
+    },
+    title: {
+        fontFamily: 'Lato-Bold',
+        fontSize: scaleFontSize(16),
+        textAlign: 'center',
+    },
     container: {
         flex: 1,
         paddingVertical: 30,
-        backgroundColor: '#f0f0f0',
-    },
-    title: {
-        fontSize: 22,
-        fontWeight: '600',
-        marginVertical: 20,
-        textAlign: 'center',
     },
     cardContainer: {
         marginHorizontal: 10,
