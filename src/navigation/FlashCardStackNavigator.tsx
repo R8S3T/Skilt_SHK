@@ -2,14 +2,14 @@
 
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { FlashCardStackParamList } from 'src/types/navigationTypes';
+import { RootStackParamList } from 'src/types/navigationTypes';
 import FlashCardChoice from 'src/FlashCard/FlashCardChoice';
 import FlashCardChapters from 'src/FlashCard/FlashCardChapters';
 import FlashcardScreen from 'src/FlashCard/FlashcardScreen';
 import FlashCardRepeat from 'src/FlashCard/FlashCardRepeat';
 import { IncorrectCardProvider } from 'src/context/IncorrectCardContext';
 
-const Stack = createStackNavigator<FlashCardStackParamList>();
+const Stack = createStackNavigator<RootStackParamList>();
 
 const FlashCardStackNavigator: React.FC = () => (
     <IncorrectCardProvider>

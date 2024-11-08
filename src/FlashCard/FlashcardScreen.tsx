@@ -8,7 +8,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Ionicons } from '@expo/vector-icons';
 import { loadFlashcardProgress, saveFlashcardProgress } from 'src/utils/progressUtils';
 
-
 const INCORRECT_CARDS_KEY = 'incorrect_cards';
 
 type FlashcardScreenRouteProp = RouteProp<RootStackParamList, 'FlashcardScreen'>;
@@ -61,7 +60,7 @@ const FlashcardScreen = () => {
             setCurrentCardIndex(progress.currentIndex || 0);
             const cards = await fetchFlashcardsForChapter(chapterId);
             setFlashcards(cards);
-            setTotalCards(cards.length); // Update total cards here
+            setTotalCards(cards.length);
         };
         loadProgress();
     }, [chapterId]);
@@ -73,15 +72,32 @@ const FlashcardScreen = () => {
 
     const markCardAsIncorrect = async () => {
         const currentCard = flashcards[currentCardIndex];
+        const key = `incorrect_cards_${chapterId}`; // Unique key per chapter
 
         try {
-            const storedCards = await AsyncStorage.getItem(INCORRECT_CARDS_KEY);
+            const storedCards = await AsyncStorage.getItem(key);
             const incorrectCards = storedCards ? JSON.parse(storedCards) : [];
-            incorrectCards.push({ question: currentCard.Question, answer: currentCard.Answer });
-            await AsyncStorage.setItem(INCORRECT_CARDS_KEY, JSON.stringify(incorrectCards));
+
+            // Check if card is already saved
+            console.log("Current card marked incorrect:", currentCard);
+
+            // Add card only if it's not already saved
+            const exists = incorrectCards.some(
+                (savedCard: { question: string; answer: string }) =>
+                    savedCard.question === currentCard.Question && savedCard.answer === currentCard.Answer
+            );
+
+            if (!exists) {
+                incorrectCards.push({ question: currentCard.Question, answer: currentCard.Answer });
+                await AsyncStorage.setItem(key, JSON.stringify(incorrectCards));
+                console.log("Incorrect card saved:", incorrectCards);
+            } else {
+                console.log("Card already exists in incorrect cards, skipping save.");
+            }
         } catch (error) {
             console.error('Failed to save incorrect card:', error);
         }
+
         await saveFlashcardProgress(chapterId, currentCardIndex + 1);
         handleNextCard();
     };
@@ -91,7 +107,8 @@ const FlashcardScreen = () => {
     };
 
     const repeatIncorrectCards = () => {
-        navigation.navigate('FlashCardRepeat');
+        navigation.navigate('FlashCardRepeat', { chapterId });
+
     };
 
     useEffect(() => {
@@ -99,38 +116,32 @@ const FlashcardScreen = () => {
             saveFlashcardProgress(chapterId, currentCardIndex);
         };
     }, [currentCardIndex, chapterId]);
-    
+
     return (
         <View style={styles.container}>
-            <Text style={styles.counterText}>
-                {currentCardIndex + 1}/{totalCards}
-            </Text>
-            {flashcards.length > 0 ? (
-                currentCardIndex < flashcards.length ? (
-                    
-                    <Flashcard
-                        key={currentCardIndex}
-                        question={flashcards[currentCardIndex].Question}
-                        answer={flashcards[currentCardIndex].Answer}
-                        onMarkCorrect={markCardAsCorrect}
-                        onMarkIncorrect={markCardAsIncorrect}
-                        isAlternateColor={currentCardIndex % 2 === 1}
-                    />
-                ) : (
-                    // Render message and buttons after the last card
-                    <View style={styles.endScreen}>
-                        <Text style={styles.endMessage}>Keine weiteren Karten verfügbar</Text>
-                        <TouchableOpacity style={styles.repeatButton} onPress={resetChapterCards}>
-                            <Text style={styles.buttonText}>Karten aus diesem Lernfeld wiederholen</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.repeatButton} onPress={repeatIncorrectCards}>
-                            <Text style={styles.buttonText}>Alle Karten, die du nicht wusstest, wiederholen</Text>
-                        </TouchableOpacity>
-                    </View>
-                )
+            <Text style={styles.counterText}>{`${currentCardIndex + 1} / ${totalCards}`}</Text>
+
+            {flashcards.length > 0 && currentCardIndex < flashcards.length ? (
+                <Flashcard
+                    key={currentCardIndex}
+                    question={flashcards[currentCardIndex].Question}
+                    answer={flashcards[currentCardIndex].Answer}
+                    onMarkCorrect={markCardAsCorrect}
+                    onMarkIncorrect={markCardAsIncorrect}
+                    isAlternateColor={currentCardIndex % 2 === 1}
+                />
             ) : (
                 <Text style={styles.loadingText}>Loading flashcards...</Text>
             )}
+
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.reviewButton} onPress={resetChapterCards}>
+                    <Text style={styles.buttonContainerText}>Alle Karten wiederholen</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.reviewButton} onPress={repeatIncorrectCards}>
+                    <Text style={styles.buttonContainerText}>Nicht-gewusst Karten wiederholen</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     );
 };
@@ -139,7 +150,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        paddingTop: 100,
+        paddingTop: 50,
         backgroundColor: '#ffffff',
     },
     closeButton: {
@@ -148,7 +159,7 @@ const styles = StyleSheet.create({
     counterText: {
         fontSize: 20,
         color: '#333',
-        marginBottom: 10, // Adjust as needed for spacing
+        marginBottom: 10,
     },
     loadingText: {
         fontSize: 18,
@@ -173,6 +184,27 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: '#fff',
+        fontSize: 16,
+        textAlign: 'center',
+    },
+    buttonContainer: {
+        marginTop: 50,
+        alignItems: 'center',
+        width: '100%',
+        paddingHorizontal: 20,
+    },
+    reviewButton: {
+        borderColor: '#24527a',
+        paddingVertical: 12,
+        paddingHorizontal: 20,
+        borderRadius: 10,
+        borderWidth: 1,
+        marginVertical: 10,
+        alignItems: 'center',
+        width: '80%',
+    },
+    buttonContainerText: {
+        color: '#24527a',
         fontSize: 16,
         textAlign: 'center',
     },

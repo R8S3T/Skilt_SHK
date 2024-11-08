@@ -1,80 +1,69 @@
 // src/FlashCard/FlashCardRepeat.tsx
 
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { RouteProp, useRoute } from '@react-navigation/native';
 import Flashcard from './FlashCard';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { loadFlashcardProgress, saveFlashcardProgress } from 'src/utils/progressUtils';
+import { RootStackParamList } from 'src/types/navigationTypes';
 
-const INCORRECT_CARDS_KEY = 'incorrect_cards';
+type FlashCardRepeatRouteProp = RouteProp<RootStackParamList, 'FlashCardRepeat'>;
 
 const FlashCardRepeat = () => {
+    const route = useRoute<FlashCardRepeatRouteProp>();
+    const chapterId = route.params?.chapterId ?? 0;
     const [incorrectCards, setIncorrectCards] = useState<{ question: string; answer: string }[]>([]);
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
+    const [totalCards, setTotalCards] = useState(0);
 
-    // Load incorrect cards from AsyncStorage
+    const PROGRESS_KEY = `flashcard_repeat_progress_${chapterId}`;
+
+    // Load incorrect cards and progress
     useEffect(() => {
         const loadIncorrectCards = async () => {
-            try {
-                const storedCards = await AsyncStorage.getItem(INCORRECT_CARDS_KEY);
-                if (storedCards) {
-                    setIncorrectCards(JSON.parse(storedCards));
-                }
-            } catch (error) {
-                console.error('Failed to load incorrect cards:', error);
+            const key = `incorrect_cards_${chapterId}`;
+            const storedCards = await AsyncStorage.getItem(key);
+            if (storedCards) {
+                const parsedCards = JSON.parse(storedCards);
+                setIncorrectCards(parsedCards);
+                setTotalCards(parsedCards.length);
+
+                const progress = await loadFlashcardProgress(PROGRESS_KEY);
+                setCurrentCardIndex(progress.currentIndex || 0);
             }
         };
-
         loadIncorrectCards();
-    }, []);
+    }, [chapterId]);
 
-    // Handler to navigate to the next card
-    const handleNextCard = () => {
-        if (currentCardIndex < incorrectCards.length - 1) {
-            setCurrentCardIndex(currentCardIndex + 1);
-        }
+    const handleNextCard = async () => {
+        const newIndex = currentCardIndex + 1;
+        setCurrentCardIndex(newIndex);
+        await saveFlashcardProgress(PROGRESS_KEY, newIndex);
     };
 
-    // Optional: Remove card from list if marked correct this time
     const markCardAsCorrect = async () => {
         const updatedCards = incorrectCards.filter((_, index) => index !== currentCardIndex);
         setIncorrectCards(updatedCards);
-
-        try {
-            await AsyncStorage.setItem(INCORRECT_CARDS_KEY, JSON.stringify(updatedCards));
-        } catch (error) {
-            console.error('Failed to update incorrect cards in storage:', error);
-        }
-        
+        await AsyncStorage.setItem(`incorrect_cards_${chapterId}`, JSON.stringify(updatedCards));
+        await saveFlashcardProgress(PROGRESS_KEY, currentCardIndex + 1);
         handleNextCard();
     };
 
-    const markCardAsIncorrect = () => {
-        handleNextCard();
-    };
-
-    // Ensure the current card exists before rendering the Flashcard component
     const currentCard = incorrectCards[currentCardIndex];
 
     return (
         <View style={styles.container}>
+            <Text style={styles.counterText}>{`${currentCardIndex + 1} / ${totalCards}`}</Text>
             {incorrectCards.length > 0 && currentCard ? (
-                <>
-                    <Flashcard
-                        key={currentCardIndex}
-                        question={currentCard.question}
-                        answer={currentCard.answer}
-                        onMarkCorrect={markCardAsCorrect}
-                        onMarkIncorrect={markCardAsIncorrect}
-                        isAlternateColor={currentCardIndex % 2 === 1}
-                    />
-                    {currentCardIndex < incorrectCards.length - 1 ? (
-                        <View style={styles.nextButtonContainer}>
-                            <Button title="Next" onPress={handleNextCard} />
-                        </View>
-                    ) : (
-                        <Text style={styles.noMoreCardsText}>No more incorrect cards</Text>
-                    )}
-                </>
+                <Flashcard
+                    key={`${currentCardIndex}-${Date.now()}`}  // Force re-render with a unique key
+                    question={currentCard.question}
+                    answer={currentCard.answer}
+                    onMarkCorrect={markCardAsCorrect}
+                    onMarkIncorrect={handleNextCard}
+                    isAlternateColor={currentCardIndex % 2 === 1}
+                />
             ) : (
                 <Text style={styles.loadingText}>No incorrect cards to review.</Text>
             )}
@@ -88,22 +77,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 20,
-        paddingBottom: 150,
         backgroundColor: '#f5f5f5',
+    },
+    counterText: {
+        fontSize: 18,
+        marginBottom: 20,
     },
     loadingText: {
         fontSize: 18,
         color: '#666',
-    },
-    noMoreCardsText: {
-        fontSize: 16,
-        color: '#333',
-        marginTop: 20,
-    },
-    nextButtonContainer: {
-        position: 'absolute',
-        bottom: 30,
-        alignSelf: 'center',
     },
 });
 

@@ -5,7 +5,7 @@ import { fetchChapters } from 'src/database/databaseServices';
 import { NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from 'src/types/navigationTypes';
 import { useTheme } from 'src/context/ThemeContext';
-import { scaleFontSize, dynamicCardHeight } from "src/utils/screenDimensions";
+import { scaleFontSize } from "src/utils/screenDimensions";
 
 // Main component
 const FlashCardChapters = () => {
@@ -19,7 +19,7 @@ const FlashCardChapters = () => {
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            title: 'Lernkarten',
+            title: 'Start',
             headerStyle: {
                 backgroundColor: theme.surface,
             },

@@ -13,7 +13,7 @@ const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({ onButtonPress }) 
 
     const handlePress = () => {
         onButtonPress("Lernkarten pressed");
-        navigation.navigate('FlashCardChoice');
+        navigation.navigate('FlashCardChapters');
     };
 
     return (

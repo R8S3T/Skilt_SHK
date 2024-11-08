@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import FlipCard from 'react-native-flip-card';
+import { scaleFontSize } from 'src/utils/screenDimensions';
 
 const Flashcard = ({ question, answer, onMarkCorrect, onMarkIncorrect, isAlternateColor }: { 
     question: string; 
@@ -17,12 +18,10 @@ const Flashcard = ({ question, answer, onMarkCorrect, onMarkIncorrect, isAlterna
                 flipVertical={false}
                 clickable
             >
-                {/* Front Side - Question */}
                 <View style={[styles.front, isAlternateColor ? styles.alternateBorder : styles.defaultBorder]}>
                     <Text style={styles.questionText}>{question}</Text>
                 </View>
 
-                {/* Back Side - Answer with Correct/Incorrect Buttons */}
                 <View style={[styles.back, isAlternateColor ? styles.alternateBack : styles.defaultBack]}>
                     <View style={styles.answerBox}>
                         <Text style={styles.answerText}>{answer}</Text>
@@ -32,7 +31,7 @@ const Flashcard = ({ question, answer, onMarkCorrect, onMarkIncorrect, isAlterna
                             <Text style={styles.buttonText}>Wusste ich nicht</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.correctButton} onPress={onMarkCorrect}>
-                            <Text style={styles.buttonText}>Klar gewusst</Text>
+                            <Text style={styles.buttonText}>Gewusst</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -44,7 +43,7 @@ const Flashcard = ({ question, answer, onMarkCorrect, onMarkIncorrect, isAlterna
 const styles = StyleSheet.create({
     cardWrapper: {
         width: 350,
-        height: 450,
+        height: 480,
         borderRadius: 15,
         overflow: 'hidden',
         shadowColor: '#000',
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
     },
     flipCard: {
         width: 350,
-        height: 450,
+        height: 480,
     },
     front: {
         width: '100%',
@@ -68,10 +67,10 @@ const styles = StyleSheet.create({
         padding: 15,
     },
     defaultBorder: {
-        borderColor: '#9fd3c7',
+        borderColor: '#85a6b1',
     },
     alternateBorder: {
-        borderColor: '#a7bcb9',
+        borderColor: '#77628c',
     },
     back: {
         width: '100%',
@@ -81,22 +80,22 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     defaultBack: {
-        backgroundColor: '#9fd3c7',
+        backgroundColor: '#85a6b1',
     },
     alternateBack: {
-        backgroundColor: '#a7bcb9',
+        backgroundColor: '#77628c',
     },
     questionText: {
         color: '#333',
-        fontSize: 20,
-        fontWeight: 'bold',
+        fontFamily: 'Lato-Bold',
+        fontSize: scaleFontSize(16),
         textAlign: 'center',
         paddingHorizontal: 10,
         lineHeight: 30,
     },
     answerBox: {
         width: '90%',
-        height: '70%',
+        height: '65%',
         borderRadius: 10,
         backgroundColor: '#ffffff',
         shadowColor: '#000',
@@ -111,7 +110,8 @@ const styles = StyleSheet.create({
     },
     answerText: {
         color: '#333',
-        fontSize: 18,
+        fontFamily: 'OpenSans-Semibold',
+        fontSize: scaleFontSize(14),
         textAlign: 'center',
     },
     buttonContainer: {
@@ -120,14 +120,14 @@ const styles = StyleSheet.create({
         bottom: 20,
     },
     incorrectButton: {
-        backgroundColor: '#24527a',
+        backgroundColor: '#e46161',
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 5,
         marginHorizontal: 10,
     },
     correctButton: {
-        backgroundColor: '#142d4c',
+        backgroundColor: '#118a7e',
         paddingVertical: 10,
         paddingHorizontal: 20,
         borderRadius: 5,

@@ -5,9 +5,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const INCORRECT_CARDS_KEY = 'incorrect_cards';
 
 // Function to add an incorrect card to AsyncStorage
-export const addIncorrectCardToStorage = async (card: { question: string; answer: string }) => {
+// src/utils/flashcardStorageUtils.ts
+
+export const addIncorrectCardToStorage = async (chapterId: number, card: { question: string; answer: string }) => {
     try {
-        const storedCards = await AsyncStorage.getItem(INCORRECT_CARDS_KEY);
+        const key = `incorrect_cards_${chapterId}`; // Unique key per chapter
+        const storedCards = await AsyncStorage.getItem(key);
         const incorrectCards = storedCards ? JSON.parse(storedCards) : [];
 
         // Check if the card already exists to avoid duplicates
@@ -18,9 +21,10 @@ export const addIncorrectCardToStorage = async (card: { question: string; answer
 
         if (!exists) {
             incorrectCards.push(card);
-            await AsyncStorage.setItem(INCORRECT_CARDS_KEY, JSON.stringify(incorrectCards));
+            await AsyncStorage.setItem(key, JSON.stringify(incorrectCards));
         }
     } catch (error) {
         console.error('Error adding incorrect card to storage:', error);
     }
 };
+
