@@ -3,12 +3,22 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import FlipCard from 'react-native-flip-card';
 import { scaleFontSize } from 'src/utils/screenDimensions';
 
-const Flashcard = ({ question, answer, onMarkCorrect, onMarkIncorrect, isAlternateColor }: { 
-    question: string; 
-    answer: string; 
-    onMarkCorrect: () => void;
-    onMarkIncorrect: () => void;
+const Flashcard = ({
+    question,
+    answer,
+    onMarkCorrect,
+    onMarkIncorrect,
+    onNext,
+    isAlternateColor,
+    isRepeatMode = false,
+}: {
+    question: string;
+    answer: string;
+    onMarkCorrect?: () => void;
+    onMarkIncorrect?: () => void;
+    onNext?: () => void;
     isAlternateColor: boolean;
+    isRepeatMode?: boolean;
 }) => {
     return (
         <View style={styles.cardWrapper}>
@@ -26,19 +36,28 @@ const Flashcard = ({ question, answer, onMarkCorrect, onMarkIncorrect, isAlterna
                     <View style={styles.answerBox}>
                         <Text style={styles.answerText}>{answer}</Text>
                     </View>
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.incorrectButton} onPress={onMarkIncorrect}>
-                            <Text style={styles.buttonText}>Wusste ich nicht</Text>
+
+                    {/* Conditionally render buttons based on isRepeatMode */}
+                    {isRepeatMode ? (
+                        <TouchableOpacity style={styles.nextButton} onPress={onNext}>
+                            <Text style={styles.buttonText}>Weiter</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.correctButton} onPress={onMarkCorrect}>
-                            <Text style={styles.buttonText}>Gewusst</Text>
-                        </TouchableOpacity>
-                    </View>
+                    ) : (
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity style={styles.incorrectButton} onPress={onMarkIncorrect}>
+                                <Text style={styles.buttonText}>Wusste ich nicht</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.correctButton} onPress={onMarkCorrect}>
+                                <Text style={styles.buttonText}>Gewusst</Text>
+                            </TouchableOpacity>
+                        </View>
+                    )}
                 </View>
             </FlipCard>
         </View>
     );
 };
+
 
 const styles = StyleSheet.create({
     cardWrapper: {
@@ -132,6 +151,13 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         borderRadius: 5,
         marginHorizontal: 10,
+    },
+    nextButton: {  // Add this style for the "Weiter" button
+        backgroundColor: 'blue',
+        padding: 10,
+        borderRadius: 5,
+        width: '50%',
+        alignItems: 'center',
     },
     buttonText: {
         color: 'white',

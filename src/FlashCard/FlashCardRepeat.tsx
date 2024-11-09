@@ -27,63 +27,50 @@ const FlashCardRepeat = () => {
             if (storedCards) {
                 const parsedCards = JSON.parse(storedCards);
                 setIncorrectCards(parsedCards);
-                setTotalCards(parsedCards.length);
+                setTotalCards(parsedCards.length); // Initialize with the total count
                 setCurrentCardIndex(0);  // Reset to the start
+                console.log("Loaded cards:", parsedCards.length);
             }
         };
         loadIncorrectCards();
     }, [chapterId]);
 
-    // Update the markCardAsCorrect function to update the state when the last card is marked correct
-    const markCardAsCorrect = async () => {
+    const handleNextCard = async () => {
         const updatedCards = incorrectCards.filter((_, index) => index !== currentCardIndex);
 
         // Update storage with the new set of incorrect cards
         await AsyncStorage.setItem(`incorrect_cards_${chapterId}`, JSON.stringify(updatedCards));
-        console.log("Updated incorrect cards in storage after marking correct:", updatedCards);
-
-        // Update the state with the new list of incorrect cards
         setIncorrectCards(updatedCards);
-        setTotalCards(updatedCards.length); 
 
-        // If there are still cards left, move to the next card. Otherwise, reset the index to show the "No more cards" message.
+        // Update totalCards based on remaining incorrect cards
+        setTotalCards(updatedCards.length);
+
+        // Move to the next card if any are left
         if (updatedCards.length > 0) {
             setCurrentCardIndex((prevIndex) => Math.min(prevIndex, updatedCards.length - 1));
         } else {
-            setCurrentCardIndex(0); // Reset index if no cards are left
+            setCurrentCardIndex(0);
         }
 
-        // Optionally, save progress
+        // Save progress
         await saveFlashcardProgress(PROGRESS_KEY, currentCardIndex);
     };
 
-    const handleNextCard = async () => {
-        const nextIndex = currentCardIndex + 1;
-        console.log("Advancing to card index:", nextIndex, "out of", incorrectCards.length);
-    
-        if (nextIndex < incorrectCards.length) {
-            setCurrentCardIndex(nextIndex);
-            await saveFlashcardProgress(PROGRESS_KEY, nextIndex);
-        } else {
-            console.log("All cards completed. Ending session.");
-        }
-    };
-    
-
     const currentCard = incorrectCards[currentCardIndex];
 
+    // FlashCardRepeat.tsx - Updated return statement for correct countdown
     return (
         <View style={styles.container}>
-        <Text style={styles.counterText}>{`${totalCards - currentCardIndex} remaining`}</Text>
+            <Text style={styles.counterText}>{`${totalCards - currentCardIndex} remaining`}</Text> 
 
             {incorrectCards.length > 0 && currentCard ? (
                 <Flashcard
-                    key={`${currentCardIndex}-${Date.now()}`}  // Force re-render with a unique key
+                    key={`${currentCardIndex}-${Date.now()}`}
                     question={currentCard.question}
                     answer={currentCard.answer}
-                    onMarkCorrect={markCardAsCorrect}
-                    onMarkIncorrect={handleNextCard}
+                    onNext={handleNextCard}  // Pass only "Weiter" button in repeat mode
                     isAlternateColor={currentCardIndex % 2 === 1}
+                    isRepeatMode={true}  // Enable repeat mode for FlashCardRepeat
                 />
             ) : (
                 <Text style={styles.loadingText}>No incorrect cards to review.</Text>
