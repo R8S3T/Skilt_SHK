@@ -15,24 +15,18 @@ import FlashCardChapters from 'src/FlashCard/FlashCardChapters';
 import FlashcardScreen from 'src/FlashCard/FlashcardScreen';
 import FlashCardRepeat from 'src/FlashCard/FlashCardRepeat';
 import { hasCompletedOnboarding } from 'src/utils/onBoardingUtils';
-import FlashCardStackNavigator from './FlashCardStackNavigator';
+import SplashScreen from 'src/screens/SplashScreen';
+
 const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNavigator = () => {
-    const [initialRoute, setInitialRoute] = useState<keyof RootStackParamList | null>(null);
-
-    useEffect(() => {
-        const checkOnboarding = async () => {
-            const hasOnboarded = await hasCompletedOnboarding();
-            setInitialRoute(hasOnboarded ? 'HomeScreen' : 'Intro');
-        };
-        checkOnboarding();
-    }, []);
-
-    if (initialRoute === null) return null; // Or a loading screen
-
     return (
-        <Stack.Navigator initialRouteName={initialRoute}>
+        <Stack.Navigator initialRouteName="SplashScreen">
+            <Stack.Screen
+                name="SplashScreen"
+                component={SplashScreen}
+                options={{ headerShown: false }}
+            />
             <Stack.Screen
                 name="Intro"
                 component={IntroScreen}

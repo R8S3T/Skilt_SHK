@@ -1,5 +1,3 @@
-// app.config.js
-
 import 'dotenv/config'; // Load environment variables from .env file
 
 export default {
@@ -19,6 +17,7 @@ export default {
       supportsTablet: true
     },
     android: {
+      package: "com.yourcompanyname.skiltshk", // Add your unique package name here
       adaptiveIcon: {
         foregroundImage: "./assets/adaptive-icon.png",
         backgroundColor: "#ffffff"
@@ -40,5 +39,10 @@ export default {
     plugins: [
       "expo-font"
     ],
+    extra: {
+      eas: {
+        projectId: "ec8271bd-0e41-4a36-ad84-fddfffb1cce9"
+      }
+    }
   }
 };

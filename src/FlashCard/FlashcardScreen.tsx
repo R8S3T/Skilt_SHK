@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useLayoutEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import Flashcard from './FlashCard';
 import { fetchFlashcardsForChapter } from 'src/database/databaseServices';
 import { NavigationProp, RouteProp, useRoute, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from 'src/types/navigationTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Ionicons } from '@expo/vector-icons';
 import { loadFlashcardProgress, saveFlashcardProgress } from 'src/utils/progressUtils';
+import { scaleFontSize } from 'src/utils/screenDimensions';
+import { useTheme } from 'src/context/ThemeContext';
 
 const INCORRECT_CARDS_KEY = 'incorrect_cards';
 
@@ -18,22 +19,25 @@ const FlashcardScreen = () => {
     const { chapterId } = route.params;
     const [flashcards, setFlashcards] = useState<{ Question: string; Answer: string }[]>([]);
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
-    const [totalFlashcards, setTotalFlashcards] = useState(0);
     const [totalCards, setTotalCards] = useState(0);
+    const { theme } = useTheme();
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            headerLeft: () => (
-                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.closeButton}>
-                    <Ionicons name="close" size={24} color="#333" />
-                </TouchableOpacity>
-            ),
+            title: 'Lernfelder',
             headerStyle: {
-                backgroundColor: '#ffffff',
+                backgroundColor: theme.surface,
             },
-            headerTitleAlign: 'center',
+            headerTitleStyle: {
+                color: theme.primaryText,
+                fontSize: 20,
+                fontWeight: '600',
+                paddingLeft: -20,
+            },
+            headerTitleAlign: 'left',
+            headerTintColor: theme.primaryText,
         });
-    }, [navigation]);
+    }, [navigation, chapterId, theme]);
 
     // Load flashcard progress
     useEffect(() => {
@@ -119,29 +123,41 @@ const FlashcardScreen = () => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.counterText}>{`${currentCardIndex + 1} / ${totalCards}`}</Text>
-
-            {flashcards.length > 0 && currentCardIndex < flashcards.length ? (
-                <Flashcard
-                    key={currentCardIndex}
-                    question={flashcards[currentCardIndex].Question}
-                    answer={flashcards[currentCardIndex].Answer}
-                    onMarkCorrect={markCardAsCorrect}
-                    onMarkIncorrect={markCardAsIncorrect}
-                    isAlternateColor={currentCardIndex % 2 === 1}
-                />
-            ) : (
-                <Text style={styles.loadingText}>Loading flashcards...</Text>
-            )}
-
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.reviewButton} onPress={resetChapterCards}>
-                    <Text style={styles.buttonContainerText}>Alle Karten wiederholen</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.reviewButton} onPress={repeatIncorrectCards}>
-                    <Text style={styles.buttonContainerText}>Nicht-gewusst Karten wiederholen</Text>
-                </TouchableOpacity>
+            {/* Sticky Header for "Lernfeld {chapterId}" */}
+            <View style={[styles.header, { backgroundColor: theme.surface }]}>
+                <Text style={[styles.headerText, { color: theme.primaryText }]}>{`Lernfeld ${chapterId}`}</Text>
             </View>
+    
+            {/* Scrollable Content */}
+            <ScrollView contentContainerStyle={styles.scrollContent}>
+            {currentCardIndex < totalCards && (
+                <Text style={styles.counterText}>{`${currentCardIndex + 1} / ${totalCards}`}</Text>
+            )}
+    
+                <View style={styles.contentContainer}>
+                    {currentCardIndex < flashcards.length ? (
+                        <Flashcard
+                            key={currentCardIndex}
+                            question={flashcards[currentCardIndex].Question}
+                            answer={flashcards[currentCardIndex].Answer}
+                            onMarkCorrect={markCardAsCorrect}
+                            onMarkIncorrect={markCardAsIncorrect}
+                            isAlternateColor={currentCardIndex % 2 === 1}
+                        />
+                    ) : (
+                        <Text style={styles.loadingText}>Keine weiteren Karten</Text>
+                    )}
+                </View>
+    
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.reviewButton} onPress={resetChapterCards}>
+                        <Text style={styles.buttonContainerText}>Alle Karten wiederholen</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.reviewButton} onPress={repeatIncorrectCards}>
+                        <Text style={styles.buttonContainerText}>Nicht-gewusst Karten wiederholen</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
         </View>
     );
 };
@@ -149,49 +165,37 @@ const FlashcardScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        paddingTop: 50,
         backgroundColor: '#ffffff',
     },
-    closeButton: {
-        marginLeft: 15,
+    header: {
+        paddingVertical: 5,
+        alignItems: 'center',
+    },
+    headerText: {
+        fontFamily: 'Lato-Bold',
+        fontSize: scaleFontSize(16),
     },
     counterText: {
         fontSize: 20,
         color: '#333',
-        marginBottom: 10,
+        textAlign: 'center',
+        marginTop: 20,
+    },
+    contentContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: 400,
+        marginVertical: 60,
     },
     loadingText: {
         fontSize: 18,
         color: '#666',
-    },
-    endScreen: {
-        alignItems: 'center',
-    },
-    endMessage: {
-        fontSize: 16,
-        color: '#333',
-        marginBottom: 20,
-    },
-    repeatButton: {
-        backgroundColor: '#24527a',
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        borderRadius: 5,
-        marginVertical: 10,
-        alignItems: 'center',
-        width: '80%',
-    },
-    buttonText: {
-        color: '#fff',
-        fontSize: 16,
         textAlign: 'center',
     },
     buttonContainer: {
-        marginTop: 50,
+        marginTop: 20,
         alignItems: 'center',
-        width: '100%',
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
     },
     reviewButton: {
         borderColor: '#24527a',
@@ -207,6 +211,10 @@ const styles = StyleSheet.create({
         color: '#24527a',
         fontSize: 16,
         textAlign: 'center',
+    },
+    scrollContent: {
+        alignItems: 'center',
+        paddingBottom: 10,
     },
 });
 

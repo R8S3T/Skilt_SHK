@@ -1,5 +1,4 @@
 
-const img_LFdeviderdotspetrol = require('../../assets/DbImages/LF_devider_dots_petrol.png');
 const img_equations1 = require('../../assets/DbImages/MathImages/equations_1.png');
 const img_equations10 = require('../../assets/DbImages/MathImages/equations_10.png');
 const img_equations11 = require('../../assets/DbImages/MathImages/equations_11.png');
@@ -631,7 +630,6 @@ const img_LF8Dichtungwelcome = require('../../assets/DbImages/SubchapterContent/
 const img_LF8Sanitrplanungwelcome = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Sanitärplanung_welcome.png');
 
 export const imageMap = {
-    "LF_devider_dots_petrol": img_LFdeviderdotspetrol,
     "equations_1": img_equations1,
     "equations_10": img_equations10,
     "equations_11": img_equations11,

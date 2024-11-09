@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import LottieView from 'lottie-react-native';
@@ -34,26 +34,43 @@ const IntroScreen: React.FC<IntroScreenProps> = ({ navigation }) => {
     const renderSlide = ({ item }: { item: Slide }) => {
         return (
             <View style={[styles.slide, { backgroundColor: item.backgroundColor }]}>
-                <LottieView source={item.animation} autoPlay loop style={styles.animation} />
+                {item.animation && (
+                    <LottieView source={item.animation} autoPlay loop style={styles.animation} />
+                )}
+                {item.image && (
+                    <Image source={item.image} style={styles.image} resizeMode="contain" />
+                )}
                 <Text style={styles.title}>{item.title}</Text>
                 <Text style={styles.text}>{item.text}</Text>
                 {item.renderInputField && (
-                    <View style={styles.inputField}>
+                    <View style={styles.inputBox}>
                         <TextInput
                             value={username}
                             onChangeText={setUsername}
-                            placeholder='Dein Name'
+                            placeholder='Wie heißt du?'
+                            placeholderTextColor="#999"
                             style={styles.textInput}
                         />
-                        <Button title="Done" onPress={handleDone} />
                     </View>
+                )}
+                {item.renderInputField && (
+                    <TouchableOpacity style={styles.button} onPress={handleDone}>
+                        <Text style={styles.buttonText}>Fertig</Text>
+                    </TouchableOpacity>
                 )}
             </View>
         );
     };
-
+    
     return (
-        <AppIntroSlider renderItem={renderSlide} data={slides} onDone={handleDone} showSkipButton />
+<AppIntroSlider 
+    renderItem={renderSlide} 
+    data={slides} 
+    onDone={handleDone} 
+    showSkipButton 
+    renderNextButton={() => null}
+    renderDoneButton={() => null}
+/>
     );
 };
 
@@ -68,6 +85,11 @@ const styles = StyleSheet.create({
         width: 300,
         height: 300,
     },
+    image: {
+        width: 150,
+        height: 150,
+        marginBottom: 20,
+    },
     title: {
         fontSize: 22,
         color: 'black',
@@ -79,19 +101,42 @@ const styles = StyleSheet.create({
         color: 'gray',
         textAlign: 'center',
         paddingHorizontal: 30,
-    },
-    inputField: {
-        marginTop: 20,
-        width: '100%',
-        alignItems: 'center',
-    },
-    textInput: {
-        borderWidth: 1,
-        borderColor: 'gray',
-        width: '80%',
-        padding: 10,
         marginBottom: 20,
     },
+    inputBox: {
+        marginTop: 0,
+        padding: 10,
+        width: '80%',
+        borderWidth: 1,
+        borderColor: '#ddd',
+        borderRadius: 10,
+        backgroundColor: '#fff',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 3,
+    },
+    textInput: {
+        width: '100%',
+        padding: 10,
+        fontSize: 16,
+        color: 'black',
+    },
+    button: {
+        marginTop: 20,
+        width: '80%',
+        paddingVertical: 12,
+        borderRadius: 8,
+        backgroundColor: '#ffa500',  // Modern orange color
+        alignItems: 'center',
+    },
+    buttonText: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: '600',
+    },
 });
+
 
 export default IntroScreen;

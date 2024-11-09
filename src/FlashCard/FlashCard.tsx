@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
     },
     nextButton: {  // Add this style for the "Weiter" button
-        backgroundColor: 'blue',
+        backgroundColor: '#343A40',
         padding: 10,
         borderRadius: 5,
         width: '50%',

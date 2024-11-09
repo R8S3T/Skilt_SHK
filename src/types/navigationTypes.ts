@@ -68,8 +68,9 @@ export type MathStackParamList = {
 // A TypeScript type that defines all possible navigation paths and parameters in AppNavigator, ensuring that navigation across the entire app is type-safe and well-organized.
 
 export type RootStackParamList = {
+    SplashScreen: { initialRoute?: keyof RootStackParamList };
     Intro: undefined;
-    HomeScreen: NavigatorScreenParams<BottomTabParamList>;
+    HomeScreen: undefined;
     Learn: NavigatorScreenParams<LearnStackParamList>;
     Math: NavigatorScreenParams<MathStackParamList>;
     CongratsScreen: {
