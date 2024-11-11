@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
 import { imageMap } from 'src/utils/imageMappings';
-
+import ControlButtons from './ControlButtons';
 
 interface MathMiniQuiz {
     Question: string;
@@ -32,14 +32,33 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
         }
     };
 
+
+    const getButtonStyle = (option: string) => {
+        let style = styles.optionButton;
+    
+        if (selectedOption === option && isAnswerCorrect === null) {
+            // Thicker border for selected option before confirmation
+            style = { ...style, borderColor: '#b8e1dd', borderWidth: 3 };
+        } else if (isAnswerCorrect !== null && selectedOption) {
+            if (selectedOption === option) {
+                if (quiz.Answer.includes(option)) {
+                    style = { ...style, borderColor: '#32CD32', borderWidth: 4 };  // Green for correct
+                } else {
+                    style = { ...style, borderColor: '#FF6347', borderWidth: 4 };  // Red for incorrect
+                }
+            }
+        } else if (option === selectedOption && isAnswerCorrect === false) {
+            style = { ...style, borderColor: '#8fc2c2', borderWidth: 4 };  // Default color for selected but incorrect
+        }
+        return style;
+    };
+    
+
     const renderOptions = () => {
         return [quiz.Option1, quiz.Option2, quiz.Option3].map((option, index) => (
             <TouchableOpacity
                 key={index}
-                style={[
-                    styles.optionButton,
-                    selectedOption === option && (isAnswerCorrect ? styles.correctOption : styles.incorrectOption)
-                ]}
+                style={getButtonStyle(option)}  // Apply dynamic styling
                 onPress={() => setSelectedOption(option)}
             >
                 <Text style={styles.optionText}>{option}</Text>
@@ -61,7 +80,6 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
         <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.questionText}>{quiz.Question}</Text>
             {renderImage()}
-            {/* Separate the answers and feedback */}
             <View style={styles.answerContainer}>
                 {renderOptions()}
                 {isAnswerCorrect !== null && (
@@ -70,22 +88,19 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
                     </Text>
                 )}
             </View>
-            <TouchableOpacity
-                style={styles.submitButton}
-                onPress={handleAnswerSubmit}
-                disabled={selectedOption === null}
-            >
-                <Text style={styles.submitButtonText}>Submit Answer</Text>
-            </TouchableOpacity>
-            {isAnswerCorrect !== null && (
-                <TouchableOpacity style={styles.continueButton} onPress={onNextSlide}>
-                    <Text style={styles.continueButtonText}>Continue</Text>
-                </TouchableOpacity>
-            )}
+            <ControlButtons
+                onClear={() => setSelectedOption(null)}  // Clear selection
+                onSubmit={handleAnswerSubmit}  // Handle answer submission
+                onContinue={onNextSlide}  // Handle navigation to the next slide
+                submitButtonText={isAnswerCorrect !== null ? 'Weiter' : 'Bestätigen'}  // Conditionally set button text
+                disabled={selectedOption === null}  // Disable when no option is selected
+                showClearButton={true}
+                showBackspaceButton={false}
+            />
         </ScrollView>
     );
+    
 };
-
 
 const styles = StyleSheet.create({
     container: {
@@ -93,15 +108,18 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-start',  // Ensure content starts from the top
         alignItems: 'center',
         padding: 20,
-        backgroundColor: '#2b4353',
+        backgroundColor: '#3a7563',
     },
     questionText: {
         fontSize: 20,
         fontWeight: 'bold',
-        marginBottom: 20,
         textAlign: 'center',
         color: '#FFF',
         lineHeight: 30,
+        position: 'absolute',
+        top: '20%',
+        left: 0,
+        right: 0,
     },
     answerContainer: {
         flex: 1, // This ensures answer options don't shift up
@@ -110,14 +128,14 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     optionButton: {
-        backgroundColor: '#4CAF50', // Matching button style with MultipleChoice
+        backgroundColor: 'transparent',  // Remove solid fill
+        borderColor: '#b8e1dd',  // Add border color similar to QuizSlide
+        borderWidth: 1,  // Define border width
         padding: 15,
         marginVertical: 10,
         width: '80%',
         borderRadius: 5,
         alignItems: 'center',
-        borderColor: '#8fc2c2',
-        borderWidth: 1,
     },
     optionText: {
         color: '#fff',
