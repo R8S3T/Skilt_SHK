@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
 import { imageMap } from 'src/utils/imageMappings';
+
 
 interface MathMiniQuiz {
     Question: string;
@@ -22,7 +23,6 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
     const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null);
 
     const handleAnswerSubmit = () => {
-        // Check if the selected option is in the array of correct answers
         if (selectedOption && quiz.Answer.includes(selectedOption)) {
             setIsAnswerCorrect(true);
             onQuizComplete(true); // Notify parent about the correct answer
@@ -56,18 +56,20 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
         }
         return null;
     };
-    
 
     return (
-        <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.questionText}>{quiz.Question}</Text>
             {renderImage()}
-            {renderOptions()}
-            {isAnswerCorrect !== null && (
-                <Text style={styles.feedbackText}>
-                    {isAnswerCorrect ? 'Correct!' : 'Incorrect, please try again.'}
-                </Text>
-            )}
+            {/* Separate the answers and feedback */}
+            <View style={styles.answerContainer}>
+                {renderOptions()}
+                {isAnswerCorrect !== null && (
+                    <Text style={styles.feedbackText}>
+                        {isAnswerCorrect ? 'Correct!' : 'Incorrect, please try again.'}
+                    </Text>
+                )}
+            </View>
             <TouchableOpacity
                 style={styles.submitButton}
                 onPress={handleAnswerSubmit}
@@ -80,41 +82,52 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
                     <Text style={styles.continueButtonText}>Continue</Text>
                 </TouchableOpacity>
             )}
-        </View>
+        </ScrollView>
     );
 };
 
+
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'center',
+        flexGrow: 1,
+        justifyContent: 'flex-start',  // Ensure content starts from the top
         alignItems: 'center',
         padding: 20,
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#2b4353',
     },
     questionText: {
         fontSize: 20,
         fontWeight: 'bold',
         marginBottom: 20,
         textAlign: 'center',
+        color: '#FFF',
+        lineHeight: 30,
+    },
+    answerContainer: {
+        flex: 1, // This ensures answer options don't shift up
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
     },
     optionButton: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#4CAF50', // Matching button style with MultipleChoice
         padding: 15,
         marginVertical: 10,
         width: '80%',
         borderRadius: 5,
         alignItems: 'center',
+        borderColor: '#8fc2c2',
+        borderWidth: 1,
     },
     optionText: {
         color: '#fff',
         fontSize: 18,
     },
     correctOption: {
-        backgroundColor: '#32CD32',
+        backgroundColor: '#32CD32',  // Correct option color
     },
     incorrectOption: {
-        backgroundColor: '#FF6347',
+        backgroundColor: '#FF6347',  // Incorrect option color
     },
     quizImage: {
         width: 200,
@@ -125,28 +138,33 @@ const styles = StyleSheet.create({
     feedbackText: {
         fontSize: 18,
         marginVertical: 10,
-        color: '#333',
+        color: '#FFF',
     },
     submitButton: {
-        backgroundColor: '#2196F3',
+        backgroundColor: '#2196F3', // Matching the blue from MultipleChoice
         padding: 15,
         borderRadius: 5,
         marginTop: 20,
+        width: '80%',
+        alignItems: 'center',
     },
     submitButtonText: {
         color: '#fff',
         fontSize: 18,
     },
     continueButton: {
-        backgroundColor: '#FFD700',
+        backgroundColor: '#008CBA', // Slightly adjusted blue for continue button
         padding: 15,
         borderRadius: 5,
         marginTop: 20,
+        width: '80%',
+        alignItems: 'center',
     },
     continueButtonText: {
         color: '#fff',
         fontSize: 18,
     },
 });
+
 
 export default MathQuizSlide;

@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationProp } from '@react-navigation/native';
-import { fetchSubchaptersByChapterId, fetchSubchapterContentBySubchapterId } from 'src/database/databaseServices';
+import { fetchSubchaptersByChapterId, fetchQuizByContentId } from 'src/database/databaseServices';
 import { LearnStackParamList } from 'src/types/navigationTypes';
 
 // Function to save progress (updated to save subchapterId and currentIndex)
@@ -21,7 +21,6 @@ export const saveProgress = async (
             imageName,
         };
         await AsyncStorage.setItem(`progress_${sectionKey}`, JSON.stringify(progressData));
-        console.log("Saved Progress Data:", progressData);
     } catch (e) {
         console.error('Error saving progress.', e);
     }
@@ -102,6 +101,7 @@ interface NextContentParams {
     unlockSubchapter: (id: number) => void;
     origin?: string;
 }
+
 export const nextContent = async ({
     showQuiz,
     setShowQuiz,
@@ -141,16 +141,27 @@ export const nextContent = async ({
 
     const moveToNextSlide = async () => {
         if (currentIndex < contentData.length - 1) {
-            // Normal navigation within the subchapter
             const newIndex = currentIndex + 1;
             setCurrentIndex(newIndex);
             setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
+    
+            // Check if the next content has a quiz by using fetchQuizByContentId
+            const nextContent = contentData[newIndex];
+            try {
+                const quizData = await fetchQuizByContentId(nextContent.ContentId);
+                setShowQuiz(quizData.length > 0);
+            } catch (error) {
+                console.error('Failed to fetch quiz data:', error);
+                setShowQuiz(false);  // Ensure quiz is off if there's an error
+            }
+    
             await saveCurrentProgress(newIndex);
         } else {
-            await saveCurrentProgress(currentIndex);  // Ensure the final slide is saved
-            await completeSubchapter(); 
+            await saveCurrentProgress(currentIndex);
+            await completeSubchapter();
         }
     };
+    
 
     const completeSubchapter = async () => {
         console.log("Starting completeSubchapter function");
@@ -212,7 +223,7 @@ if (origin === 'ResumeSection') {
     
     // Start moveToNextSlide or completeSubchapter process
     if (showQuiz) {
-        setShowQuiz(false);
+        setShowQuiz(true);
         await moveToNextSlide();
     } else {
         await moveToNextSlide();

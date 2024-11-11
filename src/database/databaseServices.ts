@@ -203,16 +203,18 @@ export async function fetchMathContentBySubchapterId(subchapterId: number): Prom
     }
 }
 
-// Fetch quiz by content ID
 export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
     if (DATABASE_MODE === 'local') {
         // Fetch from local SQLite database
         const db = await initializeDatabase();
         try {
+            console.log(`Fetching quiz for contentId: ${contentId}`);
             const result = await db.getAllAsync<Quiz>(
                 'SELECT * FROM Quiz WHERE ContentId = ?',
                 [contentId]
             );
+
+            console.log('Fetched quizzes:', result);  // Log the fetched quizzes to see if any data is returned.
 
             // Process options for each quiz
             for (let quiz of result) {
