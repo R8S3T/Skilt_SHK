@@ -10,10 +10,10 @@ import MathStackNavigator from './MathStackNavigator';
 import { SubchapterProvider } from 'src/context/SubchapterContext';
 import { MathSubchapterProvider } from 'src/context/MathSubchapterContext';
 import PrivacyPolicyScreen from 'src/screens/Settings Screen/PrivacyPolicyScreen';
-import FlashCardChoice from 'src/FlashCard/FlashCardChoice';
-import FlashCardChapters from 'src/FlashCard/FlashCardChapters';
-import FlashcardScreen from 'src/FlashCard/FlashcardScreen';
-import FlashCardRepeat from 'src/FlashCard/FlashCardRepeat';
+import FlashCardChoice from 'src/screens/FlashCard/FlashCardChoice';
+import FlashCardChapters from 'src/screens/FlashCard/FlashCardChapters';
+import FlashcardScreen from 'src/screens/FlashCard/FlashcardScreen';
+import FlashCardRepeat from 'src/screens/FlashCard/FlashCardRepeat';
 import { hasCompletedOnboarding } from 'src/utils/onBoardingUtils';
 import SplashScreen from 'src/screens/SplashScreen';
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
-import { imageMap } from 'src/utils/imageMappings';
 
 export const processTextWithMarkers = (
     text: string,
