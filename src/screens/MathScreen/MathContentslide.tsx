@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, Image, Text, LayoutChangeEvent, FlatList } from 'react-native';
 import { imageMap } from 'src/utils/imageMappings';
 import { MathMiniQuiz, GenericContent } from 'src/types/contentTypes';
-import MathMiniQuizComponent from '../Quiz/MathMiniQuiz';
 import NextSlideButton from '../NextSlideButton';
 import ContinueButton from './MathContinueButton';
 import { useTheme } from 'src/context/ThemeContext';
@@ -102,25 +101,6 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                             key={`${index}-${lastIndex}-${subIndex}`}
                             source={imageSource}
                             style={imageName.includes("welcome") ? styles.welcomeImage : imageName.includes("big") ? styles.bigImage : styles.image}
-                        />
-                    );
-                }
-                return content;
-            }
-
-            // Quiz handling
-            if (line.startsWith('[quiz_')) {
-                const quizIndex = parseInt(line.split('_')[1], 10) - 1;
-                const quiz = mathMiniQuizzes[quizIndex];
-                if (quiz) {
-                    content.push(
-                        <MathMiniQuizComponent
-                            key={`${index}-${lastIndex}-${subIndex}`}
-                            quiz={quiz}
-                            onQuizComplete={onQuizComplete}
-                            onQuizLayout={onQuizLayout}
-                            onQuizAnswered={() => setQuizAnswered(true)}
-                            onContinue={handleContinue}
                         />
                     );
                 }
