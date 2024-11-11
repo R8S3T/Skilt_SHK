@@ -113,7 +113,7 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
             {/* Scrollable Content */}
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
                 {loading ? (
-                    <Text style={{ color: theme.primaryText }}>Loading...</Text>
+                    <Text style={{ color: theme.primaryText }}>Daten werden geladen...</Text>
                 ) : (
                     <GenericRows
                         items={formattedSubchapters}

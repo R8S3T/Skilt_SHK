@@ -5,4 +5,5 @@ export type SubchapterInfoModalProps = {
     onReviewLesson: () => void;
     isJumpAhead?: boolean;
     onJumpAheadConfirm?: () => void;
+    message?: string | null;
 };

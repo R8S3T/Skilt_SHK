@@ -28,7 +28,7 @@ const Section1: React.FC<Section1Props> = ({ onButtonPress }) => {
                 Vertiefe Dein Wissen mit maßgeschneiderten Lernhäppchen, die auf deine Ausbildung abgestimmt sind.
             </Text>
             <View style={styles.horizontalContainer}>
-                <Image source={require('../../../assets/Images/rocket.png')} style={styles.image} />
+                <Image source={require('../../../assets/Images/start_rocket.png')} style={styles.image} />
                 <RenderButton
                     title='Starte hier'
                     onPress={() => {
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         fontFamily: 'OpenSans-Regular',
         fontSize: scaleFontSize(13),
         textAlign: 'center',
-        marginBottom: 20,
+        marginBottom: 10,
     },
     image: {
         width: 100,
@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 10,
         width: 150,
+        marginTop: 20,
     },
     topButtonText: {
         fontFamily: 'Lato-Bold',

@@ -35,14 +35,14 @@ const BottomTabNavigator = () => {
                 name="Home"
                 component={HomeScreen}
                 options={{
-                    tabBarLabel: 'Home',
+                    tabBarLabel: 'Start',
                 }}
             />
             <Tab.Screen
                 name="Search"
                 component={SearchScreen}
                 options={{
-                    tabBarLabel: 'Search',
+                    tabBarLabel: 'Suche',
                     headerTitleAlign: 'center', // Center-align the title if needed for consistency
                 }}
             />
@@ -50,7 +50,7 @@ const BottomTabNavigator = () => {
                 name="Settings"
                 component={SettingsScreen}
                 options={{
-                    tabBarLabel: 'Settings',
+                    tabBarLabel: 'Einstellungen',
                     headerTitleAlign: 'center',
                 }}
             />

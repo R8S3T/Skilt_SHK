@@ -72,13 +72,13 @@ const MathMiniQuizComponent: React.FC<MathMiniQuizProps> = ({
             ))}
             <View style={styles.buttonContainer}>
                 <MiniQuizButton
-                    label="Submit"
+                    label="Bestätigen"
                     onPress={handleSubmit}
                     disabled={selectedOptions.length === 0}
                 />
                 {showContinueButton && (
                     <ContinueButton
-                        label="Continue"
+                        label="Fortfahren"
                         onPress={handleContinue}
                         disabled={!isAnswered}
                         style={styles.continueButton}

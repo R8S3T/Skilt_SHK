@@ -58,7 +58,7 @@ const MathChapterScreen: React.FC = () => {
     if (loading) {
         return (
             <View style={styles.container}>
-                <Text style={{ color: theme.primaryText }}>Loading...</Text>
+                <Text style={{ color: theme.primaryText }}>Daten werden geladen...</Text>
             </View>
         );
     }

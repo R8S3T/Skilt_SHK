@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Modal, TouchableOpacity, TouchableWithoutFeedback, Animated } from 'react-native';
 import { SubchapterInfoModalProps } from 'src/types/uiTypes';
+import { scaleFontSize } from 'src/utils/screenDimensions';
 
 const SubchapterInfoModal: React.FC<SubchapterInfoModalProps> = ({
     visible,
@@ -9,6 +10,7 @@ const SubchapterInfoModal: React.FC<SubchapterInfoModalProps> = ({
     onReviewLesson,
     isJumpAhead = false,
     onJumpAheadConfirm,
+    message,
 }) => {
     const opacity = useRef(new Animated.Value(0)).current;
 
@@ -16,13 +18,13 @@ const SubchapterInfoModal: React.FC<SubchapterInfoModalProps> = ({
         if (visible) {
             Animated.timing(opacity, {
                 toValue: 1,
-                duration: 150, // Shorter duration for quicker animation
+                duration: 150,
                 useNativeDriver: true,
             }).start();
         } else {
             Animated.timing(opacity, {
                 toValue: 0,
-                duration: 150, // Shorter duration for quicker fade-out
+                duration: 150,
                 useNativeDriver: true,
             }).start();
         }
@@ -30,10 +32,10 @@ const SubchapterInfoModal: React.FC<SubchapterInfoModalProps> = ({
 
     return (
         <Modal
-            animationType="none" // Disable the default slide-up animation
+            animationType="none"
             transparent={true}
             visible={visible}
-            onRequestClose={onClose} // Handles hardware back button on Android
+            onRequestClose={onClose}
         >
             <TouchableWithoutFeedback onPress={onClose}>
                 <View style={styles.fullScreen}>
@@ -41,16 +43,20 @@ const SubchapterInfoModal: React.FC<SubchapterInfoModalProps> = ({
                         <Animated.View style={[styles.modalView, { opacity }]}>
                             <Text style={styles.subchapterName}>{subchapterName}</Text>
                             <Text style={styles.description}>
-                                {isJumpAhead ? 'Do you really want to jump ahead to this subchapter?' : 'You have completed this lesson. Do you want to review it?'}
+                                {message || (isJumpAhead
+                                    ? `Möchtest du mit ${subchapterName} weitermachen?`
+                                    : 'Du hast diese Lektion abgeschlossen. Möchtest du sie wiederholen?')}
                             </Text>
-                            <TouchableOpacity 
-                                style={styles.button} 
-                                onPress={isJumpAhead ? onJumpAheadConfirm : onReviewLesson}
-                            >
-                                <Text style={styles.buttonText}>
-                                    {isJumpAhead ? 'Jump Ahead' : 'Review'}
-                                </Text>
-                            </TouchableOpacity>
+                            {!message && (
+                                <TouchableOpacity
+                                    style={styles.button}
+                                    onPress={isJumpAhead ? onJumpAheadConfirm : onReviewLesson}
+                                >
+                                    <Text style={styles.buttonText}>
+                                        {isJumpAhead ? 'Weitermachen' : 'Wiederholen'}
+                                    </Text>
+                                </TouchableOpacity>
+                            )}
                         </Animated.View>
                     </TouchableWithoutFeedback>
                 </View>
@@ -59,12 +65,13 @@ const SubchapterInfoModal: React.FC<SubchapterInfoModalProps> = ({
     );
 };
 
+
 const styles = StyleSheet.create({
     fullScreen: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'transparent', // Keep background transparent
+        backgroundColor: 'transparent',
     },
     modalView: {
         marginHorizontal: 20,
@@ -88,11 +95,19 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     description: {
+        color: '#333',
+        fontFamily: 'OpenSans-Regular',
+        fontSize: scaleFontSize(12),
         marginBottom: 15,
         textAlign: 'center',
     },
+    subchapterNameHighlight: {
+        fontSize: scaleFontSize(14), // Make it slightly larger
+        fontWeight: 'bold', // Bold text
+        color: '#333', // Optional: color to match the theme
+    },
     button: {
-        backgroundColor: '#2196F3',
+        backgroundColor: '#343A40',
         borderRadius: 20,
         padding: 10,
         elevation: 2,

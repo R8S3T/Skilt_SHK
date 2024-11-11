@@ -13,7 +13,17 @@ const CongratsScreen: React.FC = () => {
 
     const targetScreen = route.params?.targetScreen as keyof RootStackParamList;
     const targetParams = route.params?.targetParams;
-    
+
+    // Array of animation sources
+    const animations = [
+        require('../../../assets/Animations/congrats_1.json'),
+        require('../../../assets/Animations/congrats_2.json'),
+        require('../../../assets/Animations/congrats_3.json'),
+/*         require('../../../assets/Animations/congrats_4.json'), */
+    ];
+
+    // Select a random animation
+    const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
 
     if (!targetScreen || !targetParams) {
         return (
@@ -25,7 +35,7 @@ const CongratsScreen: React.FC = () => {
 
     const handleContinue = () => {
         const { targetScreen, targetParams } = route.params;
-    
+
         if (targetScreen === 'HomeScreen') {
             // Navigate to HomeScreen within BottomTabNavigator
             navigation.dispatch(
@@ -43,7 +53,7 @@ const CongratsScreen: React.FC = () => {
     return (
         <View style={styles.container}>
             <LottieView
-                source={require('../../../assets/Animations/congrats_1.json')}
+                source={randomAnimation}
                 autoPlay
                 loop={false}
                 style={styles.animation}

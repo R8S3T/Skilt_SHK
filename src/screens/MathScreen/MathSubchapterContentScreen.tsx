@@ -81,7 +81,7 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
     if (loading) {
         return (
             <View style={[styles.container, { backgroundColor: theme.background }]}>
-                <Text style={{ color: theme.primaryText }}>Loading ...</Text>
+                <Text style={{ color: theme.primaryText }}>Daten werden geladen ...</Text>
             </View>
         );
     }

@@ -161,7 +161,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                         {index === currentPartIndex &&
                             currentPartIndex < parts.length - 1 &&
                             !quizAnswered && ( // Ensure ContinueButton only shows when quiz is unanswered
-                                <ContinueButton label="Continue" onPress={handleContinue} />
+                                <ContinueButton label="Weiter" onPress={handleContinue} />
                             )}
                     </View>
                 )}

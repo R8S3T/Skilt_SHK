@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Image, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { LearnStackParamList } from 'src/types/navigationTypes';
 import { fetchChaptersByYear } from 'src/database/databaseServices';
@@ -12,8 +12,10 @@ const YearsScreen: React.FC = () => {
     const navigation = useNavigation<NavigationProp<LearnStackParamList>>();
     const { isDarkMode, theme } = useTheme();
     const [expandedYear, setExpandedYear] = useState<number | null>(null);
-    const [chapters, setChapters] = useState<{ [key: number]: { chapterId: number; chapterTitle?: string; chapterIntro?: string }[] }>({});
+    const [chapters, setChapters] = useState<{ [key: number]: { chapterId: number; chapterIntro?: string }[] }>({});
     const [loading, setLoading] = useState<boolean>(false);
+    const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [modalMessage, setModalMessage] = useState<string | null>(null);
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -39,6 +41,14 @@ const YearsScreen: React.FC = () => {
     ];
 
     const handlePress = async (year: number) => {
+        // Lock years 3 and 4
+        if (year === 3 || year === 4) {
+            setModalMessage('Inhalte momentan nicht verfügbar');
+            setModalVisible(true);
+            return; // Prevent further execution if year is locked
+        }
+    
+        // Toggle expanded state for the year
         setExpandedYear(expandedYear === year ? null : year);
         if (!chapters[year]) {
             setLoading(true);
@@ -58,18 +68,25 @@ const YearsScreen: React.FC = () => {
         }
     };
 
-    const handleChapterPress = (chapterId: number) => {
-        navigation.navigate('SubchaptersScreen', { chapterId });
+    const handleChapterPress = (chapterId: number, year: number) => {
+        // Lock chapter IDs 7 and 8, and years 3 and 4
+        if ((chapterId === 7 || chapterId === 8) || (year === 3 || year === 4)) {
+            setModalMessage('Inhalte momentan nicht verfügbar');
+            setModalVisible(true);
+        } else {
+            // Navigate if chapter is not locked
+            navigation.navigate('SubchaptersScreen', { chapterId });
+        }
     };
 
-    const renderChapter = (chapter: { chapterId: number; chapterIntro?: string }) => (
+    const renderChapter = (chapter: { chapterId: number; chapterIntro?: string }, year: number) => (
         <TouchableOpacity
             key={chapter.chapterId}
             style={[
                 styles.chapterContainer,
                 isDarkMode && { borderColor: theme.primaryText }
             ]}
-            onPress={() => handleChapterPress(chapter.chapterId)}
+            onPress={() => handleChapterPress(chapter.chapterId, year)}
         >
             <Image
                 source={require('../../assets/Images/play_icon.png')}
@@ -83,12 +100,10 @@ const YearsScreen: React.FC = () => {
 
     return (
         <View style={styles.mainContainer}>
-            {/* Sticky Header Section for 'Wähle dein Lehrjahr' */}
             <View style={[styles.titleContainer, { backgroundColor: theme.surface }]}>
                 <Text style={[styles.title, { color: theme.primaryText }]}>Wähle dein Lehrjahr</Text>
             </View>
 
-            {/* Scrollable Content */}
             <ScrollView style={[styles.container, { backgroundColor: theme.background }]}>
                 {educationData.map((item, index) => (
                     <View
@@ -96,7 +111,7 @@ const YearsScreen: React.FC = () => {
                         style={[
                             styles.cardContainer,
                             {
-                                backgroundColor: isDarkMode ? theme.surface : theme.background, // Set dynamic background
+                                backgroundColor: isDarkMode ? theme.surface : theme.background,
                                 borderColor: theme.border,
                             }
                         ]}
@@ -113,13 +128,29 @@ const YearsScreen: React.FC = () => {
                                 {loading ? (
                                     <Text style={{ color: theme.secondaryText }}>Loading...</Text>
                                 ) : (
-                                    chapters[item.year]?.map((chapter) => renderChapter(chapter))
+                                    chapters[item.year]?.map((chapter) => renderChapter(chapter, item.year))
                                 )}
                             </View>
                         )}
                     </View>
                 ))}
             </ScrollView>
+
+            {/* Modal for locked chapters */}
+            <Modal
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => setModalVisible(false)}
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={styles.modalContainer}>
+                        <Text style={styles.modalText}>{modalMessage}</Text>
+                        <TouchableOpacity onPress={() => setModalVisible(false)}>
+                            <Text style={styles.modalButton}>OK</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 };
@@ -196,6 +227,28 @@ const styles = StyleSheet.create({
     playButton: {
         width: iconSize,
         height: iconSize,
+    },
+    modalOverlay: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContainer: {
+        width: '80%',
+        padding: 16,
+        backgroundColor: 'white',
+        borderRadius: 8,
+        alignItems: 'center',
+    },
+    modalText: {
+        fontSize: 16,
+        marginBottom: 16,
+        textAlign: 'center',
+    },
+    modalButton: {
+        fontSize: 14,
+        color: '#007bff',
     },
 });
 
