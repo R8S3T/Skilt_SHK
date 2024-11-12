@@ -20,21 +20,16 @@ type Props = {
 };
 
 const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
-    const { chapterId, chapterTitle, origin } = route.params as { 
-        chapterId: number; 
-        chapterTitle: string; 
-        origin?: string 
-    };
+    const { chapterId, chapterTitle, origin } = route.params;
     const { isDarkMode, theme } = useTheme();
     const [subchapters, setSubchapters] = useState<MathSubchapter[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    const context = useMathSubchapter();
-    const [modalVisible, setModalVisible] = useState<boolean>(false);
+    const [loading, setLoading] = useState(true);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [isJumpAhead, setIsJumpAhead] = useState(false);
     const [selectedSubchapter, setSelectedSubchapter] = useState<MathSubchapter | null>(null);
-    const { unlockedSubchapters, finishedSubchapters, setCurrentSubchapter } = context;
+    const { unlockedSubchapters, finishedSubchapters, setCurrentSubchapter, unlockSubchapter } = useMathSubchapter();
 
     useLayoutEffect(() => {
-        console.log("Origin parameter received:", origin);
         navigation.setOptions({
             headerTitle: origin === 'HomeScreen' ? 'Start' : 'Module',
             headerStyle: { backgroundColor: theme.surface },
@@ -47,6 +42,13 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
             try {
                 const data = await fetchMathSubchaptersByChapterId(chapterId);
                 setSubchapters(data);
+
+                // Unlock the first subchapter by SortOrder if none are unlocked
+                if (unlockedSubchapters.length === 0 && data.length > 0) {
+                    const firstSubchapter = data.reduce((min, sub) => 
+                        sub.SortOrder < min.SortOrder ? sub : min, data[0]);
+                    unlockSubchapter(firstSubchapter.SubchapterId);
+                }
             } catch (error) {
                 console.error('Failed to load subchapters:', error);
             } finally {
@@ -54,32 +56,29 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
             }
         };
         loadSubchapters();
-    }, [chapterId]);
+    }, [chapterId, unlockedSubchapters, unlockSubchapter]);
 
     const handleNodePress = (subchapterId: number, subchapterTitle: string) => {
         const isFinished = finishedSubchapters.includes(subchapterId);
+        const isLocked = !unlockedSubchapters.includes(subchapterId);
         const selected = subchapters.find(sub => sub.SubchapterId === subchapterId);
 
         if (isFinished && selected) {
             setSelectedSubchapter(selected);
             setModalVisible(true);
+            setIsJumpAhead(false);
+        } else if (isLocked && selected) {
+            setSelectedSubchapter(selected);
+            setModalVisible(true);
+            setIsJumpAhead(true);
         } else {
-            const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
-            if (currentSubchapter) {
-                const nextSubchapter = subchapters.find(
-                    sub => sub.SortOrder === currentSubchapter.SortOrder + 1
-                );
-                if (nextSubchapter && !unlockedSubchapters.includes(nextSubchapter.SubchapterId)) {
-                    setCurrentSubchapter(nextSubchapter.SubchapterId, nextSubchapter.SubchapterName);
-                }
-            }
             setCurrentSubchapter(subchapterId, subchapterTitle);
             navigation.navigate('MathSubchapterContentScreen', {
                 subchapterId,
                 subchapterTitle,
                 chapterId,
                 chapterTitle,
-                origin // Pass origin to retain the "Start" label when navigating back
+                origin
             });
         }
     };
@@ -92,7 +91,22 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
                 subchapterTitle: selectedSubchapter.SubchapterName,
                 chapterId,
                 chapterTitle,
-                origin // Pass origin here as well
+                origin
+            });
+        }
+        setModalVisible(false);
+    };
+
+    const handleJumpAheadConfirm = () => {
+        if (selectedSubchapter) {
+            unlockSubchapter(selectedSubchapter.SubchapterId);
+            setCurrentSubchapter(selectedSubchapter.SubchapterId, selectedSubchapter.SubchapterName);
+            navigation.navigate('MathSubchapterContentScreen', {
+                subchapterId: selectedSubchapter.SubchapterId,
+                subchapterTitle: selectedSubchapter.SubchapterName,
+                chapterId,
+                chapterTitle,
+                origin
             });
         }
         setModalVisible(false);
@@ -104,13 +118,13 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
         isLocked: !unlockedSubchapters.includes(subchapter.SubchapterId),
         isFinished: finishedSubchapters.includes(subchapter.SubchapterId)
     }));
-
+    
     return (
         <View style={[styles.container, { backgroundColor: theme.background }]}>
-            {/* Sticky Heading */}
-            <Text style={[styles.stickyHeading, { color: theme.primaryText, backgroundColor: theme.surface }]}>{chapterTitle}</Text>
+            <Text style={[styles.stickyHeading, { color: theme.primaryText, backgroundColor: theme.surface }]}>
+                {chapterTitle}
+            </Text>
 
-            {/* Scrollable Content */}
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
                 {loading ? (
                     <Text style={{ color: theme.primaryText }}>Daten werden geladen...</Text>
@@ -129,7 +143,9 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
                     visible={modalVisible}
                     onClose={() => setModalVisible(false)}
                     subchapterName={selectedSubchapter.SubchapterName}
-                    onReviewLesson={handleReviewLesson}
+                    onReviewLesson={isJumpAhead ? handleJumpAheadConfirm : handleReviewLesson}
+                    isJumpAhead={isJumpAhead}
+                    onJumpAheadConfirm={handleJumpAheadConfirm}
                 />
             )}
         </View>

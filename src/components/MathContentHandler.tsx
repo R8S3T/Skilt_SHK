@@ -55,21 +55,32 @@ const processNormalText = (text: string, index: number, lastIndex: number) => {
             return content;
         }
 
-        // Image handling
-        if (line.startsWith('[equations_') || line.startsWith('[bigImage_')) {
-            const imageName = line.replace('[', '').replace(']', '').trim();
-            const imageSource = imageMap[imageName as keyof typeof imageMap];
-            if (imageSource) {
-                content.push(
-                    <Image
-                        key={`${index}-${lastIndex}-${subIndex}`}
-                        source={imageSource}
-                        style={imageName.includes("welcome") ? styles.welcomeImage : imageName.includes("big") ? styles.bigImage : styles.image}
-                    />
-                );
-            }
-            return content;
+// Image handling
+if (line.startsWith('[equations_') || line.startsWith('[bigImage_') || line.startsWith('[small]')) {
+    const imageName = line.replace('[', '').replace(']', '').trim();
+    const imageSource = imageMap[imageName as keyof typeof imageMap];
+    
+    // Check if it's a "small" image and apply the appropriate style
+    if (imageSource) {
+        let imageStyle = styles.image; // Default style
+
+        // Apply "smallImage" style if the image name includes "small"
+        if (imageName.includes('small')) {
+            imageStyle = styles.smallImage;
+        } else if (imageName.includes("big")) {
+            imageStyle = styles.bigImage;
         }
+
+        content.push(
+            <Image
+                key={`${index}-${lastIndex}-${subIndex}`}
+                source={imageSource}
+                style={imageStyle}
+            />
+        );
+    }
+    return content;
+}
 
         // Check for heading
         if (line.startsWith('[heading]') && line.endsWith('[/heading]')) {
@@ -154,8 +165,14 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         marginVertical: 0,
     },
+    smallImage: {
+        width: '100%',
+        height: 80,
+        resizeMode: 'contain',
+        marginVertical: 5,
+    },
     contentText: {
-        fontSize: 20,
+        fontSize: 18,
         marginVertical: 1.5,
         color: '#000',
         padding: 5,
@@ -181,11 +198,11 @@ const styles = StyleSheet.create({
     },
     headingText: {
         fontFamily: 'Lato-Bold',
-        fontSize: 24,
+        fontSize: 22,
     },
     subheadingText: {
     fontFamily: 'Lato-Medium',
-    fontSize: 22,
+    fontSize: 20,
     },
     sectionText: {
     fontFamily: 'OpenSans-Semibold',

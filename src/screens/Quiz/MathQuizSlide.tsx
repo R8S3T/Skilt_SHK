@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'react-native';
 import { imageMap } from 'src/utils/imageMappings';
+import { scaleFontSize } from 'src/utils/screenDimensions';
 import ControlButtons from './ControlButtons';
 
 interface MathMiniQuiz {
@@ -8,14 +9,14 @@ interface MathMiniQuiz {
     Option1: string;
     Option2: string;
     Option3: string;
-    Answer: string[];  // Array to handle multiple correct answers
-    Image?: string; // Optional image
+    Answer: string[];
+    Image?: string;
 }
 
 interface MathQuizSlideProps {
-    quiz: MathMiniQuiz;  // Single quiz object
-    onQuizComplete: (isCorrect: boolean) => void; // Callback when a quiz is completed
-    onNextSlide: () => void; // Callback to go to the next quiz or content
+    quiz: MathMiniQuiz;
+    onQuizComplete: (isCorrect: boolean) => void;
+    onNextSlide: () => void;
 }
 
 const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onNextSlide }) => {
@@ -25,10 +26,10 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
     const handleAnswerSubmit = () => {
         if (selectedOption && quiz.Answer.includes(selectedOption)) {
             setIsAnswerCorrect(true);
-            onQuizComplete(true); // Notify parent about the correct answer
+            onQuizComplete(true);
         } else {
             setIsAnswerCorrect(false);
-            onQuizComplete(false); // Notify parent about the incorrect answer
+            onQuizComplete(false);
         }
     };
 
@@ -37,18 +38,18 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
         let style = styles.optionButton;
     
         if (selectedOption === option && isAnswerCorrect === null) {
-            // Thicker border for selected option before confirmation
+
             style = { ...style, borderColor: '#b8e1dd', borderWidth: 3 };
         } else if (isAnswerCorrect !== null && selectedOption) {
             if (selectedOption === option) {
                 if (quiz.Answer.includes(option)) {
-                    style = { ...style, borderColor: '#32CD32', borderWidth: 4 };  // Green for correct
+                    style = { ...style, borderColor: '#32CD32', borderWidth: 4 };
                 } else {
-                    style = { ...style, borderColor: '#FF6347', borderWidth: 4 };  // Red for incorrect
+                    style = { ...style, borderColor: '#FF6347', borderWidth: 4 };
                 }
             }
         } else if (option === selectedOption && isAnswerCorrect === false) {
-            style = { ...style, borderColor: '#8fc2c2', borderWidth: 4 };  // Default color for selected but incorrect
+            style = { ...style, borderColor: '#8fc2c2', borderWidth: 4 }; 
         }
         return style;
     };
@@ -58,7 +59,7 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
         return [quiz.Option1, quiz.Option2, quiz.Option3].map((option, index) => (
             <TouchableOpacity
                 key={index}
-                style={getButtonStyle(option)}  // Apply dynamic styling
+                style={getButtonStyle(option)}
                 onPress={() => setSelectedOption(option)}
             >
                 <Text style={styles.optionText}>{option}</Text>
@@ -78,22 +79,31 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.questionText}>{quiz.Question}</Text>
-            {renderImage()}
-            <View style={styles.answerContainer}>
-                {renderOptions()}
-                {isAnswerCorrect !== null && (
-                    <Text style={styles.feedbackText}>
-                        {isAnswerCorrect ? 'Correct!' : 'Incorrect, please try again.'}
-                    </Text>
-                )}
-            </View>
+
+                <View style={styles.questionContainer}>
+                    <Text style={styles.questionText}>{quiz.Question}</Text>
+                </View>
+
+
+                <View style={styles.imageContainer}>
+                    {renderImage()}
+                </View>
+
+
+                <View style={styles.answerContainer}>
+                    {renderOptions()}
+                    {isAnswerCorrect !== null && (
+                        <Text style={styles.feedbackText}>
+                            {isAnswerCorrect ? 'Correct!' : 'Incorrect, please try again.'}
+                        </Text>
+                    )}
+                </View>
             <ControlButtons
-                onClear={() => setSelectedOption(null)}  // Clear selection
-                onSubmit={handleAnswerSubmit}  // Handle answer submission
-                onContinue={onNextSlide}  // Handle navigation to the next slide
-                submitButtonText={isAnswerCorrect !== null ? 'Weiter' : 'Bestätigen'}  // Conditionally set button text
-                disabled={selectedOption === null}  // Disable when no option is selected
+                onClear={() => setSelectedOption(null)}
+                onSubmit={handleAnswerSubmit}
+                onContinue={onNextSlide}
+                submitButtonText={isAnswerCorrect !== null ? 'Weiter' : 'Bestätigen'}
+                disabled={selectedOption === null}
                 showClearButton={true}
                 showBackspaceButton={false}
             />
@@ -105,32 +115,37 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
-        justifyContent: 'flex-start',  // Ensure content starts from the top
+        justifyContent: 'flex-start',
         alignItems: 'center',
         padding: 20,
         backgroundColor: '#3a7563',
     },
+    questionContainer: {
+        marginTop: 30,
+        alignItems: 'center',
+    },
     questionText: {
-        fontSize: 20,
-        fontWeight: 'bold',
+        fontFamily: 'Lato-Bold',
+        fontSize: scaleFontSize(16),
         textAlign: 'center',
         color: '#FFF',
         lineHeight: 30,
-        position: 'absolute',
-        top: '20%',
-        left: 0,
-        right: 0,
+    },
+    imageContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
     },
     answerContainer: {
-        flex: 1, // This ensures answer options don't shift up
+        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
     },
     optionButton: {
-        backgroundColor: 'transparent',  // Remove solid fill
-        borderColor: '#b8e1dd',  // Add border color similar to QuizSlide
-        borderWidth: 1,  // Define border width
+        backgroundColor: 'transparent',
+        borderColor: '#b8e1dd',
+        borderWidth: 1,
         padding: 15,
         marginVertical: 10,
         width: '80%',
@@ -142,16 +157,16 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     correctOption: {
-        backgroundColor: '#32CD32',  // Correct option color
+        backgroundColor: '#32CD32',
     },
     incorrectOption: {
-        backgroundColor: '#FF6347',  // Incorrect option color
+        backgroundColor: '#FF6347',
     },
     quizImage: {
-        width: 200,
+        width: 350,
         height: 200,
         resizeMode: 'contain',
-        marginBottom: 20,
+        marginTop: 10,
     },
     feedbackText: {
         fontSize: 18,
@@ -159,10 +174,10 @@ const styles = StyleSheet.create({
         color: '#FFF',
     },
     submitButton: {
-        backgroundColor: '#2196F3', // Matching the blue from MultipleChoice
-        padding: 15,
+        backgroundColor: '#2196F3',
+        padding: 10,
         borderRadius: 5,
-        marginTop: 20,
+        marginTop: 10,
         width: '80%',
         alignItems: 'center',
     },
@@ -171,7 +186,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     continueButton: {
-        backgroundColor: '#008CBA', // Slightly adjusted blue for continue button
+        backgroundColor: '#008CBA',
         padding: 15,
         borderRadius: 5,
         marginTop: 20,

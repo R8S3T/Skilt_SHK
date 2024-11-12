@@ -14,40 +14,58 @@ const img_equations9 = require('../../assets/DbImages/MathImages/equations_9.png
 const img_equationsalgebra1 = require('../../assets/DbImages/MathImages/equations_algebra_1.png');
 const img_equationsalgebra10 = require('../../assets/DbImages/MathImages/equations_algebra_10.png');
 const img_equationsalgebra101 = require('../../assets/DbImages/MathImages/equations_algebra_10_1.png');
+const img_equationsalgebra10small = require('../../assets/DbImages/MathImages/equations_algebra_10_small.png');
 const img_equationsalgebra11 = require('../../assets/DbImages/MathImages/equations_algebra_11.png');
+const img_equationsalgebra11small = require('../../assets/DbImages/MathImages/equations_algebra_11_small.png');
 const img_equationsalgebra12 = require('../../assets/DbImages/MathImages/equations_algebra_12.png');
 const img_equationsalgebra13 = require('../../assets/DbImages/MathImages/equations_algebra_13.png');
 const img_equationsalgebra131 = require('../../assets/DbImages/MathImages/equations_algebra_13_1.png');
+const img_equationsalgebra13small = require('../../assets/DbImages/MathImages/equations_algebra_13_small.png');
 const img_equationsalgebra14 = require('../../assets/DbImages/MathImages/equations_algebra_14.png');
 const img_equationsalgebra141 = require('../../assets/DbImages/MathImages/equations_algebra_14_1.png');
+const img_equationsalgebra14small = require('../../assets/DbImages/MathImages/equations_algebra_14_small.png');
 const img_equationsalgebra15 = require('../../assets/DbImages/MathImages/equations_algebra_15.png');
+const img_equationsalgebra151small = require('../../assets/DbImages/MathImages/equations_algebra_15_1_small.png');
+const img_equationsalgebra15small = require('../../assets/DbImages/MathImages/equations_algebra_15_small.png');
 const img_equationsalgebra16 = require('../../assets/DbImages/MathImages/equations_algebra_16.png');
 const img_equationsalgebra161 = require('../../assets/DbImages/MathImages/equations_algebra_16_1.png');
+const img_equationsalgebra161small = require('../../assets/DbImages/MathImages/equations_algebra_16_1_small.png');
 const img_equationsalgebra162 = require('../../assets/DbImages/MathImages/equations_algebra_16_2.png');
+const img_equationsalgebra162small = require('../../assets/DbImages/MathImages/equations_algebra_16_2_small.png');
+const img_equationsalgebra165small = require('../../assets/DbImages/MathImages/equations_algebra_16_5_small.png');
+const img_equationsalgebra16small = require('../../assets/DbImages/MathImages/equations_algebra_16_small.png');
 const img_equationsalgebra17 = require('../../assets/DbImages/MathImages/equations_algebra_17.png');
 const img_equationsalgebra18 = require('../../assets/DbImages/MathImages/equations_algebra_18.png');
 const img_equationsalgebra19 = require('../../assets/DbImages/MathImages/equations_algebra_19.png');
 const img_equationsalgebra191 = require('../../assets/DbImages/MathImages/equations_algebra_19_1.png');
 const img_equationsalgebra2 = require('../../assets/DbImages/MathImages/equations_algebra_2.png');
 const img_equationsalgebra20 = require('../../assets/DbImages/MathImages/equations_algebra_20.png');
-const img_equationsalgebra201 = require('../../assets/DbImages/MathImages/equations_algebra_201.png');
 const img_equationsalgebra201big = require('../../assets/DbImages/MathImages/equations_algebra_201_big.png');
 const img_equationsalgebra202 = require('../../assets/DbImages/MathImages/equations_algebra_202.png');
 const img_equationsalgebra202big = require('../../assets/DbImages/MathImages/equations_algebra_202_big.png');
 const img_equationsalgebra203big = require('../../assets/DbImages/MathImages/equations_algebra_203_big.png');
 const img_equationsalgebra204big = require('../../assets/DbImages/MathImages/equations_algebra_204_big.png');
 const img_equationsalgebra205big = require('../../assets/DbImages/MathImages/equations_algebra_205_big.png');
+const img_equationsalgebra21small = require('../../assets/DbImages/MathImages/equations_algebra_21_small.png');
 const img_equationsalgebra22 = require('../../assets/DbImages/MathImages/equations_algebra_22.png');
+const img_equationsalgebra22small = require('../../assets/DbImages/MathImages/equations_algebra_22_small.png');
 const img_equationsalgebra23 = require('../../assets/DbImages/MathImages/equations_algebra_23.png');
+const img_equationsalgebra23small = require('../../assets/DbImages/MathImages/equations_algebra_23_small.png');
 const img_equationsalgebra24 = require('../../assets/DbImages/MathImages/equations_algebra_24.png');
+const img_equationsalgebra24small = require('../../assets/DbImages/MathImages/equations_algebra_24_small.png');
 const img_equationsalgebra25 = require('../../assets/DbImages/MathImages/equations_algebra_25.png');
 const img_equationsalgebra26 = require('../../assets/DbImages/MathImages/equations_algebra_26.png');
+const img_equationsalgebra26small = require('../../assets/DbImages/MathImages/equations_algebra_26_small.png');
 const img_equationsalgebra27 = require('../../assets/DbImages/MathImages/equations_algebra_27.png');
+const img_equationsalgebra27small = require('../../assets/DbImages/MathImages/equations_algebra_27_small.png');
 const img_equationsalgebra28 = require('../../assets/DbImages/MathImages/equations_algebra_28.png');
+const img_equationsalgebra28small = require('../../assets/DbImages/MathImages/equations_algebra_28_small.png');
 const img_equationsalgebra29 = require('../../assets/DbImages/MathImages/equations_algebra_29.png');
+const img_equationsalgebra29small = require('../../assets/DbImages/MathImages/equations_algebra_29_small.png');
 const img_equationsalgebra2welcome = require('../../assets/DbImages/MathImages/equations_algebra_2_welcome.png');
 const img_equationsalgebra3 = require('../../assets/DbImages/MathImages/equations_algebra_3.png');
 const img_equationsalgebra30 = require('../../assets/DbImages/MathImages/equations_algebra_30.png');
+const img_equationsalgebra30small = require('../../assets/DbImages/MathImages/equations_algebra_30_small.png');
 const img_equationsalgebra31 = require('../../assets/DbImages/MathImages/equations_algebra_31.png');
 const img_equationsalgebra32 = require('../../assets/DbImages/MathImages/equations_algebra_32.png');
 const img_equationsalgebra33 = require('../../assets/DbImages/MathImages/equations_algebra_33.png');
@@ -61,7 +79,12 @@ const img_equationsalgebra5 = require('../../assets/DbImages/MathImages/equation
 const img_equationsalgebra6 = require('../../assets/DbImages/MathImages/equations_algebra_6.png');
 const img_equationsalgebra7 = require('../../assets/DbImages/MathImages/equations_algebra_7.png');
 const img_equationsalgebra8 = require('../../assets/DbImages/MathImages/equations_algebra_8.png');
+const img_equationsalgebra8small = require('../../assets/DbImages/MathImages/equations_algebra_8_small.png');
 const img_equationsalgebra9 = require('../../assets/DbImages/MathImages/equations_algebra_9.png');
+const img_equationsalgebra9small = require('../../assets/DbImages/MathImages/equations_algebra_9_small.png');
+const img_equationsalgebrabook = require('../../assets/DbImages/MathImages/equations_algebra_book.png');
+const img_equationsalgebragro = require('../../assets/DbImages/MathImages/equations_algebra_groß.png');
+const img_equationsalgebraquiz14small = require('../../assets/DbImages/MathImages/equations_algebra_quiz14_small.png');
 const img_equationsalgebrawelcome = require('../../assets/DbImages/MathImages/equations_algebra_welcome.png');
 const img_equationsexplainedwelcome = require('../../assets/DbImages/MathImages/equations_explained_welcome.png');
 const img_equationsgeometrie1 = require('../../assets/DbImages/MathImages/equations_geometrie_1.png');
@@ -645,40 +668,58 @@ export const imageMap = {
     "equations_algebra_1": img_equationsalgebra1,
     "equations_algebra_10": img_equationsalgebra10,
     "equations_algebra_10_1": img_equationsalgebra101,
+    "equations_algebra_10_small": img_equationsalgebra10small,
     "equations_algebra_11": img_equationsalgebra11,
+    "equations_algebra_11_small": img_equationsalgebra11small,
     "equations_algebra_12": img_equationsalgebra12,
     "equations_algebra_13": img_equationsalgebra13,
     "equations_algebra_13_1": img_equationsalgebra131,
+    "equations_algebra_13_small": img_equationsalgebra13small,
     "equations_algebra_14": img_equationsalgebra14,
     "equations_algebra_14_1": img_equationsalgebra141,
+    "equations_algebra_14_small": img_equationsalgebra14small,
     "equations_algebra_15": img_equationsalgebra15,
+    "equations_algebra_15_1_small": img_equationsalgebra151small,
+    "equations_algebra_15_small": img_equationsalgebra15small,
     "equations_algebra_16": img_equationsalgebra16,
     "equations_algebra_16_1": img_equationsalgebra161,
+    "equations_algebra_16_1_small": img_equationsalgebra161small,
     "equations_algebra_16_2": img_equationsalgebra162,
+    "equations_algebra_16_2_small": img_equationsalgebra162small,
+    "equations_algebra_16_5_small": img_equationsalgebra165small,
+    "equations_algebra_16_small": img_equationsalgebra16small,
     "equations_algebra_17": img_equationsalgebra17,
     "equations_algebra_18": img_equationsalgebra18,
     "equations_algebra_19": img_equationsalgebra19,
     "equations_algebra_19_1": img_equationsalgebra191,
     "equations_algebra_2": img_equationsalgebra2,
     "equations_algebra_20": img_equationsalgebra20,
-    "equations_algebra_201": img_equationsalgebra201,
     "equations_algebra_201_big": img_equationsalgebra201big,
     "equations_algebra_202": img_equationsalgebra202,
     "equations_algebra_202_big": img_equationsalgebra202big,
     "equations_algebra_203_big": img_equationsalgebra203big,
     "equations_algebra_204_big": img_equationsalgebra204big,
     "equations_algebra_205_big": img_equationsalgebra205big,
+    "equations_algebra_21_small": img_equationsalgebra21small,
     "equations_algebra_22": img_equationsalgebra22,
+    "equations_algebra_22_small": img_equationsalgebra22small,
     "equations_algebra_23": img_equationsalgebra23,
+    "equations_algebra_23_small": img_equationsalgebra23small,
     "equations_algebra_24": img_equationsalgebra24,
+    "equations_algebra_24_small": img_equationsalgebra24small,
     "equations_algebra_25": img_equationsalgebra25,
     "equations_algebra_26": img_equationsalgebra26,
+    "equations_algebra_26_small": img_equationsalgebra26small,
     "equations_algebra_27": img_equationsalgebra27,
+    "equations_algebra_27_small": img_equationsalgebra27small,
     "equations_algebra_28": img_equationsalgebra28,
+    "equations_algebra_28_small": img_equationsalgebra28small,
     "equations_algebra_29": img_equationsalgebra29,
+    "equations_algebra_29_small": img_equationsalgebra29small,
     "equations_algebra_2_welcome": img_equationsalgebra2welcome,
     "equations_algebra_3": img_equationsalgebra3,
     "equations_algebra_30": img_equationsalgebra30,
+    "equations_algebra_30_small": img_equationsalgebra30small,
     "equations_algebra_31": img_equationsalgebra31,
     "equations_algebra_32": img_equationsalgebra32,
     "equations_algebra_33": img_equationsalgebra33,
@@ -692,7 +733,12 @@ export const imageMap = {
     "equations_algebra_6": img_equationsalgebra6,
     "equations_algebra_7": img_equationsalgebra7,
     "equations_algebra_8": img_equationsalgebra8,
+    "equations_algebra_8_small": img_equationsalgebra8small,
     "equations_algebra_9": img_equationsalgebra9,
+    "equations_algebra_9_small": img_equationsalgebra9small,
+    "equations_algebra_book": img_equationsalgebrabook,
+    "equations_algebra_groß": img_equationsalgebragro,
+    "equations_algebra_quiz14_small": img_equationsalgebraquiz14small,
     "equations_algebra_welcome": img_equationsalgebrawelcome,
     "equations_explained_welcome": img_equationsexplainedwelcome,
     "equations_geometrie_1": img_equationsgeometrie1,

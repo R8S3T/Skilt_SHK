@@ -39,8 +39,8 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
             headerLeft: () => (
                 <TouchableOpacity
                     onPress={() => navigation.navigate('MathSubchapterScreen', { 
-                        chapterId, 
-                        chapterTitle, 
+                        chapterId,
+                        chapterTitle,
                         origin: 'HomeScreen'
                     })}
                     style={{ marginLeft: 15 }}

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import { MathSubchapterContextType } from 'src/types/contextTypes'; // Ensure the path is correct
-import { MathSubchapter } from 'src/types/contentTypes'; // Ensure the path is correct
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { MathSubchapterContextType } from 'src/types/contextTypes';
+import { MathSubchapter } from 'src/types/contentTypes';
 
 const MathSubchapterContext = createContext<MathSubchapterContextType | undefined>(undefined);
 
@@ -17,41 +18,84 @@ export const useMathSubchapter = (): MathSubchapterContextType => {
 };
 
 export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ children }) => {
-    const [unlockedSubchapters, setUnlockedSubchapters] = useState<number[]>([0]); // Initial subchapter unlocked
+    const [unlockedSubchapters, setUnlockedSubchapters] = useState<number[]>([18]);
     const [finishedSubchapters, setFinishedSubchapters] = useState<number[]>([]);
     const [currentSubchapterId, setCurrentSubchapterId] = useState<number | null>(null);
     const [currentSubchapterTitle, setCurrentSubchapterTitle] = useState<string>('');
-    const [subchapters, setSubchapters] = useState<MathSubchapter[]>([]); // Subchapters list
+    const [subchapters, setSubchapters] = useState<MathSubchapter[]>([]);
 
-    // Function to unlock a subchapter based on SubchapterId
+    // Load progress on component mount
+    useEffect(() => {
+        const loadSavedProgress = async () => {
+            try {
+                const savedUnlocked = await AsyncStorage.getItem('mathUnlockedSubchapters');
+                const savedFinished = await AsyncStorage.getItem('mathFinishedSubchapters');
+                
+                const initialUnlocked = savedUnlocked ? JSON.parse(savedUnlocked) : [];
+                const initialFinished = savedFinished ? JSON.parse(savedFinished) : [];
+                
+                // Ensure only the first subchapter is unlocked by default
+                if (initialUnlocked.length === 0) {
+                    initialUnlocked.push(5); // Assuming subchapter with ID 5 is the first one
+                }
+
+                setUnlockedSubchapters(initialUnlocked);
+                setFinishedSubchapters(initialFinished);
+
+                console.log("Initial unlocked subchapters:", initialUnlocked);
+                console.log("Initial finished subchapters:", initialFinished);
+            } catch (error) {
+                console.error("Error loading saved progress:", error);
+            }
+        };
+        loadSavedProgress();
+    }, []);
+
     const unlockSubchapter = (subchapterId: number) => {
         setUnlockedSubchapters((current) => {
-            const updated = [...new Set([...current, subchapterId])]; // Keep existing unlocked subchapters and add the new one
-            return updated;
+            if (!current.includes(subchapterId)) {
+                const updated = [...current, subchapterId];
+                console.log("Unlocked subchapters updated:", updated);
+                return updated;
+            }
+            return current;
         });
     };
-
-    // Function to mark a subchapter as finished and unlock the next one based on SortOrder
+    
+    
     const markSubchapterAsFinished = (subchapterId: number) => {
-        setFinishedSubchapters(current => {
-            const updated = [...new Set([...current, subchapterId])];
-            return updated;
+        console.log("Marking subchapter as finished:", subchapterId);
+        setFinishedSubchapters((current) => {
+            if (!current.includes(subchapterId)) {
+                const updated = [...current, subchapterId];
+                console.log("Updated finished subchapters:", updated);
+                return updated;
+            }
+            return current;
         });
     
-        unlockSubchapter(subchapterId + 1);  // Temporarily revert to previous unlocking logic
-    };
-    // Function to set the current subchapter and unlock it if needed
-    const setCurrentSubchapter = (subchapterId: number | null, subchapterTitle: string) => {
-        if (subchapterId !== null && !unlockedSubchapters.includes(subchapterId)) {
-            unlockSubchapter(subchapterId); // Unlock the subchapter if it's not already unlocked
+        const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
+        if (currentSubchapter) {
+            const nextSubchapter = subchapters.find(
+                sub => sub.SortOrder === currentSubchapter.SortOrder + 1
+            );
+    
+            if (nextSubchapter && !unlockedSubchapters.includes(nextSubchapter.SubchapterId)) {
+                unlockSubchapter(nextSubchapter.SubchapterId);
+            }
         }
+    };
+    
+    const setCurrentSubchapter = (subchapterId: number | null, subchapterTitle: string) => {
+        console.log("Setting current subchapter:", subchapterId, subchapterTitle);
+    
+        if (subchapterId !== null && !unlockedSubchapters.includes(subchapterId)) {
+            unlockSubchapter(subchapterId);
+        }
+    
         setCurrentSubchapterId(subchapterId);
         setCurrentSubchapterTitle(subchapterTitle);
     };
-
-    // Example effect to debug state after component mounts or updates
-    useEffect(() => {
-    }, [unlockedSubchapters]);
 
     return (
         <MathSubchapterContext.Provider
@@ -64,7 +108,7 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
                 markSubchapterAsFinished,
                 setCurrentSubchapter,
                 subchapters,
-                setSubchapters // Expose setSubchapters so it can be updated externally
+                setSubchapters,
             }}
         >
             {children}
@@ -73,5 +117,3 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
 };
 
 export { MathSubchapterContext };
-
-
