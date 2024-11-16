@@ -94,7 +94,7 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
                     {renderOptions()}
                     {isAnswerCorrect !== null && (
                         <Text style={styles.feedbackText}>
-                            {isAnswerCorrect ? 'Correct!' : 'Incorrect, please try again.'}
+                            {isAnswerCorrect ? 'Richtig!' : 'Falsch, bitte versuche es nochmal.'}
                         </Text>
                     )}
                 </View>

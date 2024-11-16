@@ -65,7 +65,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
             ListFooterComponent={
                 <View style={styles.footer}>
                 {currentPartIndex === parts.length - 1 && (
-                    <NextSlideButton onPress={onNextSlide} isActive={true} label="Next" />
+                    <NextSlideButton onPress={onNextSlide} isActive={true} label="Fertig" />
                 )}
                 </View>
             }

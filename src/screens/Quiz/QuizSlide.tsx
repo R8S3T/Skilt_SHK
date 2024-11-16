@@ -3,7 +3,13 @@ import { View, Text, StyleSheet, ViewStyle } from 'react-native';
 import MultipleChoice from './MultipleChoice';
 import ClozeTest from './ClozeTest';
 import { fetchQuizByContentId, fetchMultipleChoiceOptionsByQuizId, fetchClozeTestOptionsByQuizId } from 'src/database/databaseServices';
-import { Quiz, MultipleChoiceOption, ClozeTestOption } from 'src/types/contentTypes';
+import { Quiz, MultipleChoiceOption } from 'src/types/contentTypes';
+
+const isClozeTestOptions = (
+    options: MultipleChoiceOption[] | { options: string[]; correctAnswers: (string | null)[] }
+): options is { options: string[]; correctAnswers: (string | null)[] } => {
+    return (options as { options: string[] }).options !== undefined;
+};
 
 interface QuizSlideProps {
     contentId: number;
@@ -13,25 +19,22 @@ interface QuizSlideProps {
 
 const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) => {
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
-    const [options, setOptions] = useState<(MultipleChoiceOption[] | ClozeTestOption[])>([]);
+    const [options, setOptions] = useState<MultipleChoiceOption[] | { options: string[]; correctAnswers: (string | null)[] }>([]);
     const [currentQuizIndex, setCurrentQuizIndex] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
     const loadQuizOptions = async (quiz: Quiz) => {
         try {
-            let fetchedOptions: MultipleChoiceOption[] | ClozeTestOption[] = [];
+            let fetchedOptions: MultipleChoiceOption[] | { options: string[]; correctAnswers: (string | null)[] };
             if (quiz.QuizType === 'multiple_choice') {
                 fetchedOptions = await fetchMultipleChoiceOptionsByQuizId(quiz.QuizId);
             } else if (quiz.QuizType === 'cloze_test') {
-                const clozeTestOptions = await fetchClozeTestOptionsByQuizId(quiz.QuizId);
-                fetchedOptions = clozeTestOptions.map(option => ({
-                    ...option,
-                    OptionTexts: typeof option.OptionTexts === 'string'
-                        ? option.OptionTexts.split(', ').map(text => text.trim())
-                        : option.OptionTexts
-                }));
+                fetchedOptions = await fetchClozeTestOptionsByQuizId(quiz.QuizId); // Already returns correct structure
+            } else {
+                throw new Error('Unsupported quiz type');
             }
+
             setOptions(fetchedOptions);
         } catch (err) {
             setError('Failed to load quiz options.');
@@ -64,10 +67,9 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
         const nextIndex = currentQuizIndex + 1;
         if (nextIndex < quizzes.length) {
             setCurrentQuizIndex(nextIndex);
-            loadQuizOptions(quizzes[nextIndex]); // Load options for the next quiz
+            loadQuizOptions(quizzes[nextIndex]);
         } else {
-            // All quizzes completed
-            onContinue(); // Call the parent's continue function
+            onContinue();
         }
     };
 
@@ -99,10 +101,11 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
                     onContinue={handleContinue}
                 />
             )}
-            {currentQuiz.QuizType === 'cloze_test' && (
+            {currentQuiz.QuizType === 'cloze_test' && options && isClozeTestOptions(options) && (
                 <ClozeTest
                     quiz={currentQuiz}
-                    options={options as ClozeTestOption[]}
+                    options={options.options} // Should be an array of option strings
+                    correctAnswers={options.correctAnswers} // Should be an array of correct answers
                     onAnswerSubmit={(isCorrect) => {
                         if (isCorrect) {
                             handleContinue();
@@ -111,6 +114,7 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
                     onContinue={handleContinue}
                 />
             )}
+
         </View>
     );
 };
@@ -125,10 +129,6 @@ const styles = StyleSheet.create({
         marginTop: 0,
         backgroundColor: '#2b4353',
     },
-    buttonContainer: {
-        marginTop: 20,
-    },
 });
 
 export default QuizSlide;
-

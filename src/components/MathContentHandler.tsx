@@ -14,11 +14,12 @@ const { theme, isDarkMode } = useTheme();
 const renderPart = (part: string, index: number) => {
     const content = [];
     const bgColorBlockRegex = /\[bgcolor-block=(#?[a-zA-Z0-9]+)\]([\s\S]*?)\[\/bgcolor-block\]/g;
-    let lastIndex = 0, match;
+    let lastIndex = 0;
+    let match: RegExpExecArray | null;
 
     while ((match = bgColorBlockRegex.exec(part)) !== null) {
-        if (match.index > lastIndex) {
-            content.push(...processNormalText(part.slice(lastIndex, match.index), index, lastIndex));
+        if (lastIndex < match.index) {
+            content.push(...processNormalText(part.slice(lastIndex, match.index), index, lastIndex, theme, isDarkMode));
         }
         const bgColor = isDarkMode ? '#333333' : match[1];
         const bgText = match[2];
@@ -30,17 +31,33 @@ const renderPart = (part: string, index: number) => {
         lastIndex = match.index + match[0].length;
     }
 
+    // Process any remaining text after the last match
     if (lastIndex < part.length) {
-        content.push(...processNormalText(part.slice(lastIndex), index, lastIndex));
+        content.push(...processNormalText(part.slice(lastIndex), index, lastIndex, theme, isDarkMode));
     }
+    
     return <View style={styles.fullWidthPartContainer}>{content}</View>;
 };
 
-const processNormalText = (text: string, index: number, lastIndex: number) => {
+
+const processNormalText = (text: string, index: number, lastIndex: number, theme: { primaryText: string; secondaryText: string }, isDarkMode: boolean) => {
     const lines = text.split('\n');
     return lines.map((line, subIndex) => {
         const content = [];
 
+        // Check for bullet point
+        const bulletRegex = /\[bullet\](.*?)\[\/bullet\]/;
+        const bulletMatch = line.match(bulletRegex);
+        if (bulletMatch) {
+            const bulletText = bulletMatch[1].trim();
+            content.push(
+                <View key={`${index}-${lastIndex}-${subIndex}-bullet`} style={styles.bulletContainer}>
+                    <Text style={styles.bulletSymbol}>◯</Text>
+                    <Text style={[styles.contentText, { color: theme.primaryText, marginLeft: 5 }]}>{bulletText}</Text>
+                </View>
+            );
+            return content;
+        }
         // Inline background line
         const bgColorLineRegex = /\[bgcolor-line=(#?[a-zA-Z0-9]+)\](.*?)\[\/bgcolor-line\]/;
         const bgColorLineMatch = line.match(bgColorLineRegex);
@@ -55,32 +72,45 @@ const processNormalText = (text: string, index: number, lastIndex: number) => {
             return content;
         }
 
-// Image handling
-if (line.startsWith('[equations_') || line.startsWith('[bigImage_') || line.startsWith('[small]')) {
-    const imageName = line.replace('[', '').replace(']', '').trim();
-    const imageSource = imageMap[imageName as keyof typeof imageMap];
-    
-    // Check if it's a "small" image and apply the appropriate style
-    if (imageSource) {
-        let imageStyle = styles.image; // Default style
-
-        // Apply "smallImage" style if the image name includes "small"
-        if (imageName.includes('small')) {
-            imageStyle = styles.smallImage;
-        } else if (imageName.includes("big")) {
-            imageStyle = styles.bigImage;
+        // Image handling
+        if (line.startsWith('[equations_') || line.startsWith('[bigImage_') || line.startsWith('[small]') || line.startsWith('[welcome]')) {
+            const imageName = line.replace('[', '').replace(']', '').trim();
+            const imageSource = imageMap[imageName as keyof typeof imageMap];
+            
+            // Check if it's a "small", "big", or "welcome" image and apply the appropriate style
+            if (imageSource) {
+                let imageStyle = styles.image; // Default style
+        
+                // Apply specific styles based on the image name
+                if (imageName.includes('small')) {
+                    imageStyle = styles.smallImage;
+                } else if (imageName.includes("big")) {
+                    imageStyle = styles.bigImage;
+                } else if (imageName.includes("welcome")) {
+                    imageStyle = styles.welcomeImage;
+                }
+                // Conditionally wrap big images in imageContainer
+                if (imageName.includes("big")) {
+                    content.push(
+                        <View style={styles.imageContainer} key={`${index}-${lastIndex}-${subIndex}`}>
+                            <Image
+                                source={imageSource}
+                                style={imageStyle}
+                            />
+                        </View>
+                    );
+                } else {
+                    content.push(
+                        <Image
+                            key={`${index}-${lastIndex}-${subIndex}`}
+                            source={imageSource}
+                            style={imageStyle}  // This will use smallImage, welcomeImage, or default image style
+                        />
+                    );
+                }
+            }
+            return content;
         }
-
-        content.push(
-            <Image
-                key={`${index}-${lastIndex}-${subIndex}`}
-                source={imageSource}
-                style={imageStyle}
-            />
-        );
-    }
-    return content;
-}
 
         // Check for heading
         if (line.startsWith('[heading]') && line.endsWith('[/heading]')) {
@@ -159,9 +189,15 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
         marginVertical: 0,
     },
+    imageContainer: {
+        marginVertical: 10,
+        alignItems: 'center',
+        width: '100%',
+    },
+
     bigImage: {
         width: '100%',
-        height: 300,
+        height: 200,
         resizeMode: 'contain',
         marginVertical: 0,
     },
@@ -196,22 +232,30 @@ const styles = StyleSheet.create({
         borderWidth: 1.5,
         borderColor: 'orange',
     },
-    headingText: {
-        fontFamily: 'Lato-Bold',
-        fontSize: 22,
+        headingText: {
+            fontFamily: 'Lato-Bold',
+            fontSize: 22,
     },
-    subheadingText: {
-    fontFamily: 'Lato-Medium',
-    fontSize: 20,
+        subheadingText: {
+        fontFamily: 'Lato-Medium',
+        fontSize: 20,
     },
-    sectionText: {
-    fontFamily: 'OpenSans-Semibold',
-    fontSize: 20,
-    letterSpacing: 1.2,
+        sectionText: {
+        fontFamily: 'OpenSans-Semibold',
+        fontSize: 20,
+        letterSpacing: 1.2,
     },
-    boldText: {
-    fontFamily: 'OpenSans-Bold',
-    fontSize: 18,
+        boldText: {
+        fontFamily: 'OpenSans-Bold',
+        fontSize: 18,
+    },
+    bulletContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 5,
+    },
+    bulletSymbol: {
+        fontSize: 10,
     },
 });
 export default MathContentHandler;

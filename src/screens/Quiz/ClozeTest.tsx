@@ -7,12 +7,15 @@ import { Quiz, ClozeTestOption, AnswerStatus } from 'src/types/contentTypes';
 
 interface ClozeTestProps {
     quiz: Quiz;
-    options: ClozeTestOption[];
+    options: string[]; // Array of option strings
+    correctAnswers: (string | null)[]; // Array of correct answers for blanks
     onAnswerSubmit: (isCorrect: boolean) => void;
     onContinue: () => void;
 }
 
-const ClozeTest: React.FC<ClozeTestProps> = ({ quiz, options, onAnswerSubmit, onContinue }) => {
+const ClozeTest: React.FC<ClozeTestProps> = ({ quiz, options, correctAnswers, onAnswerSubmit, onContinue }) => {
+    console.log('ClozeTest options:', options); // Log the options received by ClozeTest
+    console.log('ClozeTest correctAnswers:', correctAnswers); 
     const sentenceParts = quiz.Question.split('_');
 
     console.log('Sentence Parts:', sentenceParts);
@@ -54,13 +57,10 @@ const ClozeTest: React.FC<ClozeTestProps> = ({ quiz, options, onAnswerSubmit, on
             handleContinue();
             return;
         }
-
-        // Split the correct answers into an array
-        const correctAnswers = options[0].CorrectOptions.split(',').map(opt => opt.trim());
-
+    
         // Check if the selected answers match the correct answers for all blanks
         const isCorrect = selectedOptions.every((opt, index) => opt.answer === correctAnswers[index]);
-
+    
         if (isCorrect) {
             setSubmitButtonText('Weiter');
             setIsButtonDisabled(false);
@@ -68,16 +68,17 @@ const ClozeTest: React.FC<ClozeTestProps> = ({ quiz, options, onAnswerSubmit, on
             setSubmitButtonText('Bestätigen');
             setIsButtonDisabled(true);
         }
-
+    
         // Update selected options with correctness information
         const updatedSelectedOptions = selectedOptions.map((opt, index) => ({
             ...opt,
             isCorrect: opt.answer === correctAnswers[index],
         }));
         setSelectedOptions(updatedSelectedOptions);
-
+    
         setShowFeedback(true);
     };
+    
 
     const handleContinue = () => {
         onAnswerSubmit(true);
@@ -88,16 +89,14 @@ const ClozeTest: React.FC<ClozeTestProps> = ({ quiz, options, onAnswerSubmit, on
         <ScrollView contentContainerStyle={styles.container}>
             <SentenceWithBlanks sentenceParts={sentenceParts} filledAnswers={selectedOptions} />
             <View style={styles.optionsContainer}>
-                {options.map((option, idx) =>
-                    (option.OptionTexts as string[]).map((text, i) => (
-                        <OptionButton
-                            key={`${idx}-${i}`}
-                            option={text}
-                            onSelect={() => handleOptionSelect(text)}
-                            isSelected={selectedOptions.some(opt => opt.answer === text)}
-                        />
-                    ))
-                )}
+                {options.map((option, idx) => (
+                    <OptionButton
+                        key={idx}
+                        option={option}
+                        onSelect={() => handleOptionSelect(option)}
+                        isSelected={selectedOptions.some(opt => opt.answer === option)}
+                    />
+                ))}
             </View>
             {selectedOptions.some(opt => opt.isCorrect !== null) && (
                 <Text style={styles.answerText}>

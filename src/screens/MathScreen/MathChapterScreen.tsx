@@ -9,6 +9,7 @@ import { MathChapter } from "src/types/contentTypes";
 import { imageMap } from "src/utils/imageMappings";
 import { useTheme } from 'src/context/ThemeContext';
 import ThemeWrapper from 'src/components/ThemeWrapper';
+import { scaleFontSize } from "src/utils/screenDimensions";
 
 type MathChapterScreenNavigationProp = StackNavigationProp<MathStackParamList, 'MathChapterScreen'>;
 
@@ -96,8 +97,8 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
     },
     stickyHeader: {
-        fontSize: 24,
-        fontWeight: 'bold',
+        fontFamily: 'Lato-Bold',
+        fontSize: scaleFontSize(16),
         textAlign: 'center',
         paddingVertical: 10,
         position: 'absolute',

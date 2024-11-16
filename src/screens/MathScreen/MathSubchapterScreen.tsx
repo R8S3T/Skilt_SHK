@@ -10,6 +10,7 @@ import GenericRows from '../GenericRows';
 import { useMathSubchapter } from '../../context/MathSubchapterContext';
 import SubchapterInfoModal from '../Chapters/SubchapterInfoModal';
 import { useTheme } from 'src/context/ThemeContext';
+import { scaleFontSize } from "src/utils/screenDimensions";
 
 type MathSubchapterScreenRouteProp = RouteProp<MathStackParamList, 'MathSubchapterScreen'>;
 type MathSubchapterScreenNavigationProp = StackNavigationProp<MathStackParamList, 'MathSubchapterScreen'>;
@@ -158,8 +159,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     stickyHeading: {
-        fontSize: 24,
-        fontWeight: 'bold',
+        fontFamily: 'Lato-Bold',
+        fontSize: scaleFontSize(16),
         textAlign: 'center',
         paddingVertical: 10,
         position: 'absolute',

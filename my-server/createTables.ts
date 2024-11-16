@@ -179,10 +179,13 @@ export const createClozeTestOptionsTable = (db: sqlite3.Database): Promise<void>
     return new Promise((resolve, reject) => {
         db.run(`
             CREATE TABLE IF NOT EXISTS ClozeTestOptions (
-                OptionId INTEGER PRIMARY KEY AUTOINCREMENT,
-                QuizId INTEGER,
-                OptionTexts TEXT, -- Store options as a comma-separated string
-                CorrectOptions TEXT, -- Store correct options as a comma-separated string
+                QuizId INTEGER PRIMARY KEY,
+                Option1 TEXT NOT NULL, 
+                Option2 TEXT NOT NULL,
+                Option3 TEXT NOT NULL,
+                Option4 TEXT NOT NULL,
+                CorrectAnswerForBlank1 TEXT,
+                CorrectAnswerForBlank2 TEXT,
                 FOREIGN KEY(QuizId) REFERENCES Quiz(QuizId)
             );
         `, (err) => {
@@ -196,6 +199,7 @@ export const createClozeTestOptionsTable = (db: sqlite3.Database): Promise<void>
         });
     });
 };
+
 
 export const createMathMiniQuizTable = (db: sqlite3.Database): Promise<void> => {
     return new Promise((resolve, reject) => {

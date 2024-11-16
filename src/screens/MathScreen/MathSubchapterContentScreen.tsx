@@ -32,7 +32,6 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
     const [mathMiniQuizzes, setMathMiniQuizzes] = useState<MathMiniQuiz[]>([]);
     const [completedQuizzes, setCompletedQuizzes] = useState<boolean[]>([]);
 
-
     // Configure navigation header
     useEffect(() => {
         navigation.setOptions({
@@ -123,11 +122,11 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
                 ) : (
                     <MathContentSlide
                         contentData={contentData[currentIndex]}
-                        mathMiniQuizzes={mathMiniQuizzes} // Add the math quizzes array here
-                        onQuizComplete={(isCorrect) => console.log(isCorrect ? 'Correct' : 'Incorrect')} // Placeholder function
-                        onQuizLayout={(event) => {}} // Placeholder function for layout event handling
-                        completedQuizzes={completedQuizzes} // Add the array for completed quizzes
-                        onNextSlide={nextContent} // The function to go to the next content or quiz slide
+                        mathMiniQuizzes={mathMiniQuizzes}
+                        onQuizComplete={(isCorrect) => console.log(isCorrect ? 'Correct' : 'Incorrect')}
+                        onQuizLayout={(event) => {}}
+                        completedQuizzes={completedQuizzes}
+                        onNextSlide={nextContent}
                     />
                 )
             )}

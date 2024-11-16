@@ -57,10 +57,14 @@ export interface Quiz {
     QuizId: number;
     ContentId: number;
     Question: string;
-    QuizType: string;
+    QuizType: 'multiple_choice' | 'cloze_test';
     Answer: string;
-    Options?: MultipleChoiceOption[] | ClozeTestOption[];
+    Options?: MultipleChoiceOption[] | {
+        options: string[];
+        correctAnswers: (string | null)[];
+    };
 }
+
 
 export interface MultipleChoiceOption {
     OptionId: number;
@@ -72,10 +76,13 @@ export interface MultipleChoiceOption {
 }
 
 export interface ClozeTestOption {
-    OptionId: number;
     QuizId: number;
-    OptionTexts: string | string[];
-    CorrectOptions: string;
+    Option1: string;
+    Option2: string;
+    Option3: string;
+    Option4: string;
+    CorrectAnswerForBlank1: string | null;
+    CorrectAnswerForBlank2: string | null;
 }
 
 export interface AnswerStatus {

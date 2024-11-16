@@ -222,20 +222,40 @@ export const fetchMultipleChoiceOptionsByQuizId = (quizId: number): Promise<any[
 };
 
 // Fetch cloze test options by quiz ID
-export const fetchClozeTestOptionsByQuizId = (quizId: number): Promise<any[]> => {
+export const fetchClozeTestOptionsByQuizId = (quizId: number): Promise<{ options: string[]; correctAnswers: (string | null)[] }> => {
     return new Promise((resolve, reject) => {
         const db = new sqlite3.Database(dbPath);
-        db.all('SELECT * FROM ClozeTestOptions WHERE QuizId = ?', [quizId], (err, rows) => {
-            db.close();
-            if (err) {
-                console.error('Failed to fetch cloze test options:', err);
-                reject(err);
-            } else {
-                resolve(rows);
+        db.get(
+            `SELECT Option1, Option2, Option3, Option4, CorrectAnswerForBlank1, CorrectAnswerForBlank2 
+             FROM ClozeTestOptions 
+             WHERE QuizId = ?`,
+            [quizId],
+            (err, row: {
+                Option1: string;
+                Option2: string;
+                Option3: string;
+                Option4: string;
+                CorrectAnswerForBlank1: string | null;
+                CorrectAnswerForBlank2: string | null;
+            } | undefined) => {
+                db.close();
+                if (err) {
+                    console.error('Failed to fetch cloze test options:', err);
+                    reject(err);
+                } else if (!row) {
+                    reject(new Error(`No cloze test options found for QuizId ${quizId}`));
+                } else {
+                    resolve({
+                        options: [row.Option1, row.Option2, row.Option3, row.Option4],
+                        correctAnswers: [row.CorrectAnswerForBlank1, row.CorrectAnswerForBlank2],
+                    });
+                }
             }
-        });
+        );
     });
 };
+
+
 
 // Fetch MathMiniQuiz by content ID
 export const fetchMathMiniQuizByContentId = (contentId: number): Promise<any[]> => {

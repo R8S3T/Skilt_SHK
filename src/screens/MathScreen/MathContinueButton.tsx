@@ -5,7 +5,7 @@ interface ContinueButtonProps {
     label: string;
     onPress: () => void;
     disabled?: boolean;
-    style?: any; // Allow custom styles to be passed
+    style?: any;
 }
 
 const ContinueButton: React.FC<ContinueButtonProps> = ({ label, onPress, disabled = false, style }) => {
@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     },
     disabledButton: {
         backgroundColor: 'grey',
+        
     },
     buttonText: {
         color: 'white',

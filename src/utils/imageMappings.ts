@@ -9,8 +9,20 @@ const img_equations4 = require('../../assets/DbImages/MathImages/equations_4.png
 const img_equations5 = require('../../assets/DbImages/MathImages/equations_5.png');
 const img_equations6 = require('../../assets/DbImages/MathImages/equations_6.png');
 const img_equations7 = require('../../assets/DbImages/MathImages/equations_7.png');
+const img_equations7small = require('../../assets/DbImages/MathImages/equations_7_small.png');
 const img_equations8 = require('../../assets/DbImages/MathImages/equations_8.png');
+const img_equations8small = require('../../assets/DbImages/MathImages/equations_8_small.png');
 const img_equations9 = require('../../assets/DbImages/MathImages/equations_9.png');
+const img_equations9small = require('../../assets/DbImages/MathImages/equations_9_small.png');
+const img_equationsDichteanomalie = require('../../assets/DbImages/MathImages/equations_Dichteanomalie.png');
+const img_equationsDichteanomaliebig = require('../../assets/DbImages/MathImages/equations_Dichteanomalie_big.png');
+const img_equationsGleichgewichtHeizung = require('../../assets/DbImages/MathImages/equations_Gleichgewicht_Heizung.png');
+const img_equationsKreisbogen = require('../../assets/DbImages/MathImages/equations_Kreisbogen.png');
+const img_equationsKreisbogenFormelsmall = require('../../assets/DbImages/MathImages/equations_Kreisbogen_Formel_small.png');
+const img_equationsKreissektor = require('../../assets/DbImages/MathImages/equations_Kreissektor.png');
+const img_equationsKreissektorFormelsmall = require('../../assets/DbImages/MathImages/equations_Kreissektor_Formel_small.png');
+const img_equationsKreisumfang = require('../../assets/DbImages/MathImages/equations_Kreisumfang.png');
+const img_equationsKreisumfangFormelsmall = require('../../assets/DbImages/MathImages/equations_Kreisumfang_Formel_small.png');
 const img_equationsalgebra1 = require('../../assets/DbImages/MathImages/equations_algebra_1.png');
 const img_equationsalgebra10 = require('../../assets/DbImages/MathImages/equations_algebra_10.png');
 const img_equationsalgebra101 = require('../../assets/DbImages/MathImages/equations_algebra_10_1.png');
@@ -18,6 +30,7 @@ const img_equationsalgebra10small = require('../../assets/DbImages/MathImages/eq
 const img_equationsalgebra11 = require('../../assets/DbImages/MathImages/equations_algebra_11.png');
 const img_equationsalgebra11small = require('../../assets/DbImages/MathImages/equations_algebra_11_small.png');
 const img_equationsalgebra12 = require('../../assets/DbImages/MathImages/equations_algebra_12.png');
+const img_equationsalgebra12small = require('../../assets/DbImages/MathImages/equations_algebra_12_small.png');
 const img_equationsalgebra13 = require('../../assets/DbImages/MathImages/equations_algebra_13.png');
 const img_equationsalgebra131 = require('../../assets/DbImages/MathImages/equations_algebra_13_1.png');
 const img_equationsalgebra13small = require('../../assets/DbImages/MathImages/equations_algebra_13_small.png');
@@ -27,12 +40,12 @@ const img_equationsalgebra14small = require('../../assets/DbImages/MathImages/eq
 const img_equationsalgebra15 = require('../../assets/DbImages/MathImages/equations_algebra_15.png');
 const img_equationsalgebra151small = require('../../assets/DbImages/MathImages/equations_algebra_15_1_small.png');
 const img_equationsalgebra15small = require('../../assets/DbImages/MathImages/equations_algebra_15_small.png');
-const img_equationsalgebra16 = require('../../assets/DbImages/MathImages/equations_algebra_16.png');
 const img_equationsalgebra161 = require('../../assets/DbImages/MathImages/equations_algebra_16_1.png');
 const img_equationsalgebra161small = require('../../assets/DbImages/MathImages/equations_algebra_16_1_small.png');
 const img_equationsalgebra162 = require('../../assets/DbImages/MathImages/equations_algebra_16_2.png');
 const img_equationsalgebra162small = require('../../assets/DbImages/MathImages/equations_algebra_16_2_small.png');
 const img_equationsalgebra165small = require('../../assets/DbImages/MathImages/equations_algebra_16_5_small.png');
+const img_equationsalgebra16asmall = require('../../assets/DbImages/MathImages/equations_algebra_16_a_small.png');
 const img_equationsalgebra16small = require('../../assets/DbImages/MathImages/equations_algebra_16_small.png');
 const img_equationsalgebra17 = require('../../assets/DbImages/MathImages/equations_algebra_17.png');
 const img_equationsalgebra18 = require('../../assets/DbImages/MathImages/equations_algebra_18.png');
@@ -47,11 +60,8 @@ const img_equationsalgebra203big = require('../../assets/DbImages/MathImages/equ
 const img_equationsalgebra204big = require('../../assets/DbImages/MathImages/equations_algebra_204_big.png');
 const img_equationsalgebra205big = require('../../assets/DbImages/MathImages/equations_algebra_205_big.png');
 const img_equationsalgebra21small = require('../../assets/DbImages/MathImages/equations_algebra_21_small.png');
-const img_equationsalgebra22 = require('../../assets/DbImages/MathImages/equations_algebra_22.png');
 const img_equationsalgebra22small = require('../../assets/DbImages/MathImages/equations_algebra_22_small.png');
-const img_equationsalgebra23 = require('../../assets/DbImages/MathImages/equations_algebra_23.png');
 const img_equationsalgebra23small = require('../../assets/DbImages/MathImages/equations_algebra_23_small.png');
-const img_equationsalgebra24 = require('../../assets/DbImages/MathImages/equations_algebra_24.png');
 const img_equationsalgebra24small = require('../../assets/DbImages/MathImages/equations_algebra_24_small.png');
 const img_equationsalgebra25 = require('../../assets/DbImages/MathImages/equations_algebra_25.png');
 const img_equationsalgebra26 = require('../../assets/DbImages/MathImages/equations_algebra_26.png');
@@ -67,10 +77,15 @@ const img_equationsalgebra3 = require('../../assets/DbImages/MathImages/equation
 const img_equationsalgebra30 = require('../../assets/DbImages/MathImages/equations_algebra_30.png');
 const img_equationsalgebra30small = require('../../assets/DbImages/MathImages/equations_algebra_30_small.png');
 const img_equationsalgebra31 = require('../../assets/DbImages/MathImages/equations_algebra_31.png');
+const img_equationsalgebra31small = require('../../assets/DbImages/MathImages/equations_algebra_31_small.png');
 const img_equationsalgebra32 = require('../../assets/DbImages/MathImages/equations_algebra_32.png');
+const img_equationsalgebra32small = require('../../assets/DbImages/MathImages/equations_algebra_32_small.png');
 const img_equationsalgebra33 = require('../../assets/DbImages/MathImages/equations_algebra_33.png');
+const img_equationsalgebra33small = require('../../assets/DbImages/MathImages/equations_algebra_33_small.png');
 const img_equationsalgebra34 = require('../../assets/DbImages/MathImages/equations_algebra_34.png');
+const img_equationsalgebra34small = require('../../assets/DbImages/MathImages/equations_algebra_34_small.png');
 const img_equationsalgebra35 = require('../../assets/DbImages/MathImages/equations_algebra_35.png');
+const img_equationsalgebra35small = require('../../assets/DbImages/MathImages/equations_algebra_35_small.png');
 const img_equationsalgebra36 = require('../../assets/DbImages/MathImages/equations_algebra_36.png');
 const img_equationsalgebra36big = require('../../assets/DbImages/MathImages/equations_algebra_36_big.png');
 const img_equationsalgebra37big = require('../../assets/DbImages/MathImages/equations_algebra_37_big.png');
@@ -83,41 +98,70 @@ const img_equationsalgebra8small = require('../../assets/DbImages/MathImages/equ
 const img_equationsalgebra9 = require('../../assets/DbImages/MathImages/equations_algebra_9.png');
 const img_equationsalgebra9small = require('../../assets/DbImages/MathImages/equations_algebra_9_small.png');
 const img_equationsalgebrabook = require('../../assets/DbImages/MathImages/equations_algebra_book.png');
+const img_equationsalgebraerklrung = require('../../assets/DbImages/MathImages/equations_algebra_erklärung.png');
 const img_equationsalgebragro = require('../../assets/DbImages/MathImages/equations_algebra_groß.png');
 const img_equationsalgebraquiz14small = require('../../assets/DbImages/MathImages/equations_algebra_quiz14_small.png');
+const img_equationsalgebraquiz66small = require('../../assets/DbImages/MathImages/equations_algebra_quiz66_small.png');
+const img_equationsalgebraquiz67small = require('../../assets/DbImages/MathImages/equations_algebra_quiz67_small.png');
+const img_equationsalgebraquiz68small = require('../../assets/DbImages/MathImages/equations_algebra_quiz68_small.png');
+const img_equationsalgebraquiz7small = require('../../assets/DbImages/MathImages/equations_algebra_quiz7_small.png');
 const img_equationsalgebrawelcome = require('../../assets/DbImages/MathImages/equations_algebra_welcome.png');
 const img_equationsexplainedwelcome = require('../../assets/DbImages/MathImages/equations_explained_welcome.png');
 const img_equationsgeometrie1 = require('../../assets/DbImages/MathImages/equations_geometrie_1.png');
 const img_equationsgeometrie2 = require('../../assets/DbImages/MathImages/equations_geometrie_2.png');
 const img_equationsgeometrie3 = require('../../assets/DbImages/MathImages/equations_geometrie_3.png');
 const img_equationsgeometriewelcome = require('../../assets/DbImages/MathImages/equations_geometrie_welcome.png');
+const img_equationskugelvolumen = require('../../assets/DbImages/MathImages/equations_kugel_volumen.png');
 const img_equationslinear1 = require('../../assets/DbImages/MathImages/equations_linear_1.png');
 const img_equationslinear10 = require('../../assets/DbImages/MathImages/equations_linear_10.png');
+const img_equationslinear10small = require('../../assets/DbImages/MathImages/equations_linear_10_small.png');
 const img_equationslinear11 = require('../../assets/DbImages/MathImages/equations_linear_11.png');
 const img_equationslinear111 = require('../../assets/DbImages/MathImages/equations_linear_11_1.png');
+const img_equationslinear111small = require('../../assets/DbImages/MathImages/equations_linear_11_1_small.png');
+const img_equationslinear11small = require('../../assets/DbImages/MathImages/equations_linear_11_small.png');
 const img_equationslinear12 = require('../../assets/DbImages/MathImages/equations_linear_12.png');
 const img_equationslinear121 = require('../../assets/DbImages/MathImages/equations_linear_12_1.png');
+const img_equationslinear121small = require('../../assets/DbImages/MathImages/equations_linear_12_1_small.png');
+const img_equationslinear12small = require('../../assets/DbImages/MathImages/equations_linear_12_small.png');
 const img_equationslinear13 = require('../../assets/DbImages/MathImages/equations_linear_13.png');
 const img_equationslinear131 = require('../../assets/DbImages/MathImages/equations_linear_13_1.png');
-const img_equationslinear14 = require('../../assets/DbImages/MathImages/equations_linear_14.png');
-const img_equationslinear15 = require('../../assets/DbImages/MathImages/equations_linear_15.png');
+const img_equationslinear131small = require('../../assets/DbImages/MathImages/equations_linear_13_1_small.png');
+const img_equationslinear13small = require('../../assets/DbImages/MathImages/equations_linear_13_small.png');
+const img_equationslinear14small = require('../../assets/DbImages/MathImages/equations_linear_14_small.png');
+const img_equationslinear151small = require('../../assets/DbImages/MathImages/equations_linear_15_1_small.png');
+const img_equationslinear15small = require('../../assets/DbImages/MathImages/equations_linear_15_small.png');
 const img_equationslinear16 = require('../../assets/DbImages/MathImages/equations_linear_16.png');
-const img_equationslinear17 = require('../../assets/DbImages/MathImages/equations_linear_17.png');
-const img_equationslinear18 = require('../../assets/DbImages/MathImages/equations_linear_18.png');
-const img_equationslinear19 = require('../../assets/DbImages/MathImages/equations_linear_19.png');
+const img_equationslinear171small = require('../../assets/DbImages/MathImages/equations_linear_17_1_small.png');
+const img_equationslinear17small = require('../../assets/DbImages/MathImages/equations_linear_17_small.png');
+const img_equationslinear181small = require('../../assets/DbImages/MathImages/equations_linear_18_1_small.png');
+const img_equationslinear18small = require('../../assets/DbImages/MathImages/equations_linear_18_small.png');
+const img_equationslinear191small = require('../../assets/DbImages/MathImages/equations_linear_19_1_small.png');
+const img_equationslinear19small = require('../../assets/DbImages/MathImages/equations_linear_19_small.png');
 const img_equationslinear2 = require('../../assets/DbImages/MathImages/equations_linear_2.png');
 const img_equationslinear21 = require('../../assets/DbImages/MathImages/equations_linear_2_1.png');
+const img_equationslinear2small = require('../../assets/DbImages/MathImages/equations_linear_2_small.png');
 const img_equationslinear3 = require('../../assets/DbImages/MathImages/equations_linear_3.png');
 const img_equationslinear31 = require('../../assets/DbImages/MathImages/equations_linear_3_1.png');
+const img_equationslinear31small = require('../../assets/DbImages/MathImages/equations_linear_3_1_small.png');
+const img_equationslinear3small = require('../../assets/DbImages/MathImages/equations_linear_3_small.png');
 const img_equationslinear4 = require('../../assets/DbImages/MathImages/equations_linear_4.png');
+const img_equationslinear4small = require('../../assets/DbImages/MathImages/equations_linear_4_small.png');
 const img_equationslinear5 = require('../../assets/DbImages/MathImages/equations_linear_5.png');
 const img_equationslinear51 = require('../../assets/DbImages/MathImages/equations_linear_5_1.png');
+const img_equationslinear51small = require('../../assets/DbImages/MathImages/equations_linear_5_1_small.png');
+const img_equationslinear5small = require('../../assets/DbImages/MathImages/equations_linear_5_small.png');
 const img_equationslinear6 = require('../../assets/DbImages/MathImages/equations_linear_6.png');
+const img_equationslinear6small = require('../../assets/DbImages/MathImages/equations_linear_6_small.png');
 const img_equationslinear7 = require('../../assets/DbImages/MathImages/equations_linear_7.png');
 const img_equationslinear71 = require('../../assets/DbImages/MathImages/equations_linear_7_1.png');
+const img_equationslinear71small = require('../../assets/DbImages/MathImages/equations_linear_7_1_small.png');
+const img_equationslinear7small = require('../../assets/DbImages/MathImages/equations_linear_7_small.png');
 const img_equationslinear8 = require('../../assets/DbImages/MathImages/equations_linear_8.png');
+const img_equationslinear8small = require('../../assets/DbImages/MathImages/equations_linear_8_small.png');
 const img_equationslinear9 = require('../../assets/DbImages/MathImages/equations_linear_9.png');
 const img_equationslinear91 = require('../../assets/DbImages/MathImages/equations_linear_9_1.png');
+const img_equationslinear91small = require('../../assets/DbImages/MathImages/equations_linear_9_1_small.png');
+const img_equationslinear9small = require('../../assets/DbImages/MathImages/equations_linear_9_small.png');
 const img_equationsmathalgebra = require('../../assets/DbImages/MathImages/equations_math_algebra.png');
 const img_equationsmathgeometry = require('../../assets/DbImages/MathImages/equations_math_geometry.png');
 const img_equationsmathmeasurements = require('../../assets/DbImages/MathImages/equations_math_measurements.png');
@@ -125,9 +169,10 @@ const img_equationsmathmechanic = require('../../assets/DbImages/MathImages/equa
 const img_equationsmathscales = require('../../assets/DbImages/MathImages/equations_math_scales.png');
 const img_equationsmeasure1 = require('../../assets/DbImages/MathImages/equations_measure_1.png');
 const img_equationsmeasure10 = require('../../assets/DbImages/MathImages/equations_measure_10.png');
-const img_equationsmeasure11 = require('../../assets/DbImages/MathImages/equations_measure_11.png');
+const img_equationsmeasure11small = require('../../assets/DbImages/MathImages/equations_measure_11_small.png');
 const img_equationsmeasure12 = require('../../assets/DbImages/MathImages/equations_measure_12.png');
 const img_equationsmeasure13 = require('../../assets/DbImages/MathImages/equations_measure_13.png');
+const img_equationsmeasure13small = require('../../assets/DbImages/MathImages/equations_measure_13_small.png');
 const img_equationsmeasure14 = require('../../assets/DbImages/MathImages/equations_measure_14.png');
 const img_equationsmeasure15 = require('../../assets/DbImages/MathImages/equations_measure_15.png');
 const img_equationsmeasure16 = require('../../assets/DbImages/MathImages/equations_measure_16.png');
@@ -148,7 +193,7 @@ const img_equationsmeasure5 = require('../../assets/DbImages/MathImages/equation
 const img_equationsmeasure6 = require('../../assets/DbImages/MathImages/equations_measure_6.png');
 const img_equationsmeasure7 = require('../../assets/DbImages/MathImages/equations_measure_7.png');
 const img_equationsmeasure8 = require('../../assets/DbImages/MathImages/equations_measure_8.png');
-const img_equationsmeasure9 = require('../../assets/DbImages/MathImages/equations_measure_9.png');
+const img_equationsmeasure9small = require('../../assets/DbImages/MathImages/equations_measure_9_small.png');
 const img_equationsmeasurebig = require('../../assets/DbImages/MathImages/equations_measure_big.png');
 const img_equationsmeasureimperial = require('../../assets/DbImages/MathImages/equations_measure_imperial.png');
 const img_equationsmeasurewelcome = require('../../assets/DbImages/MathImages/equations_measure_welcome.png');
@@ -156,26 +201,30 @@ const img_equationsmechanic1 = require('../../assets/DbImages/MathImages/equatio
 const img_equationsmechanic10 = require('../../assets/DbImages/MathImages/equations_mechanic_10.png');
 const img_equationsmechanic10welcome = require('../../assets/DbImages/MathImages/equations_mechanic_10_welcome.png');
 const img_equationsmechanic11 = require('../../assets/DbImages/MathImages/equations_mechanic_11.png');
-const img_equationsmechanic12 = require('../../assets/DbImages/MathImages/equations_mechanic_12.png');
-const img_equationsmechanic121 = require('../../assets/DbImages/MathImages/equations_mechanic_12_1.png');
+const img_equationsmechanic121small = require('../../assets/DbImages/MathImages/equations_mechanic_12_1_small.png');
+const img_equationsmechanic12small = require('../../assets/DbImages/MathImages/equations_mechanic_12_small.png');
 const img_equationsmechanic13big = require('../../assets/DbImages/MathImages/equations_mechanic_13_big.png');
+const img_equationsmechanic13small = require('../../assets/DbImages/MathImages/equations_mechanic_13_small.png');
 const img_equationsmechanic14 = require('../../assets/DbImages/MathImages/equations_mechanic_14.png');
 const img_equationsmechanic15big = require('../../assets/DbImages/MathImages/equations_mechanic_15_big.png');
-const img_equationsmechanic16 = require('../../assets/DbImages/MathImages/equations_mechanic_16.png');
-const img_equationsmechanic17 = require('../../assets/DbImages/MathImages/equations_mechanic_17.png');
+const img_equationsmechanic16small = require('../../assets/DbImages/MathImages/equations_mechanic_16_small.png');
+const img_equationsmechanic17small = require('../../assets/DbImages/MathImages/equations_mechanic_17_small.png');
 const img_equationsmechanic18welcome = require('../../assets/DbImages/MathImages/equations_mechanic_18_welcome.png');
 const img_equationsmechanic19 = require('../../assets/DbImages/MathImages/equations_mechanic_19.png');
 const img_equationsmechanic2 = require('../../assets/DbImages/MathImages/equations_mechanic_2.png');
-const img_equationsmechanic20 = require('../../assets/DbImages/MathImages/equations_mechanic_20.png');
-const img_equationsmechanic21 = require('../../assets/DbImages/MathImages/equations_mechanic_21.png');
-const img_equationsmechanic22 = require('../../assets/DbImages/MathImages/equations_mechanic_22.png');
-const img_equationsmechanic23 = require('../../assets/DbImages/MathImages/equations_mechanic_23.png');
-const img_equationsmechanic24 = require('../../assets/DbImages/MathImages/equations_mechanic_24.png');
-const img_equationsmechanic25 = require('../../assets/DbImages/MathImages/equations_mechanic_25.png');
-const img_equationsmechanic26 = require('../../assets/DbImages/MathImages/equations_mechanic_26.png');
-const img_equationsmechanic27 = require('../../assets/DbImages/MathImages/equations_mechanic_27.png');
-const img_equationsmechanic3 = require('../../assets/DbImages/MathImages/equations_mechanic_3.png');
+const img_equationsmechanic20small = require('../../assets/DbImages/MathImages/equations_mechanic_20_small.png');
+const img_equationsmechanic21small = require('../../assets/DbImages/MathImages/equations_mechanic_21_small.png');
+const img_equationsmechanic221small = require('../../assets/DbImages/MathImages/equations_mechanic_22_1_small.png');
+const img_equationsmechanic23small = require('../../assets/DbImages/MathImages/equations_mechanic_23_small.png');
+const img_equationsmechanic24small = require('../../assets/DbImages/MathImages/equations_mechanic_24_small.png');
+const img_equationsmechanic25small = require('../../assets/DbImages/MathImages/equations_mechanic_25_small.png');
+const img_equationsmechanic26small = require('../../assets/DbImages/MathImages/equations_mechanic_26_small.png');
+const img_equationsmechanic27small = require('../../assets/DbImages/MathImages/equations_mechanic_27_small.png');
+const img_equationsmechanic31small = require('../../assets/DbImages/MathImages/equations_mechanic_3_1_small.png');
+const img_equationsmechanic3small = require('../../assets/DbImages/MathImages/equations_mechanic_3_small.png');
 const img_equationsmechanic4 = require('../../assets/DbImages/MathImages/equations_mechanic_4.png');
+const img_equationsmechanic41small = require('../../assets/DbImages/MathImages/equations_mechanic_4_1_small.png');
+const img_equationsmechanic4small = require('../../assets/DbImages/MathImages/equations_mechanic_4_small.png');
 const img_equationsmechanic5 = require('../../assets/DbImages/MathImages/equations_mechanic_5.png');
 const img_equationsmechanic5big = require('../../assets/DbImages/MathImages/equations_mechanic_5_big.png');
 const img_equationsmechanic5welcome = require('../../assets/DbImages/MathImages/equations_mechanic_5_welcome.png');
@@ -183,11 +232,14 @@ const img_equationsmechanic6 = require('../../assets/DbImages/MathImages/equatio
 const img_equationsmechanic7 = require('../../assets/DbImages/MathImages/equations_mechanic_7.png');
 const img_equationsmechanic8 = require('../../assets/DbImages/MathImages/equations_mechanic_8.png');
 const img_equationsmechanic9 = require('../../assets/DbImages/MathImages/equations_mechanic_9.png');
-const img_equationsmechanicFormel = require('../../assets/DbImages/MathImages/equations_mechanic_Formel.png');
+const img_equationsmechanicFormelsmall = require('../../assets/DbImages/MathImages/equations_mechanic_Formel_small.png');
 const img_equationsmechanicwelcome = require('../../assets/DbImages/MathImages/equations_mechanic_welcome.png');
 const img_equationsmechanicwinkelhebel = require('../../assets/DbImages/MathImages/equations_mechanic_winkelhebel.png');
+const img_equationspyramidevolumen = require('../../assets/DbImages/MathImages/equations_pyramide_volumen.png');
+const img_equationsquadervolumen = require('../../assets/DbImages/MathImages/equations_quader_volumen.png');
 const img_equationstypeswelcome = require('../../assets/DbImages/MathImages/equations_types_welcome.png');
 const img_equationswelcome = require('../../assets/DbImages/MathImages/equations_welcome.png');
+const img_equationszylindervolumen = require('../../assets/DbImages/MathImages/equations_zylinder_volumen.png');
 const img_LF12BaustoffeMauerwerksmall = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_2_Baustoffe_Mauerwerk_small.png');
 const img_LF12BaustoffeZiegel = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_2_Baustoffe_Ziegel.png');
 const img_LF12BaustoffeZiegelsmall = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_2_Baustoffe_Ziegel_small.png');
@@ -663,8 +715,20 @@ export const imageMap = {
     "equations_5": img_equations5,
     "equations_6": img_equations6,
     "equations_7": img_equations7,
+    "equations_7_small": img_equations7small,
     "equations_8": img_equations8,
+    "equations_8_small": img_equations8small,
     "equations_9": img_equations9,
+    "equations_9_small": img_equations9small,
+    "equations_Dichteanomalie": img_equationsDichteanomalie,
+    "equations_Dichteanomalie_big": img_equationsDichteanomaliebig,
+    "equations_Gleichgewicht_Heizung": img_equationsGleichgewichtHeizung,
+    "equations_Kreisbogen": img_equationsKreisbogen,
+    "equations_Kreisbogen_Formel_small": img_equationsKreisbogenFormelsmall,
+    "equations_Kreissektor": img_equationsKreissektor,
+    "equations_Kreissektor_Formel_small": img_equationsKreissektorFormelsmall,
+    "equations_Kreisumfang": img_equationsKreisumfang,
+    "equations_Kreisumfang_Formel_small": img_equationsKreisumfangFormelsmall,
     "equations_algebra_1": img_equationsalgebra1,
     "equations_algebra_10": img_equationsalgebra10,
     "equations_algebra_10_1": img_equationsalgebra101,
@@ -672,6 +736,7 @@ export const imageMap = {
     "equations_algebra_11": img_equationsalgebra11,
     "equations_algebra_11_small": img_equationsalgebra11small,
     "equations_algebra_12": img_equationsalgebra12,
+    "equations_algebra_12_small": img_equationsalgebra12small,
     "equations_algebra_13": img_equationsalgebra13,
     "equations_algebra_13_1": img_equationsalgebra131,
     "equations_algebra_13_small": img_equationsalgebra13small,
@@ -681,12 +746,12 @@ export const imageMap = {
     "equations_algebra_15": img_equationsalgebra15,
     "equations_algebra_15_1_small": img_equationsalgebra151small,
     "equations_algebra_15_small": img_equationsalgebra15small,
-    "equations_algebra_16": img_equationsalgebra16,
     "equations_algebra_16_1": img_equationsalgebra161,
     "equations_algebra_16_1_small": img_equationsalgebra161small,
     "equations_algebra_16_2": img_equationsalgebra162,
     "equations_algebra_16_2_small": img_equationsalgebra162small,
     "equations_algebra_16_5_small": img_equationsalgebra165small,
+    "equations_algebra_16_a_small": img_equationsalgebra16asmall,
     "equations_algebra_16_small": img_equationsalgebra16small,
     "equations_algebra_17": img_equationsalgebra17,
     "equations_algebra_18": img_equationsalgebra18,
@@ -701,11 +766,8 @@ export const imageMap = {
     "equations_algebra_204_big": img_equationsalgebra204big,
     "equations_algebra_205_big": img_equationsalgebra205big,
     "equations_algebra_21_small": img_equationsalgebra21small,
-    "equations_algebra_22": img_equationsalgebra22,
     "equations_algebra_22_small": img_equationsalgebra22small,
-    "equations_algebra_23": img_equationsalgebra23,
     "equations_algebra_23_small": img_equationsalgebra23small,
-    "equations_algebra_24": img_equationsalgebra24,
     "equations_algebra_24_small": img_equationsalgebra24small,
     "equations_algebra_25": img_equationsalgebra25,
     "equations_algebra_26": img_equationsalgebra26,
@@ -721,10 +783,15 @@ export const imageMap = {
     "equations_algebra_30": img_equationsalgebra30,
     "equations_algebra_30_small": img_equationsalgebra30small,
     "equations_algebra_31": img_equationsalgebra31,
+    "equations_algebra_31_small": img_equationsalgebra31small,
     "equations_algebra_32": img_equationsalgebra32,
+    "equations_algebra_32_small": img_equationsalgebra32small,
     "equations_algebra_33": img_equationsalgebra33,
+    "equations_algebra_33_small": img_equationsalgebra33small,
     "equations_algebra_34": img_equationsalgebra34,
+    "equations_algebra_34_small": img_equationsalgebra34small,
     "equations_algebra_35": img_equationsalgebra35,
+    "equations_algebra_35_small": img_equationsalgebra35small,
     "equations_algebra_36": img_equationsalgebra36,
     "equations_algebra_36_big": img_equationsalgebra36big,
     "equations_algebra_37_big": img_equationsalgebra37big,
@@ -737,41 +804,70 @@ export const imageMap = {
     "equations_algebra_9": img_equationsalgebra9,
     "equations_algebra_9_small": img_equationsalgebra9small,
     "equations_algebra_book": img_equationsalgebrabook,
+    "equations_algebra_erklärung": img_equationsalgebraerklrung,
     "equations_algebra_groß": img_equationsalgebragro,
     "equations_algebra_quiz14_small": img_equationsalgebraquiz14small,
+    "equations_algebra_quiz66_small": img_equationsalgebraquiz66small,
+    "equations_algebra_quiz67_small": img_equationsalgebraquiz67small,
+    "equations_algebra_quiz68_small": img_equationsalgebraquiz68small,
+    "equations_algebra_quiz7_small": img_equationsalgebraquiz7small,
     "equations_algebra_welcome": img_equationsalgebrawelcome,
     "equations_explained_welcome": img_equationsexplainedwelcome,
     "equations_geometrie_1": img_equationsgeometrie1,
     "equations_geometrie_2": img_equationsgeometrie2,
     "equations_geometrie_3": img_equationsgeometrie3,
     "equations_geometrie_welcome": img_equationsgeometriewelcome,
+    "equations_kugel_volumen": img_equationskugelvolumen,
     "equations_linear_1": img_equationslinear1,
     "equations_linear_10": img_equationslinear10,
+    "equations_linear_10_small": img_equationslinear10small,
     "equations_linear_11": img_equationslinear11,
     "equations_linear_11_1": img_equationslinear111,
+    "equations_linear_11_1_small": img_equationslinear111small,
+    "equations_linear_11_small": img_equationslinear11small,
     "equations_linear_12": img_equationslinear12,
     "equations_linear_12_1": img_equationslinear121,
+    "equations_linear_12_1_small": img_equationslinear121small,
+    "equations_linear_12_small": img_equationslinear12small,
     "equations_linear_13": img_equationslinear13,
     "equations_linear_13_1": img_equationslinear131,
-    "equations_linear_14": img_equationslinear14,
-    "equations_linear_15": img_equationslinear15,
+    "equations_linear_13_1_small": img_equationslinear131small,
+    "equations_linear_13_small": img_equationslinear13small,
+    "equations_linear_14_small": img_equationslinear14small,
+    "equations_linear_15_1_small": img_equationslinear151small,
+    "equations_linear_15_small": img_equationslinear15small,
     "equations_linear_16": img_equationslinear16,
-    "equations_linear_17": img_equationslinear17,
-    "equations_linear_18": img_equationslinear18,
-    "equations_linear_19": img_equationslinear19,
+    "equations_linear_17_1_small": img_equationslinear171small,
+    "equations_linear_17_small": img_equationslinear17small,
+    "equations_linear_18_1_small": img_equationslinear181small,
+    "equations_linear_18_small": img_equationslinear18small,
+    "equations_linear_19_1_small": img_equationslinear191small,
+    "equations_linear_19_small": img_equationslinear19small,
     "equations_linear_2": img_equationslinear2,
     "equations_linear_2_1": img_equationslinear21,
+    "equations_linear_2_small": img_equationslinear2small,
     "equations_linear_3": img_equationslinear3,
     "equations_linear_3_1": img_equationslinear31,
+    "equations_linear_3_1_small": img_equationslinear31small,
+    "equations_linear_3_small": img_equationslinear3small,
     "equations_linear_4": img_equationslinear4,
+    "equations_linear_4_small": img_equationslinear4small,
     "equations_linear_5": img_equationslinear5,
     "equations_linear_5_1": img_equationslinear51,
+    "equations_linear_5_1_small": img_equationslinear51small,
+    "equations_linear_5_small": img_equationslinear5small,
     "equations_linear_6": img_equationslinear6,
+    "equations_linear_6_small": img_equationslinear6small,
     "equations_linear_7": img_equationslinear7,
     "equations_linear_7_1": img_equationslinear71,
+    "equations_linear_7_1_small": img_equationslinear71small,
+    "equations_linear_7_small": img_equationslinear7small,
     "equations_linear_8": img_equationslinear8,
+    "equations_linear_8_small": img_equationslinear8small,
     "equations_linear_9": img_equationslinear9,
     "equations_linear_9_1": img_equationslinear91,
+    "equations_linear_9_1_small": img_equationslinear91small,
+    "equations_linear_9_small": img_equationslinear9small,
     "equations_math_algebra": img_equationsmathalgebra,
     "equations_math_geometry": img_equationsmathgeometry,
     "equations_math_measurements": img_equationsmathmeasurements,
@@ -779,9 +875,10 @@ export const imageMap = {
     "equations_math_scales": img_equationsmathscales,
     "equations_measure_1": img_equationsmeasure1,
     "equations_measure_10": img_equationsmeasure10,
-    "equations_measure_11": img_equationsmeasure11,
+    "equations_measure_11_small": img_equationsmeasure11small,
     "equations_measure_12": img_equationsmeasure12,
     "equations_measure_13": img_equationsmeasure13,
+    "equations_measure_13_small": img_equationsmeasure13small,
     "equations_measure_14": img_equationsmeasure14,
     "equations_measure_15": img_equationsmeasure15,
     "equations_measure_16": img_equationsmeasure16,
@@ -802,7 +899,7 @@ export const imageMap = {
     "equations_measure_6": img_equationsmeasure6,
     "equations_measure_7": img_equationsmeasure7,
     "equations_measure_8": img_equationsmeasure8,
-    "equations_measure_9": img_equationsmeasure9,
+    "equations_measure_9_small": img_equationsmeasure9small,
     "equations_measure_big": img_equationsmeasurebig,
     "equations_measure_imperial": img_equationsmeasureimperial,
     "equations_measure_welcome": img_equationsmeasurewelcome,
@@ -810,26 +907,30 @@ export const imageMap = {
     "equations_mechanic_10": img_equationsmechanic10,
     "equations_mechanic_10_welcome": img_equationsmechanic10welcome,
     "equations_mechanic_11": img_equationsmechanic11,
-    "equations_mechanic_12": img_equationsmechanic12,
-    "equations_mechanic_12_1": img_equationsmechanic121,
+    "equations_mechanic_12_1_small": img_equationsmechanic121small,
+    "equations_mechanic_12_small": img_equationsmechanic12small,
     "equations_mechanic_13_big": img_equationsmechanic13big,
+    "equations_mechanic_13_small": img_equationsmechanic13small,
     "equations_mechanic_14": img_equationsmechanic14,
     "equations_mechanic_15_big": img_equationsmechanic15big,
-    "equations_mechanic_16": img_equationsmechanic16,
-    "equations_mechanic_17": img_equationsmechanic17,
+    "equations_mechanic_16_small": img_equationsmechanic16small,
+    "equations_mechanic_17_small": img_equationsmechanic17small,
     "equations_mechanic_18_welcome": img_equationsmechanic18welcome,
     "equations_mechanic_19": img_equationsmechanic19,
     "equations_mechanic_2": img_equationsmechanic2,
-    "equations_mechanic_20": img_equationsmechanic20,
-    "equations_mechanic_21": img_equationsmechanic21,
-    "equations_mechanic_22": img_equationsmechanic22,
-    "equations_mechanic_23": img_equationsmechanic23,
-    "equations_mechanic_24": img_equationsmechanic24,
-    "equations_mechanic_25": img_equationsmechanic25,
-    "equations_mechanic_26": img_equationsmechanic26,
-    "equations_mechanic_27": img_equationsmechanic27,
-    "equations_mechanic_3": img_equationsmechanic3,
+    "equations_mechanic_20_small": img_equationsmechanic20small,
+    "equations_mechanic_21_small": img_equationsmechanic21small,
+    "equations_mechanic_22_1_small": img_equationsmechanic221small,
+    "equations_mechanic_23_small": img_equationsmechanic23small,
+    "equations_mechanic_24_small": img_equationsmechanic24small,
+    "equations_mechanic_25_small": img_equationsmechanic25small,
+    "equations_mechanic_26_small": img_equationsmechanic26small,
+    "equations_mechanic_27_small": img_equationsmechanic27small,
+    "equations_mechanic_3_1_small": img_equationsmechanic31small,
+    "equations_mechanic_3_small": img_equationsmechanic3small,
     "equations_mechanic_4": img_equationsmechanic4,
+    "equations_mechanic_4_1_small": img_equationsmechanic41small,
+    "equations_mechanic_4_small": img_equationsmechanic4small,
     "equations_mechanic_5": img_equationsmechanic5,
     "equations_mechanic_5_big": img_equationsmechanic5big,
     "equations_mechanic_5_welcome": img_equationsmechanic5welcome,
@@ -837,11 +938,14 @@ export const imageMap = {
     "equations_mechanic_7": img_equationsmechanic7,
     "equations_mechanic_8": img_equationsmechanic8,
     "equations_mechanic_9": img_equationsmechanic9,
-    "equations_mechanic_Formel": img_equationsmechanicFormel,
+    "equations_mechanic_Formel_small": img_equationsmechanicFormelsmall,
     "equations_mechanic_welcome": img_equationsmechanicwelcome,
     "equations_mechanic_winkelhebel": img_equationsmechanicwinkelhebel,
+    "equations_pyramide_volumen": img_equationspyramidevolumen,
+    "equations_quader_volumen": img_equationsquadervolumen,
     "equations_types_welcome": img_equationstypeswelcome,
     "equations_welcome": img_equationswelcome,
+    "equations_zylinder_volumen": img_equationszylindervolumen,
     "LF_1_2_Baustoffe_Mauerwerk_small": img_LF12BaustoffeMauerwerksmall,
     "LF_1_2_Baustoffe_Ziegel": img_LF12BaustoffeZiegel,
     "LF_1_2_Baustoffe_Ziegel_small": img_LF12BaustoffeZiegelsmall,
