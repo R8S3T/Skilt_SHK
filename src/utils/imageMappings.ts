@@ -350,7 +350,6 @@ const img_LF2Bohrerarten2zoom = require('../../assets/DbImages/SubchapterContent
 const img_LF2Brandschutzzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Brandschutz_zoom.png');
 const img_LF2DBSkalazoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_DB_Skala_zoom.png');
 const img_LF2Dbel1zoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Dübel_1_zoom.png');
-const img_LF2DbelHolzzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Dübel_Holz_zoom.png');
 const img_LF2Dbelgrezoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Dübelgröße_zoom.png');
 const img_LF2Einschlagdbelzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Einschlagdübel_zoom.png');
 const img_LF2Fallrohrschellezoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Fallrohrschelle_zoom.png');
@@ -368,6 +367,9 @@ const img_LF2Kegelsenkerzoom = require('../../assets/DbImages/SubchapterContent/
 const img_LF2Klebeankerzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Klebeanker_zoom.png');
 const img_LF2Leiterzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Leiter_zoom.png');
 const img_LF2Rettungszeichenzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Rettungszeichen_zoom.png');
+const img_LF2RohrschellemitGummieinlagezoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Rohrschelle_mit_Gummieinlage_zoom.png');
+const img_LF2SchallSchwitzwasserdmmungzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Schall_Schwitzwasserdämmung_zoom.png');
+const img_LF2SchallentkoppelteHalterungzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Schallentkoppelte_Halterung_zoom.png');
 const img_LF2Schallschutzwelcome = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Schallschutz_welcome.png');
 const img_LF2SchnittgeschwindigkeitLsungsmall = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Schnittgeschwindigkeit _Lösung_small.png');
 const img_LF2Schnittgeschwindigkeitsmall = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Schnittgeschwindigkeit_small.png');
@@ -380,6 +382,7 @@ const img_LF2Warnzeichenzoom = require('../../assets/DbImages/SubchapterContent/
 const img_LF2Winkelschleiferzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Winkelschleifer_zoom.png');
 const img_LF2Zahnscheibenzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Zahnscheiben_zoom.png');
 const img_LF3Anwrmlngezoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Anwärmlänge_zoom.png');
+const img_LF3Autogenschweienzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Autogenschweißen_zoom.png');
 const img_LF3Biegegertzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Biegegerät_zoom.png');
 const img_LF3Elektrodenschweienzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Elektrodenschweißen_zoom.png');
 const img_LF3Flanschverbindungzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Flanschverbindung_zoom.png');
@@ -394,6 +397,7 @@ const img_LF3LngenausdehnungBiegeschenkelzoom = require('../../assets/DbImages/S
 const img_LF3LngenausdehnungKompensatorzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Längenausdehnung_Kompensator_zoom.png');
 const img_LF3LngenausdehnungUBogenzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Längenausdehnung_UBogen_zoom.png');
 const img_LF3LsbareVerbindungenwelcome = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Lösbare_Verbindungen_welcome.png');
+const img_LF3MAGzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_MAG_zoom.png');
 const img_LF3Nherungsformelsmall = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Näherungsformel_small.png');
 const img_LF3PVCzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_PVC_zoom.png');
 const img_LF3Przisionsstahlrohrzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Präzisionsstahlrohr_zoom.png');
@@ -410,6 +414,7 @@ const img_LF3Verschraubungkonischzoom = require('../../assets/DbImages/Subchapte
 const img_LF3WIGzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_WIG_zoom.png');
 const img_LF3Weichlten2zoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Weichlöten_2_zoom.png');
 const img_LF3Weichltenzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Weichlöten_zoom.png');
+const img_LF3Withworthzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_Withworth_zoom.png');
 const img_LF3ZMaBeispiel2small = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_ZMaß_Beispiel_2_small.png');
 const img_LF3ZMazoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_ZMaß_zoom.png');
 const img_LF3axialKunststoffzoom = require('../../assets/DbImages/SubchapterContent/LF_3/LF_3_axial_Kunststoff_zoom.png');
@@ -524,6 +529,8 @@ const img_LF5PHzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5
 const img_LF5PVCCsmall = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_PVC_C_small.png');
 const img_LF5Prfenwelcome = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Prüfen_welcome.png');
 const img_LF5Reihenfolgesmall = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Reihenfolge_small.png');
+const img_LF5Reiheninstallationzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Reiheninstallation_zoom.png');
+const img_LF5Ringleitungzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Ringleitung_zoom.png');
 const img_LF5Rohrbelfter2zoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Rohrbelüfter_2_zoom.png');
 const img_LF5Rohrbelfterzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Rohrbelüfter_zoom.png');
 const img_LF5RohrunterbrecherSchnittzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Rohrunterbrecher_Schnitt_zoom.png');
@@ -539,6 +546,7 @@ const img_LF5Steigleitungzoom = require('../../assets/DbImages/SubchapterContent
 const img_LF5Stockwerksleitungenzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Stockwerksleitungen_zoom.png');
 const img_LF5Systemtrenner2zoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Systemtrenner_2_zoom.png');
 const img_LF5Systemtrennerzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Systemtrenner_zoom.png');
+const img_LF5TAbzweigungenzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_T_Abzweigungen_zoom.png');
 const img_LF5Tauwasserzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Tauwasser_zoom.png');
 const img_LF5Trinkwasser = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Trinkwasser.png');
 const img_LF5Trinkwasserwelcome = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Trinkwasser_welcome.png');
@@ -549,6 +557,7 @@ const img_LF5VerschneidearmaturSchnittzoom = require('../../assets/DbImages/Subc
 const img_LF5Verschnittarmaturzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Verschnittarmatur_zoom.png');
 const img_LF5Wasserfilterzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Wasserfilter_zoom.png');
 const img_LF5Wasserkreislauf = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Wasserkreislauf.png');
+const img_LF5Wasserzhlanlage1zoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Wasserzählanlage_1_zoom.png');
 const img_LF5Wasserzhlanlage2zoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Wasserzählanlage_2_zoom.png');
 const img_LF5Wasserzhlanlagezoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Wasserzählanlage_zoom.png');
 const img_LF5Wasserzhlerzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Wasserzähler_zoom.png');
@@ -1056,7 +1065,6 @@ export const imageMap = {
     "LF_2_Brandschutz_zoom": img_LF2Brandschutzzoom,
     "LF_2_DB_Skala_zoom": img_LF2DBSkalazoom,
     "LF_2_Dübel_1_zoom": img_LF2Dbel1zoom,
-    "LF_2_Dübel_Holz_zoom": img_LF2DbelHolzzoom,
     "LF_2_Dübelgröße_zoom": img_LF2Dbelgrezoom,
     "LF_2_Einschlagdübel_zoom": img_LF2Einschlagdbelzoom,
     "LF_2_Fallrohrschelle_zoom": img_LF2Fallrohrschellezoom,
@@ -1074,6 +1082,9 @@ export const imageMap = {
     "LF_2_Klebeanker_zoom": img_LF2Klebeankerzoom,
     "LF_2_Leiter_zoom": img_LF2Leiterzoom,
     "LF_2_Rettungszeichen_zoom": img_LF2Rettungszeichenzoom,
+    "LF_2_Rohrschelle_mit_Gummieinlage_zoom": img_LF2RohrschellemitGummieinlagezoom,
+    "LF_2_Schall_Schwitzwasserdämmung_zoom": img_LF2SchallSchwitzwasserdmmungzoom,
+    "LF_2_Schallentkoppelte_Halterung_zoom": img_LF2SchallentkoppelteHalterungzoom,
     "LF_2_Schallschutz_welcome": img_LF2Schallschutzwelcome,
     "LF_2_Schnittgeschwindigkeit _Lösung_small": img_LF2SchnittgeschwindigkeitLsungsmall,
     "LF_2_Schnittgeschwindigkeit_small": img_LF2Schnittgeschwindigkeitsmall,
@@ -1086,6 +1097,7 @@ export const imageMap = {
     "LF_2_Winkelschleifer_zoom": img_LF2Winkelschleiferzoom,
     "LF_2_Zahnscheiben_zoom": img_LF2Zahnscheibenzoom,
     "LF_3_Anwärmlänge_zoom": img_LF3Anwrmlngezoom,
+    "LF_3_Autogenschweißen_zoom": img_LF3Autogenschweienzoom,
     "LF_3_Biegegerät_zoom": img_LF3Biegegertzoom,
     "LF_3_Elektrodenschweißen_zoom": img_LF3Elektrodenschweienzoom,
     "LF_3_Flanschverbindung_zoom": img_LF3Flanschverbindungzoom,
@@ -1100,6 +1112,7 @@ export const imageMap = {
     "LF_3_Längenausdehnung_Kompensator_zoom": img_LF3LngenausdehnungKompensatorzoom,
     "LF_3_Längenausdehnung_UBogen_zoom": img_LF3LngenausdehnungUBogenzoom,
     "LF_3_Lösbare_Verbindungen_welcome": img_LF3LsbareVerbindungenwelcome,
+    "LF_3_MAG_zoom": img_LF3MAGzoom,
     "LF_3_Näherungsformel_small": img_LF3Nherungsformelsmall,
     "LF_3_PVC_zoom": img_LF3PVCzoom,
     "LF_3_Präzisionsstahlrohr_zoom": img_LF3Przisionsstahlrohrzoom,
@@ -1116,6 +1129,7 @@ export const imageMap = {
     "LF_3_WIG_zoom": img_LF3WIGzoom,
     "LF_3_Weichlöten_2_zoom": img_LF3Weichlten2zoom,
     "LF_3_Weichlöten_zoom": img_LF3Weichltenzoom,
+    "LF_3_Withworth_zoom": img_LF3Withworthzoom,
     "LF_3_ZMaß_Beispiel_2_small": img_LF3ZMaBeispiel2small,
     "LF_3_ZMaß_zoom": img_LF3ZMazoom,
     "LF_3_axial_Kunststoff_zoom": img_LF3axialKunststoffzoom,
@@ -1230,6 +1244,8 @@ export const imageMap = {
     "LF_5_PVC_C_small": img_LF5PVCCsmall,
     "LF_5_Prüfen_welcome": img_LF5Prfenwelcome,
     "LF_5_Reihenfolge_small": img_LF5Reihenfolgesmall,
+    "LF_5_Reiheninstallation_zoom": img_LF5Reiheninstallationzoom,
+    "LF_5_Ringleitung_zoom": img_LF5Ringleitungzoom,
     "LF_5_Rohrbelüfter_2_zoom": img_LF5Rohrbelfter2zoom,
     "LF_5_Rohrbelüfter_zoom": img_LF5Rohrbelfterzoom,
     "LF_5_Rohrunterbrecher_Schnitt_zoom": img_LF5RohrunterbrecherSchnittzoom,
@@ -1245,6 +1261,7 @@ export const imageMap = {
     "LF_5_Stockwerksleitungen_zoom": img_LF5Stockwerksleitungenzoom,
     "LF_5_Systemtrenner_2_zoom": img_LF5Systemtrenner2zoom,
     "LF_5_Systemtrenner_zoom": img_LF5Systemtrennerzoom,
+    "LF_5_T_Abzweigungen_zoom": img_LF5TAbzweigungenzoom,
     "LF_5_Tauwasser_zoom": img_LF5Tauwasserzoom,
     "LF_5_Trinkwasser": img_LF5Trinkwasser,
     "LF_5_Trinkwasser_welcome": img_LF5Trinkwasserwelcome,
@@ -1255,6 +1272,7 @@ export const imageMap = {
     "LF_5_Verschnittarmatur_zoom": img_LF5Verschnittarmaturzoom,
     "LF_5_Wasserfilter_zoom": img_LF5Wasserfilterzoom,
     "LF_5_Wasserkreislauf": img_LF5Wasserkreislauf,
+    "LF_5_Wasserzählanlage_1_zoom": img_LF5Wasserzhlanlage1zoom,
     "LF_5_Wasserzählanlage_2_zoom": img_LF5Wasserzhlanlage2zoom,
     "LF_5_Wasserzählanlage_zoom": img_LF5Wasserzhlanlagezoom,
     "LF_5_Wasserzähler_zoom": img_LF5Wasserzhlerzoom,
