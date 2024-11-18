@@ -293,7 +293,6 @@ export async function fetchClozeTestOptionsByQuizId(
         // Fetch from local SQLite database
         const db = await initializeDatabase();
         try {
-            // Use db.getAllAsync to fetch multiple rows (because there are multiple options)
             const result = await db.getAllAsync<ClozeTestOption>(
                 `SELECT Option1, Option2, Option3, Option4, CorrectAnswerForBlank1, CorrectAnswerForBlank2
                  FROM ClozeTestOptions 
@@ -301,54 +300,48 @@ export async function fetchClozeTestOptionsByQuizId(
                 [quizId]
             );
 
-            console.log('Fetched ClozeTest Options:', result);  // Log the fetched result
+            console.log('Raw result from local DB:', result);
 
             if (!result || result.length === 0) {
                 console.warn(`No cloze test options found for QuizId ${quizId}`);
                 return { options: [], correctAnswers: [] };
             }
 
-            // Loop through all the results and map them to the expected format
-            const options = result.map(row => [row.Option1, row.Option2, row.Option3, row.Option4].filter(Boolean));
-            const correctAnswers = result.map(row => [row.CorrectAnswerForBlank1, row.CorrectAnswerForBlank2]);
+            // Assuming one row per quiz
+            const { Option1, Option2, Option3, Option4, CorrectAnswerForBlank1, CorrectAnswerForBlank2 } = result[0];
 
             return {
-                options: options.flat(),  // Flatten the array of options
-                correctAnswers: correctAnswers.flat(),  // Flatten the array of correct answers
+                options: [Option1, Option2, Option3, Option4].filter(Boolean), // Filter out null/undefined values
+                correctAnswers: [CorrectAnswerForBlank1, CorrectAnswerForBlank2],
             };
         } catch (error) {
-            console.error(`Failed to fetch ClozeTestOptions for QuizId ${quizId} from SQLite:`, error);
+            console.error(`Failed to fetch cloze test options for QuizId ${quizId} from SQLite:`, error);
             return { options: [], correctAnswers: [] };
         }
     } else {
         // Fetch from server
         try {
             const response = await fetch(`${API_URL}/clozetestoptions/${quizId}`);
+            const data = await response.json();
+
+            console.log('Raw server response:', data); // Log the server response for debugging
+
             if (!response.ok) {
                 throw new Error('Server response was not ok.');
             }
 
-            const options: ClozeTestOption[] = await response.json();
-
-            if (!options || options.length === 0) {
-                console.warn(`Server returned no cloze test options for QuizId ${quizId}`);
-                return { options: [], correctAnswers: [] };
-            }
-
-            // Map server response to expected format
-            const mappedOptions = options.map(option => [option.Option1, option.Option2, option.Option3, option.Option4].filter(Boolean));
-            const mappedCorrectAnswers = options.map(option => [option.CorrectAnswerForBlank1, option.CorrectAnswerForBlank2]);
-
+            // Map the server response to the expected format
             return {
-                options: mappedOptions.flat(),  // Flatten the array of options
-                correctAnswers: mappedCorrectAnswers.flat(),  // Flatten the array of correct answers
+                options: data.options || [],
+                correctAnswers: data.correctAnswers || [],
             };
         } catch (error) {
-            console.error(`Failed to fetch ClozeTestOptions for QuizId ${quizId} from server:`, error);
+            console.error(`Failed to fetch cloze test options for QuizId ${quizId} from server:`, error);
             return { options: [], correctAnswers: [] };
         }
     }
 }
+
 
 // Fetch MathMiniQuiz by content ID
 export async function fetchMathMiniQuizByContentId(contentId: number): Promise<MathMiniQuiz[]> {

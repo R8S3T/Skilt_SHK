@@ -1,30 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { View, StyleSheet, ScrollView, Text } from 'react-native';
 import ControlButtons from './ControlButtons';
 import SentenceWithBlanks from './SentenceWithBlanks';
 import OptionButton from './OptionButton';
-import { Quiz, ClozeTestOption, AnswerStatus } from 'src/types/contentTypes';
+import { Quiz, AnswerStatus } from 'src/types/contentTypes';
 
 interface ClozeTestProps {
     quiz: Quiz;
-    options: string[]; // Array of option strings
-    correctAnswers: (string | null)[]; // Array of correct answers for blanks
+    options: string[];
+    correctAnswers: (string | null)[];
     onAnswerSubmit: (isCorrect: boolean) => void;
     onContinue: () => void;
 }
 
 const ClozeTest: React.FC<ClozeTestProps> = ({ quiz, options, correctAnswers, onAnswerSubmit, onContinue }) => {
-    console.log('ClozeTest options:', options); // Log the options received by ClozeTest
-    console.log('ClozeTest correctAnswers:', correctAnswers); 
-    const sentenceParts = quiz.Question.split('_');
+    const sentenceParts = useMemo(() => quiz.Question.split('_'), [quiz.Question]);
 
-    console.log('Sentence Parts:', sentenceParts);
-    console.log('Options:', options);
-
-    const [selectedOptions, setSelectedOptions] = useState<AnswerStatus[]>(Array(sentenceParts.length - 1).fill({ answer: null, isCorrect: null }));
-    const [submitButtonText, setSubmitButtonText] = useState<string>('Bestätigen');
+    const [selectedOptions, setSelectedOptions] = useState<AnswerStatus[]>(
+        Array(sentenceParts.length - 1).fill({ answer: null, isCorrect: null })
+    );
+    const [submitButtonText, setSubmitButtonText] = useState('Bestätigen');
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-    const [showFeedback, setShowFeedback] = useState(false);
+
+    // Reset state when a new quiz is loaded
+    useEffect(() => {
+        const resetOptions = Array(sentenceParts.length - 1).fill({ answer: null, isCorrect: null });
+        setSelectedOptions(resetOptions);
+        setSubmitButtonText('Bestätigen');
+        setIsButtonDisabled(true);
+    }, [sentenceParts]);
 
     const handleOptionSelect = (option: string) => {
         const newSelectedOptions = [...selectedOptions];
@@ -36,13 +40,33 @@ const ClozeTest: React.FC<ClozeTestProps> = ({ quiz, options, correctAnswers, on
         }
     };
 
-    const handleDelete = () => {
+    const handleSubmit = () => {
+        if (submitButtonText === 'Weiter') {
+            onAnswerSubmit(true);
+            onContinue();
+            return;
+        }
+
+        const isCorrect = selectedOptions.every(
+            (opt, index) => opt.answer === correctAnswers[index]
+        );
+
+        setSelectedOptions(selectedOptions.map((opt, index) => ({
+            ...opt,
+            isCorrect: opt.answer === correctAnswers[index],
+        })));
+
+        setSubmitButtonText(isCorrect ? 'Weiter' : 'Bestätigen');
+        setIsButtonDisabled(!isCorrect);
+    };
+
+    const handleClear = () => {
         const lastFilledIndex = selectedOptions
             .map((opt, index) => ({ ...opt, index }))
             .filter(opt => opt.answer !== null)
             .map(opt => opt.index)
-            .pop(); // Get the last filled blank
-    
+            .pop();
+
         if (lastFilledIndex !== undefined) {
             const newSelectedOptions = [...selectedOptions];
             newSelectedOptions[lastFilledIndex] = { answer: null, isCorrect: null };
@@ -52,92 +76,63 @@ const ClozeTest: React.FC<ClozeTestProps> = ({ quiz, options, correctAnswers, on
         }
     };
 
-    const handleSubmit = () => {
-        if (submitButtonText === 'Weiter') {
-            handleContinue();
-            return;
-        }
-    
-        // Check if the selected answers match the correct answers for all blanks
-        const isCorrect = selectedOptions.every((opt, index) => opt.answer === correctAnswers[index]);
-    
-        if (isCorrect) {
-            setSubmitButtonText('Weiter');
-            setIsButtonDisabled(false);
-        } else {
-            setSubmitButtonText('Bestätigen');
-            setIsButtonDisabled(true);
-        }
-    
-        // Update selected options with correctness information
-        const updatedSelectedOptions = selectedOptions.map((opt, index) => ({
-            ...opt,
-            isCorrect: opt.answer === correctAnswers[index],
-        }));
-        setSelectedOptions(updatedSelectedOptions);
-    
-        setShowFeedback(true);
-    };
-    
-
-    const handleContinue = () => {
-        onAnswerSubmit(true);
-        onContinue();
-    };
-
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <SentenceWithBlanks sentenceParts={sentenceParts} filledAnswers={selectedOptions} />
-            <View style={styles.optionsContainer}>
-                {options.map((option, idx) => (
-                    <OptionButton
-                        key={idx}
-                        option={option}
-                        onSelect={() => handleOptionSelect(option)}
-                        isSelected={selectedOptions.some(opt => opt.answer === option)}
-                    />
-                ))}
-            </View>
-            {selectedOptions.some(opt => opt.isCorrect !== null) && (
-                <Text style={styles.answerText}>
-                    {selectedOptions.every(opt => opt.isCorrect) ? 'Correct answer.' : 'Incorrect answer, please try again.'}
-                </Text>
+            {selectedOptions.length === sentenceParts.length - 1 ? (
+                <>
+                    <View style={styles.sentenceContainer}>
+                        <SentenceWithBlanks sentenceParts={sentenceParts} filledAnswers={selectedOptions} />
+                    </View>
+                    <View style={styles.optionsContainer}>
+                        {options.map((option, idx) => (
+                            <OptionButton
+                                key={idx}
+                                option={option}
+                                onSelect={() => handleOptionSelect(option)}
+                                isSelected={selectedOptions.some(opt => opt.answer === option)}
+                            />
+                        ))}
+                    </View>
+                    <View style={styles.controlButtonsContainer}>
+                        <ControlButtons
+                            onSubmit={handleSubmit}
+                            onClear={handleClear}
+                            onContinue={onContinue}
+                            submitButtonText={submitButtonText}
+                            disabled={isButtonDisabled}
+                            showBackspaceButton={true}
+                        />
+                    </View>
+                </>
+            ) : (
+                <Text>Loading...</Text>
             )}
-            <ControlButtons
-                onClear={handleDelete}
-                onSubmit={handleSubmit}
-                onContinue={handleContinue}
-                showBackspaceButton={true}
-                submitButtonText={submitButtonText}
-                disabled={isButtonDisabled}
-                showClearButton={submitButtonText !== 'Weiter'}
-            />
         </ScrollView>
     );
+    
 };
 
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        padding: 20,
+        justifyContent: 'space-between', // Ensures even spacing between children
+        paddingHorizontal: 20,
+        paddingVertical: 40, // Adds vertical padding for better spacing
         backgroundColor: '#2b4353',
     },
     optionsContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 20,
+        justifyContent: 'space-evenly', // More even spacing between options
+        marginVertical: 30, // Adds space above and below the options
     },
-    answerText: {
-        color: '#FFF',
-        marginVertical: 20,
-        fontSize: 18,
-        textAlign: 'center',
+    sentenceContainer: {
+        marginBottom: 40, // Adds space below the sentence with blanks
+    },
+    controlButtonsContainer: {
+        marginTop: 40, // Adds space above the control buttons
     },
 });
 
-export default ClozeTest;
 
+export default ClozeTest;

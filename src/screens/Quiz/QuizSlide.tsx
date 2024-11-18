@@ -30,7 +30,7 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
             if (quiz.QuizType === 'multiple_choice') {
                 fetchedOptions = await fetchMultipleChoiceOptionsByQuizId(quiz.QuizId);
             } else if (quiz.QuizType === 'cloze_test') {
-                fetchedOptions = await fetchClozeTestOptionsByQuizId(quiz.QuizId); // Already returns correct structure
+                fetchedOptions = await fetchClozeTestOptionsByQuizId(quiz.QuizId);
             } else {
                 throw new Error('Unsupported quiz type');
             }
@@ -53,7 +53,7 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
                     setError('No quiz found for this content.');
                 }
             } catch (err) {
-                setError('Failed to load quiz data.');
+                setError('Failed to fetch quiz data.');
                 console.error(err);
             } finally {
                 setLoading(false);
@@ -89,10 +89,10 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
 
     return (
         <View style={[styles.slide, style]}>
-            {currentQuiz.QuizType === 'multiple_choice' && (
+            {currentQuiz.QuizType === 'multiple_choice' && Array.isArray(options) && (
                 <MultipleChoice
                     quiz={currentQuiz}
-                    options={options as MultipleChoiceOption[]}
+                    options={options}
                     onAnswerSubmit={(isCorrect) => {
                         if (isCorrect) {
                             handleContinue();
@@ -101,11 +101,11 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
                     onContinue={handleContinue}
                 />
             )}
-            {currentQuiz.QuizType === 'cloze_test' && options && isClozeTestOptions(options) && (
+            {currentQuiz.QuizType === 'cloze_test' && !Array.isArray(options) && isClozeTestOptions(options) && (
                 <ClozeTest
                     quiz={currentQuiz}
-                    options={options.options} // Should be an array of option strings
-                    correctAnswers={options.correctAnswers} // Should be an array of correct answers
+                    options={options.options}
+                    correctAnswers={options.correctAnswers}
                     onAnswerSubmit={(isCorrect) => {
                         if (isCorrect) {
                             handleContinue();
@@ -114,7 +114,6 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
                     onContinue={handleContinue}
                 />
             )}
-
         </View>
     );
 };
@@ -122,11 +121,10 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
 const styles = StyleSheet.create({
     slide: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'center', // Center the content vertically
         alignItems: 'center',
         paddingHorizontal: 20,
-        paddingVertical: 10,
-        marginTop: 0,
+        paddingVertical: 40, // Adjust vertical padding
         backgroundColor: '#2b4353',
     },
 });
