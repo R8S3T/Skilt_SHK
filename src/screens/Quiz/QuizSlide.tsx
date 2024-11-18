@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ViewStyle } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import MultipleChoice from './MultipleChoice';
 import ClozeTest from './ClozeTest';
 import { fetchQuizByContentId, fetchMultipleChoiceOptionsByQuizId, fetchClozeTestOptionsByQuizId } from 'src/database/databaseServices';

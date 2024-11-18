@@ -31,6 +31,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         chapterTitle = '',
         origin = undefined, // Add default value for origin
     } = route.params;
+
     const [contentData, setContentData] = useState<GenericContent[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -39,18 +40,14 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
 
     const { finishedSubchapters, markSubchapterAsFinished, unlockSubchapter } = useSubchapter();
 
-     // Customize the header to include the "X" button and progress bar
-     useLayoutEffect(() => {
+    useLayoutEffect(() => {
         navigation.setOptions({
-            // Place an "X" icon button in the header left position
             headerLeft: () => (
                 <TouchableOpacity
                     onPress={() => {
                         if (route.params.origin === 'ResumeSection') {
-                            // Navigate directly to HomeScreen if accessed via ResumeSection
                             navigation.navigate('HomeScreen');
                         } else {
-                            // Otherwise, navigate back to SubchaptersScreen
                             navigation.navigate('SubchaptersScreen', { chapterId, chapterTitle });
                         }
                     }}
@@ -59,12 +56,10 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                     <Ionicons name="close" size={24} color="gray" />
                 </TouchableOpacity>
             ),
-            headerRight: () => null,  // Remove any headerRight component if it exists
+            headerRight: () => null,
         });
     }, [navigation, chapterId, chapterTitle, route.params.origin]);
-    
 
-    // Load saved slide index on first render or reset to 0 if finished
     useEffect(() => {
         const initializeProgress = async () => {
             const savedProgress = await loadProgress('section1');
@@ -77,7 +72,6 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         initializeProgress();
     }, [finishedSubchapters, subchapterId]);
 
-    // Load content data for the subchapter
     useEffect(() => {
         navigation.setOptions({ title: subchapterTitle });
         const loadData = async () => {
@@ -93,7 +87,6 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         loadData();
     }, [navigation, subchapterId, subchapterTitle]);
 
-    // Update header progress bar
     useEffect(() => {
         const progress = (currentIndex + 1) / contentData.length;
         navigation.setOptions({
@@ -112,7 +105,6 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         });
     }, [currentIndex, contentData.length]);
 
-    // Handle navigating to the next slide or finish using imported `nextContent`
     const handleNextContent = () => {
         nextContent({
             showQuiz,
@@ -129,12 +121,14 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
             navigation,
             markSubchapterAsFinished,
             unlockSubchapter,
-            origin, 
+            origin,
         });
     };
 
-    // Navigation for back and forward buttons
     const goBack = () => {
+        // Only navigate back if not in a quiz
+        if (showQuiz) return;
+
         if (currentIndex > 0) {
             setCurrentIndex(currentIndex - 1);
         }
@@ -163,28 +157,25 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                     <ContentSlide contentData={contentData[currentIndex]} onNext={handleNextContent} />
                 )}
                 <View style={styles.bottomNavContainer}>
-                    <TouchableOpacity onPress={goBack} disabled={currentIndex === 0}>
-                        <Ionicons 
-                            name="chevron-back" 
+                    {/* Back Arrow */}
+                    <TouchableOpacity onPress={goBack} disabled={currentIndex === 0 || showQuiz}>
+                        <Ionicons
+                            name="chevron-back"
                             size={30}
-                            color={currentIndex === 0 ? 'lightgray' : 'gray'}
+                            color={currentIndex === 0 || showQuiz ? 'lightgray' : 'gray'}
                             style={styles.arrowStyle}
                         />
                     </TouchableOpacity>
-                    <TouchableOpacity 
-                        onPress={handleNextContent} 
+
+                    {/* Forward Arrow */}
+                    <TouchableOpacity
+                        onPress={handleNextContent}
                         disabled={currentIndex === contentData.length - 1}
                     >
-
-                    </TouchableOpacity>
-                    <TouchableOpacity 
-                        onPress={goForward} 
-                        disabled={currentIndex >= maxIndexVisited || currentIndex === contentData.length - 1}
-                    >
-                        <Ionicons 
-                            name="chevron-forward" 
+                        <Ionicons
+                            name="chevron-forward"
                             size={30}
-                            color={currentIndex >= maxIndexVisited || currentIndex === contentData.length - 1 ? 'lightgray' : 'gray'}
+                            color={currentIndex === contentData.length - 1 ? 'lightgray' : 'gray'}
                             style={styles.arrowStyle}
                         />
                     </TouchableOpacity>
@@ -193,6 +184,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         </GestureHandlerRootView>
     );
 };
+
 
 const styles = StyleSheet.create({
     container: {
