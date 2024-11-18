@@ -22,45 +22,52 @@ interface MathQuizSlideProps {
 const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onNextSlide }) => {
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null);
+    const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+
 
     const handleAnswerSubmit = () => {
-        if (selectedOption && quiz.Answer.includes(selectedOption)) {
-            setIsAnswerCorrect(true);
-            onQuizComplete(true);
-        } else {
-            setIsAnswerCorrect(false);
-            onQuizComplete(false);
+        if (selectedOption) {
+            setIsSubmitted(true); // Mark as submitted
+            if (quiz.Answer.includes(selectedOption)) {
+                setIsAnswerCorrect(true);
+                onQuizComplete(true);
+            } else {
+                setIsAnswerCorrect(false); // Allow retries
+            }
         }
     };
 
+    const handleOptionSelect = (option: string) => {
+        setSelectedOption(option); // Update the selected option
+        setIsSubmitted(false);
+    };
 
     const getButtonStyle = (option: string) => {
         let style = styles.optionButton;
-    
-        if (selectedOption === option && isAnswerCorrect === null) {
 
-            style = { ...style, borderColor: '#b8e1dd', borderWidth: 3 };
-        } else if (isAnswerCorrect !== null && selectedOption) {
+        if (isSubmitted) {
+            // Feedback is only shown after submission
             if (selectedOption === option) {
                 if (quiz.Answer.includes(option)) {
-                    style = { ...style, borderColor: '#32CD32', borderWidth: 4 };
+                    style = { ...style, borderColor: '#32CD32', borderWidth: 4 }; // Green for correct
                 } else {
-                    style = { ...style, borderColor: '#FF6347', borderWidth: 4 };
+                    style = { ...style, borderColor: '#FF6347', borderWidth: 4 }; // Red for incorrect
                 }
             }
-        } else if (option === selectedOption && isAnswerCorrect === false) {
-            style = { ...style, borderColor: '#8fc2c2', borderWidth: 4 }; 
+        } else if (selectedOption === option) {
+            // Highlight the selected option before submission
+            style = { ...style, borderColor: '#b8e1dd', borderWidth: 3 }; // Light blue border
         }
+
         return style;
     };
-    
 
     const renderOptions = () => {
         return [quiz.Option1, quiz.Option2, quiz.Option3].map((option, index) => (
             <TouchableOpacity
                 key={index}
                 style={getButtonStyle(option)}
-                onPress={() => setSelectedOption(option)}
+                onPress={() => handleOptionSelect(option)} // Call the new function
             >
                 <Text style={styles.optionText}>{option}</Text>
             </TouchableOpacity>
@@ -98,15 +105,19 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
                         </Text>
                     )}
                 </View>
-            <ControlButtons
-                onClear={() => setSelectedOption(null)}
-                onSubmit={handleAnswerSubmit}
-                onContinue={onNextSlide}
-                submitButtonText={isAnswerCorrect !== null ? 'Weiter' : 'Bestätigen'}
-                disabled={selectedOption === null}
-                showClearButton={true}
-                showBackspaceButton={false}
-            />
+                <ControlButtons
+                    onClear={() => {
+                        setSelectedOption(null);
+                        setIsSubmitted(false); // Reset submission state
+                        setIsAnswerCorrect(null); // Reset the correctness state
+                    }}
+                    onSubmit={handleAnswerSubmit}
+                    onContinue={onNextSlide}
+                    submitButtonText={!isSubmitted ? 'Bestätigen' : 'Weiter'}
+                    disabled={selectedOption === null || (isSubmitted && !isAnswerCorrect)}
+                    showClearButton={!isSubmitted} // Clear button shown only if not yet submitted
+                    showBackspaceButton={false}
+                />
         </ScrollView>
     );
     
