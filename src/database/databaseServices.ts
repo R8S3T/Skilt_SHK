@@ -261,7 +261,7 @@ export async function fetchMultipleChoiceOptionsByQuizId(quizId: number): Promis
         const db = await initializeDatabase();
         try {
             const result = await db.getAllAsync<MultipleChoiceOption>(
-                'SELECT OptionText1, OptionText2, OptionText3, OptionText4 FROM MultipleChoiceOptions WHERE QuizId = ?',
+                'SELECT OptionText1, OptionText2, OptionText3 FROM MultipleChoiceOptions WHERE QuizId = ?',
                 [quizId]
             );
             return result;
@@ -277,10 +277,11 @@ export async function fetchMultipleChoiceOptionsByQuizId(quizId: number): Promis
                 throw new Error('Network response was not ok.');
             }
             const options: MultipleChoiceOption[] = await response.json();
+            console.log(`Query result for QuizId ${quizId}:`, options);
             return options;
         } catch (error) {
-            console.error(`Failed to fetch multiple choice options for quizId ${quizId} from server:`, error);
-            return [];
+            console.error(`Database query failed for QuizId ${quizId}:`, error); // Log error details
+            throw error;
         }
     }
 }

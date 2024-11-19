@@ -207,7 +207,7 @@ export const fetchMultipleChoiceOptionsByQuizId = (quizId: number): Promise<any[
     return new Promise((resolve, reject) => {
         const db = new sqlite3.Database(dbPath);
         db.all(`
-            SELECT OptionText1, OptionText2, OptionText3, OptionText4
+            SELECT OptionText1, OptionText2, OptionText3
             FROM MultipleChoiceOptions
             WHERE QuizId = ?`, [quizId], (err, rows) => {  // Updated query to fetch new columns
             db.close();

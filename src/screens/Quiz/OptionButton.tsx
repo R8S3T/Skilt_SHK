@@ -25,11 +25,11 @@ const styles = StyleSheet.create({
     option: {
         backgroundColor: '#2b4353',
         padding: 15,
-        margin: 10,
+        margin: 5,
         borderRadius: 5,
         borderWidth: 1,
         borderColor: '#8fc2c2',
-        width: '40%',
+        width: '60%',
     },
     optionText: {
         color: '#FFF',

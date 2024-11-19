@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         justifyContent: 'space-between', // Ensures even spacing between children
-        paddingHorizontal: 20,
+        paddingHorizontal: 10,
         paddingVertical: 40, // Adds vertical padding for better spacing
         backgroundColor: '#2b4353',
     },

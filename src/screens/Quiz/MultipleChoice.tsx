@@ -64,7 +64,7 @@ const MultipleChoice: React.FC<MultipleChoiceProps> = ({ quiz, options, onAnswer
         <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.quizText}>{quiz.Question}</Text>
             {options.map((option, index) => (
-                [option.OptionText1, option.OptionText2, option.OptionText3, option.OptionText4]
+                [option.OptionText1, option.OptionText2, option.OptionText3]
                     .filter(text => text) // Filter out empty option fields
                     .map((text, idx) => (
                         <TouchableOpacity
@@ -78,7 +78,7 @@ const MultipleChoice: React.FC<MultipleChoiceProps> = ({ quiz, options, onAnswer
             ))}
             {showFeedback && (
                 <Text style={styles.answerText}>
-                    {selectedOption === quiz.Answer ? 'Correct answer.' : 'Incorrect answer, please try again.'}
+                    {selectedOption === quiz.Answer ? 'Richtig!' : 'Falsch, bitte versuche es nochmal.'}
                 </Text>
             )}
             <ControlButtons

@@ -31,7 +31,6 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         chapterTitle = '',
         origin = undefined, // Add default value for origin
     } = route.params;
-
     const [contentData, setContentData] = useState<GenericContent[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -40,14 +39,18 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
 
     const { finishedSubchapters, markSubchapterAsFinished, unlockSubchapter } = useSubchapter();
 
-    useLayoutEffect(() => {
+     // Customize the header to include the "X" button and progress bar
+     useLayoutEffect(() => {
         navigation.setOptions({
+            // Place an "X" icon button in the header left position
             headerLeft: () => (
                 <TouchableOpacity
                     onPress={() => {
                         if (route.params.origin === 'ResumeSection') {
+                            // Navigate directly to HomeScreen if accessed via ResumeSection
                             navigation.navigate('HomeScreen');
                         } else {
+                            // Otherwise, navigate back to SubchaptersScreen
                             navigation.navigate('SubchaptersScreen', { chapterId, chapterTitle });
                         }
                     }}
@@ -56,10 +59,12 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                     <Ionicons name="close" size={24} color="gray" />
                 </TouchableOpacity>
             ),
-            headerRight: () => null,
+            headerRight: () => null,  // Remove any headerRight component if it exists
         });
     }, [navigation, chapterId, chapterTitle, route.params.origin]);
+    
 
+    // Load saved slide index on first render or reset to 0 if finished
     useEffect(() => {
         const initializeProgress = async () => {
             const savedProgress = await loadProgress('section1');
@@ -72,6 +77,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         initializeProgress();
     }, [finishedSubchapters, subchapterId]);
 
+    // Load content data for the subchapter
     useEffect(() => {
         navigation.setOptions({ title: subchapterTitle });
         const loadData = async () => {
@@ -87,6 +93,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         loadData();
     }, [navigation, subchapterId, subchapterTitle]);
 
+    // Update header progress bar
     useEffect(() => {
         const progress = (currentIndex + 1) / contentData.length;
         navigation.setOptions({
@@ -105,6 +112,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         });
     }, [currentIndex, contentData.length]);
 
+    // Handle navigating to the next slide or finish using imported `nextContent`
     const handleNextContent = () => {
         nextContent({
             showQuiz,
@@ -121,9 +129,10 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
             navigation,
             markSubchapterAsFinished,
             unlockSubchapter,
-            origin,
+            origin, 
         });
     };
+
 
     const goBack = () => {
         // Only navigate back if not in a quiz
@@ -184,7 +193,6 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         </GestureHandlerRootView>
     );
 };
-
 
 const styles = StyleSheet.create({
     container: {

@@ -79,7 +79,7 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
                 {imageSource && (
                     <Image
                         source={imageSource}
-                        style={[styles.resumeImage, { width: '85%' }]} // Adjust the width to control the image size
+                        style={[styles.resumeImage, { width: '85%' }]}
                         resizeMode="contain"
                     />
                 )}

@@ -142,11 +142,14 @@ app.get('/quiz/:contentId', async (req, res) => {
 // Handle GET requests to fetch multiple-choice options by quiz ID
 app.get('/multiplechoiceoptions/:quizId', async (req, res) => {
     const quizId = parseInt(req.params.quizId);
+    console.log(`Received API request for QuizId: ${quizId}`); // Debugging
+
     try {
         const options = await fetchMultipleChoiceOptionsByQuizId(quizId);
+        console.log(`Fetched options for QuizId ${quizId}:`, options); // Debugging
         res.json(options);
     } catch (error) {
-        console.error(`Error fetching multiple-choice options for quizId ${quizId}:`, error);
+        console.error(`Error fetching multiple-choice options for QuizId ${quizId}:`, error);
         res.status(500).json({ error: 'Failed to fetch multiple-choice options' });
     }
 });

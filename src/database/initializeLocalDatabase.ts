@@ -183,7 +183,7 @@ export const fetchMultipleChoiceOptionsByQuizId = async (quizId: number): Promis
     try {
         const options = await db.getAllAsync<MultipleChoiceOption>(
             `
-            SELECT OptionText1, OptionText2, OptionText3, OptionText4
+            SELECT OptionText1, OptionText2, OptionText3
             FROM MultipleChoiceOptions
             WHERE QuizId = ?
             `,

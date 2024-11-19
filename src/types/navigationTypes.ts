@@ -71,6 +71,7 @@ export type RootStackParamList = {
     SplashScreen: { initialRoute?: keyof RootStackParamList };
     Intro: undefined;
     HomeScreen: undefined;
+    Search: undefined;
     Learn: NavigatorScreenParams<LearnStackParamList>;
     Math: NavigatorScreenParams<MathStackParamList>;
     CongratsScreen: {

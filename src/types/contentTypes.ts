@@ -72,7 +72,6 @@ export interface MultipleChoiceOption {
     OptionText1: string;
     OptionText2: string;
     OptionText3: string;
-    OptionText4: string;
 }
 
 export interface ClozeTestOption {

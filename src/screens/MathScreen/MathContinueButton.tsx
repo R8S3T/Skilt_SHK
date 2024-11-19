@@ -6,12 +6,19 @@ interface ContinueButtonProps {
     onPress: () => void;
     disabled?: boolean;
     style?: any;
+    isDarkMode?: boolean;
 }
 
-const ContinueButton: React.FC<ContinueButtonProps> = ({ label, onPress, disabled = false, style }) => {
+const ContinueButton: React.FC<ContinueButtonProps> = ({ label, onPress, disabled = false, style, isDarkMode }) => {
     return (
         <TouchableOpacity
-            style={[styles.button, style, disabled ? styles.disabledButton : styles.activeButton]} // Apply styles and handle disabled state
+            style={[
+                styles.button,
+                disabled
+                    ? { backgroundColor: isDarkMode ? '#555555' : 'grey' }
+                    : styles.activeButton,
+                style,
+            ]}
             onPress={onPress}
             disabled={disabled}
         >
@@ -29,15 +36,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         borderRadius: 5,
         alignItems: 'center',
-        backgroundColor: '#000000',
         height: 40,
     },
     activeButton: {
-        backgroundColor: '#000000',
-    },
-    disabledButton: {
-        backgroundColor: 'grey',
-        
+        backgroundColor: '#5f6769',
     },
     buttonText: {
         color: 'white',
@@ -47,4 +49,3 @@ const styles = StyleSheet.create({
 });
 
 export default ContinueButton;
-

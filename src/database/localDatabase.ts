@@ -126,7 +126,7 @@ export async function fetchMultipleChoiceOptionsByQuizId(quizId: number): Promis
     const db = await initializeDatabase();
     try {
         const options = await db.getAllAsync<MultipleChoiceOption>(
-            'SELECT OptionText1, OptionText2, OptionText3, OptionText4 FROM MultipleChoiceOptions WHERE QuizId = ?',
+            'SELECT OptionText1, OptionText2, OptionText3 FROM MultipleChoiceOptions WHERE QuizId = ?',
             [quizId]
         );
         return options;

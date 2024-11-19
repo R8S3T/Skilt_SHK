@@ -62,7 +62,6 @@ CREATE TABLE IF NOT EXISTS "MultipleChoiceOptions" (
 	"OptionText1"	TEXT,
 	"OptionText2"	TEXT,
 	"OptionText3"	TEXT,
-	"OptionText4"	TEXT,
 	PRIMARY KEY("OptionId" AUTOINCREMENT),
 	FOREIGN KEY("QuizId") REFERENCES "Quiz"("QuizId")
 );

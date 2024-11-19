@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, Image, Text, LayoutChangeEvent, FlatList } from 'react-native';
-import { imageMap } from 'src/utils/imageMappings';
 import { MathMiniQuiz, GenericContent } from 'src/types/contentTypes';
 import NextSlideButton from '../NextSlideButton';
 import ContinueButton from './MathContinueButton';
@@ -20,7 +19,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
     contentData,
     onNextSlide,
     }) => {
-        const { theme } = useTheme();
+        const { theme, isDarkMode } = useTheme();
         const { ContentData } = contentData;
         const [currentPartIndex, setCurrentPartIndex] = useState<number>(0);
         const [quizAnswered, setQuizAnswered] = useState<boolean>(false);
@@ -56,7 +55,11 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 {index === currentPartIndex &&
                     currentPartIndex < parts.length - 1 &&
                     !quizAnswered && (
-                    <ContinueButton label="Weiter" onPress={handleContinue} />
+                        <ContinueButton 
+                            label="Weiter" 
+                            onPress={handleContinue} 
+                            isDarkMode={isDarkMode}
+                        />
                     )}
                 </View>
             )}

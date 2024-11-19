@@ -6,6 +6,7 @@ import { SubchapterWithPreviewExtended } from 'src/utils/searchUtils'; // Correc
 import { RootStackParamList } from 'src/types/navigationTypes';
 import { handleSearch } from 'src/utils/searchUtils'; // Import the search handler
 
+// In SearchScreen.tsx
 const SearchScreen: React.FC = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const [query, setQuery] = useState<string>(''); 
@@ -26,11 +27,10 @@ const SearchScreen: React.FC = () => {
             />
             <Button title="Search" onPress={handleSearchResults} />
 
-            {/* Add marginTop to the FlatList for more space between button and results */}
             <FlatList
                 data={results}
                 keyExtractor={(item) => item.SubchapterId.toString()}
-                style={styles.resultsList} // Apply margin here
+                style={styles.resultsList}
                 renderItem={({ item }) => (
                     <TouchableOpacity
                         onPress={() =>
@@ -41,6 +41,7 @@ const SearchScreen: React.FC = () => {
                                     subchapterTitle: item.SubchapterName,
                                     chapterId: item.ChapterId,
                                     chapterTitle: item.ChapterTitle || 'Unknown Chapter',
+                                    origin: 'SearchScreen', // Pass the origin parameter
                                 },
                             })
                         }
@@ -54,6 +55,7 @@ const SearchScreen: React.FC = () => {
         </View>
     );
 };
+
 
 const styles = StyleSheet.create({
     container: {

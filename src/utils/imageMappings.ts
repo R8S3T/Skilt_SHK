@@ -366,8 +366,10 @@ const img_LF2Injektionsdbelzoom = require('../../assets/DbImages/SubchapterConte
 const img_LF2Kegelsenkerzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Kegelsenker_zoom.png');
 const img_LF2Klebeankerzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Klebeanker_zoom.png');
 const img_LF2Leiterzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Leiter_zoom.png');
+const img_LF2Nietenzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Nieten_zoom.png');
 const img_LF2Rettungszeichenzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Rettungszeichen_zoom.png');
 const img_LF2RohrschellemitGummieinlagezoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Rohrschelle_mit_Gummieinlage_zoom.png');
+const img_LF2Ruhe = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Ruhe.png');
 const img_LF2SchallSchwitzwasserdmmungzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Schall_Schwitzwasserdämmung_zoom.png');
 const img_LF2SchallentkoppelteHalterungzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Schallentkoppelte_Halterung_zoom.png');
 const img_LF2Schallschutzwelcome = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Schallschutz_welcome.png');
@@ -500,6 +502,7 @@ const img_LF5BerechnungTabellezoom = require('../../assets/DbImages/SubchapterCo
 const img_LF5BerechnungTeilstrecke1small = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Berechnung_Teilstrecke_1_small.png');
 const img_LF5BerechnungTeilstrecke2small = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Berechnung_Teilstrecke_2_small.png');
 const img_LF5Dichtheitsprfungzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Dichtheitsprüfung_zoom.png');
+const img_LF5DruckStrmungwelcome = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Druck_Strömung_welcome.png');
 const img_LF5Druckminderer2zoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Druckminderer_2_zoom.png');
 const img_LF5Druckmindererwelcome = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Druckminderer_welcome.png');
 const img_LF5Druckmindererzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Druckminderer_zoom.png');
@@ -514,9 +517,11 @@ const img_LF5FallleitungenFormelsmall = require('../../assets/DbImages/Subchapte
 const img_LF5Fallleitungsberechnungzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Fallleitungsberechnung_zoom.png');
 const img_LF5FormelVolumenstromsmall = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Formel_Volumenstrom_small.png');
 const img_LF5H2Osmall = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_H2O_small.png');
+const img_LF5Inhibitor = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Inhibitor.png');
 const img_LF5Ionenaustauschzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Ionenaustausch_zoom.png');
 const img_LF5Kalkzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Kalk_zoom.png');
 const img_LF5Kalkschutzgertzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Kalkschutzgerät_zoom.png');
+const img_LF5Keime = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Keime.png');
 const img_LF5Korrosionvermeiden = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Korrosion_vermeiden.png');
 const img_LF5Korrosionwelcome = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Korrosion_welcome.png');
 const img_LF5Korrosionsarten2zoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Korrosionsarten_2_zoom.png');
@@ -529,13 +534,20 @@ const img_LF5Leitungsberechnung2zoom = require('../../assets/DbImages/Subchapter
 const img_LF5Leitungsberechnung3zoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Leitungsberechnung_3_zoom.png');
 const img_LF5Leitungsberechnung4zoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Leitungsberechnung_4_zoom.png');
 const img_LF5Leitungsberechnung5zoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Leitungsberechnung_5_zoom.png');
+const img_LF5LeitungsberechnungTrinkwasserwelcome = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Leitungsberechnung_Trinkwasser_welcome.png');
+const img_LF5LeitungsverlegungTrinkwasserwelcome = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Leitungsverlegung_Trinkwasser_welcome.png');
 const img_LF5Materialschadensmall = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Materialschaden_small.png');
 const img_LF5Mehrschichtverbundrohrzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Mehrschichtverbundrohr_zoom.png');
 const img_LF5O3small = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_O3_small.png');
 const img_LF5Osmosezoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Osmose_zoom.png');
 const img_LF5PHzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_PH_zoom.png');
 const img_LF5PVCCsmall = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_PVC_C_small.png');
+const img_LF5Protokoll = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Protokoll.png');
 const img_LF5Prfenwelcome = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Prüfen_welcome.png');
+const img_LF5Regel1 = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Regel_1.png');
+const img_LF5Regel3 = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Regel_3.png');
+const img_LF5Regel6 = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Regel_6.png');
+const img_LF5Regel7 = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Regel_7.png');
 const img_LF5Reihenfolgesmall = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Reihenfolge_small.png');
 const img_LF5Reiheninstallationzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Reiheninstallation_zoom.png');
 const img_LF5Ringleitungzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Ringleitung_zoom.png');
@@ -564,6 +576,7 @@ const img_LF5Trinkwasserwelcome = require('../../assets/DbImages/SubchapterConte
 const img_LF5Trinkwasserrohrewelcome = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Trinkwasserrohre_welcome.png');
 const img_LF5UVsmall = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_UV_small.png');
 const img_LF5Verbrauchsleitungenzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Verbrauchsleitungen_zoom.png');
+const img_LF5VerlegeregelnTrinkwasserwelcome = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Verlegeregeln_Trinkwasser_welcome.png');
 const img_LF5VerschneidearmaturSchnittzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Verschneidearmatur_Schnitt_zoom.png');
 const img_LF5Verschnittarmaturzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Verschnittarmatur_zoom.png');
 const img_LF5Wasserfilterzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Wasserfilter_zoom.png');
@@ -587,6 +600,7 @@ const img_LF6Anschlussbogenzoom = require('../../assets/DbImages/SubchapterConte
 const img_LF6Anschlusskanalzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Anschlusskanal_zoom.png');
 const img_LF6AnschlusswinkelLftungsleitungzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Anschlusswinkel_Lüftungsleitung_zoom.png');
 const img_LF6BerechnungGeflle = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Berechnung_Gefälle.png');
+const img_LF6BerechnungRegenwassermengesmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Berechnung_Regenwassermenge_small.png');
 const img_LF6DINChecksmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_DIN_Check_small.png');
 const img_LF6Dichtheitsprfungzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Dichtheitsprüfung_zoom.png');
 const img_LF6Dimensionssprungzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Dimensionssprung_zoom.png');
@@ -618,6 +632,7 @@ const img_LF6Fllungsgradzoom = require('../../assets/DbImages/SubchapterContent/
 const img_LF6Geflle = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Gefälle.png');
 const img_LF6Geflle2 = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Gefälle_2.png');
 const img_LF6Gefllepmpelsmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Gefälle_pümpel_small.png');
+const img_LF6Gefllewelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Gefälle_welcome.png');
 const img_LF6Genehmigtsmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Genehmigt_small.png');
 const img_LF6Grundleitungzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Grundleitung_zoom.png');
 const img_LF6Grundleitungenwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Grundleitungen_welcome.png');
@@ -648,6 +663,7 @@ const img_LF6Mindestsohlenabstand2 = require('../../assets/DbImages/SubchapterCo
 const img_LF6Mindestsohlenabstand2zoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Mindestsohlenabstand_2_zoom.png');
 const img_LF6Mindestsohlenabstandzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Mindestsohlenabstand_zoom.png');
 const img_LF6Mischsystemzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Mischsystem_zoom.png');
+const img_LF6Mischwasser = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Mischwasser.png');
 const img_LF6NeigungsverhltnisBerechnungsmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Neigungsverhältnis_Berechnung_small.png');
 const img_LF6Neigungsverhltnissmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Neigungsverhältnis_small.png');
 const img_LF6PEHDsmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_PEHD_small.png');
@@ -656,6 +672,7 @@ const img_LF6Rammschutzzoom = require('../../assets/DbImages/SubchapterContent/L
 const img_LF6Regenrohrsmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Regenrohr_small.png');
 const img_LF6Regenwassersmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Regenwasser_small.png');
 const img_LF6Regenwasserwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Regenwasser_welcome.png');
+const img_LF6RegenwassermengeErgebnissmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Regenwassermenge_Ergebnis_small.png');
 const img_LF6Reinigungsffnung = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Reinigungsöffnung.png');
 const img_LF6Reinigungsffnungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Reinigungsöffnung_welcome.png');
 const img_LF6Reinigungsffnungzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Reinigungsöffnung_zoom.png');
@@ -684,6 +701,7 @@ const img_LF6SchalldmmungPEHDsmall = require('../../assets/DbImages/SubchapterCo
 const img_LF6Schwerkraftsmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Schwerkraft_small.png');
 const img_LF6Sturzstreckezoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Sturzstrecke_zoom.png');
 const img_LF6TrennsystemAbwasserzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Trennsystem_Abwasser_zoom.png');
+const img_LF6Trinkwasserverboten = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Trinkwasser_verboten.png');
 const img_LF6Tropfensmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Tropfen_small.png');
 const img_LF6Umgehungsleitung2welcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Umgehungsleitung_2_welcome.png');
 const img_LF6Umgehungsleitungenzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Umgehungsleitungen_zoom.png');
@@ -694,6 +712,7 @@ const img_LF6Umlftungsleitungrichtigzoom = require('../../assets/DbImages/Subcha
 const img_LF6Umlftungsleitungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Umlüftungsleitung_welcome.png');
 const img_LF6Umlftungsleitungzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Umlüftungsleitung_zoom.png');
 const img_LF6Verbindungsleitungzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Verbindungsleitung_zoom.png');
+const img_LF6Versickerung = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Versickerung.png');
 const img_LF6Wartungsmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Wartung_small.png');
 const img_LF6anschlussfreieZonenzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_anschlussfreie_Zonen_zoom.png');
 const img_LF6bakteriensmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_bakterien_small.png');
@@ -707,6 +726,7 @@ const img_LF6sohlegleichzoom = require('../../assets/DbImages/SubchapterContent/
 const img_LF6welcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_welcome.png');
 const img_LF6bergangsstckewelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Übergangsstücke_welcome.png');
 const img_LF6bergangsstckezoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Übergangsstücke_zoom.png');
+const img_LFRegenwassernutzungsanlagezoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF__Regenwassernutzungsanlage_zoom.png');
 const img_LF7Berechnungwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Berechnung_welcome.png');
 const img_LF7Celsiuszoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Celsius_zoom.png');
 const img_LF7Dichteanomaliezoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Dichteanomalie_zoom.png');
@@ -1093,8 +1113,10 @@ export const imageMap = {
     "LF_2_Kegelsenker_zoom": img_LF2Kegelsenkerzoom,
     "LF_2_Klebeanker_zoom": img_LF2Klebeankerzoom,
     "LF_2_Leiter_zoom": img_LF2Leiterzoom,
+    "LF_2_Nieten_zoom": img_LF2Nietenzoom,
     "LF_2_Rettungszeichen_zoom": img_LF2Rettungszeichenzoom,
     "LF_2_Rohrschelle_mit_Gummieinlage_zoom": img_LF2RohrschellemitGummieinlagezoom,
+    "LF_2_Ruhe": img_LF2Ruhe,
     "LF_2_Schall_Schwitzwasserdämmung_zoom": img_LF2SchallSchwitzwasserdmmungzoom,
     "LF_2_Schallentkoppelte_Halterung_zoom": img_LF2SchallentkoppelteHalterungzoom,
     "LF_2_Schallschutz_welcome": img_LF2Schallschutzwelcome,
@@ -1227,6 +1249,7 @@ export const imageMap = {
     "LF_5_Berechnung_Teilstrecke_1_small": img_LF5BerechnungTeilstrecke1small,
     "LF_5_Berechnung_Teilstrecke_2_small": img_LF5BerechnungTeilstrecke2small,
     "LF_5_Dichtheitsprüfung_zoom": img_LF5Dichtheitsprfungzoom,
+    "LF_5_Druck_Strömung_welcome": img_LF5DruckStrmungwelcome,
     "LF_5_Druckminderer_2_zoom": img_LF5Druckminderer2zoom,
     "LF_5_Druckminderer_welcome": img_LF5Druckmindererwelcome,
     "LF_5_Druckminderer_zoom": img_LF5Druckmindererzoom,
@@ -1241,9 +1264,11 @@ export const imageMap = {
     "LF_5_Fallleitungsberechnung_zoom": img_LF5Fallleitungsberechnungzoom,
     "LF_5_Formel_Volumenstrom_small": img_LF5FormelVolumenstromsmall,
     "LF_5_H2O_small": img_LF5H2Osmall,
+    "LF_5_Inhibitor": img_LF5Inhibitor,
     "LF_5_Ionenaustausch_zoom": img_LF5Ionenaustauschzoom,
     "LF_5_Kalk_zoom": img_LF5Kalkzoom,
     "LF_5_Kalkschutzgerät_zoom": img_LF5Kalkschutzgertzoom,
+    "LF_5_Keime": img_LF5Keime,
     "LF_5_Korrosion_vermeiden": img_LF5Korrosionvermeiden,
     "LF_5_Korrosion_welcome": img_LF5Korrosionwelcome,
     "LF_5_Korrosionsarten_2_zoom": img_LF5Korrosionsarten2zoom,
@@ -1256,13 +1281,20 @@ export const imageMap = {
     "LF_5_Leitungsberechnung_3_zoom": img_LF5Leitungsberechnung3zoom,
     "LF_5_Leitungsberechnung_4_zoom": img_LF5Leitungsberechnung4zoom,
     "LF_5_Leitungsberechnung_5_zoom": img_LF5Leitungsberechnung5zoom,
+    "LF_5_Leitungsberechnung_Trinkwasser_welcome": img_LF5LeitungsberechnungTrinkwasserwelcome,
+    "LF_5_Leitungsverlegung_Trinkwasser_welcome": img_LF5LeitungsverlegungTrinkwasserwelcome,
     "LF_5_Materialschaden_small": img_LF5Materialschadensmall,
     "LF_5_Mehrschichtverbundrohr_zoom": img_LF5Mehrschichtverbundrohrzoom,
     "LF_5_O3_small": img_LF5O3small,
     "LF_5_Osmose_zoom": img_LF5Osmosezoom,
     "LF_5_PH_zoom": img_LF5PHzoom,
     "LF_5_PVC_C_small": img_LF5PVCCsmall,
+    "LF_5_Protokoll": img_LF5Protokoll,
     "LF_5_Prüfen_welcome": img_LF5Prfenwelcome,
+    "LF_5_Regel_1": img_LF5Regel1,
+    "LF_5_Regel_3": img_LF5Regel3,
+    "LF_5_Regel_6": img_LF5Regel6,
+    "LF_5_Regel_7": img_LF5Regel7,
     "LF_5_Reihenfolge_small": img_LF5Reihenfolgesmall,
     "LF_5_Reiheninstallation_zoom": img_LF5Reiheninstallationzoom,
     "LF_5_Ringleitung_zoom": img_LF5Ringleitungzoom,
@@ -1291,6 +1323,7 @@ export const imageMap = {
     "LF_5_Trinkwasserrohre_welcome": img_LF5Trinkwasserrohrewelcome,
     "LF_5_UV_small": img_LF5UVsmall,
     "LF_5_Verbrauchsleitungen_zoom": img_LF5Verbrauchsleitungenzoom,
+    "LF_5_Verlegeregeln_Trinkwasser_welcome": img_LF5VerlegeregelnTrinkwasserwelcome,
     "LF_5_Verschneidearmatur_Schnitt_zoom": img_LF5VerschneidearmaturSchnittzoom,
     "LF_5_Verschnittarmatur_zoom": img_LF5Verschnittarmaturzoom,
     "LF_5_Wasserfilter_zoom": img_LF5Wasserfilterzoom,
@@ -1314,6 +1347,7 @@ export const imageMap = {
     "LF_6_Anschlusskanal_zoom": img_LF6Anschlusskanalzoom,
     "LF_6_Anschlusswinkel_Lüftungsleitung_zoom": img_LF6AnschlusswinkelLftungsleitungzoom,
     "LF_6_Berechnung_Gefälle": img_LF6BerechnungGeflle,
+    "LF_6_Berechnung_Regenwassermenge_small": img_LF6BerechnungRegenwassermengesmall,
     "LF_6_DIN_Check_small": img_LF6DINChecksmall,
     "LF_6_Dichtheitsprüfung_zoom": img_LF6Dichtheitsprfungzoom,
     "LF_6_Dimensionssprung_zoom": img_LF6Dimensionssprungzoom,
@@ -1345,6 +1379,7 @@ export const imageMap = {
     "LF_6_Gefälle": img_LF6Geflle,
     "LF_6_Gefälle_2": img_LF6Geflle2,
     "LF_6_Gefälle_pümpel_small": img_LF6Gefllepmpelsmall,
+    "LF_6_Gefälle_welcome": img_LF6Gefllewelcome,
     "LF_6_Genehmigt_small": img_LF6Genehmigtsmall,
     "LF_6_Grundleitung_zoom": img_LF6Grundleitungzoom,
     "LF_6_Grundleitungen_welcome": img_LF6Grundleitungenwelcome,
@@ -1375,6 +1410,7 @@ export const imageMap = {
     "LF_6_Mindestsohlenabstand_2_zoom": img_LF6Mindestsohlenabstand2zoom,
     "LF_6_Mindestsohlenabstand_zoom": img_LF6Mindestsohlenabstandzoom,
     "LF_6_Mischsystem_zoom": img_LF6Mischsystemzoom,
+    "LF_6_Mischwasser": img_LF6Mischwasser,
     "LF_6_Neigungsverhältnis_Berechnung_small": img_LF6NeigungsverhltnisBerechnungsmall,
     "LF_6_Neigungsverhältnis_small": img_LF6Neigungsverhltnissmall,
     "LF_6_PEHD_small": img_LF6PEHDsmall,
@@ -1383,6 +1419,7 @@ export const imageMap = {
     "LF_6_Regenrohr_small": img_LF6Regenrohrsmall,
     "LF_6_Regenwasser_small": img_LF6Regenwassersmall,
     "LF_6_Regenwasser_welcome": img_LF6Regenwasserwelcome,
+    "LF_6_Regenwassermenge_Ergebnis_small": img_LF6RegenwassermengeErgebnissmall,
     "LF_6_Reinigungsöffnung": img_LF6Reinigungsffnung,
     "LF_6_Reinigungsöffnung_welcome": img_LF6Reinigungsffnungwelcome,
     "LF_6_Reinigungsöffnung_zoom": img_LF6Reinigungsffnungzoom,
@@ -1411,6 +1448,7 @@ export const imageMap = {
     "LF_6_Schwerkraft_small": img_LF6Schwerkraftsmall,
     "LF_6_Sturzstrecke_zoom": img_LF6Sturzstreckezoom,
     "LF_6_Trennsystem_Abwasser_zoom": img_LF6TrennsystemAbwasserzoom,
+    "LF_6_Trinkwasser_verboten": img_LF6Trinkwasserverboten,
     "LF_6_Tropfen_small": img_LF6Tropfensmall,
     "LF_6_Umgehungsleitung_2_welcome": img_LF6Umgehungsleitung2welcome,
     "LF_6_Umgehungsleitungen_zoom": img_LF6Umgehungsleitungenzoom,
@@ -1421,6 +1459,7 @@ export const imageMap = {
     "LF_6_Umlüftungsleitung_welcome": img_LF6Umlftungsleitungwelcome,
     "LF_6_Umlüftungsleitung_zoom": img_LF6Umlftungsleitungzoom,
     "LF_6_Verbindungsleitung_zoom": img_LF6Verbindungsleitungzoom,
+    "LF_6_Versickerung": img_LF6Versickerung,
     "LF_6_Wartung_small": img_LF6Wartungsmall,
     "LF_6_anschlussfreie_Zonen_zoom": img_LF6anschlussfreieZonenzoom,
     "LF_6_bakterien_small": img_LF6bakteriensmall,
@@ -1434,6 +1473,7 @@ export const imageMap = {
     "LF_6_welcome": img_LF6welcome,
     "LF_6_Übergangsstücke_welcome": img_LF6bergangsstckewelcome,
     "LF_6_Übergangsstücke_zoom": img_LF6bergangsstckezoom,
+    "LF__Regenwassernutzungsanlage_zoom": img_LFRegenwassernutzungsanlagezoom,
     "LF_7_Berechnung_welcome": img_LF7Berechnungwelcome,
     "LF_7_Celsius_zoom": img_LF7Celsiuszoom,
     "LF_7_Dichteanomalie_zoom": img_LF7Dichteanomaliezoom,
