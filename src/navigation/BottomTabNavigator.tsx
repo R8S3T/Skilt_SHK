@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import HomeScreen from 'src/screens/HomeScreen/HomeScreen';
 import SettingsScreen from 'src/screens/Settings Screen/SettingsScreen';
-import SearchScreen from 'src/screens/SearchScreen';
+import SearchScreen from 'src/screens/Search/SearchScreen';
 
 type IconName = 'book' | 'book-outline' | 'settings' | 'settings-outline' | 'search' | 'search-outline';
 

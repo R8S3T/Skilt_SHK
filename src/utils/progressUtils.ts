@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationProp } from '@react-navigation/native';
 import { fetchSubchaptersByChapterId, fetchQuizByContentId } from 'src/database/databaseServices';
-import { LearnStackParamList } from 'src/types/navigationTypes';
+import { LearnStackParamList, RootStackParamList } from 'src/types/navigationTypes';
 
 // Function to save progress (updated to save subchapterId and currentIndex)
 export const saveProgress = async (
@@ -96,7 +96,7 @@ interface NextContentParams {
     subchapterTitle: string;
     chapterId: number;
     chapterTitle: string;
-    navigation: NavigationProp<LearnStackParamList, 'SubchapterContentScreen'>;
+    navigation: NavigationProp<LearnStackParamList, 'SubchapterContentScreen'>; // Keep this specific
     markSubchapterAsFinished: (id: number) => void;
     unlockSubchapter: (id: number) => void;
     origin?: string;
@@ -119,7 +119,6 @@ export const nextContent = async ({
     unlockSubchapter,
     origin,
 }: NextContentParams) => {
-
     const saveCurrentProgress = async (newIndex: number) => {
         try {
             const subchapters = await fetchSubchaptersByChapterId(chapterId);
@@ -144,7 +143,7 @@ export const nextContent = async ({
             const newIndex = currentIndex + 1;
             setCurrentIndex(newIndex);
             setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
-    
+
             // Check if the next content has a quiz by using fetchQuizByContentId
             const nextContent = contentData[newIndex];
             try {
@@ -152,65 +151,75 @@ export const nextContent = async ({
                 setShowQuiz(quizData.length > 0);
             } catch (error) {
                 console.error('Failed to fetch quiz data:', error);
-                setShowQuiz(false);  // Ensure quiz is off if there's an error
+                setShowQuiz(false); // Ensure quiz is off if there's an error
             }
-    
+
             await saveCurrentProgress(newIndex);
         } else {
             await saveCurrentProgress(currentIndex);
             await completeSubchapter();
         }
     };
-    
 
     const completeSubchapter = async () => {
         console.log("Starting completeSubchapter function");
-    
+
         // Mark the current subchapter as finished and unlock the next one
         markSubchapterAsFinished(subchapterId);
         unlockSubchapter(subchapterId + 1);
-    
+
         console.log("Fetching subchapters for chapter:", chapterId);
         const subchapters = await fetchSubchaptersByChapterId(chapterId);
         const currentSubchapterData = subchapters.find(sub => sub.SubchapterId === subchapterId);
-    
+
         console.log("Current subchapter data:", currentSubchapterData);
-    
+
         // Determine if there is a next subchapter in the current chapter
-        let nextSubchapterData = subchapters.find(sub => sub.SortOrder === (currentSubchapterData?.SortOrder ?? 0) + 1);
-    
+        let nextSubchapterData = subchapters.find(
+            sub => sub.SortOrder === (currentSubchapterData?.SortOrder ?? 0) + 1
+        );
+
         if (!nextSubchapterData) {
             const nextChapterId = chapterId + 1;
             const nextChapterSubchapters = await fetchSubchaptersByChapterId(nextChapterId);
             nextSubchapterData = nextChapterSubchapters.sort((a, b) => a.SortOrder - b.SortOrder)[0];
         }
-    
-// Case 1: ResumeSection - navigate back to HomeScreen but prepare ResumeSection for next content
-if (origin === 'ResumeSection') {
-    if (nextSubchapterData) {
-        await saveProgress(
-            'section1',
-            nextSubchapterData.ChapterId,
-            nextSubchapterData.SubchapterId,
-            nextSubchapterData.SubchapterName,
-            0,
-            nextSubchapterData.ImageName
-        );
-    }
 
-    navigation.navigate('CongratsScreen', {
-        targetScreen: 'HomeScreen',
-        targetParams: {
-            chapterId,
-            chapterTitle,
-            origin: 'ResumeSection',
-            previousScreen: 'CongratsScreen',
-        },
-    });
-    return;
-}
+        // Case 1: If origin is SearchScreen, navigate to SearchEndScreen
+        if (origin === 'SearchScreen') {
+            console.log("Navigating to SearchEndScreen from SearchScreen origin");
 
-        // Case 2: Section1 - navigate back to SubchaptersScreen after CongratsScreen
+            // Navigate to SearchEndScreen with explicit typing
+            (navigation as unknown as NavigationProp<RootStackParamList>).navigate('SearchEndScreen');
+            return; // Ensure no further navigation occurs
+        }
+
+        // Case 2: ResumeSection - navigate back to HomeScreen but prepare ResumeSection for next content
+        if (origin === 'ResumeSection') {
+            if (nextSubchapterData) {
+                await saveProgress(
+                    'section1',
+                    nextSubchapterData.ChapterId,
+                    nextSubchapterData.SubchapterId,
+                    nextSubchapterData.SubchapterName,
+                    0,
+                    nextSubchapterData.ImageName
+                );
+            }
+
+            navigation.navigate('CongratsScreen', {
+                targetScreen: 'HomeScreen',
+                targetParams: {
+                    chapterId,
+                    chapterTitle,
+                    origin: 'ResumeSection',
+                    previousScreen: 'CongratsScreen',
+                },
+            });
+            return;
+        }
+
+        // Case 3: Section1 - navigate back to SubchaptersScreen after CongratsScreen
         navigation.navigate('CongratsScreen', {
             targetScreen: 'SubchaptersScreen',
             targetParams: {
@@ -220,7 +229,7 @@ if (origin === 'ResumeSection') {
             },
         });
     };
-    
+
     // Start moveToNextSlide or completeSubchapter process
     if (showQuiz) {
         setShowQuiz(true);
@@ -229,6 +238,7 @@ if (origin === 'ResumeSection') {
         await moveToNextSlide();
     }
 };
+
 
 // FLASHCARDS
 // Function to save flashcard progress

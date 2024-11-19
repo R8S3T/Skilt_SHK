@@ -72,6 +72,7 @@ export type RootStackParamList = {
     Intro: undefined;
     HomeScreen: undefined;
     Search: undefined;
+    SearchEndScreen: undefined;
     Learn: NavigatorScreenParams<LearnStackParamList>;
     Math: NavigatorScreenParams<MathStackParamList>;
     CongratsScreen: {

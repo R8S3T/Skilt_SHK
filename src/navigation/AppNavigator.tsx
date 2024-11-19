@@ -16,6 +16,8 @@ import FlashcardScreen from 'src/screens/FlashCard/FlashcardScreen';
 import FlashCardRepeat from 'src/screens/FlashCard/FlashCardRepeat';
 import { hasCompletedOnboarding } from 'src/utils/onBoardingUtils';
 import SplashScreen from 'src/screens/SplashScreen';
+import SearchEndScreen from 'src/screens/Search/SearchEndScreen';
+
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -57,6 +59,14 @@ const AppNavigator = () => {
                     </MathSubchapterProvider>
                 )}
             </Stack.Screen>
+            <Stack.Screen
+                name="SearchEndScreen" // Add SearchEndScreen here
+                component={SearchEndScreen}
+                options={{
+                    title: 'End of Search',
+                    headerTitleAlign: 'center',
+                }}
+            />
             <Stack.Screen
                 name="FlashCardChoice" // Add this line
                 component={FlashCardChoice} // Set the component
