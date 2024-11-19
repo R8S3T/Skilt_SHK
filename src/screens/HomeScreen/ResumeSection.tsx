@@ -9,6 +9,7 @@ import { RootStackParamList } from 'src/types/navigationTypes';
 import { imageMap } from 'src/utils/imageMappings';
 import { scaleFontSize, screenWidth } from "src/utils/screenDimensions";
 import { useTheme } from 'src/context/ThemeContext';
+import { LOCKED_CHAPTERS, LOCKED_YEARS } from 'src/utils/lockConfig';
 
 interface ResumeSectionProps {
     sectionTitle?: string;
@@ -27,15 +28,27 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
 
     const loadLastViewed = async () => {
         const result = await loadProgress('section1');
-    
         const { chapterId, chapterTitle, subchapterId, subchapterName, currentIndex, imageName } = result;
     
+        // If chapter or year is locked, clear resume data
+        if (LOCKED_CHAPTERS.includes(chapterId)) {
+            console.log('Last viewed chapter is locked and will not be displayed.');
+            setLastChapterId(null);
+            setLastChapterTitle(null);
+            setLastSubchapter(null);
+            setLastSubchapterName(null);
+            setLastContentId(null);
+            setLastImageName(null);
+            return;
+        }
+    
+        // Set resume data only for unlocked content
         if (chapterId) setLastChapterId(chapterId);
         if (chapterTitle) setLastChapterTitle(chapterTitle);
         if (subchapterId) setLastSubchapter(subchapterId);
-        if (subchapterName) setLastSubchapterName(subchapterName); // Should reflect the actual subchapter name now
+        if (subchapterName) setLastSubchapterName(subchapterName);
         if (currentIndex !== null) setLastContentId(currentIndex);
-        if (imageName) setLastImageName(imageName); // Should reflect the correct image for the subchapter
+        if (imageName) setLastImageName(imageName);
     };
 
     useFocusEffect(
@@ -84,7 +97,7 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
                     />
                 )}
                 <Text style={[styles.subtitle, { color: theme.secondaryText }]}>
-                    {lastSubchapterName ? <Text style={styles.bold}>{lastSubchapterName}</Text> : "Keine kürzliche Aktivität"}
+                    {lastSubchapterName ? <Text style={styles.bold}>{lastSubchapterName}</Text> : "Momentan keine weiteren Inhalte verfügbar. Bitte beachten: Dies ist eine Testversion."}
                 </Text>
             </TouchableOpacity>
         </View>
