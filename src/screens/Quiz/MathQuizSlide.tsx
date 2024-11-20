@@ -19,6 +19,20 @@ interface MathQuizSlideProps {
     onNextSlide: () => void;
 }
 
+// Utility function to parse the Answer field
+const parseAnswer = (answer: string | string[]): string[] => {
+    if (Array.isArray(answer)) {
+        return answer; // Already a valid array
+    }
+    try {
+        // Parse stringified JSON array into a proper array
+        return JSON.parse(answer);
+    } catch (error) {
+        console.error('Failed to parse answer:', answer, error);
+        return []; // Return an empty array if parsing fails
+    }
+};
+
 const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onNextSlide }) => {
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null);
@@ -28,7 +42,17 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
     const handleAnswerSubmit = () => {
         if (selectedOption) {
             setIsSubmitted(true); // Mark as submitted
-            if (quiz.Answer.includes(selectedOption)) {
+            const normalize = (text: string) => text.trim().toLowerCase();
+    
+            // Parse and normalize the answers
+            const parsedAnswers = parseAnswer(quiz.Answer);
+            console.log('Parsed Answers:', parsedAnswers);
+    
+            const isCorrect = parsedAnswers.some(answer => normalize(answer) === normalize(selectedOption));
+    
+            console.log('Is Correct:', isCorrect);
+    
+            if (isCorrect) {
                 setIsAnswerCorrect(true);
                 onQuizComplete(true);
             } else {
@@ -36,6 +60,8 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
             }
         }
     };
+    
+
 
     const handleOptionSelect = (option: string) => {
         setSelectedOption(option); // Update the selected option

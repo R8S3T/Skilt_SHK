@@ -11,6 +11,7 @@ import { useMathSubchapter } from '../../context/MathSubchapterContext';
 import SubchapterInfoModal from '../Chapters/SubchapterInfoModal';
 import { useTheme } from 'src/context/ThemeContext';
 import { scaleFontSize } from "src/utils/screenDimensions";
+import { fetchMathMiniQuizByContentId, fetchMathContentBySubchapterId } from "src/database/databaseServices";
 
 type MathSubchapterScreenRouteProp = RouteProp<MathStackParamList, 'MathSubchapterScreen'>;
 type MathSubchapterScreenNavigationProp = StackNavigationProp<MathStackParamList, 'MathSubchapterScreen'>;
@@ -59,11 +60,11 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
         loadSubchapters();
     }, [chapterId, unlockedSubchapters, unlockSubchapter]);
 
-    const handleNodePress = (subchapterId: number, subchapterTitle: string) => {
+    const handleNodePress = async (subchapterId: number, subchapterTitle: string) => {
         const isFinished = finishedSubchapters.includes(subchapterId);
         const isLocked = !unlockedSubchapters.includes(subchapterId);
         const selected = subchapters.find(sub => sub.SubchapterId === subchapterId);
-
+    
         if (isFinished && selected) {
             setSelectedSubchapter(selected);
             setModalVisible(true);
@@ -74,13 +75,28 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
             setIsJumpAhead(true);
         } else {
             setCurrentSubchapter(subchapterId, subchapterTitle);
-            navigation.navigate('MathSubchapterContentScreen', {
-                subchapterId,
-                subchapterTitle,
-                chapterId,
-                chapterTitle,
-                origin
-            });
+
+            try {
+                // Preload content and the first quiz
+                const content = await fetchMathContentBySubchapterId(subchapterId);
+                const quizzes =
+                    content.length > 0
+                        ? await fetchMathMiniQuizByContentId(content[0].ContentId)
+                        : [];
+
+                // Navigate with preloaded content and quiz
+                navigation.navigate('MathSubchapterContentScreen', {
+                    subchapterId,
+                    subchapterTitle,
+                    chapterId,
+                    chapterTitle,
+                    origin,
+                    preloadedContent: content,
+                    preloadedQuiz: quizzes[0] || null,
+                });
+            } catch (error) {
+                console.error('Failed to preload data:', error);
+            }
         }
     };
 

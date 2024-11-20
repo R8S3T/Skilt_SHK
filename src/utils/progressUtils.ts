@@ -143,23 +143,33 @@ export const nextContent = async ({
             const newIndex = currentIndex + 1;
             setCurrentIndex(newIndex);
             setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
-
-            // Check if the next content has a quiz by using fetchQuizByContentId
+    
+            // Preload quiz for the next content slide
             const nextContent = contentData[newIndex];
+            const nextQuizData = contentData[newIndex + 1]
+                ? await fetchQuizByContentId(contentData[newIndex + 1].ContentId)
+                : null;
+    
             try {
                 const quizData = await fetchQuizByContentId(nextContent.ContentId);
                 setShowQuiz(quizData.length > 0);
+    
+                // Optionally store preloaded quiz data for later use
+                if (nextQuizData) {
+                    console.log('Preloaded next quiz data:', nextQuizData);
+                }
             } catch (error) {
                 console.error('Failed to fetch quiz data:', error);
                 setShowQuiz(false); // Ensure quiz is off if there's an error
             }
-
+    
             await saveCurrentProgress(newIndex);
         } else {
             await saveCurrentProgress(currentIndex);
             await completeSubchapter();
         }
     };
+    
 
     const completeSubchapter = async () => {
         console.log("Starting completeSubchapter function");

@@ -1,4 +1,5 @@
 import { NavigatorScreenParams } from "@react-navigation/native";
+import { MathMiniQuiz, GenericContent } from "./contentTypes";
 
 export type HomeParamList = {
     Home: { username: string };
@@ -53,6 +54,8 @@ export type MathStackParamList = {
         chapterId: number;
         chapterTitle: string;
         origin?: string;
+        preloadedContent?: GenericContent[]; // Add preloaded content
+        preloadedQuiz?: MathMiniQuiz | null; // Add preloaded quiz
     };
     MathCongratsScreen: {
         subchapterId: number;

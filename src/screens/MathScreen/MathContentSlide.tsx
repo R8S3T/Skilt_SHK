@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, StyleSheet, Image, Text, LayoutChangeEvent, FlatList } from 'react-native';
+import { View, StyleSheet, LayoutChangeEvent, FlatList } from 'react-native';
 import { MathMiniQuiz, GenericContent } from 'src/types/contentTypes';
 import NextSlideButton from '../NextSlideButton';
 import ContinueButton from './MathContinueButton';

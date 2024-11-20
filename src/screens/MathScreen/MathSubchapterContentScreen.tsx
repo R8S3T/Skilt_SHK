@@ -10,6 +10,7 @@ import { GenericContent, MathMiniQuiz } from 'src/types/contentTypes';
 import { useMathSubchapter } from '../../context/MathSubchapterContext';
 import { fetchMathContentBySubchapterId, fetchMathMiniQuizByContentId } from 'src/database/databaseServices';
 import { useTheme } from 'src/context/ThemeContext';
+import { usePreloadContent } from 'src/hooks/usePreloadContent';
 
 type MathSubchapterContentScreenRouteProp = RouteProp<MathStackParamList, 'MathSubchapterContentScreen'>;
 type MathSubchapterContentScreenNavigationProp = StackNavigationProp<MathStackParamList, 'MathSubchapterContentScreen'>;
@@ -81,15 +82,29 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
         }
     }, [currentIndex]);
 
+    const { getNextContent, preloading } = usePreloadContent(
+        currentIndex,
+        async (contentId) => {
+            const quizzes = await fetchMathMiniQuizByContentId(contentId);
+            return quizzes[0] || null;
+        }
+    );
+    
     const nextContent = async () => {
         if (showQuiz && currentIndex < contentData.length - 1) {
             // Move to the next content slide
             setShowQuiz(false);
             setCurrentIndex(currentIndex + 1);
-
-            // Fetch the quiz for the next content slide
-            const quizzes = await fetchMathMiniQuizByContentId(contentData[currentIndex + 1].ContentId);
-            setMathQuiz(quizzes[0] || null); // Load the next quiz if available
+    
+            // Use preloaded quiz if available
+            const preloadedQuiz = getNextContent(); // From `usePreloadContent`
+            if (preloadedQuiz) {
+                setMathQuiz(preloadedQuiz);
+            } else {
+                // Fallback to fetching the quiz
+                const quizzes = await fetchMathMiniQuizByContentId(contentData[currentIndex + 1].ContentId);
+                setMathQuiz(quizzes[0] || null);
+            }
         } else if (showQuiz) {
             // All content and quizzes completed, navigate to the congrats screen
             markSubchapterAsFinished(subchapterId);
@@ -107,6 +122,7 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
             setShowQuiz(true);
         }
     };
+    
 
     return (
         <View style={[styles.container, { backgroundColor: theme.background }]}>
