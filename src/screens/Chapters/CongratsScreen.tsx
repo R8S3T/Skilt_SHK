@@ -19,7 +19,7 @@ const CongratsScreen: React.FC = () => {
         require('../../../assets/Animations/congrats_1.json'),
         require('../../../assets/Animations/congrats_2.json'),
         require('../../../assets/Animations/congrats_3.json'),
-/*         require('../../../assets/Animations/congrats_4.json'), */
+        require('../../../assets/Animations/congrats_5.json'),
     ];
 
     // Select a random animation

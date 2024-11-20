@@ -11,6 +11,7 @@ import { useMathSubchapter } from '../../context/MathSubchapterContext';
 import { fetchMathContentBySubchapterId, fetchMathMiniQuizByContentId } from 'src/database/databaseServices';
 import { useTheme } from 'src/context/ThemeContext';
 import { usePreloadContent } from 'src/hooks/usePreloadContent';
+import { saveProgress, loadProgress } from 'src/utils/progressUtils';
 
 type MathSubchapterContentScreenRouteProp = RouteProp<MathStackParamList, 'MathSubchapterContentScreen'>;
 type MathSubchapterContentScreenNavigationProp = StackNavigationProp<MathStackParamList, 'MathSubchapterContentScreen'>;
@@ -38,11 +39,21 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
         navigation.setOptions({
             headerLeft: () => (
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('MathSubchapterScreen', { 
-                        chapterId,
-                        chapterTitle,
-                        origin: 'HomeScreen'
-                    })}
+                    onPress={async () => {
+                        await saveProgress(
+                            'math',
+                            chapterId,
+                            subchapterId,
+                            subchapterTitle,
+                            currentIndex,
+                            null // Pass imageName if needed
+                        );
+                        navigation.navigate('MathSubchapterScreen', {
+                            chapterId,
+                            chapterTitle,
+                            origin: 'HomeScreen',
+                        });
+                    }}
                     style={{ marginLeft: 15 }}
                 >
                     <Ionicons name="close" size={24} color={theme.primaryText} />
@@ -53,18 +64,33 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
             title: subchapterTitle,
         });
     }, [navigation, chapterId, chapterTitle, theme, subchapterTitle]);
-    
+
     // Load content data and initial quiz
     useEffect(() => {
         const loadData = async () => {
             setLoading(true);
             try {
+                // Fetch content data first
                 const content = await fetchMathContentBySubchapterId(subchapterId);
                 setContentData(content);
 
-                if (content.length > 0) {
+                // Fetch progress after content is fetched
+                const savedProgress = await loadProgress('math');
+                if (
+                    savedProgress &&
+                    savedProgress.subchapterId === subchapterId &&
+                    savedProgress.currentIndex !== null
+                ) {
+                    const validIndex = Math.min(savedProgress.currentIndex, content.length - 1);
+                    setCurrentIndex(validIndex);
+
+                    // Fetch quiz for the saved content
+                    const quizzes = await fetchMathMiniQuizByContentId(content[validIndex]?.ContentId);
+                    setMathQuiz(quizzes[0] || null);
+                } else if (content.length > 0) {
+                    // Default to the first slide and its quiz
                     const quizzes = await fetchMathMiniQuizByContentId(content[0].ContentId);
-                    setMathQuiz(quizzes[0] || null); // Set the quiz for the first content slide
+                    setMathQuiz(quizzes[0] || null);
                 }
             } catch (error) {
                 console.error('Failed to load content data:', error);
@@ -89,20 +115,31 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
             return quizzes[0] || null;
         }
     );
-    
+
     const nextContent = async () => {
         if (showQuiz && currentIndex < contentData.length - 1) {
             // Move to the next content slide
+            const newIndex = currentIndex + 1;
             setShowQuiz(false);
-            setCurrentIndex(currentIndex + 1);
-    
+            setCurrentIndex(newIndex);
+
+            // Save progress
+            await saveProgress(
+                'math',
+                chapterId,
+                subchapterId,
+                subchapterTitle,
+                newIndex,
+                null // Pass imageName if needed
+            );
+
             // Use preloaded quiz if available
-            const preloadedQuiz = getNextContent(); // From `usePreloadContent`
+            const preloadedQuiz = getNextContent();
             if (preloadedQuiz) {
                 setMathQuiz(preloadedQuiz);
             } else {
                 // Fallback to fetching the quiz
-                const quizzes = await fetchMathMiniQuizByContentId(contentData[currentIndex + 1].ContentId);
+                const quizzes = await fetchMathMiniQuizByContentId(contentData[newIndex]?.ContentId);
                 setMathQuiz(quizzes[0] || null);
             }
         } else if (showQuiz) {
@@ -122,7 +159,6 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
             setShowQuiz(true);
         }
     };
-    
 
     return (
         <View style={[styles.container, { backgroundColor: theme.background }]}>

@@ -102,6 +102,133 @@ interface NextContentParams {
     origin?: string;
 }
 
+export const moveToNextSlide = async ({
+    currentIndex,
+    contentData,
+    setCurrentIndex,
+    maxIndexVisited,
+    setMaxIndexVisited,
+    saveCurrentProgress,
+    showQuiz,
+    setShowQuiz,
+    completeSubchapter,
+}: {
+    currentIndex: number;
+    contentData: any[];
+    setCurrentIndex: (index: number) => void;
+    maxIndexVisited: number;
+    setMaxIndexVisited: (index: number) => void;
+    saveCurrentProgress: (index: number) => Promise<void>;
+    showQuiz: boolean;
+    setShowQuiz: (show: boolean) => void;
+    completeSubchapter: () => Promise<void>;
+}) => {
+    const isLastSlide = currentIndex === contentData.length - 1;
+
+    if (!isLastSlide) {
+        const newIndex = currentIndex + 1;
+        setCurrentIndex(newIndex);
+        setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
+        await saveCurrentProgress(newIndex);
+
+        const nextContent = contentData[newIndex];
+        try {
+            const quizData = await fetchQuizByContentId(nextContent.ContentId);
+            console.log("Preloaded quiz for the next slide");
+        } catch (error) {
+            console.error("Error preloading quiz:", error);
+        }
+    } else {
+        console.log("On the last slide. Checking for quiz or completing subchapter.");
+
+        try {
+            const quizData = await fetchQuizByContentId(contentData[currentIndex].ContentId);
+
+            if (quizData.length > 0) {
+                console.log("Displaying quiz for the last slide");
+                setShowQuiz(true); // Transition to quiz
+            } else {
+                console.log("No quiz found. Completing subchapter.");
+                await completeSubchapter(); // Transition to CongratsScreen
+            }
+        } catch (error) {
+            console.error("Error fetching quiz data for last slide:", error);
+            await completeSubchapter(); // Fallback to CongratsScreen
+        }
+    }
+};
+
+export const completeSubchapter = async ({
+    subchapterId,
+    chapterId,
+    chapterTitle,
+    navigation,
+    markSubchapterAsFinished,
+    unlockSubchapter,
+    origin,
+}: {
+    subchapterId: number;
+    chapterId: number;
+    chapterTitle: string;
+    navigation: NavigationProp<any>;
+    markSubchapterAsFinished: (id: number) => void;
+    unlockSubchapter: (id: number) => void;
+    origin?: string;
+}) => {
+    console.log("Starting completeSubchapter function");
+
+    // Mark the current subchapter as finished and unlock the next one
+    markSubchapterAsFinished(subchapterId);
+    unlockSubchapter(subchapterId + 1);
+
+    console.log("Fetching subchapters for chapter:", chapterId);
+    const subchapters = await fetchSubchaptersByChapterId(chapterId);
+    const currentSubchapterData = subchapters.find(sub => sub.SubchapterId === subchapterId);
+
+    console.log("Current subchapter data:", currentSubchapterData);
+
+    let nextSubchapterData = subchapters.find(
+        sub => sub.SortOrder === (currentSubchapterData?.SortOrder ?? 0) + 1
+    );
+
+    if (!nextSubchapterData) {
+        const nextChapterId = chapterId + 1;
+        const nextChapterSubchapters = await fetchSubchaptersByChapterId(nextChapterId);
+        nextSubchapterData = nextChapterSubchapters.sort((a, b) => a.SortOrder - b.SortOrder)[0];
+    }
+
+    // Handle navigation based on origin
+    if (origin === 'SearchScreen') {
+        navigation.navigate('SearchEndScreen');
+        return;
+    }
+
+    if (origin === 'ResumeSection') {
+        if (nextSubchapterData) {
+            await saveProgress(
+                'section1',
+                nextSubchapterData.ChapterId,
+                nextSubchapterData.SubchapterId,
+                nextSubchapterData.SubchapterName,
+                0,
+                nextSubchapterData.ImageName
+            );
+        }
+
+        navigation.navigate('CongratsScreen', {
+            targetScreen: 'HomeScreen',
+            targetParams: { chapterId, chapterTitle, origin: 'ResumeSection' },
+        });
+        return;
+    }
+
+    // Default case: Navigate to SubchaptersScreen after CongratsScreen
+    navigation.navigate('CongratsScreen', {
+        targetScreen: 'SubchaptersScreen',
+        targetParams: { chapterId, chapterTitle, origin: 'SubchapterComplete' },
+    });
+};
+
 export const nextContent = async ({
     showQuiz,
     setShowQuiz,
@@ -138,116 +265,31 @@ export const nextContent = async ({
         }
     };
 
-    const moveToNextSlide = async () => {
-        if (currentIndex < contentData.length - 1) {
-            const newIndex = currentIndex + 1;
-            setCurrentIndex(newIndex);
-            setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
-    
-            // Preload quiz for the next content slide
-            const nextContent = contentData[newIndex];
-            const nextQuizData = contentData[newIndex + 1]
-                ? await fetchQuizByContentId(contentData[newIndex + 1].ContentId)
-                : null;
-    
-            try {
-                const quizData = await fetchQuizByContentId(nextContent.ContentId);
-                setShowQuiz(quizData.length > 0);
-    
-                // Optionally store preloaded quiz data for later use
-                if (nextQuizData) {
-                    console.log('Preloaded next quiz data:', nextQuizData);
-                }
-            } catch (error) {
-                console.error('Failed to fetch quiz data:', error);
-                setShowQuiz(false); // Ensure quiz is off if there's an error
-            }
-    
-            await saveCurrentProgress(newIndex);
-        } else {
-            await saveCurrentProgress(currentIndex);
-            await completeSubchapter();
-        }
-    };
-    
-
-    const completeSubchapter = async () => {
-        console.log("Starting completeSubchapter function");
-
-        // Mark the current subchapter as finished and unlock the next one
-        markSubchapterAsFinished(subchapterId);
-        unlockSubchapter(subchapterId + 1);
-
-        console.log("Fetching subchapters for chapter:", chapterId);
-        const subchapters = await fetchSubchaptersByChapterId(chapterId);
-        const currentSubchapterData = subchapters.find(sub => sub.SubchapterId === subchapterId);
-
-        console.log("Current subchapter data:", currentSubchapterData);
-
-        // Determine if there is a next subchapter in the current chapter
-        let nextSubchapterData = subchapters.find(
-            sub => sub.SortOrder === (currentSubchapterData?.SortOrder ?? 0) + 1
-        );
-
-        if (!nextSubchapterData) {
-            const nextChapterId = chapterId + 1;
-            const nextChapterSubchapters = await fetchSubchaptersByChapterId(nextChapterId);
-            nextSubchapterData = nextChapterSubchapters.sort((a, b) => a.SortOrder - b.SortOrder)[0];
-        }
-
-        // Case 1: If origin is SearchScreen, navigate to SearchEndScreen
-        if (origin === 'SearchScreen') {
-            console.log("Navigating to SearchEndScreen from SearchScreen origin");
-
-            // Navigate to SearchEndScreen with explicit typing
-            (navigation as unknown as NavigationProp<RootStackParamList>).navigate('SearchEndScreen');
-            return; // Ensure no further navigation occurs
-        }
-
-        // Case 2: ResumeSection - navigate back to HomeScreen but prepare ResumeSection for next content
-        if (origin === 'ResumeSection') {
-            if (nextSubchapterData) {
-                await saveProgress(
-                    'section1',
-                    nextSubchapterData.ChapterId,
-                    nextSubchapterData.SubchapterId,
-                    nextSubchapterData.SubchapterName,
-                    0,
-                    nextSubchapterData.ImageName
-                );
-            }
-
-            navigation.navigate('CongratsScreen', {
-                targetScreen: 'HomeScreen',
-                targetParams: {
-                    chapterId,
-                    chapterTitle,
-                    origin: 'ResumeSection',
-                    previousScreen: 'CongratsScreen',
-                },
-            });
-            return;
-        }
-
-        // Case 3: Section1 - navigate back to SubchaptersScreen after CongratsScreen
-        navigation.navigate('CongratsScreen', {
-            targetScreen: 'SubchaptersScreen',
-            targetParams: {
-                chapterId,
-                chapterTitle,
-                origin: 'SubchapterComplete',
-            },
+    const completeSubchapterWrapper = async () => {
+        await completeSubchapter({
+            subchapterId,
+            chapterId,
+            chapterTitle,
+            navigation,
+            markSubchapterAsFinished,
+            unlockSubchapter,
+            origin,
         });
     };
 
-    // Start moveToNextSlide or completeSubchapter process
-    if (showQuiz) {
-        setShowQuiz(true);
-        await moveToNextSlide();
-    } else {
-        await moveToNextSlide();
-    }
+    await moveToNextSlide({
+        currentIndex,
+        contentData,
+        setCurrentIndex,
+        maxIndexVisited,
+        setMaxIndexVisited,
+        saveCurrentProgress,
+        showQuiz,
+        setShowQuiz,
+        completeSubchapter: completeSubchapterWrapper,
+    });
 };
+
 
 
 // FLASHCARDS

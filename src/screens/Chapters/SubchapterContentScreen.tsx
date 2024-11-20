@@ -13,7 +13,9 @@ import { useSubchapter } from '../../context/SubchapterContext';
 import { LinearGradient } from 'expo-linear-gradient';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
-import { saveProgress, loadProgress, nextContent } from 'src/utils/progressUtils';
+import {  loadProgress, nextContent } from 'src/utils/progressUtils';
+import { completeSubchapter } from 'src/utils/progressUtils';
+
 
 type SubchapterContentScreenRouteProp = RouteProp<LearnStackParamList, 'SubchapterContentScreen'>;
 type SubchapterContentScreenNavigationProp = StackNavigationProp<LearnStackParamList, 'SubchapterContentScreen'>;
@@ -112,7 +114,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         });
     }, [currentIndex, contentData.length]);
 
-    // Handle navigating to the next slide or finish using imported `nextContent`
+    // Handle navigating to the next slide or finish using imported nextContent
     const handleNextContent = () => {
         nextContent({
             showQuiz,
@@ -160,11 +162,29 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     return (
         <GestureHandlerRootView style={styles.container}>
             <View style={styles.container}>
-                {showQuiz ? (
-                    <QuizSlide contentId={contentData[currentIndex].ContentId} onContinue={handleNextContent} />
-                ) : (
-                    <ContentSlide contentData={contentData[currentIndex]} onNext={handleNextContent} />
-                )}
+            {showQuiz ? (
+                <QuizSlide
+                contentId={contentData[currentIndex].ContentId}
+                onContinue={async () => {
+                    console.log("Quiz finished. Completing subchapter.");
+                    await completeSubchapter({
+                        subchapterId,
+                        chapterId,
+                        chapterTitle,
+                        navigation,
+                        markSubchapterAsFinished,
+                        unlockSubchapter,
+                        origin,
+                    });
+                }}
+            />
+            ) : (
+                <ContentSlide
+                    contentData={contentData[currentIndex]}
+                    onNext={handleNextContent}
+                />
+            )}
+
                 <View style={styles.bottomNavContainer}>
                     {/* Back Arrow */}
                     <TouchableOpacity onPress={goBack} disabled={currentIndex === 0 || showQuiz}>
@@ -192,7 +212,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
             </View>
         </GestureHandlerRootView>
     );
-};
+}
 
 const styles = StyleSheet.create({
     container: {

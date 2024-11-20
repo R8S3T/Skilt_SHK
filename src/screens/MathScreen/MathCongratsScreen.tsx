@@ -10,11 +10,21 @@ type MathCongratsScreenRouteProp = RouteProp<MathStackParamList, 'MathCongratsSc
 const MathCongratsScreen: React.FC = () => {
     const navigation = useNavigation<any>();
     const route = useRoute<MathCongratsScreenRouteProp>();
-    const { markSubchapterAsFinished } = useMathSubchapter();  // Access context to mark subchapter as finished
+    const { markSubchapterAsFinished } = useMathSubchapter();
 
     const targetScreen = route.params?.targetScreen as keyof MathStackParamList;
-    const targetParams = route.params?.targetParams as any;
-    const subchapterId = route.params?.subchapterId;  // Pass subchapterId in route params
+    const targetParams = route.params?.targetParams;
+    const subchapterId = route.params?.subchapterId;
+
+    // Array of animation sources
+    const animations = [
+        require('../../../assets/Animations/congrats_1.json'),
+        require('../../../assets/Animations/congrats_2.json'),
+        require('../../../assets/Animations/congrats_3.json'),
+    ];
+
+    // Select a random animation
+    const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
 
     if (!targetScreen || !targetParams) {
         return (
@@ -26,15 +36,15 @@ const MathCongratsScreen: React.FC = () => {
 
     const handleContinue = () => {
         if (subchapterId) {
-            markSubchapterAsFinished(subchapterId);  // Mark the subchapter as finished here
+            markSubchapterAsFinished(subchapterId);
         }
-        navigation.navigate(targetScreen, targetParams);  // Navigate to the next screen
+        navigation.navigate(targetScreen, targetParams);
     };
 
     return (
         <View style={styles.container}>
             <LottieView
-                source={require('../../../assets/Animations/congrats_1.json')}
+                source={randomAnimation}
                 autoPlay
                 loop={false}
                 style={styles.animation}
@@ -76,5 +86,3 @@ const styles = StyleSheet.create({
 });
 
 export default MathCongratsScreen;
-
-
