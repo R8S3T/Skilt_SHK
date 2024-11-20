@@ -46,19 +46,22 @@ const ClozeTest: React.FC<ClozeTestProps> = ({ quiz, options, correctAnswers, on
             onContinue();
             return;
         }
-
-        const isCorrect = selectedOptions.every(
-            (opt, index) => opt.answer === correctAnswers[index]
-        );
-
-        setSelectedOptions(selectedOptions.map((opt, index) => ({
+    
+        // Check correctness for each blank individually
+        const newSelectedOptions = selectedOptions.map((opt, index) => ({
             ...opt,
             isCorrect: opt.answer === correctAnswers[index],
-        })));
-
-        setSubmitButtonText(isCorrect ? 'Weiter' : 'Bestätigen');
-        setIsButtonDisabled(!isCorrect);
+        }));
+    
+        setSelectedOptions(newSelectedOptions);
+    
+        // Determine overall correctness
+        const isOverallCorrect = newSelectedOptions.every(opt => opt.isCorrect);
+    
+        setSubmitButtonText(isOverallCorrect ? 'Weiter' : 'Bestätigen');
+        setIsButtonDisabled(!isOverallCorrect);
     };
+    
 
     const handleClear = () => {
         const lastFilledIndex = selectedOptions
