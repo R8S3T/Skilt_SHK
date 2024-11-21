@@ -131,7 +131,14 @@ const FlashcardScreen = () => {
             {/* Scrollable Content */}
             <ScrollView contentContainerStyle={styles.scrollContent}>
                 {currentCardIndex < totalCards && (
-                    <Text style={styles.counterText}>{`${currentCardIndex + 1} / ${totalCards}`}</Text>
+                    <Text
+                        style={[
+                            styles.counterText,
+                            { color: isDarkMode ? '#CCCCCC' : '#333' }, // Bright gray for dark mode, original dark gray for light mode
+                        ]}
+                    >
+                        {`${currentCardIndex + 1} / ${totalCards}`}
+                    </Text>
                 )}
     
                 <View style={styles.contentContainer}>
@@ -150,45 +157,44 @@ const FlashcardScreen = () => {
                 </View>
 
                 <View style={styles.buttonContainer}>
-                <TouchableOpacity
-    style={[
-        styles.reviewButton,
-        {
-            borderColor: isDarkMode ? theme.accent : '#24527a', // Use isDarkMode for condition
-            backgroundColor: isDarkMode ? 'transparent' : '#f5f5f5', // Add background for light mode
-        },
-    ]}
-    onPress={resetChapterCards}
->
-    <Text
-        style={[
-            styles.buttonContainerText,
-            { color: isDarkMode ? theme.accent : '#24527a' }, // Use isDarkMode for text color
-        ]}
-    >
-        Alle Karten wiederholen
-    </Text>
-</TouchableOpacity>
-<TouchableOpacity
-    style={[
-        styles.reviewButton,
-        {
-            borderColor: isDarkMode ? theme.accent : '#24527a', // Use isDarkMode for condition
-            backgroundColor: isDarkMode ? 'transparent' : '#f5f5f5', // Add background for light mode
-        },
-    ]}
-    onPress={repeatIncorrectCards}
->
-    <Text
-        style={[
-            styles.buttonContainerText,
-            { color: isDarkMode ? theme.accent : '#24527a' }, // Use isDarkMode for text color
-        ]}
-    >
-        Nicht-gewusst Karten wiederholen
-    </Text>
-</TouchableOpacity>
-
+                    <TouchableOpacity
+                        style={[
+                            styles.reviewButton,
+                            {
+                                borderColor: isDarkMode ? '#CCCCCC' : '#24527a', // Bright gray for dark mode, original blue for light mode
+                                backgroundColor: isDarkMode ? 'transparent' : '#f5f5f5', // Transparent for dark mode, light gray for light mode
+                            },
+                        ]}
+                        onPress={resetChapterCards}
+                    >
+                        <Text
+                            style={[
+                                styles.buttonContainerText,
+                                { color: isDarkMode ? '#CCCCCC' : '#24527a' }, // Use isDarkMode for text color
+                            ]}
+                        >
+                            Alle Karten wiederholen
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={[
+                            styles.reviewButton,
+                            {
+                                borderColor: isDarkMode ? '#CCCCCC' : '#24527a', // Bright gray for dark mode, original blue for light mode
+                                backgroundColor: isDarkMode ? 'transparent' : '#f5f5f5', // Transparent for dark mode, light gray for light mode
+                            },
+                        ]}
+                        onPress={repeatIncorrectCards}
+                    >
+                        <Text
+                            style={[
+                                styles.buttonContainerText,
+                                { color: isDarkMode ? '#CCCCCC' : '#24527a' }, // Use isDarkMode for text color
+                            ]}
+                        >
+                            Nicht-gewusst Karten wiederholen
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
         </View>

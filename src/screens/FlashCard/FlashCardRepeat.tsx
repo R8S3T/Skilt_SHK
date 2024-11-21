@@ -13,7 +13,7 @@ type FlashCardRepeatRouteProp = RouteProp<RootStackParamList, 'FlashCardRepeat'>
 const FlashCardRepeat = () => {
     const route = useRoute<FlashCardRepeatRouteProp>();
     const navigation = useNavigation();
-    const { theme } = useTheme();
+    const { theme, isDarkMode } = useTheme();
     const chapterId = route.params?.chapterId ?? 0;
     const [incorrectCards, setIncorrectCards] = useState<{ question: string; answer: string }[]>([]);
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
@@ -74,9 +74,16 @@ const FlashCardRepeat = () => {
     const currentCard = incorrectCards[currentCardIndex];
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: theme.background }]}>
             {incorrectCards.length > 0 && (
-                <Text style={styles.counterText}>{`${currentCardIndex + 1} / ${totalCards}`}</Text>
+                <Text
+                    style={[
+                        styles.counterText,
+                        { color: isDarkMode ? '#CCCCCC' : theme.primaryText }, // Bright gray for dark mode, primaryText for light mode
+                    ]}
+                >
+                    {`${currentCardIndex + 1} / ${totalCards}`}
+                </Text>
             )}
 
             <View style={styles.contentContainer}>
@@ -90,7 +97,9 @@ const FlashCardRepeat = () => {
                         isRepeatMode={true}
                     />
                 ) : (
-                    <Text style={styles.loadingText}>Keine Karten zum Wiederholen.</Text>
+                    <Text style={[styles.loadingText, { color: theme.secondaryText }]}>
+                        Keine Karten zum Wiederholen.
+                    </Text>
                 )}
             </View>
         </View>

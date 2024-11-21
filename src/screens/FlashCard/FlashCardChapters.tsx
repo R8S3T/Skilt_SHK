@@ -13,7 +13,7 @@ const FlashCardChapters = () => {
     const [chapters, setChapters] = useState<{ ChapterId: number; ChapterName: string }[]>([]);
     const [modalVisible, setModalVisible] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
-    const { theme } = useTheme();
+    const { theme, isDarkMode } = useTheme();
 
     // Locked chapters (IDs 3–15)
     const lockedChapters = new Set(Array.from({ length: 13 }, (_, i) => i + 3));
@@ -59,14 +59,15 @@ const FlashCardChapters = () => {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: theme.background }]}>
             {/* Sticky Header for "Lernfelder" */}
             <View style={[styles.header, { backgroundColor: theme.surface }]}>
                 <Text style={[styles.headerText, { color: theme.primaryText }]}>Lernfelder</Text>
             </View>
 
             {/* Scrollable Content with Buttons in Rows */}
-            <ScrollView contentContainerStyle={[styles.scrollContent]}>
+            <ScrollView contentContainerStyle={[styles.scrollContent, { backgroundColor: theme.background }]}>
+
                 <View style={styles.rowContainer}>
                     {chapters.map((chapter) => (
                         <TouchableOpacity
@@ -74,8 +75,8 @@ const FlashCardChapters = () => {
                             style={[
                                 styles.button,
                                 lockedChapters.has(chapter.ChapterId)
-                                    ? styles.lockedButton
-                                    : styles.unlockedButton,
+                                    ? { backgroundColor: isDarkMode ? '#333333' : styles.lockedButton.backgroundColor } // Dark gray for locked buttons
+                                    : { backgroundColor: isDarkMode ? '#445566' : styles.unlockedButton.backgroundColor }, // Subtle bluish-gray for unlocked buttons
                                 { width: buttonSize, height: buttonSize },
                             ]}
                             onPress={() => handleButtonPress(chapter.ChapterId)}
@@ -85,14 +86,15 @@ const FlashCardChapters = () => {
                                     styles.buttonText,
                                     {
                                         color: lockedChapters.has(chapter.ChapterId)
-                                            ? theme.secondaryText
-                                            : theme.primaryText,
+                                            ? isDarkMode ? '#AAAAAA' : theme.secondaryText // Softer gray for locked buttons
+                                            : isDarkMode ? '#FFFFFF' : theme.primaryText,  // White for unlocked buttons
                                     },
                                 ]}
                             >
                                 {chapter.ChapterName}
                             </Text>
                         </TouchableOpacity>
+
                     ))}
                 </View>
             </ScrollView>
@@ -103,11 +105,12 @@ const FlashCardChapters = () => {
                 visible={modalVisible}
                 onRequestClose={() => setModalVisible(false)}
             >
-                <View style={styles.modalOverlay}>
+                <View style={[styles.modalOverlay, { backgroundColor: isDarkMode ? 'rgba(0, 0, 0, 0.8)' : 'rgba(0, 0, 0, 0.5)' }]}>
                     <View style={[styles.modalContainer, { backgroundColor: theme.surface }]}>
                         <Text style={[styles.modalText, { color: theme.primaryText }]}>{modalMessage}</Text>
                         <TouchableOpacity onPress={() => setModalVisible(false)}>
-                            <Text style={[styles.modalButton, { color: theme.accent }]}>OK</Text>
+                        <Text style={[styles.modalButton, { color: isDarkMode ? '#CCCCCC' : theme.accent }]}>OK</Text>
+
                         </TouchableOpacity>
                     </View>
                 </View>

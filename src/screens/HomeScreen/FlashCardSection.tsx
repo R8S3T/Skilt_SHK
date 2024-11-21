@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons'; // Using Ionicons from Expo
 import { RootStackParamList } from 'src/types/navigationTypes';
+import { useTheme } from 'src/context/ThemeContext';
 
 interface FlashcardsSectionProps {
     onButtonPress: (title: string) => void;
@@ -10,6 +11,7 @@ interface FlashcardsSectionProps {
 
 const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({ onButtonPress }) => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+    const { theme, isDarkMode } = useTheme();
 
     const handlePress = () => {
         onButtonPress("Lernkarten pressed");
@@ -17,12 +19,13 @@ const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({ onButtonPress }) 
     };
 
     return (
-        <TouchableOpacity onPress={handlePress} style={styles.container}>
+        <TouchableOpacity onPress={handlePress} style={[styles.container, { backgroundColor: theme.background }]}
+>
             <View style={styles.header}>
-                <Text style={styles.title}>Lernkarten</Text>
-                <Ionicons name="book-outline" size={40} color="#497285" style={styles.icon} />
+                <Text style={[styles.title, { color: theme.primaryText }]}>Lernkarten</Text>
+                <Ionicons name="book-outline" size={40} color={theme.primaryText} style={styles.icon} />
             </View>
-            <Text style={styles.subheader}>Teste Dein Wissen hier</Text>
+            <Text style={[styles.subheader, { color: theme.secondaryText }]}>Teste Dein Wissen hier</Text>
         </TouchableOpacity>
     );
 };

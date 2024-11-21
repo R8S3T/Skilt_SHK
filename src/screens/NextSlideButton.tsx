@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, StyleProp, ViewStyle } from 'react-native';
+import { useTheme } from 'src/context/ThemeContext';
 
 interface NextSlideButtonProps {
     onPress: () => void;
@@ -9,14 +10,22 @@ interface NextSlideButtonProps {
 }
 
 const NextSlideButton: React.FC<NextSlideButtonProps> = ({ onPress, isActive, style, label = 'Weiter' }) => {
+    const { theme, isDarkMode } = useTheme(); 
     return (
-        <TouchableOpacity
-            onPress={onPress}
-            style={[styles.button, isActive ? styles.active : styles.inactive, style]}
-            disabled={!isActive}
-        >
-            <Text style={styles.text}>{label}</Text>
-        </TouchableOpacity>
+<TouchableOpacity
+    onPress={onPress}
+    style={[
+        styles.button,
+        isActive
+            ? { backgroundColor: isDarkMode ? '#556B2F' : '#343A40' } // Subtle greenish active color
+            : { backgroundColor: isDarkMode ? '#444444' : 'gray' }, // Muted inactive color
+        style,
+    ]}
+    disabled={!isActive}
+>
+    <Text style={[styles.text, { color: isDarkMode ? '#E0E0E0' : 'white' }]}>{label}</Text>
+</TouchableOpacity>
+
     );
 };
 

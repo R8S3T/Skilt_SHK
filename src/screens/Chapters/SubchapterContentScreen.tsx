@@ -15,7 +15,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 import {  loadProgress, nextContent } from 'src/utils/progressUtils';
 import { completeSubchapter } from 'src/utils/progressUtils';
-
+import { useTheme } from 'src/context/ThemeContext';
 
 type SubchapterContentScreenRouteProp = RouteProp<LearnStackParamList, 'SubchapterContentScreen'>;
 type SubchapterContentScreenNavigationProp = StackNavigationProp<LearnStackParamList, 'SubchapterContentScreen'>;
@@ -38,11 +38,11 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [maxIndexVisited, setMaxIndexVisited] = useState<number>(0);
     const [showQuiz, setShowQuiz] = useState<boolean>(false);
-
+    const { theme, isDarkMode } = useTheme();
+    
     const { finishedSubchapters, markSubchapterAsFinished, unlockSubchapter } = useSubchapter();
 
-     // Customize the header to include the "X" button and progress bar
-     useLayoutEffect(() => {
+    useLayoutEffect(() => {
         navigation.setOptions({
             // Place an "X" icon button in the header left position
             headerLeft: () => (
@@ -58,12 +58,16 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                     }}
                     style={{ marginLeft: 15 }}
                 >
-                    <Ionicons name="close" size={24} color="gray" />
+                    <Ionicons name="close" size={24} color={theme.primaryText} />
                 </TouchableOpacity>
             ),
-            headerRight: () => null,  // Remove any headerRight component if it exists
+            headerRight: () => null, // Remove any headerRight component if it exists
+            headerStyle: {
+                backgroundColor: theme.surface, // Dynamic background for dark mode
+            },
         });
-    }, [navigation, chapterId, chapterTitle, route.params.origin]);
+    }, [navigation, chapterId, chapterTitle, route.params.origin, theme]);
+    
     
 
     // Load saved slide index on first render or reset to 0 if finished

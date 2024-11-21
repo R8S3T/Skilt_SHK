@@ -37,16 +37,26 @@ const Flashcard = ({
             >
                 {/* Front side of the card */}
                 <View
-                    style={[styles.front, isAlternateColor ? styles.alternateBorder : styles.defaultBorder]}
+                    style={[
+                        styles.front,
+                        isAlternateColor
+                            ? { borderColor: isDarkMode ? '#525C6B' : styles.alternateBorder.borderColor } // Dark mode: muted grayish-blue, light mode: original alternate color
+                            : { borderColor: isDarkMode ? '#3E4653' : styles.defaultBorder.borderColor }, // Dark mode: subtle dark gray, light mode: original default color
+                    ]}
                 >
                     <Text style={[styles.questionText, { color: theme.primaryText }]}>
                         {question}
                     </Text>
                 </View>
-
+    
                 {/* Back side of the card */}
                 <View
-                    style={[styles.back, isAlternateColor ? styles.alternateBack : styles.defaultBack]}
+                    style={[
+                        styles.back,
+                        isAlternateColor
+                            ? { backgroundColor: isDarkMode ? '#636F81' : styles.alternateBack.backgroundColor } // Dark mode: lighter blue-gray, light mode: original alternate back color
+                            : { backgroundColor: isDarkMode ? '#454D5A' : styles.defaultBack.backgroundColor }, // Dark mode: soft gray, light mode: original default back color
+                    ]}
                 >
                     <View
                         style={[
@@ -58,7 +68,7 @@ const Flashcard = ({
                             {answer}
                         </Text>
                     </View>
-
+    
                     {isRepeatMode ? (
                         <TouchableOpacity style={styles.nextButton} onPress={onNext}>
                             <Text style={styles.buttonText}>Weiter</Text>
@@ -66,13 +76,19 @@ const Flashcard = ({
                     ) : (
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity
-                                style={[styles.incorrectButton, { backgroundColor: isDarkMode ? theme.accent : '#e46161' }]}
+                                style={[
+                                    styles.incorrectButton,
+                                    { backgroundColor: isDarkMode ? '#B55454' : '#e46161' }, // Muted red for dark mode
+                                ]}
                                 onPress={onMarkIncorrect}
                             >
                                 <Text style={styles.buttonText}>Wusste ich nicht</Text>
                             </TouchableOpacity>
                             <TouchableOpacity
-                                style={[styles.correctButton, { backgroundColor: isDarkMode ? theme.accent : '#118a7e' }]}
+                                style={[
+                                    styles.correctButton,
+                                    { backgroundColor: isDarkMode ? '#5cb85c' : '#118a7e' }, // Muted green for dark mode
+                                ]}
                                 onPress={onMarkCorrect}
                             >
                                 <Text style={styles.buttonText}>Gewusst</Text>
@@ -83,6 +99,7 @@ const Flashcard = ({
             </FlipCard>
         </View>
     );
+    
 };
 
 const styles = StyleSheet.create({

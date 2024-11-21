@@ -86,7 +86,7 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
                     onPress={onNext}
                     isActive={isButtonActive}
                     label="Weiter"
-                    style={[styles.nextButton, isDarkMode && { backgroundColor: theme.accent }]}
+                    style={styles.nextButton}
                 />
             </View>
         </View>

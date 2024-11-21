@@ -123,7 +123,7 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
     }));
 
     return (
-        <View style={styles.mainContainer}>
+        <View style={[styles.mainContainer, { backgroundColor: theme.background }]}>
             {/* Sticky Header Section for 'Lernfeld' */}
             <View style={[styles.dynamicHeadingContainer, { backgroundColor: theme.surface }]}>
                 <Text style={[styles.dynamicHeading, { color: theme.primaryText }]}>
