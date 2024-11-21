@@ -204,6 +204,8 @@ export async function fetchMathContentBySubchapterId(subchapterId: number): Prom
 }
 
 export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
+    console.log("Calling fetchQuizByContentId with contentId:", contentId); // Log the contentId being passed
+
     if (DATABASE_MODE === 'local') {
         // Fetch from local SQLite database
         const db = await initializeDatabase();
@@ -214,16 +216,19 @@ export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
                 [contentId]
             );
 
-            console.log('Fetched quizzes:', result);  // Log the fetched quizzes to see if any data is returned.
+            console.log('Fetched quizzes:', result);  // Log the fetched quizzes to see if any data is returned
 
             // Process options for each quiz
             for (let quiz of result) {
+                console.log(`Fetching options for quiz with QuizId: ${quiz.QuizId}`); // Log the quiz ID to check what quiz options are fetched
                 if (quiz.QuizType === 'cloze_test') {
                     quiz.Options = await fetchClozeTestOptionsByQuizId(quiz.QuizId);
                 } else if (quiz.QuizType === 'multiple_choice') {
                     quiz.Options = await fetchMultipleChoiceOptionsByQuizId(quiz.QuizId);
                 }
+                console.log(`Fetched options for quiz ${quiz.QuizId}:`, quiz.Options); // Log the options fetched for each quiz
             }
+
             return result;
         } catch (error) {
             console.error(`Failed to fetch quiz for contentId ${contentId} from SQLite:`, error);
@@ -240,11 +245,13 @@ export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
 
             // Fetch options for each quiz
             for (let quiz of quizzes) {
+                console.log(`Fetching options for quiz with QuizId: ${quiz.QuizId}`); // Log the quiz ID to check what quiz options are fetched
                 if (quiz.QuizType === 'cloze_test') {
                     quiz.Options = await fetchClozeTestOptionsByQuizId(quiz.QuizId);
                 } else if (quiz.QuizType === 'multiple_choice') {
                     quiz.Options = await fetchMultipleChoiceOptionsByQuizId(quiz.QuizId);
                 }
+                console.log(`Fetched options for quiz ${quiz.QuizId}:`, quiz.Options); // Log the options fetched for each quiz
             }
             return quizzes;
         } catch (error) {
@@ -253,6 +260,7 @@ export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
         }
     }
 }
+
 
 // Fetch multiple-choice options by quiz ID
 export async function fetchMultipleChoiceOptionsByQuizId(quizId: number): Promise<MultipleChoiceOption[]> {

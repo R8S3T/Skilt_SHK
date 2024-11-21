@@ -134,7 +134,6 @@ export const moveToNextSlide = async ({
         const nextContent = contentData[newIndex];
         try {
             const quizData = await fetchQuizByContentId(nextContent.ContentId);
-            console.log("Preloaded quiz for the next slide");
         } catch (error) {
             console.error("Error preloading quiz:", error);
         }
