@@ -20,7 +20,7 @@ const FlashcardScreen = () => {
     const [flashcards, setFlashcards] = useState<{ Question: string; Answer: string }[]>([]);
     const [currentCardIndex, setCurrentCardIndex] = useState(0);
     const [totalCards, setTotalCards] = useState(0);
-    const { theme } = useTheme();
+    const { theme, isDarkMode } = useTheme();
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -122,7 +122,7 @@ const FlashcardScreen = () => {
     }, [currentCardIndex, chapterId]);
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: theme.background }]}>
             {/* Sticky Header for "Lernfeld {chapterId}" */}
             <View style={[styles.header, { backgroundColor: theme.surface }]}>
                 <Text style={[styles.headerText, { color: theme.primaryText }]}>{`Lernfeld ${chapterId}`}</Text>
@@ -130,9 +130,9 @@ const FlashcardScreen = () => {
     
             {/* Scrollable Content */}
             <ScrollView contentContainerStyle={styles.scrollContent}>
-            {currentCardIndex < totalCards && (
-                <Text style={styles.counterText}>{`${currentCardIndex + 1} / ${totalCards}`}</Text>
-            )}
+                {currentCardIndex < totalCards && (
+                    <Text style={styles.counterText}>{`${currentCardIndex + 1} / ${totalCards}`}</Text>
+                )}
     
                 <View style={styles.contentContainer}>
                     {currentCardIndex < flashcards.length ? (
@@ -148,14 +148,47 @@ const FlashcardScreen = () => {
                         <Text style={styles.loadingText}>Keine weiteren Karten</Text>
                     )}
                 </View>
-    
+
                 <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.reviewButton} onPress={resetChapterCards}>
-                        <Text style={styles.buttonContainerText}>Alle Karten wiederholen</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.reviewButton} onPress={repeatIncorrectCards}>
-                        <Text style={styles.buttonContainerText}>Nicht-gewusst Karten wiederholen</Text>
-                    </TouchableOpacity>
+                <TouchableOpacity
+    style={[
+        styles.reviewButton,
+        {
+            borderColor: isDarkMode ? theme.accent : '#24527a', // Use isDarkMode for condition
+            backgroundColor: isDarkMode ? 'transparent' : '#f5f5f5', // Add background for light mode
+        },
+    ]}
+    onPress={resetChapterCards}
+>
+    <Text
+        style={[
+            styles.buttonContainerText,
+            { color: isDarkMode ? theme.accent : '#24527a' }, // Use isDarkMode for text color
+        ]}
+    >
+        Alle Karten wiederholen
+    </Text>
+</TouchableOpacity>
+<TouchableOpacity
+    style={[
+        styles.reviewButton,
+        {
+            borderColor: isDarkMode ? theme.accent : '#24527a', // Use isDarkMode for condition
+            backgroundColor: isDarkMode ? 'transparent' : '#f5f5f5', // Add background for light mode
+        },
+    ]}
+    onPress={repeatIncorrectCards}
+>
+    <Text
+        style={[
+            styles.buttonContainerText,
+            { color: isDarkMode ? theme.accent : '#24527a' }, // Use isDarkMode for text color
+        ]}
+    >
+        Nicht-gewusst Karten wiederholen
+    </Text>
+</TouchableOpacity>
+
                 </View>
             </ScrollView>
         </View>
@@ -165,7 +198,7 @@ const FlashcardScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#ffffff',
+/*         backgroundColor: '#ffffff', */
     },
     header: {
         paddingVertical: 5,

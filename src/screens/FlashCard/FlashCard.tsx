@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import FlipCard from 'react-native-flip-card';
 import { scaleFontSize } from 'src/utils/screenDimensions';
+import { useTheme } from 'src/context/ThemeContext';
+import { lightenColor } from 'src/components/theme';
 
 const Flashcard = ({
     question,
@@ -20,6 +22,11 @@ const Flashcard = ({
     isAlternateColor: boolean;
     isRepeatMode?: boolean;
 }) => {
+    const { theme, isDarkMode } = useTheme(); // Explicitly get isDarkMode from ThemeContext
+
+    // Create a slightly lighter background color for dark mode
+    const lighterSurface = lightenColor(theme.surface, 10);
+
     return (
         <View style={styles.cardWrapper}>
             <FlipCard
@@ -28,26 +35,46 @@ const Flashcard = ({
                 flipVertical={false}
                 clickable
             >
-                <View style={[styles.front, isAlternateColor ? styles.alternateBorder : styles.defaultBorder]}>
-                    <Text style={styles.questionText}>{question}</Text>
+                {/* Front side of the card */}
+                <View
+                    style={[styles.front, isAlternateColor ? styles.alternateBorder : styles.defaultBorder]}
+                >
+                    <Text style={[styles.questionText, { color: theme.primaryText }]}>
+                        {question}
+                    </Text>
                 </View>
 
-                <View style={[styles.back, isAlternateColor ? styles.alternateBack : styles.defaultBack]}>
-                    <View style={styles.answerBox}>
-                        <Text style={styles.answerText}>{answer}</Text>
+                {/* Back side of the card */}
+                <View
+                    style={[styles.back, isAlternateColor ? styles.alternateBack : styles.defaultBack]}
+                >
+                    <View
+                        style={[
+                            styles.answerBox,
+                            { backgroundColor: isDarkMode ? theme.surface : '#ffffff' },
+                        ]}
+                    >
+                        <Text style={[styles.answerText, { color: theme.secondaryText }]}>
+                            {answer}
+                        </Text>
                     </View>
 
-                    {/* Conditionally render buttons based on isRepeatMode */}
                     {isRepeatMode ? (
                         <TouchableOpacity style={styles.nextButton} onPress={onNext}>
                             <Text style={styles.buttonText}>Weiter</Text>
                         </TouchableOpacity>
                     ) : (
                         <View style={styles.buttonContainer}>
-                            <TouchableOpacity style={styles.incorrectButton} onPress={onMarkIncorrect}>
+                            <TouchableOpacity
+                                style={[styles.incorrectButton, { backgroundColor: isDarkMode ? theme.accent : '#e46161' }]}
+                                onPress={onMarkIncorrect}
+                            >
                                 <Text style={styles.buttonText}>Wusste ich nicht</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.correctButton} onPress={onMarkCorrect}>
+                            <TouchableOpacity
+                                style={[styles.correctButton, { backgroundColor: isDarkMode ? theme.accent : '#118a7e' }]}
+                                onPress={onMarkCorrect}
+                            >
                                 <Text style={styles.buttonText}>Gewusst</Text>
                             </TouchableOpacity>
                         </View>
@@ -57,7 +84,6 @@ const Flashcard = ({
         </View>
     );
 };
-
 
 const styles = StyleSheet.create({
     cardWrapper: {
@@ -105,7 +131,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#77628c',
     },
     questionText: {
-        color: '#333',
         fontFamily: 'Lato-Bold',
         fontSize: scaleFontSize(16),
         textAlign: 'center',
@@ -116,7 +141,7 @@ const styles = StyleSheet.create({
         width: '90%',
         height: '65%',
         borderRadius: 10,
-        backgroundColor: '#ffffff',
+        backgroundColor: '#ffffff', // Original light mode color
         shadowColor: '#000',
         shadowOpacity: 0.1,
         shadowOffset: { width: 0, height: 2 },
@@ -128,7 +153,6 @@ const styles = StyleSheet.create({
         marginBottom: 30,
     },
     answerText: {
-        color: '#333',
         fontFamily: 'OpenSans-Semibold',
         fontSize: scaleFontSize(14),
         textAlign: 'center',

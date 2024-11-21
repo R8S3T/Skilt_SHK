@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useLayoutEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Dimensions, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { fetchChapters } from 'src/database/databaseServices';
 import { NavigationProp } from '@react-navigation/native';
@@ -11,7 +11,12 @@ import { scaleFontSize } from "src/utils/screenDimensions";
 const FlashCardChapters = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const [chapters, setChapters] = useState<{ ChapterId: number; ChapterName: string }[]>([]);
+    const [modalVisible, setModalVisible] = useState(false);
+    const [modalMessage, setModalMessage] = useState('');
     const { theme } = useTheme();
+
+    // Locked chapters (IDs 3–15)
+    const lockedChapters = new Set(Array.from({ length: 13 }, (_, i) => i + 3));
 
     // Calculate button size to fit three per row
     const screenWidth = Dimensions.get('window').width;
@@ -44,8 +49,13 @@ const FlashCardChapters = () => {
     }, []);
 
     const handleButtonPress = (chapterId: number) => {
-        console.log(`Navigating to Chapter ID: ${chapterId}`);
-        navigation.navigate('FlashcardScreen', { chapterId, chapterTitle: `Lernfeld ${chapterId}` });
+        if (lockedChapters.has(chapterId)) {
+            setModalMessage('Dieser Inhalt ist in der Tesversion nicht verfügbar.');
+            setModalVisible(true);
+        } else {
+            console.log(`Navigating to Chapter ID: ${chapterId}`);
+            navigation.navigate('FlashcardScreen', { chapterId, chapterTitle: `Lernfeld ${chapterId}` });
+        }
     };
 
     return (
@@ -54,22 +64,54 @@ const FlashCardChapters = () => {
             <View style={[styles.header, { backgroundColor: theme.surface }]}>
                 <Text style={[styles.headerText, { color: theme.primaryText }]}>Lernfelder</Text>
             </View>
-            
+
             {/* Scrollable Content with Buttons in Rows */}
             <ScrollView contentContainerStyle={[styles.scrollContent]}>
                 <View style={styles.rowContainer}>
                     {chapters.map((chapter) => (
                         <TouchableOpacity
                             key={chapter.ChapterId}
-                            style={[styles.button, { width: buttonSize, height: buttonSize }]}
+                            style={[
+                                styles.button,
+                                lockedChapters.has(chapter.ChapterId)
+                                    ? styles.lockedButton
+                                    : styles.unlockedButton,
+                                { width: buttonSize, height: buttonSize },
+                            ]}
                             onPress={() => handleButtonPress(chapter.ChapterId)}
                         >
-                            <Text style={styles.buttonText}>{chapter.ChapterName}</Text>
+                            <Text
+                                style={[
+                                    styles.buttonText,
+                                    {
+                                        color: lockedChapters.has(chapter.ChapterId)
+                                            ? theme.secondaryText
+                                            : theme.primaryText,
+                                    },
+                                ]}
+                            >
+                                {chapter.ChapterName}
+                            </Text>
                         </TouchableOpacity>
                     ))}
                 </View>
             </ScrollView>
 
+            {/* Modal for locked chapters */}
+            <Modal
+                transparent={true}
+                visible={modalVisible}
+                onRequestClose={() => setModalVisible(false)}
+            >
+                <View style={styles.modalOverlay}>
+                    <View style={[styles.modalContainer, { backgroundColor: theme.surface }]}>
+                        <Text style={[styles.modalText, { color: theme.primaryText }]}>{modalMessage}</Text>
+                        <TouchableOpacity onPress={() => setModalVisible(false)}>
+                            <Text style={[styles.modalButton, { color: theme.accent }]}>OK</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 };
@@ -98,10 +140,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 5,
     },
     button: {
-        backgroundColor: '#ffffff',
         borderRadius: 10,
-        borderWidth: 1,
-        borderColor: '#2b4353',
         alignItems: 'center',
         justifyContent: 'center',
         marginVertical: 8,
@@ -111,10 +150,42 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         elevation: 2,
     },
+    unlockedButton: {
+        backgroundColor: '#ffffff',
+        borderColor: '#2b4353',
+        borderWidth: 1,
+    },
+    lockedButton: {
+        backgroundColor: '#cccccc',
+        borderColor: '#999999',
+        borderWidth: 1,
+    },
     buttonText: {
         fontSize: 18,
         fontWeight: '500',
         textAlign: 'center',
+    },
+    modalOverlay: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContainer: {
+        width: '80%',
+        padding: 16,
+        backgroundColor: 'white',
+        borderRadius: 8,
+        alignItems: 'center',
+    },
+    modalText: {
+        fontSize: 16,
+        marginBottom: 16,
+        textAlign: 'center',
+    },
+    modalButton: {
+        fontSize: 14,
+        color: '#007bff',
     },
 });
 

@@ -1,6 +1,6 @@
 // ThemeContext.tsx
 import React, { createContext, useContext, useState } from 'react';
-import { lightTheme, darkTheme } from 'src/components/theme';
+import { lightTheme, darkTheme, lightenColor } from 'src/components/theme';
 
 interface ThemeContextType {
     isDarkMode: boolean;
@@ -8,6 +8,7 @@ interface ThemeContextType {
     theme: typeof lightTheme;
     fontSize: number;
     setFontSize: (size: number) => void;
+    lightenColor: (color: string, percent: number) => string;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -21,7 +22,14 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const theme = isDarkMode ? darkTheme : lightTheme;
 
     return (
-        <ThemeContext.Provider value={{ isDarkMode, toggleDarkMode, theme, fontSize, setFontSize }}>
+        <ThemeContext.Provider value={{ 
+            isDarkMode, 
+            toggleDarkMode, 
+            theme, 
+            fontSize, 
+            setFontSize,
+            lightenColor, // Pass lightenColor as part of the context
+        }}>
             {children}
         </ThemeContext.Provider>
     );

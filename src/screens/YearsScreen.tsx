@@ -71,7 +71,7 @@ const YearsScreen: React.FC = () => {
     const handleChapterPress = (chapterId: number, year: number) => {
         // Lock chapter IDs 7 and 8, and years 3 and 4
         if ((chapterId === 7 || chapterId === 8) || (year === 3 || year === 4)) {
-            setModalMessage('Inhalte momentan nicht verfügbar');
+            setModalMessage('Dieser Inhalt ist in der Tesversion nicht verfügbar.');
             setModalVisible(true);
         } else {
             // Navigate if chapter is not locked
