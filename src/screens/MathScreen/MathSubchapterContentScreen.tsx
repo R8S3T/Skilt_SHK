@@ -33,13 +33,17 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
     const [mathQuiz, setMathQuiz] = useState<MathMiniQuiz | null>(null);
     const [mathMiniQuizzes, setMathMiniQuizzes] = useState<MathMiniQuiz[]>([]);
     const [completedQuizzes, setCompletedQuizzes] = useState<boolean[]>([]);
+    const { finishedSubchapters } = useMathSubchapter();
 
-    // Configure navigation header
-    useEffect(() => {
-        navigation.setOptions({
-            headerLeft: () => (
-                <TouchableOpacity
-                    onPress={async () => {
+
+// Configure navigation header
+useEffect(() => {
+    navigation.setOptions({
+        headerLeft: () => (
+            <TouchableOpacity
+                onPress={async () => {
+                    const isSubchapterFinished = finishedSubchapters.includes(subchapterId);
+                    if (isSubchapterFinished) {
                         await saveProgress(
                             'math',
                             chapterId,
@@ -48,47 +52,60 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
                             currentIndex,
                             null // Pass imageName if needed
                         );
-                        navigation.navigate('MathSubchapterScreen', {
-                            chapterId,
-                            chapterTitle,
-                            origin: 'HomeScreen',
-                        });
-                    }}
-                    style={{ marginLeft: 15 }}
-                >
-                    <Ionicons name="close" size={24} color={theme.primaryText} />
-                </TouchableOpacity>
-            ),
-            headerStyle: { backgroundColor: theme.surface },
-            headerTintColor: theme.primaryText,
-            title: subchapterTitle,
-        });
-    }, [navigation, chapterId, chapterTitle, theme, subchapterTitle]);
+                    }
+                    navigation.navigate('MathSubchapterScreen', {
+                        chapterId,
+                        chapterTitle,
+                        origin: 'HomeScreen',
+                    });
+                }}
+                style={{ marginLeft: 15 }}
+            >
+                <Ionicons name="close" size={24} color={theme.primaryText} />
+            </TouchableOpacity>
+        ),
+        headerStyle: { backgroundColor: theme.surface },
+        headerTintColor: theme.primaryText,
+        title: subchapterTitle,
+    });
+}, [navigation, chapterId, chapterTitle, theme, subchapterTitle, finishedSubchapters, currentIndex]);
+
 
     // Load content data and initial quiz
     useEffect(() => {
         const loadData = async () => {
             setLoading(true);
             try {
-                // Fetch content data first
+                // Fetch content data
                 const content = await fetchMathContentBySubchapterId(subchapterId);
                 setContentData(content);
 
-                // Fetch progress after content is fetched
-                const savedProgress = await loadProgress('math');
-                if (
-                    savedProgress &&
-                    savedProgress.subchapterId === subchapterId &&
-                    savedProgress.currentIndex !== null
-                ) {
-                    const validIndex = Math.min(savedProgress.currentIndex, content.length - 1);
-                    setCurrentIndex(validIndex);
+                // Check if the subchapter is marked as finished
+                const savedFinished = await loadProgress('mathFinished');
+                console.log('Loaded Finished Subchapters:', savedFinished);
 
-                    // Fetch quiz for the saved content
-                    const quizzes = await fetchMathMiniQuizByContentId(content[validIndex]?.ContentId);
-                    setMathQuiz(quizzes[0] || null);
+                const isSubchapterFinished = Array.isArray(savedFinished) && savedFinished.includes(subchapterId);
+
+                if (isSubchapterFinished) {
+                    // If finished, resume from the last saved progress
+                    const savedProgress = await loadProgress('math');
+                    console.log('Loaded Progress Data:', savedProgress);
+
+                    if (
+                        savedProgress &&
+                        savedProgress.subchapterId === subchapterId &&
+                        savedProgress.currentIndex !== null
+                    ) {
+                        const validIndex = Math.min(savedProgress.currentIndex, content.length - 1);
+                        setCurrentIndex(validIndex);
+
+                        // Fetch quiz for the saved content
+                        const quizzes = await fetchMathMiniQuizByContentId(content[validIndex]?.ContentId);
+                        setMathQuiz(quizzes[0] || null);
+                    }
                 } else if (content.length > 0) {
-                    // Default to the first slide and its quiz
+                    // Default to the first slide and its quiz if not finished
+                    setCurrentIndex(0);
                     const quizzes = await fetchMathMiniQuizByContentId(content[0].ContentId);
                     setMathQuiz(quizzes[0] || null);
                 }
@@ -98,6 +115,7 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
                 setLoading(false);
             }
         };
+
         loadData();
     }, [subchapterId]);
 

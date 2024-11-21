@@ -41,18 +41,18 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
     
             setSubchapters(allSubchapters);
     
-            // Find the first subchapter of each chapter by SortOrder
+            // Updated firstSubchapters logic
             const firstSubchapters = allChapters.map((chapter) => {
                 const chapterSubchapters = allSubchapters.filter(
                     (sub) => sub.ChapterId === chapter.ChapterId
                 );
     
-                // Ensure reduce has a fallback by sorting first
-                if (chapterSubchapters.length === 0) {
-                    return undefined; // No subchapters in this chapter
-                }
-                return chapterSubchapters.reduce((min, sub) =>
-                    sub.SortOrder < min.SortOrder ? sub : min
+                return chapterSubchapters.reduce(
+                    (min, sub) =>
+                        min && sub.SortOrder !== undefined && sub.SortOrder < min.SortOrder
+                            ? sub
+                            : min,
+                    chapterSubchapters[0] || null // Fallback to the first subchapter
                 );
             });
     
@@ -74,6 +74,7 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
             console.error('Error loading saved progress or unlocking first subchapters:', error);
         }
     };
+    
     
     // Call loadSavedProgress in useEffect
     useEffect(() => {
