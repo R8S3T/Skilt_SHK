@@ -16,7 +16,7 @@ const FlashCardChapters = () => {
     const { theme, isDarkMode } = useTheme();
 
     // Locked chapters (IDs 3–15)
-    const lockedChapters = new Set(Array.from({ length: 13 }, (_, i) => i + 3));
+    const lockedChapters = new Set(Array.from({ length: 13 }, (_, i) => i + 4));
 
     // Calculate button size to fit three per row
     const screenWidth = Dimensions.get('window').width;

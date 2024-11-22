@@ -4,18 +4,30 @@ import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from "src/navigation/AppNavigator";
 import { loadFonts } from "src/utils/fonts";
 import { ActivityIndicator, View, StyleSheet } from "react-native";
-import { ThemeProvider } from "src/context/ThemeContext";  // Adjust path as necessary
+import { ThemeProvider } from "src/context/ThemeContext";
+import { initializeDatabase } from "src/database/initializeLocalDatabase";
+import { DATABASE_MODE } from "@env";
 
 const App = () => {
+
+
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     async function prepare() {
       try {
+        // Load fonts
         await loadFonts();
+
+        // Initialize the database
+        console.log("Initializing database...");
+        await initializeDatabase();
+        console.log("Database initialized successfully!");
+
+        // Mark app as ready
         setIsReady(true);
       } catch (e) {
-        console.error("An error occurred while loading app resources:", e);
+        console.error("An error occurred while preparing the app:", e);
       }
     }
 

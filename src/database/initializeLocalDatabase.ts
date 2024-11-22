@@ -17,6 +17,7 @@ const dbName = 'skiltSHK.db';
 const dbPath = `${FileSystem.documentDirectory}SQLite/${dbName}`;
 
 export async function initializeDatabase() {
+
     try {
         // Ensure the SQLite directory exists
         const dirInfo = await FileSystem.getInfoAsync(FileSystem.documentDirectory + 'SQLite');
@@ -27,28 +28,37 @@ export async function initializeDatabase() {
 
         // Check if the database file already exists
         const fileInfo = await FileSystem.getInfoAsync(dbPath);
-        if (!fileInfo.exists) {
-            console.log("Database file does not exist, downloading...");
 
-            // Download the database file from the bundled asset to the local filesystem
-            const asset = Asset.fromModule(require('../../assets/skiltSHK.db'));
-            await asset.downloadAsync();
-
-            await FileSystem.copyAsync({
-                from: asset.localUri!,
-                to: dbPath,
-            });
-
-            console.log("Database downloaded to:", dbPath);
-        } else {
-            console.log("Database file already exists at path:", dbPath);
+        if (fileInfo.exists) {
+            await FileSystem.deleteAsync(dbPath, { idempotent: true });
         }
+
+        // Get the bundled database asset
+        const asset = Asset.fromModule(require('../../assets/skiltSHK.db'));
+        await asset.downloadAsync();
+
+        // Log bundled database URI (useful for debugging)
+
+
+        // Check bundled database file info (logs existence and size)
+        const bundledFileInfo = await FileSystem.getInfoAsync(asset.localUri!);
+
+
+        // Copy the database from bundled assets
+
+        await FileSystem.copyAsync({
+            from: asset.localUri!,
+            to: dbPath,
+        });
+
+
+        const copiedFileInfo = await FileSystem.getInfoAsync(dbPath);
+
     } catch (error) {
-        console.error("Error in database file check or creation:", error);
+        console.error("Error in database initialization:", error);
         throw error;
     }
 
-    // Open and return the database connection asynchronously
     return getDatabase();
 }
 
@@ -166,16 +176,19 @@ export const addChapter = async (chapterName: string, chapterIntro: string, year
 export const fetchQuizByContentId = async (contentId: number): Promise<Quiz[]> => {
     const db = await initializeDatabase();
     try {
+        console.log('Fetching quizzes for ContentId:', contentId); // Log the input
         const quizzes = await db.getAllAsync<Quiz>(
             'SELECT * FROM Quiz WHERE ContentId = ?',
             [contentId]
         );
+        console.log('Fetched quizzes:', quizzes); // Log the fetched results
         return quizzes;
     } catch (error) {
         console.error('Failed to fetch quiz:', error);
         return [];
     }
 };
+
 
 // Fetch multiple-choice options by quiz ID
 export const fetchMultipleChoiceOptionsByQuizId = async (quizId: number): Promise<MultipleChoiceOption[]> => {

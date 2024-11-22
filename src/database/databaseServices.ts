@@ -16,6 +16,7 @@ import {
     ClozeTestOption,
 } from 'src/types/contentTypes';
 
+console.log("DATABASE_MODE at runtime:", DATABASE_MODE);
 
 // Fetch chapters by year via the server
 export async function fetchChaptersByYear(year: number): Promise<Chapter[]> {
