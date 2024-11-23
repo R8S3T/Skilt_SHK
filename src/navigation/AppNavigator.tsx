@@ -65,6 +65,7 @@ const AppNavigator = () => {
                 options={{
                     title: 'End of Search',
                     headerTitleAlign: 'center',
+                    headerShown: false,
                 }}
             />
             <Stack.Screen
