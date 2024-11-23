@@ -7,7 +7,7 @@ import { useTheme } from 'src/context/ThemeContext';
 
 const SearchEndScreen: React.FC = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-    const { theme, isDarkMode } = useTheme(); // Access theme and dark mode state
+    const { theme, isDarkMode } = useTheme();
 
     useEffect(() => {
         const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {

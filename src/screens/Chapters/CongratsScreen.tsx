@@ -1,18 +1,42 @@
-import React from 'react';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import React, { useLayoutEffect, useEffect } from 'react';
+import { View, StyleSheet, TouchableOpacity, Text, BackHandler } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from 'src/types/navigationTypes';
 import { CommonActions } from '@react-navigation/native';
-
+import { useTheme } from 'src/context/ThemeContext';
 type CongratsScreenRouteProp = RouteProp<RootStackParamList, 'CongratsScreen'>;
 
 const CongratsScreen: React.FC = () => {
     const navigation = useNavigation<any>();
     const route = useRoute<CongratsScreenRouteProp>();
+    const { theme, isDarkMode } = useTheme();
 
     const targetScreen = route.params?.targetScreen as keyof RootStackParamList;
     const targetParams = route.params?.targetParams;
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerShown: true,
+            headerStyle: {
+                backgroundColor: theme.background, // Apply dark mode background
+            },
+            headerTitleStyle: {
+                color: theme.primaryText, // Apply dark mode text color
+            },
+            headerTitle: 'Congratulations',
+            headerTintColor: theme.primaryText, // Tint color for back arrow
+        });
+    }, [navigation, theme]);
+    
+
+    useEffect(() => {
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            return true; // Prevent default behavior (disabling back navigation)
+        });
+
+        return () => backHandler.remove(); // Cleanup the event listener on unmount
+    }, []);
 
     // Array of animation sources
     const animations = [
@@ -51,7 +75,7 @@ const CongratsScreen: React.FC = () => {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, { backgroundColor: theme.background }]}>
             <LottieView
                 source={randomAnimation}
                 autoPlay
