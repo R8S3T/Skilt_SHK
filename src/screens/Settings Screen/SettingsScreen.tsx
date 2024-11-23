@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Switch } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../../context/ThemeContext';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from 'src/types/navigationTypes';
+import { scaleFontSize } from 'src/utils/screenDimensions';
 
 const SettingsScreen = () => {
     const [name, setName] = useState('');
@@ -12,13 +13,23 @@ const SettingsScreen = () => {
     const { isDarkMode, toggleDarkMode, theme } = useTheme();
     const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerStyle: {
+                backgroundColor: theme.background,
+            },
+            headerTitle: '',
+            headerTintColor: theme.primaryText,
+        });
+    }, [navigation, theme]);
+
     useEffect(() => {
         const loadName = async () => {
             try {
                 const savedName = await AsyncStorage.getItem('userName');
                 if (savedName) setName(savedName);
             } catch (error) {
-                console.error("Failed to load the name:", error);
+                console.error('Failed to load the name:', error);
             }
         };
         loadName();
@@ -29,49 +40,72 @@ const SettingsScreen = () => {
             await AsyncStorage.setItem('userName', name);
             setIsEditing(false);
         } catch (error) {
-            console.error("Failed to save the name:", error);
+            console.error('Failed to save the name:', error);
         }
     };
 
     return (
         <View style={[styles.container, { backgroundColor: theme.background }]}>
-            <Text style={[styles.header, { color: theme.primaryText }]}>Einstellungen</Text>
+            {/* Separate Header Container */}
+                <View style={[styles.headerContainer, { backgroundColor: theme.background }]}>
+                    <Text style={[styles.headerText, { color: theme.primaryText }]}>Einstellungen</Text>
+                </View>
 
-            <View style={[styles.section, { backgroundColor: theme.surface, borderColor: theme.border }]}>
-                <Text style={[styles.label, { color: theme.primaryText }]}>Name</Text>
-                {isEditing ? (
-                    <TextInput
-                        style={[styles.input, { backgroundColor: theme.surface, color: theme.primaryText, borderColor: theme.border }]}
-                        value={name}
-                        onChangeText={setName}
-                        placeholder="Enter your name"
-                        placeholderTextColor={isDarkMode ? "#ccc" : "#aaa"}
-                    />
-                ) : (
-                    <Text style={[styles.name, { color: theme.primaryText }]}>{name}</Text>
-                )}
-            </View>
+                {/* Name Change Section */}
+                <View style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}>
+                    <View style={styles.row}>
+                        {isEditing ? (
+                            <TextInput
+                                style={[
+                                    styles.input,
+                                    {
+                                        backgroundColor: isDarkMode ? theme.surface : 'transparent',
+                                        color: theme.primaryText,
+                                        borderColor: theme.border,
+                                    },
+                                ]}
+                                value={name}
+                                onChangeText={setName}
+                                placeholder="Enter your name"
+                                placeholderTextColor={isDarkMode ? '#ccc' : '#aaa'}
+                            />
+                        ) : (
+                            <Text style={[styles.name, { color: theme.primaryText }]}>{name}</Text>
+                        )}
+                        <TouchableOpacity
+                            style={[styles.button, isEditing ? styles.saveButton : styles.editButton]}
+                            onPress={isEditing ? handleSave : () => setIsEditing(true)}
+                        >
+                            <Text style={styles.buttonText}>{isEditing ? 'Speichern' : 'Ändern'}</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
 
-            <TouchableOpacity
-                style={[styles.button, isEditing ? styles.saveButton : styles.editButton]}
-                onPress={isEditing ? handleSave : () => setIsEditing(true)}
-            >
-                <Text style={styles.buttonText}>{isEditing ? 'Save' : 'Edit Name'}</Text>
-            </TouchableOpacity>
+                {/* Divider Line */}
+                <View style={[styles.divider, { backgroundColor: theme.border }]} />
 
-            <View style={styles.option}>
-                <Text style={[styles.label, { color: theme.primaryText }]}>Dark Mode</Text>
-                <Switch value={isDarkMode} onValueChange={toggleDarkMode} />
-            </View>
+                {/* Dark Mode Toggle */}
+                <View style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}>
+                    <View style={styles.row}>
+                        <Text style={[styles.label, { color: theme.primaryText }]}>Dark Mode</Text>
+                        <Switch value={isDarkMode} onValueChange={toggleDarkMode} />
+                    </View>
+                </View>
 
-            <TouchableOpacity
-                style={[styles.privacyButton, { backgroundColor: theme.accent }]}
-                onPress={() => navigation.navigate('PrivacyPolicyScreen')}
-            >
-                <Text style={styles.privacyButtonText}>Datenschutzerklärung</Text>
-            </TouchableOpacity>
+                {/* Divider Line */}
+                <View style={[styles.divider, { backgroundColor: theme.border }]} />
+
+                {/* Privacy Policy Button */}
+                <TouchableOpacity
+                    style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}
+                    onPress={() => navigation.navigate('PrivacyPolicyScreen')}
+                >
+                    <Text style={[styles.label, { color: theme.primaryText }]}>Datenschutzerklärung</Text>
+                </TouchableOpacity>
+
         </View>
     );
+    
 };
 
 const styles = StyleSheet.create({
@@ -80,71 +114,68 @@ const styles = StyleSheet.create({
         paddingHorizontal: 24,
         paddingVertical: 20,
     },
-    header: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        marginBottom: 30,
-        textAlign: 'center',
+    headerContainer: {
+        paddingVertical: 20,
+        alignItems: 'center',
+        marginBottom: 24,
+    },
+    headerText: {
+        fontFamily: 'Lato-Bold',
+        fontSize: scaleFontSize(16),
     },
     section: {
-        marginBottom: 20,
         paddingVertical: 16,
         paddingHorizontal: 20,
-        borderRadius: 10,
-        borderWidth: 1,
+        backgroundColor: '#fff',
+        marginBottom: 24,
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between', // Place text and input/button in one row
     },
     label: {
         fontSize: 16,
-        marginBottom: 8,
+        fontWeight: '600',
     },
     name: {
-        fontSize: 18,
-        paddingVertical: 6,
-        paddingHorizontal: 8,
+        fontSize: 16,
+        color: '#333', // Dynamically overridden by theme.primaryText
     },
     input: {
-        fontSize: 18,
-        paddingVertical: 8,
+        fontSize: 16,
+        paddingVertical: 6,
         paddingHorizontal: 12,
         borderWidth: 1,
         borderRadius: 8,
+        flex: 1, // Ensure it adjusts dynamically in the row
     },
-    button: {
-        marginTop: 20,
-        alignSelf: 'center',
+    buttonContainer: {
         paddingVertical: 12,
-        paddingHorizontal: 30,
+        paddingHorizontal: 20,
         borderRadius: 8,
     },
     editButton: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#cccccc',
+    },
+    button: {
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        borderRadius: 8,
+        marginLeft: 10,
     },
     saveButton: {
-        backgroundColor: '#2196F3',
+        backgroundColor: '#FFA500',
     },
     buttonText: {
         color: '#fff',
         fontSize: 16,
         fontWeight: '600',
     },
-    option: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginTop: 30,
-        paddingVertical: 12,
-    },
-    privacyButton: {
-        marginTop: 30,
-        alignSelf: 'center',
-        paddingVertical: 12,
-        paddingHorizontal: 24,
-        borderRadius: 8,
-    },
-    privacyButtonText: {
-        fontSize: 16,
-        fontWeight: '600',
-        color: '#fff',
+    divider: {
+        height: 1,
+        backgroundColor: '#ccc', // Dynamically overridden by theme.border
+        marginHorizontal: 20,
     },
 });
 

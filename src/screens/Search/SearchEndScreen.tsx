@@ -3,9 +3,12 @@ import { View, Text, StyleSheet, TouchableOpacity, BackHandler } from 'react-nat
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from 'src/types/navigationTypes';
 import LottieView from 'lottie-react-native';
+import { useTheme } from 'src/context/ThemeContext';
 
 const SearchEndScreen: React.FC = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+    const { theme, isDarkMode } = useTheme(); // Access theme and dark mode state
+
     useEffect(() => {
         const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
             // Disable back navigation
@@ -14,9 +17,9 @@ const SearchEndScreen: React.FC = () => {
 
         return () => backHandler.remove();
     }, []);
-    return (
-        <View style={styles.container}>
 
+    return (
+        <View style={[styles.container, { backgroundColor: theme.background }]}>
             <LottieView
                 source={require('../../../assets/Animations/suche.json')} // Ensure the correct path
                 autoPlay
@@ -24,12 +27,24 @@ const SearchEndScreen: React.FC = () => {
                 style={styles.animation}
             />
             <View style={styles.buttonsContainer}>
-
                 <TouchableOpacity
-                    style={styles.borderedButton}
+                    style={[
+                        styles.borderedButton,
+                        {
+                            borderColor: isDarkMode ? '#CCCCCC' : '#24527a', // Dynamic border color
+                            backgroundColor: isDarkMode ? 'transparent' : '#ffffff', // Dynamic background
+                        },
+                    ]}
                     onPress={() => navigation.navigate('Search')}
                 >
-                    <Text style={styles.buttonText}>Zurück zur Suche</Text>
+                    <Text
+                        style={[
+                            styles.buttonText,
+                            { color: isDarkMode ? '#CCCCCC' : '#24527a' }, // Dynamic text color
+                        ]}
+                    >
+                        Zurück zur Suche
+                    </Text>
                 </TouchableOpacity>
             </View>
         </View>
@@ -43,12 +58,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 16,
     },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        marginBottom: 20,
-    },
     animation: {
         width: 200, // Adjust size as needed
         height: 200,
@@ -61,7 +70,6 @@ const styles = StyleSheet.create({
     },
     borderedButton: {
         borderWidth: 1,
-        borderColor: '#24527a', // Customize your border color
         borderRadius: 8,
         paddingVertical: 10,
         paddingHorizontal: 20,
@@ -69,8 +77,9 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         fontSize: 16,
-        color: '#24527a', // Same as the border color
+        fontWeight: 'bold',
     },
 });
 
 export default SearchEndScreen;
+

@@ -24,18 +24,26 @@ export const handleSearch = async (
             const contentPreviewLower = (subchapter.ContentPreview || '').toLowerCase();
             const queryLower = query.toLowerCase();
 
-            const nameMatchCount = (subchapterNameLower.match(new RegExp(queryLower, 'g')) || []).length;
+            const nameMatchCount = (subchapterNameLower.match(new RegExp(`\\b${queryLower}\\b`, 'g')) || []).length;
             const previewMatchCount = (contentPreviewLower.match(new RegExp(queryLower, 'g')) || []).length;
 
-            const isInTitle = subchapterNameLower.includes(queryLower) ? 1 : 0;
+            const isExactTitleMatch = subchapterNameLower === queryLower ? 5 : 0; // Higher weight for exact matches
+            const isPartialMatch = subchapterNameLower.includes(queryLower) ? 2 : 0;
 
             return {
                 ...subchapter,
-                relevanceScore: nameMatchCount * 2 + previewMatchCount + isInTitle * 3,
+                relevanceScore: nameMatchCount * 3 + previewMatchCount + isExactTitleMatch + isPartialMatch,
                 cleanedPreview: cleanContent(subchapter.ContentPreview || '').substring(0, 100), // Clean and trim content
             };
         })
         .sort((a, b) => b.relevanceScore - a.relevanceScore);
 
-    return filteredResults;
+    // Deduplicate results
+    const uniqueResults = filteredResults.filter(
+        (result, index, self) =>
+            index === self.findIndex((r) => r.SubchapterId === result.SubchapterId)
+    );
+
+    return uniqueResults;
 };
+

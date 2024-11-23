@@ -22,7 +22,7 @@ const Flashcard = ({
     isAlternateColor: boolean;
     isRepeatMode?: boolean;
 }) => {
-    const { theme, isDarkMode } = useTheme(); // Explicitly get isDarkMode from ThemeContext
+    const { theme, isDarkMode } = useTheme();
 
     // Create a slightly lighter background color for dark mode
     const lighterSurface = lightenColor(theme.surface, 10);
@@ -40,8 +40,8 @@ const Flashcard = ({
                     style={[
                         styles.front,
                         isAlternateColor
-                            ? { borderColor: isDarkMode ? '#525C6B' : styles.alternateBorder.borderColor } // Dark mode: muted grayish-blue, light mode: original alternate color
-                            : { borderColor: isDarkMode ? '#3E4653' : styles.defaultBorder.borderColor }, // Dark mode: subtle dark gray, light mode: original default color
+                            ? { borderColor: isDarkMode ? '#525C6B' : styles.alternateBorder.borderColor }
+                            : { borderColor: isDarkMode ? '#3E4653' : styles.defaultBorder.borderColor },
                     ]}
                 >
                     <Text style={[styles.questionText, { color: theme.primaryText }]}>

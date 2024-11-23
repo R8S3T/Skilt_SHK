@@ -67,12 +67,14 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
     const handleContinue = () => {
         const nextIndex = currentQuizIndex + 1;
         if (nextIndex < quizzes.length) {
-            setCurrentQuizIndex(nextIndex);
-            loadQuizOptions(quizzes[nextIndex]);
+            setOptions([]); // Clear options for a fresh start
+            setCurrentQuizIndex(nextIndex); // Move to the next quiz
+            loadQuizOptions(quizzes[nextIndex]); // Load options for the next quiz
         } else {
-            onContinue();
+            onContinue(); // All quizzes completed
         }
     };
+    
 
     if (loading) {
         return <Text>Loading quiz...</Text>;
@@ -92,6 +94,7 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
         <View style={[styles.slide, style]}>
             {currentQuiz.QuizType === 'multiple_choice' && Array.isArray(options) && (
                 <MultipleChoice
+                    key={`multiple-choice-${currentQuizIndex}`}
                     quiz={currentQuiz}
                     options={options}
                     onAnswerSubmit={(isCorrect) => {
@@ -104,6 +107,7 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
             )}
             {currentQuiz.QuizType === 'cloze_test' && !Array.isArray(options) && isClozeTestOptions(options) && (
                 <ClozeTest
+                    key={`cloze-test-${currentQuizIndex}`}
                     quiz={currentQuiz}
                     options={options.options}
                     correctAnswers={options.correctAnswers}
