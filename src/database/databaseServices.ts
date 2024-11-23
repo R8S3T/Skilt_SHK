@@ -82,35 +82,64 @@ export async function fetchSubchaptersByChapterId(chapterId: number): Promise<Su
 }
 
 // Fetch subchapter content by subchapter ID
-export async function fetchSubchapterContentBySubchapterId(subchapterId: number): Promise<GenericContent[]> {
+// Fetch subchapter content by subchapter ID
+export async function fetchSubchapterContentBySubchapterId(subchapterId: number): Promise<(GenericContent | Quiz)[]> {
     if (DATABASE_MODE === 'local') {
         // Fetch from local SQLite database
         const db = await initializeDatabase();
         try {
-            const result = await db.getAllAsync<GenericContent>(
+            // Fetch all subchapter content
+            const contentResult = await db.getAllAsync<GenericContent>(
                 'SELECT * FROM SubchapterContent WHERE SubchapterId = ? ORDER BY SortOrder',
                 [subchapterId]
             );
-            return result;
+
+            // Combine content and quizzes
+            const mergedContent: (GenericContent | Quiz)[] = [];
+            for (const content of contentResult) {
+                mergedContent.push(content);
+
+                // Fetch quizzes for the current content ID
+                const quizzes = await fetchQuizByContentId(content.ContentId);
+                if (quizzes.length > 0) {
+                    mergedContent.push(...quizzes); // Add quizzes if available
+                }
+            }
+
+            return mergedContent;
         } catch (error) {
             console.error(`Failed to fetch subchapter content for subchapterId ${subchapterId} from SQLite:`, error);
             return [];
         }
     } else {
-        // Fetch from server
         try {
+            // Fetch from server
             const response = await fetch(`${API_URL}/subchaptercontent/${subchapterId}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok.');
             }
-            const subchapterContent: GenericContent[] = await response.json();
-            return subchapterContent;
+
+            const contentResult: GenericContent[] = await response.json();
+
+            // Combine content and quizzes
+            const mergedContent: (GenericContent | Quiz)[] = [];
+            for (const content of contentResult) {
+                mergedContent.push(content);
+
+                const quizzes = await fetchQuizByContentId(content.ContentId);
+                if (quizzes.length > 0) {
+                    mergedContent.push(...quizzes); // Add quizzes if available
+                }
+            }
+
+            return mergedContent;
         } catch (error) {
             console.error(`Failed to fetch subchapter content for subchapterId ${subchapterId} from server:`, error);
             return [];
         }
     }
 }
+
 
 // Fetch math chapters
 export async function fetchMathChapters(): Promise<MathChapter[]> {

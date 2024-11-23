@@ -33,7 +33,6 @@ export const loadProgress = async (sectionKey: string) => {
     try {
         const savedProgress = await AsyncStorage.getItem(`progress_${sectionKey}`);
         const parsedProgress = savedProgress ? JSON.parse(savedProgress) : { chapterId: null, subchapterId: null, subchapterName: null, currentIndex: null, imageName: null };
-        console.log("Loaded Progress Data:", parsedProgress);
         return parsedProgress;
     } catch (e) {
         console.error('Error loading progress.', e);
@@ -127,27 +126,32 @@ export const moveToNextSlide = async ({
 
     if (!isLastSlide) {
         const newIndex = currentIndex + 1;
-        setCurrentIndex(newIndex);
-        setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
-        await saveCurrentProgress(newIndex);
-
         const nextContent = contentData[newIndex];
-        try {
-            const quizData = await fetchQuizByContentId(nextContent.ContentId);
-        } catch (error) {
-            console.error("Error preloading quiz:", error);
+    
+        if (!nextContent) {
+            return;
         }
-    } else {
+    
+        if ('QuizId' in nextContent) {;
+            setShowQuiz(true);
+        } else if ('ContentId' in nextContent) {
+            setShowQuiz(false); // Ensure we leave quiz mode
+            setCurrentIndex(newIndex);
+            setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
+            await saveCurrentProgress(newIndex);
+        } else {
+            console.error("Unrecognized content type. Skipping.");
+        }
+    }
+     else {
         console.log("On the last slide. Checking for quiz or completing subchapter.");
 
         try {
             const quizData = await fetchQuizByContentId(contentData[currentIndex].ContentId);
 
             if (quizData.length > 0) {
-                console.log("Displaying quiz for the last slide");
                 setShowQuiz(true); // Transition to quiz
             } else {
-                console.log("No quiz found. Completing subchapter.");
                 await completeSubchapter(); // Transition to CongratsScreen
             }
         } catch (error) {
@@ -156,6 +160,7 @@ export const moveToNextSlide = async ({
         }
     }
 };
+
 
 export const completeSubchapter = async ({
     subchapterId,
@@ -174,13 +179,11 @@ export const completeSubchapter = async ({
     unlockSubchapter: (id: number) => void;
     origin?: string;
 }) => {
-    console.log("Starting completeSubchapter function");
 
     // Mark the current subchapter as finished and unlock the next one
     markSubchapterAsFinished(subchapterId);
     unlockSubchapter(subchapterId + 1);
 
-    console.log("Fetching subchapters for chapter:", chapterId);
     const subchapters = await fetchSubchaptersByChapterId(chapterId);
     const currentSubchapterData = subchapters.find(sub => sub.SubchapterId === subchapterId);
 

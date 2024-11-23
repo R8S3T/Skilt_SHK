@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, StyleSheet, ScrollView, NativeSyntheticEvent, NativeScrollEvent, LayoutChangeEvent } from 'react-native';
+import { Text, View, StyleSheet, ScrollView, NativeSyntheticEvent, NativeScrollEvent, LayoutChangeEvent } from 'react-native';
 import NextSlideButton from './NextSlideButton';
 import ContentHandler from 'src/components/ContentHandler';
 import { GenericContent } from 'src/types/contentTypes';
@@ -77,9 +77,15 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
                 ref={scrollViewRef}
                 onContentSizeChange={handleContentSizeChange}
             >
-                {ContentData.split(/\n/).map((part, index) => (
+            {ContentData ? (
+                ContentData.split(/\n/).map((part, index) => (
                     <ContentHandler key={index} part={part} />
-                ))}
+                ))
+            ) : (
+                <Text style={styles.errorText}>
+                    Error: No content available to display.
+                </Text>
+            )}
             </ScrollView>
             <View style={styles.buttonContainer}>
                 <NextSlideButton
@@ -107,6 +113,11 @@ const styles = StyleSheet.create({
     },
     nextButton: {
         marginLeft: 10,
+    },
+    errorText: {
+        color: 'red',
+        textAlign: 'center',
+        margin: 10,
     },
 });
 

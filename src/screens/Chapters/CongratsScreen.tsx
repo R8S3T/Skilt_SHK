@@ -15,24 +15,16 @@ const CongratsScreen: React.FC = () => {
     const targetScreen = route.params?.targetScreen as keyof RootStackParamList;
     const targetParams = route.params?.targetParams;
 
+
     useLayoutEffect(() => {
         navigation.setOptions({
-            headerShown: true,
-            headerStyle: {
-                backgroundColor: theme.background, // Apply dark mode background
-            },
-            headerTitleStyle: {
-                color: theme.primaryText, // Apply dark mode text color
-            },
-            headerTitle: 'Congratulations',
-            headerTintColor: theme.primaryText, // Tint color for back arrow
+            headerShown: false, // Completely hide the header
         });
-    }, [navigation, theme]);
-    
+    }, [navigation]);
 
     useEffect(() => {
         const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-            return true; // Prevent default behavior (disabling back navigation)
+            return true; // Prevent default back navigation
         });
 
         return () => backHandler.remove(); // Cleanup the event listener on unmount
@@ -64,7 +56,7 @@ const CongratsScreen: React.FC = () => {
             // Navigate to HomeScreen within BottomTabNavigator
             navigation.dispatch(
                 CommonActions.navigate({
-                    name: 'Home',
+                    name: 'HomeScreen',
                     params: targetParams,
                 })
             );

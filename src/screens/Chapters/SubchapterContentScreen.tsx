@@ -4,6 +4,7 @@ import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import ContentSlide from '../ContentSlide';
 import QuizSlide from '../Quiz/QuizSlide';
+import { Quiz } from 'src/types/contentTypes';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { LearnStackParamList } from 'src/types/navigationTypes';
@@ -16,6 +17,7 @@ import { Ionicons } from '@expo/vector-icons';
 import {  loadProgress, nextContent } from 'src/utils/progressUtils';
 import { completeSubchapter } from 'src/utils/progressUtils';
 import { useTheme } from 'src/context/ThemeContext';
+import LottieView from 'lottie-react-native';
 
 type SubchapterContentScreenRouteProp = RouteProp<LearnStackParamList, 'SubchapterContentScreen'>;
 type SubchapterContentScreenNavigationProp = StackNavigationProp<LearnStackParamList, 'SubchapterContentScreen'>;
@@ -33,7 +35,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         chapterTitle = '',
         origin = undefined, // Add default value for origin
     } = route.params;
-    const [contentData, setContentData] = useState<GenericContent[]>([]);
+    const [contentData, setContentData] = useState<(GenericContent | Quiz)[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
     const [maxIndexVisited, setMaxIndexVisited] = useState<number>(0);
@@ -42,34 +44,60 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     
     const { finishedSubchapters, markSubchapterAsFinished, unlockSubchapter } = useSubchapter();
 
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            // Place an "X" icon button in the header left position
-            headerLeft: () => (
-                <TouchableOpacity
-                    onPress={() => {
-                        if (route.params.origin === 'ResumeSection') {
-                            // Navigate directly to HomeScreen if accessed via ResumeSection
-                            navigation.navigate('HomeScreen');
-                        } else {
-                            // Otherwise, navigate back to SubchaptersScreen
-                            navigation.navigate('SubchaptersScreen', { chapterId, chapterTitle });
-                        }
-                    }}
-                    style={{ marginLeft: 15 }}
-                >
-                    <Ionicons name="close" size={24} color={theme.primaryText} />
-                </TouchableOpacity>
-            ),
-            headerRight: () => null, // Remove any headerRight component if it exists
-            headerStyle: {
-                backgroundColor: theme.surface, // Dynamic background for dark mode
-            },
-        });
-    }, [navigation, chapterId, chapterTitle, route.params.origin, theme]);
-    
-    
+    const loadingAnimations = [
+/*         require('../../../assets/Animations/loading.json'), */
+        require('../../../assets/Animations/loeading_2.json'),
+/*         require('../../../assets/Animations/loading_3.json'), */
+    ];
 
+    const [selectedAnimation] = useState(
+        loadingAnimations[Math.floor(Math.random() * loadingAnimations.length)]
+    );
+
+    useLayoutEffect(() => {
+        navigation.setOptions(
+            loading
+                ? { headerShown: false } // Hide the header during loading
+                : {
+                      headerShown: true, // Show the header after loading
+                      headerLeft: () => (
+                          <TouchableOpacity
+                              onPress={() => {
+                                  if (route.params.origin === 'ResumeSection') {
+                                      // Navigate directly to HomeScreen if accessed via ResumeSection
+                                      navigation.navigate('HomeScreen');
+                                  } else {
+                                      // Otherwise, navigate back to SubchaptersScreen
+                                      navigation.navigate('SubchaptersScreen', {
+                                          chapterId,
+                                          chapterTitle,
+                                      });
+                                  }
+                              }}
+                              style={{ marginLeft: 15 }}
+                          >
+                              <Ionicons
+                                  name="close"
+                                  size={24}
+                                  color={theme.primaryText}
+                              />
+                          </TouchableOpacity>
+                      ),
+                      headerRight: () => null, // Remove any headerRight component if it exists
+                      headerStyle: {
+                          backgroundColor: theme.surface, // Dynamic background for dark mode
+                      },
+                  }
+        );
+    }, [
+        loading, // Re-run whenever the loading state changes
+        navigation,
+        chapterId,
+        chapterTitle,
+        route.params.origin,
+        theme,
+    ]);
+    
     // Load saved slide index on first render or reset to 0 if finished
     useEffect(() => {
         const initializeProgress = async () => {
@@ -101,22 +129,25 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
 
     // Update header progress bar
     useEffect(() => {
-        const progress = (currentIndex + 1) / contentData.length;
-        navigation.setOptions({
-            headerTitle: () => (
-                <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%' }}>
-                    <View style={styles.progressBarContainer}>
-                        <LinearGradient
-                            colors={['#4CAF50', '#81C784']}
-                            start={[0, 0]}
-                            end={[1, 0]}
-                            style={[styles.progressBar, { width: `${progress * 100}%` }]}
-                        />
+        if (!loading) {
+            const progress = (currentIndex + 1) / contentData.length;
+            navigation.setOptions({
+                headerTitle: () => (
+                    <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%' }}>
+                        <View style={styles.progressBarContainer}>
+                            <LinearGradient
+                                colors={['#4CAF50', '#81C784']}
+                                start={[0, 0]}
+                                end={[1, 0]}
+                                style={[styles.progressBar, { width: `${progress * 100}%` }]}
+                            />
+                        </View>
                     </View>
-                </View>
-            ),
-        });
-    }, [currentIndex, contentData.length]);
+                ),
+            });
+        }
+    }, [currentIndex, contentData.length, loading]);
+    
 
     // Handle navigating to the next slide or finish using imported nextContent
     const handleNextContent = () => {
@@ -139,7 +170,6 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         });
     };
 
-
     const goBack = () => {
         // Only navigate back if not in a quiz
         if (showQuiz) return;
@@ -149,42 +179,42 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         }
     };
 
-    const goForward = () => {
-        if (currentIndex < maxIndexVisited) {
-            setCurrentIndex(currentIndex + 1);
-        }
-    };
-
     if (loading) {
         return (
-            <View style={styles.container}>
-                <Text>Loading ...</Text>
+            <View style={styles.loadingContainer}>
+                <LottieView
+                    source={selectedAnimation}
+                    autoPlay
+                    loop
+                    style={styles.animation}
+                />
             </View>
         );
     }
+    
 
     return (
         <GestureHandlerRootView style={styles.container}>
             <View style={styles.container}>
             {showQuiz ? (
                 <QuizSlide
-                contentId={contentData[currentIndex].ContentId}
-                onContinue={async () => {
-                    console.log("Quiz finished. Completing subchapter.");
-                    await completeSubchapter({
-                        subchapterId,
-                        chapterId,
-                        chapterTitle,
-                        navigation,
-                        markSubchapterAsFinished,
-                        unlockSubchapter,
-                        origin,
-                    });
-                }}
-            />
+                    contentId={(contentData[currentIndex] as Quiz).ContentId}
+                    onContinue={async () => {
+                        console.log("Quiz finished. Completing subchapter.");
+                        await completeSubchapter({
+                            subchapterId,
+                            chapterId,
+                            chapterTitle,
+                            navigation,
+                            markSubchapterAsFinished,
+                            unlockSubchapter,
+                            origin,
+                        });
+                    }}
+                />
             ) : (
                 <ContentSlide
-                    contentData={contentData[currentIndex]}
+                    contentData={contentData[currentIndex] as GenericContent}
                     onNext={handleNextContent}
                 />
             )}
@@ -251,6 +281,16 @@ const styles = StyleSheet.create({
     progressBar: {
         height: 15,
         borderRadius: 10,
+    },
+    loadingContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#f5f5f5',
+    },
+    animation: {
+        width: 250,
+        height: 250,
     },
 });
 

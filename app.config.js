@@ -14,7 +14,8 @@ export default {
       backgroundColor: "#ffffff"
     },
     ios: {
-      supportsTablet: true
+      supportsTablet: true,
+      newArchEnabled: true // Explicitly enable the new architecture
     },
     android: {
       package: "com.yourcompanyname.skiltshk", // Add your unique package name here
@@ -26,7 +27,8 @@ export default {
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE",
         "android.permission.INTERNET"
-      ]
+      ],
+      newArchEnabled: true // Explicitly enable the new architecture
     },
     web: {
       favicon: "./assets/favicon.png"
