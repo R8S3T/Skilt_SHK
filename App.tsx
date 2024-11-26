@@ -15,24 +15,34 @@ const App = () => {
 
   useEffect(() => {
     async function prepare() {
-      try {
-        // Load fonts
-        await loadFonts();
+        try {
+            // Load fonts
+            await loadFonts();
 
-        // Initialize the database
-        console.log("Initializing database...");
-        await initializeDatabase();
-        console.log("Database initialized successfully!");
+            // Initialize the database
+            const db = await initializeDatabase();
 
-        // Mark app as ready
-        setIsReady(true);
-      } catch (e) {
-        console.error("An error occurred while preparing the app:", e);
-      }
+            // Check the database version
+            const result = await db.getFirstAsync<{ version_number: number }>(
+                'SELECT version_number FROM Version'
+            );
+
+            if (result && result.version_number !== undefined) {
+                console.log("Database version:", result.version_number);
+            } else {
+                console.warn("Database version could not be retrieved. Ensure the Version table is populated.");
+            }
+
+            // Mark app as ready
+            setIsReady(true);
+        } catch (e) {
+            console.error("An error occurred while preparing the app:", e);
+        }
     }
 
     prepare();
-  }, []);
+}, []);
+
 
   if (!isReady) {
     return (
