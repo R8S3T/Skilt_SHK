@@ -23,7 +23,7 @@ const App = () => {
             const db = await initializeDatabase();
 
             // Check the database version
-            const result = await db.getFirstAsync<{ version_number: number }>(
+/*             const result = await db.getFirstAsync<{ version_number: number }>(
                 'SELECT version_number FROM Version'
             );
 
@@ -32,7 +32,7 @@ const App = () => {
             } else {
                 console.warn("Database version could not be retrieved. Ensure the Version table is populated.");
             }
-
+ */
             // Mark app as ready
             setIsReady(true);
         } catch (e) {

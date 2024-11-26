@@ -20,7 +20,24 @@ export const saveProgress = async (
             currentIndex,
             imageName,
         };
+
+        // Log the input parameters and data being saved
+        console.log('saveProgress called with:', {
+            sectionKey,
+            chapterId,
+            subchapterId,
+            subchapterName,
+            currentIndex,
+            imageName,
+        });
+
+        console.log('Progress data being saved:', JSON.stringify(progressData, null, 2));
+
         await AsyncStorage.setItem(`progress_${sectionKey}`, JSON.stringify(progressData));
+
+        // Confirm the data was successfully saved
+        const savedProgress = await AsyncStorage.getItem(`progress_${sectionKey}`);
+        console.log('Progress saved in AsyncStorage:', savedProgress);
     } catch (e) {
         console.error('Error saving progress.', e);
     }
