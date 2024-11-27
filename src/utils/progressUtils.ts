@@ -225,29 +225,28 @@ export const completeSubchapter = async ({
     }
 
         // Case 2: ResumeSection - navigate back to HomeScreen but prepare ResumeSection for next content
-        if (origin === 'ResumeSection') {
-            if (nextSubchapterData) {
-                await saveProgress(
-                    'section1',
-                    nextSubchapterData.ChapterId,
-                    nextSubchapterData.SubchapterId,
-                    nextSubchapterData.SubchapterName,
-                    0,
-                    nextSubchapterData.ImageName
-                );
-            }
-    
-            navigation.navigate('CongratsScreen', {
-                targetScreen: 'HomeScreen',
-                targetParams: { 
-                    chapterId,
-                    chapterTitle,
-                    origin: 'ResumeSection'
-                },
-            });
-            return;
+    if (origin === 'ResumeSection') {
+        if (nextSubchapterData) {
+            await saveProgress(
+                'section1',
+                nextSubchapterData.ChapterId,
+                nextSubchapterData.SubchapterId,
+                nextSubchapterData.SubchapterName,
+                0,
+                nextSubchapterData.ImageName
+            );
         }
-        
+
+        navigation.navigate('CongratsScreen', {
+            targetScreen: 'HomeScreen',
+            targetParams: { 
+                chapterId,
+                chapterTitle,
+                origin: 'ResumeSection'
+            },
+        });
+        return;
+    }
     // Case 1: If origin is SearchScreen, navigate to SearchEndScreen
     if (origin === 'SearchScreen') {
         console.log("Navigating to SearchEndScreen from SearchScreen origin");

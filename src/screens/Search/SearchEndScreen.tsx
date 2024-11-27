@@ -35,7 +35,11 @@ const SearchEndScreen: React.FC = () => {
                             backgroundColor: isDarkMode ? 'transparent' : '#ffffff', // Dynamic background
                         },
                     ]}
-                    onPress={() => navigation.navigate('Search')}
+                    onPress={() => {
+                        navigation.navigate('HomeScreen', {
+                            screen: 'Search',
+                        });
+                    }}
                 >
                     <Text
                         style={[

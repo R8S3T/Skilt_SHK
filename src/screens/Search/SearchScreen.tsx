@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState, useLayoutEffect } from 'react';
+import { View, Text, TextInput, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { searchSubchapters } from 'src/database/databaseServices';
 import { SubchapterWithPreviewExtended } from 'src/utils/searchUtils';
@@ -22,9 +22,28 @@ const SearchScreen: React.FC = () => {
         setResults(searchResults); // Update results
     };
 
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerTitle: '', // Remove the title from the header
+            headerStyle: {
+                backgroundColor: isDarkMode ? '#1c1c1e' : '#f8f8f8', // Adjust for dark mode
+            },
+            headerShadowVisible: false, // Optionally remove shadow for a cleaner look
+        });
+    }, [navigation, isDarkMode]);
+
     return (
         <View style={[styles.container, { backgroundColor: theme.background }]}>
-            <View style={[styles.input, { borderColor: theme.border, flexDirection: 'row', alignItems: 'center' }]}>
+            <View
+                style={[
+                    styles.input,
+                    {
+                        borderColor: isDarkMode ? '#777' : theme.border, // Grayish border for dark mode
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                    },
+                ]}
+            >
                 <Ionicons
                     name="search"
                     size={20}
@@ -52,18 +71,19 @@ const SearchScreen: React.FC = () => {
                 style={styles.resultsList}
                 renderItem={({ item }) => (
                     <TouchableOpacity
-                        onPress={() =>
-                            navigation.navigate('Learn', {
-                                screen: 'SubchapterContentScreen',
-                                params: {
-                                    subchapterId: item.SubchapterId,
-                                    subchapterTitle: item.SubchapterName,
-                                    chapterId: item.ChapterId,
-                                    chapterTitle: item.ChapterTitle || 'Unknown Chapter',
-                                    origin: 'SearchScreen', // Pass the origin parameter
-                                },
-                            })
-                        }
+                    onPress={() =>
+                        navigation.navigate('Learn', {
+                            screen: 'SubchapterContentScreen',
+                            params: {
+                                subchapterId: item.SubchapterId,
+                                subchapterTitle: item.SubchapterName,
+                                chapterId: item.ChapterId || 0, // Ensure a valid chapterId is passed
+                                chapterTitle: item.ChapterTitle || 'Unknown Chapter',
+                                origin: 'SearchScreen', // Pass the origin parameter
+                            },
+                        })
+                    }
+                    
                     >
                         <Text style={[styles.resultTitle, { color: theme.primaryText }]}>
                             {item.SubchapterName}

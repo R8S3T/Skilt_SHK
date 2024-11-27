@@ -73,8 +73,7 @@ export type MathStackParamList = {
 export type RootStackParamList = {
     SplashScreen: { initialRoute?: keyof RootStackParamList };
     Intro: undefined;
-    HomeScreen: undefined;
-    Search: undefined;
+    HomeScreen: { screen?: keyof RootStackParamList };    Search: undefined;
     SearchEndScreen: undefined;
     Learn: NavigatorScreenParams<LearnStackParamList>;
     Math: NavigatorScreenParams<MathStackParamList>;
