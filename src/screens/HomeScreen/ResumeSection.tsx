@@ -58,13 +58,6 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
     );
 
     const handleContinue = () => {
-        console.log("Navigating from ResumeSection to SubchapterContentScreen with params:", {
-            subchapterId: lastSubchapter,
-            subchapterTitle: lastSubchapterName,
-            chapterId: lastChapterId,
-            chapterTitle: lastChapterTitle,
-            origin: 'ResumeSection',
-        });
         if (lastSubchapter && lastContentId !== null) {
             navigation.navigate('Learn', {
                 screen: 'SubchapterContentScreen',

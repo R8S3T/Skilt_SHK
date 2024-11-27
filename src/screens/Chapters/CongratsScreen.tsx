@@ -53,18 +53,29 @@ const CongratsScreen: React.FC = () => {
     }, []);
     
     const handleContinue = () => {
-        console.log("handleContinue called. Route params received:", route.params);
-    
-        const { targetScreen, targetParams } = route.params || {};
+        const { targetScreen, targetParams } = route.params;
     
         if (targetScreen === 'HomeScreen') {
-            console.log("Navigating to HomeScreen.");
-            navigation.navigate('HomeScreen');
+            // Navigate to HomeScreen
+            navigation.dispatch(
+                CommonActions.reset({
+                    index: 0,
+                    routes: [{ name: 'HomeScreen' }],
+                })
+            );
         } else if (targetScreen === 'SubchaptersScreen') {
-            console.log("Navigating to SubchaptersScreen with params:", targetParams);
-            navigation.navigate('SubchaptersScreen', targetParams);
+            // Navigate to SubchaptersScreen and reset the stack
+            navigation.dispatch(
+                CommonActions.reset({
+                    index: 1,
+                    routes: [
+                        { name: 'YearsScreen', params: { chapterId: targetParams.chapterId } }, // Ensure YearsScreen is part of the stack
+                        { name: 'SubchaptersScreen', params: targetParams },
+                    ],
+                })
+            );
         } else {
-            console.error("Unexpected or missing targetScreen:", targetScreen);
+            console.error("Unexpected targetScreen:", targetScreen);
         }
     };
     
