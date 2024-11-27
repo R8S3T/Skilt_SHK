@@ -79,7 +79,7 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, set
     
 
     if (loading) {
-        return <Text>Loading quiz...</Text>;
+        return <View style={{ flex: 1, backgroundColor: '#2b4353' }} />;
     }
 
     if (error) {
@@ -87,7 +87,7 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, set
     }
 
     if (quizzes.length === 0) {
-        return <Text>No quiz found for this content.</Text>;
+        return <Text>Hier scheint es wohl kein Quiz zu geben...</Text>;
     }
 
     const currentQuiz = quizzes[currentQuizIndex];

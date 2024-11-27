@@ -44,9 +44,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     const { finishedSubchapters, markSubchapterAsFinished, unlockSubchapter } = useSubchapter();
 
     const loadingAnimations = [
-/*         require('../../../assets/Animations/loading.json'), */
-        require('../../../assets/Animations/loeading_2.json'),
-/*         require('../../../assets/Animations/loading_3.json'), */
+        require('../../../assets/Animations/loading_3.json'),
     ];
 
     const [selectedAnimation] = useState(
