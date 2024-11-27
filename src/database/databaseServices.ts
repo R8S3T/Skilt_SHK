@@ -82,7 +82,6 @@ export async function fetchSubchaptersByChapterId(chapterId: number): Promise<Su
 }
 
 // Fetch subchapter content by subchapter ID
-// Fetch subchapter content by subchapter ID
 export async function fetchSubchapterContentBySubchapterId(subchapterId: number): Promise<(GenericContent | Quiz)[]> {
     if (DATABASE_MODE === 'local') {
         // Fetch from local SQLite database
@@ -376,36 +375,60 @@ export async function fetchClozeTestOptionsByQuizId(
 }
 
 
-// Fetch MathMiniQuiz by content ID
 export async function fetchMathMiniQuizByContentId(contentId: number): Promise<MathMiniQuiz[]> {
     if (DATABASE_MODE === 'local') {
-        // Fetch from local SQLite database
         const db = await initializeDatabase();
         try {
-            const result = await db.getAllAsync<MathMiniQuiz>(
-                'SELECT * FROM MathMiniQuiz WHERE ContentId = ?',
+            const result = await db.getAllAsync<{
+                QuizId: number;
+                ContentId: number;
+                Question: string;
+                Answer: string;
+                Options: string;
+                Image?: string | null;
+            }>(
+                'SELECT QuizId, ContentId, Question, Answer, Options, Image FROM MathMiniQuiz WHERE ContentId = ?',
                 [contentId]
             );
-            return result;
+
+            // Map database rows into MathMiniQuiz structure
+            return result.map((row) => ({
+                QuizId: row.QuizId,
+                ContentId: row.ContentId,
+                Question: row.Question,
+                Answer: row.Answer ? row.Answer.split(',').map((ans) => ans.trim()) : [], // Parse Answer
+                Options: row.Options ? row.Options.split(',').map((opt) => opt.trim()) : [], // Parse Options
+                Image: row.Image || null,
+            }));
         } catch (error) {
-            console.error(`Failed to fetch MathMiniQuiz for contentId ${contentId} from SQLite:`, error);
+            console.error(`Failed to fetch MathMiniQuiz for contentId ${contentId}:`, error);
             return [];
         }
     } else {
-        // Fetch from server
         try {
             const response = await fetch(`${API_URL}/mathminiquiz/${contentId}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok.');
             }
-            const quizzes: MathMiniQuiz[] = await response.json();
-            return quizzes;
+            const quizzes = await response.json();
+
+            return quizzes.map((quiz: any) => ({
+                QuizId: quiz.QuizId,
+                ContentId: quiz.ContentId,
+                Question: quiz.Question,
+                Answer: Array.isArray(quiz.Answer)
+                    ? quiz.Answer
+                    : quiz.Answer?.split(',').map((ans: string) => ans.trim()) || [],
+                Options: quiz.Options?.split(',').map((opt: string) => opt.trim()) || [],
+                Image: quiz.Image || null,
+            }));
         } catch (error) {
             console.error(`Failed to fetch MathMiniQuiz for contentId ${contentId} from server:`, error);
             return [];
         }
     }
 }
+
 
 // Search subchapters by query
 export async function searchSubchapters(query: string): Promise<Subchapter[]> {

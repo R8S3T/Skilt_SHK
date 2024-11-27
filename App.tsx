@@ -5,13 +5,14 @@ import AppNavigator from "src/navigation/AppNavigator";
 import { loadFonts } from "src/utils/fonts";
 import { ActivityIndicator, View, StyleSheet } from "react-native";
 import { ThemeProvider } from "src/context/ThemeContext";
-import { initializeDatabase } from "src/database/initializeLocalDatabase";
+import { initializeDatabase, fetchVersionNumber } from "src/database/initializeLocalDatabase";
 import { DATABASE_MODE } from "@env";
 
 const App = () => {
 
 
   const [isReady, setIsReady] = useState(false);
+  const [versionNumber, setVersionNumber] = useState<number | null>(null);
 
   useEffect(() => {
     async function prepare() {
@@ -22,16 +23,9 @@ const App = () => {
             // Initialize the database
             const db = await initializeDatabase();
 
-            // Check the database version
-/*             const result = await db.getFirstAsync<{ version_number: number }>(
-                'SELECT version_number FROM Version'
-            );
-
-            if (result && result.version_number !== undefined) {
-                console.log("Database version:", result.version_number);
-            } else {
-                console.warn("Database version could not be retrieved. Ensure the Version table is populated.");
-            } */
+            // Fetch version number
+            const version = await fetchVersionNumber();
+            setVersionNumber(version);
 
             // Mark app as ready
             setIsReady(true);

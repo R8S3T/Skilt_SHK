@@ -6,9 +6,7 @@ import ControlButtons from './ControlButtons';
 
 interface MathMiniQuiz {
     Question: string;
-    Option1: string;
-    Option2: string;
-    Option3: string;
+    Options: string[];
     Answer: string[];
     Image?: string;
 }
@@ -89,17 +87,18 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
     };
 
     const renderOptions = () => {
-        return [quiz.Option1, quiz.Option2, quiz.Option3].map((option, index) => (
+        // Ensure quiz.Options is an array and iterate over it
+        return quiz.Options.map((option: string, index: number) => (
             <TouchableOpacity
                 key={index}
-                style={getButtonStyle(option)}
-                onPress={() => handleOptionSelect(option)} // Call the new function
+                style={getButtonStyle(option)} // Determine the button style based on the selected option
+                onPress={() => handleOptionSelect(option)} // Handle option selection
             >
                 <Text style={styles.optionText}>{option}</Text>
             </TouchableOpacity>
         ));
     };
-
+    
     const renderImage = () => {
         if (quiz.Image) {
             const imageSource = imageMap[quiz.Image as keyof typeof imageMap];

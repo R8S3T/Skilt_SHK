@@ -66,6 +66,26 @@ export async function getDatabase() {
     return await openDatabaseAsync(dbName);
 }
 
+// Fetch Database Version
+export async function fetchVersionNumber(): Promise<number | null> {
+    const db = await getDatabase();
+    try {
+        const result = await db.getAllAsync<{ version_number: number }>(
+            'SELECT version_number FROM Version ORDER BY id DESC LIMIT 1',
+            []
+        );
+
+        if (result.length > 0) {
+            return result[0].version_number;
+        }
+        return null; // No version found
+    } catch (error) {
+        console.error('Failed to fetch version number:', error);
+        return null; // Return null in case of error
+    }
+}
+
+
 
 // Fetch chapters by year
 export const fetchChaptersByYear = async (year: number): Promise<Chapter[]> => {

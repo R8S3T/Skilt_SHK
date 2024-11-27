@@ -208,9 +208,7 @@ export const createMathMiniQuizTable = (db: sqlite3.Database): Promise<void> => 
                 ContentId INTEGER,
                 Question TEXT,
                 Answer TEXT,
-                Option1 TEXT,
-                Option2 TEXT,
-                Option3 TEXT,
+                Options TEXT,
                 FOREIGN KEY(ContentId) REFERENCES MathSubchapterContent(ContentId)
             );
         `, (err) => {

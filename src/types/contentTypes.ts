@@ -96,9 +96,7 @@ export interface MathMiniQuiz {
     ContentId: number;
     Question: string;
     Answer: string[];
-    Option1: string;
-    Option2: string;
-    Option3: string;
+    Options: string[];
 }
 
 export interface Flashcard {
