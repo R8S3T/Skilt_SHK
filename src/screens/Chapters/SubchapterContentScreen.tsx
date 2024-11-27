@@ -60,34 +60,34 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                 ? { headerShown: false } // Hide the header during loading
                 : {
                       headerShown: true, // Show the header after loading
-                      headerLeft: () => (
-                          <TouchableOpacity
-                              onPress={() => {
-                                  if (route.params.origin === 'ResumeSection') {
-                                      // Navigate directly to HomeScreen if accessed via ResumeSection
-                                      navigation.navigate('HomeScreen');
-                                  } else {
-                                      // Otherwise, navigate back to SubchaptersScreen
-                                      navigation.navigate('SubchaptersScreen', {
-                                          chapterId,
-                                          chapterTitle,
-                                      });
-                                  }
-                              }}
-                              style={{ marginLeft: 15 }}
-                          >
-                              <Ionicons
-                                  name="close"
-                                  size={24}
-                                  color={theme.primaryText}
-                              />
-                          </TouchableOpacity>
-                      ),
-                      headerRight: () => null, // Remove any headerRight component if it exists
-                      headerStyle: {
-                          backgroundColor: theme.surface, // Dynamic background for dark mode
-                      },
-                  }
+                        headerLeft: () => (
+                            <TouchableOpacity
+                                onPress={() => {
+                                    if (route.params.origin === 'ResumeSection') {
+                                        // Navigate directly to HomeScreen if accessed via ResumeSection
+                                        navigation.navigate('HomeScreen');
+                                    } else {
+                                        // Otherwise, navigate back to SubchaptersScreen
+                                        navigation.navigate('SubchaptersScreen', {
+                                            chapterId,
+                                            chapterTitle,
+                                        });
+                                    }
+                                }}
+                                style={{ marginLeft: 15 }}
+                            >
+                                <Ionicons
+                                    name="close"
+                                    size={24}
+                                    color={theme.primaryText}
+                                />
+                            </TouchableOpacity>
+                        ),
+                        headerRight: () => null, // Remove any headerRight component if it exists
+                        headerStyle: {
+                            backgroundColor: theme.surface, // Dynamic background for dark mode
+                        },
+                    }
         );
     }, [
         loading, // Re-run whenever the loading state changes
@@ -147,7 +147,22 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
             });
         }
     }, [currentIndex, contentData.length, loading]);
+
+    useEffect(() => {
+        const loadInitialMaxIndex = async () => {
+            try {
+                const savedProgress = await loadProgress('section1');
+                if (savedProgress?.currentIndex !== null) {
+                    console.log("loadInitialMaxIndex: Setting initial maxIndexVisited to", savedProgress.currentIndex);
+                    setMaxIndexVisited(savedProgress.currentIndex);
+                }
+            } catch (error) {
+                console.error("Error loading initial maxIndexVisited:", error);
+            }
+        };
     
+        loadInitialMaxIndex();
+    }, []);
 
     // Handle navigating to the next slide or finish using imported nextContent
     const handleNextContent = async () => {

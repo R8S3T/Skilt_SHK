@@ -123,10 +123,12 @@ export const moveToNextSlide = async ({
     currentIndex,
     contentData,
     setCurrentIndex,
+    maxIndexVisited,
     setMaxIndexVisited,
     saveCurrentProgress,
     setShowQuiz,
     completeSubchapter,
+    
 }: {
     currentIndex: number;
     contentData: any[];
@@ -144,18 +146,23 @@ export const moveToNextSlide = async ({
     if (!isLastSlide) {
         const newIndex = currentIndex + 1;
         const nextContent = contentData[newIndex];
-
+    
         if (!nextContent) {
             console.warn("No content available for the next slide.");
             return;
         }
-
+    
         if ('QuizId' in nextContent) {
             setShowQuiz(true); // Enter quiz mode
         } else if ('ContentId' in nextContent) {
             setShowQuiz(false); // Exit quiz mode
             setCurrentIndex(newIndex);
-            setMaxIndexVisited((prev) => Math.max(prev, newIndex));
+            setMaxIndexVisited((prev) => {
+                const updatedValue = Math.max(prev, newIndex);
+                console.log("setMaxIndexVisited: Updating from", prev, "to", updatedValue);
+                return updatedValue;
+            });
+            console.log("moveToNextSlide: Updated maxIndexVisited:", newIndex);
             await saveCurrentProgress(newIndex);
         } else {
             console.error("Unrecognized content type. Skipping.");
@@ -267,6 +274,8 @@ export const nextContent = async ({
 }: NextContentParams) => {
     const saveCurrentProgress = async (newIndex: number) => {
         try {
+            console.log("saveCurrentProgress called with newIndex:", newIndex);
+
             const subchapters = await fetchSubchaptersByChapterId(chapterId);
             const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
             if (currentSubchapter) {
@@ -278,6 +287,7 @@ export const nextContent = async ({
                     newIndex,
                     currentSubchapter.ImageName
                 );
+                console.log("saveCurrentProgress: Progress saved successfully.");
             }
         } catch (error) {
             console.error("Error saving progress:", error);
@@ -307,6 +317,7 @@ export const nextContent = async ({
         setShowQuiz,
         completeSubchapter: completeSubchapterWrapper,
     });
+    console.log("nextContent: Finished moveToNextSlide. Max Index Visited:", maxIndexVisited);
 };
 
 
