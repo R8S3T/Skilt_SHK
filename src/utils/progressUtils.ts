@@ -224,31 +224,35 @@ export const completeSubchapter = async ({
         nextSubchapterData = nextChapterSubchapters.sort((a, b) => a.SortOrder - b.SortOrder)[0];
     }
 
+        // Case 2: ResumeSection - navigate back to HomeScreen but prepare ResumeSection for next content
+        if (origin === 'ResumeSection') {
+            if (nextSubchapterData) {
+                await saveProgress(
+                    'section1',
+                    nextSubchapterData.ChapterId,
+                    nextSubchapterData.SubchapterId,
+                    nextSubchapterData.SubchapterName,
+                    0,
+                    nextSubchapterData.ImageName
+                );
+            }
+    
+            navigation.navigate('CongratsScreen', {
+                targetScreen: 'HomeScreen',
+                targetParams: { 
+                    chapterId,
+                    chapterTitle,
+                    origin: 'ResumeSection'
+                },
+            });
+            return;
+        }
+        
     // Case 1: If origin is SearchScreen, navigate to SearchEndScreen
     if (origin === 'SearchScreen') {
         console.log("Navigating to SearchEndScreen from SearchScreen origin");
         (navigation as unknown as NavigationProp<RootStackParamList>).navigate('SearchEndScreen');
         return; // Ensure no further navigation occurs
-    }
-
-    // Case 2: ResumeSection - navigate back to HomeScreen but prepare ResumeSection for next content
-    if (origin === 'ResumeSection') {
-        if (nextSubchapterData) {
-            await saveProgress(
-                'section1',
-                nextSubchapterData.ChapterId,
-                nextSubchapterData.SubchapterId,
-                nextSubchapterData.SubchapterName,
-                0,
-                nextSubchapterData.ImageName
-            );
-        }
-
-        navigation.navigate('CongratsScreen', {
-            targetScreen: 'HomeScreen',
-            targetParams: { chapterId, chapterTitle, origin: 'ResumeSection' },
-        });
-        return;
     }
 
 

@@ -55,8 +55,11 @@ const CongratsScreen: React.FC = () => {
     const handleContinue = () => {
         const { targetScreen, targetParams } = route.params;
     
+        console.log("handleContinue called. targetScreen:", targetScreen, "targetParams:", targetParams);
+    
         if (targetScreen === 'HomeScreen') {
             // Navigate to HomeScreen
+            console.log("Navigating to HomeScreen");
             navigation.dispatch(
                 CommonActions.reset({
                     index: 0,
@@ -65,6 +68,7 @@ const CongratsScreen: React.FC = () => {
             );
         } else if (targetScreen === 'SubchaptersScreen') {
             // Navigate to SubchaptersScreen and reset the stack
+            console.log("Navigating to SubchaptersScreen with params:", targetParams);
             navigation.dispatch(
                 CommonActions.reset({
                     index: 1,
@@ -78,6 +82,7 @@ const CongratsScreen: React.FC = () => {
             console.error("Unexpected targetScreen:", targetScreen);
         }
     };
+    
     
     return (
         <View style={[styles.container, { backgroundColor: theme.background }]}>

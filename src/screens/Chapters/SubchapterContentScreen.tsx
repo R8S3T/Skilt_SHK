@@ -14,7 +14,7 @@ import { useSubchapter } from '../../context/SubchapterContext';
 import { LinearGradient } from 'expo-linear-gradient';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
-import {  loadProgress, nextContent, completeSubchapter, saveProgress } from 'src/utils/progressUtils';
+import {  loadProgress, nextContent, completeSubchapter, saveProgress, } from 'src/utils/progressUtils';
 import { useTheme } from 'src/context/ThemeContext';
 import LottieView from 'lottie-react-native';
 
@@ -50,7 +50,6 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     const [selectedAnimation] = useState(
         loadingAnimations[Math.floor(Math.random() * loadingAnimations.length)]
     );
-
 
     useLayoutEffect(() => {
         navigation.setOptions(
@@ -168,12 +167,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     
     const handleNextContent = async () => {
         const nextIndex = currentIndex + 1;
-        console.log("Completing subchapter. Calling completeSubchapter with:", {
-            subchapterId,
-            chapterId,
-            chapterTitle,
-            origin,
-        });
+    
         if (nextIndex < contentData.length) {
             const nextContent = contentData[nextIndex];
             const isQuiz = 'QuizId' in nextContent;
@@ -195,26 +189,26 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                 subchapterId,
                 subchapterTitle,
                 nextIndex,
-                imageName // Save the fetched imageName
+                imageName // Include imageName here
             );
         } else {
-            // Always navigate to SubchaptersScreen after CongratsScreen
-            navigation.navigate('CongratsScreen', {
-                targetScreen: 'SubchaptersScreen',
-                targetParams: { 
-                    chapterId, 
-                    chapterTitle, // Pass the correct chapter title
-                },
-            });
+            // Delegate completion logic to `progressUtils`
+            const subchapters = await fetchSubchaptersByChapterId(chapterId);
+            const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
+            const imageName = currentSubchapter?.ImageName || null; // Fetch imageName for completion
     
-            try {
-                await markSubchapterAsFinished(subchapterId);
-                unlockSubchapter(subchapterId); // Unlock the next subchapter
-            } catch (error) {
-                console.error("Error marking subchapter as finished:", error);
-            }
+            await completeSubchapter({
+                subchapterId,
+                chapterId,
+                chapterTitle,
+                navigation,
+                markSubchapterAsFinished,
+                unlockSubchapter,
+                origin,
+            });
         }
     };
+
     
     const goBack = () => {
         // Only navigate back if not in a quiz

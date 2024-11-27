@@ -74,6 +74,7 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
             console.error("Cannot navigate: Missing one or more required parameters.");
         }
     };
+    
 
     const imageSource = lastImageName ? imageMap[lastImageName as keyof typeof imageMap] : null;
     console.log("Image source:", imageSource);
