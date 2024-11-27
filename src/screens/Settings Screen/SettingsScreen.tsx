@@ -52,34 +52,40 @@ const SettingsScreen = () => {
                 </View>
 
                 {/* Name Change Section */}
-                <View style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}>
-                    <View style={styles.row}>
-                        {isEditing ? (
-                            <TextInput
-                                style={[
-                                    styles.input,
-                                    {
-                                        backgroundColor: isDarkMode ? theme.surface : 'transparent',
-                                        color: theme.primaryText,
-                                        borderColor: theme.border,
-                                    },
-                                ]}
-                                value={name}
-                                onChangeText={setName}
-                                placeholder="Enter your name"
-                                placeholderTextColor={isDarkMode ? '#ccc' : '#aaa'}
-                            />
-                        ) : (
-                            <Text style={[styles.name, { color: theme.primaryText }]}>{name}</Text>
-                        )}
-                        <TouchableOpacity
-                            style={[styles.button, isEditing ? styles.saveButton : styles.editButton]}
-                            onPress={isEditing ? handleSave : () => setIsEditing(true)}
-                        >
-                            <Text style={styles.buttonText}>{isEditing ? 'Speichern' : 'Ändern'}</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+{/* Name Change Section */}
+<View style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}>
+    <View style={styles.row}>
+        {isEditing ? (
+            // Show input field during editing
+            <TextInput
+                style={[
+                    styles.input,
+                    {
+                        backgroundColor: isDarkMode ? theme.surface : '#fff',
+                        color: theme.primaryText,
+                        borderColor: theme.border,
+                    },
+                ]}
+                value={name}
+                onChangeText={setName}
+                placeholder="Wie heißt du?"
+                placeholderTextColor={isDarkMode ? '#ccc' : '#aaa'}
+            />
+        ) : (
+            // Display name or placeholder when not editing
+            <Text style={[styles.name, { color: theme.primaryText }]}>
+                {name || 'Wie heißt du?'}
+            </Text>
+        )}
+        <TouchableOpacity
+            style={[styles.button, isEditing ? styles.saveButton : styles.editButton]}
+            onPress={isEditing ? handleSave : () => setIsEditing(true)}
+        >
+            <Text style={styles.buttonText}>{isEditing ? 'Speichern' : 'Ändern'}</Text>
+        </TouchableOpacity>
+    </View>
+</View>
+
 
                 {/* Divider Line */}
                 <View style={[styles.divider, { backgroundColor: theme.border }]} />

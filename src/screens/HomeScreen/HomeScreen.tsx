@@ -17,7 +17,7 @@ type HomeRouteProp = RouteProp<BottomTabParamList, 'Home'>;
 const HomeScreen = () => {
     const navigation = useNavigation();
     const route = useRoute<HomeRouteProp>();
-    const [username, setUsername] = useState(route.params?.username || 'Default User'); // Default username
+    const [username, setUsername] = useState(route.params?.username || 'viel Spaß beim Lernen!'); // Default username
     const [showResume, setShowResume] = useState(false);
     const { theme } = useTheme();  // Access theme from ThemeContext
 
