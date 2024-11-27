@@ -159,10 +159,8 @@ export const moveToNextSlide = async ({
             setCurrentIndex(newIndex);
             setMaxIndexVisited((prev) => {
                 const updatedValue = Math.max(prev, newIndex);
-                console.log("setMaxIndexVisited: Updating from", prev, "to", updatedValue);
                 return updatedValue;
             });
-            console.log("moveToNextSlide: Updated maxIndexVisited:", newIndex);
             await saveCurrentProgress(newIndex);
         } else {
             console.error("Unrecognized content type. Skipping.");
@@ -203,15 +201,18 @@ export const completeSubchapter = async ({
     unlockSubchapter: (id: number) => void;
     origin?: string;
 }) => {
-
+    console.log("completeSubchapter called with:", {
+        subchapterId,
+        chapterId,
+        chapterTitle,
+        origin,
+    });
     // Mark the current subchapter as finished and unlock the next one
     markSubchapterAsFinished(subchapterId);
     unlockSubchapter(subchapterId + 1);
 
     const subchapters = await fetchSubchaptersByChapterId(chapterId);
     const currentSubchapterData = subchapters.find(sub => sub.SubchapterId === subchapterId);
-
-    console.log("Current subchapter data:", currentSubchapterData);
 
     let nextSubchapterData = subchapters.find(
         sub => sub.SortOrder === (currentSubchapterData?.SortOrder ?? 0) + 1
@@ -223,35 +224,38 @@ export const completeSubchapter = async ({
         nextSubchapterData = nextChapterSubchapters.sort((a, b) => a.SortOrder - b.SortOrder)[0];
     }
 
-    // Handle navigation based on origin
+    // Case 1: If origin is SearchScreen, navigate to SearchEndScreen
     if (origin === 'SearchScreen') {
-        navigation.navigate('SearchEndScreen');
-        return;
+        console.log("Navigating to SearchEndScreen from SearchScreen origin");
+        (navigation as unknown as NavigationProp<RootStackParamList>).navigate('SearchEndScreen');
+        return; // Ensure no further navigation occurs
     }
 
+    // Case 2: ResumeSection - navigate back to HomeScreen but prepare ResumeSection for next content
     if (origin === 'ResumeSection') {
-        if (nextSubchapterData) {
-            await saveProgress(
-                'section1',
-                nextSubchapterData.ChapterId,
-                nextSubchapterData.SubchapterId,
-                nextSubchapterData.SubchapterName,
-                0,
-                nextSubchapterData.ImageName
-            );
-        }
-
+        console.log("Origin is ResumeSection. Navigating to HomeScreen after congrats.");
         navigation.navigate('CongratsScreen', {
             targetScreen: 'HomeScreen',
-            targetParams: { chapterId, chapterTitle, origin: 'ResumeSection' },
+            targetParams: {
+                chapterId,
+                chapterTitle,
+                origin: 'ResumeSection',
+                previousScreen: 'CongratsScreen',
+            },
         });
+        console.log("Navigation to CongratsScreen with target HomeScreen.");
+
         return;
     }
 
-    // Default case: Navigate to SubchaptersScreen after CongratsScreen
+    // Case 3: Section1 - navigate back to SubchaptersScreen after CongratsScreen
     navigation.navigate('CongratsScreen', {
         targetScreen: 'SubchaptersScreen',
-        targetParams: { chapterId, chapterTitle, origin: 'SubchapterComplete' },
+        targetParams: {
+            chapterId,
+            chapterTitle,
+            origin: 'SubchapterComplete',
+        },
     });
 };
 

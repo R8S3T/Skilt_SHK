@@ -14,12 +14,19 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
     const { ContentData } = contentData;
     const [isButtonActive, setIsButtonActive] = useState(false);
     const scrollViewRef = useRef<ScrollView>(null);
-    const { theme, isDarkMode } = useTheme(); // Access theme and dark mode status
+    const { theme, isDarkMode } = useTheme();
+    const [loading, setLoading] = useState(true);
 
     // Track layout and content sizes
     const [containerHeight, setContainerHeight] = useState<number>(0);
     const [contentHeight, setContentHeight] = useState<number>(0);
 
+    useEffect(() => {
+        if (ContentData) {
+            setLoading(false); // Stop loading when content is available
+        }
+    }, [ContentData]);
+    
     useEffect(() => {
         if (scrollViewRef.current) {
             scrollViewRef.current.scrollTo({ y: 0, animated: false });
@@ -77,7 +84,7 @@ const ContentSlide: React.FC<ContentSlideProps> = ({ contentData, onNext }) => {
                 ref={scrollViewRef}
                 onContentSizeChange={handleContentSizeChange}
             >
-            {ContentData ? (
+            {loading ? null : ContentData ? (
                 ContentData.split(/\n/).map((part, index) => (
                     <ContentHandler key={index} part={part} />
                 ))
@@ -115,7 +122,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
     },
     errorText: {
-        color: 'red',
+        color: 'green',
         textAlign: 'center',
         margin: 10,
     },

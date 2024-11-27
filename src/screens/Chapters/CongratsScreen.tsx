@@ -48,24 +48,26 @@ const CongratsScreen: React.FC = () => {
             </View>
         );
     }
-
+    useEffect(() => {
+        console.log("CongratsScreen received route params:", route.params);
+    }, []);
+    
     const handleContinue = () => {
-        const { targetScreen, targetParams } = route.params;
-
+        console.log("handleContinue called. Route params received:", route.params);
+    
+        const { targetScreen, targetParams } = route.params || {};
+    
         if (targetScreen === 'HomeScreen') {
-            // Navigate to HomeScreen within BottomTabNavigator
-            navigation.dispatch(
-                CommonActions.navigate({
-                    name: 'HomeScreen',
-                    params: targetParams,
-                })
-            );
+            console.log("Navigating to HomeScreen.");
+            navigation.navigate('HomeScreen');
+        } else if (targetScreen === 'SubchaptersScreen') {
+            console.log("Navigating to SubchaptersScreen with params:", targetParams);
+            navigation.navigate('SubchaptersScreen', targetParams);
         } else {
-            // For other screens, continue as normal
-            navigation.navigate(targetScreen, targetParams);
+            console.error("Unexpected or missing targetScreen:", targetScreen);
         }
     };
-
+    
     return (
         <View style={[styles.container, { backgroundColor: theme.background }]}>
             <LottieView

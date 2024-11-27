@@ -59,7 +59,6 @@ export async function fetchSubchaptersByChapterId(chapterId: number): Promise<Su
                 'SELECT * FROM Subchapters WHERE ChapterId = ? ORDER BY SortOrder ASC',
                 [chapterId]
             );
-            console.log("Fetched subchapters (SQLite):", result);
             return result;
         } catch (error) {
             console.error(`Failed to fetch subchapters for chapterId ${chapterId} from SQLite:`, error);
@@ -74,7 +73,6 @@ export async function fetchSubchaptersByChapterId(chapterId: number): Promise<Su
                 throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
             }
             const subchapters: Subchapter[] = await response.json();
-            console.log("Fetched subchapters (Server):", subchapters);
             return subchapters;
         } catch (error) {
             console.error(`Failed to fetch subchapters for chapterId ${chapterId} from server:`, error);

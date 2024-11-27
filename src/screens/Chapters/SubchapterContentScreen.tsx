@@ -40,16 +40,17 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     const [maxIndexVisited, setMaxIndexVisited] = useState<number>(0);
     const [showQuiz, setShowQuiz] = useState<boolean>(false);
     const { theme, isDarkMode } = useTheme();
-    
+
     const { finishedSubchapters, markSubchapterAsFinished, unlockSubchapter } = useSubchapter();
 
     const loadingAnimations = [
-        require('../../../assets/Animations/loading_3.json'),
+    require('../../../assets/Animations/loading_3.json'),
     ];
 
     const [selectedAnimation] = useState(
         loadingAnimations[Math.floor(Math.random() * loadingAnimations.length)]
     );
+
 
     useLayoutEffect(() => {
         navigation.setOptions(
@@ -157,13 +158,22 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                 console.error("Error loading initial maxIndexVisited:", error);
             }
         };
-    
+
         loadInitialMaxIndex();
+    }, []);
+
+    useEffect(() => {
+        console.log("SubchapterContentScreen loaded with route params:", route.params);
     }, []);
     
     const handleNextContent = async () => {
         const nextIndex = currentIndex + 1;
-    
+        console.log("Completing subchapter. Calling completeSubchapter with:", {
+            subchapterId,
+            chapterId,
+            chapterTitle,
+            origin,
+        });
         if (nextIndex < contentData.length) {
             const nextContent = contentData[nextIndex];
             const isQuiz = 'QuizId' in nextContent;
@@ -188,14 +198,17 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                 imageName // Save the fetched imageName
             );
         } else {
-            console.log('Last slide reached. Preparing to navigate to CongratsScreen.');
+            // Always navigate to SubchaptersScreen after CongratsScreen
             navigation.navigate('CongratsScreen', {
                 targetScreen: 'SubchaptersScreen',
-                targetParams: { chapterId, chapterTitle, origin: 'SubchapterComplete' },
+                targetParams: { 
+                    chapterId, 
+                    chapterTitle, // Pass the correct chapter title
+                },
             });
+    
             try {
                 await markSubchapterAsFinished(subchapterId);
-                console.log("Subchapter marked as finished.");
                 unlockSubchapter(subchapterId); // Unlock the next subchapter
             } catch (error) {
                 console.error("Error marking subchapter as finished:", error);

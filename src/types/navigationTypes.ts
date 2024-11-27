@@ -31,7 +31,7 @@ export type LearnStackParamList = {
         previousScreen?: string;
     };
     CongratsScreen: {
-        targetScreen: keyof LearnStackParamList | keyof MathStackParamList;
+        targetScreen: keyof LearnStackParamList | keyof MathStackParamList | 'HomeScreen';
         targetParams: { 
             chapterId: number; 
             chapterTitle: string; 
@@ -87,7 +87,7 @@ export type RootStackParamList = {
             previousScreen?: string;
         };
     };
-    FlashCardChoice: undefined;
+    SubchaptersScreen: { chapterId: number; chapterTitle: string };    FlashCardChoice: undefined;
     FlashCardChapters: undefined;
     FlashcardScreen: {
         chapterId: number;
