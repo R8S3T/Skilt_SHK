@@ -31,8 +31,8 @@ const App = () => {
                 console.log("Database version:", result.version_number);
             } else {
                 console.warn("Database version could not be retrieved. Ensure the Version table is populated.");
-            }
- */
+            } */
+
             // Mark app as ready
             setIsReady(true);
         } catch (e) {

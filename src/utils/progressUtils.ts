@@ -107,7 +107,8 @@ interface NextContentParams {
     contentData: any[];
     setCurrentIndex: (index: number) => void;
     maxIndexVisited: number;
-    setMaxIndexVisited: (index: number) => void;
+    setMaxIndexVisited: (index: number | ((prev: number) => number)) => void; // Updated type
+
     subchapterId: number;
     subchapterTitle: string;
     chapterId: number;
@@ -122,10 +123,8 @@ export const moveToNextSlide = async ({
     currentIndex,
     contentData,
     setCurrentIndex,
-    maxIndexVisited,
     setMaxIndexVisited,
     saveCurrentProgress,
-    showQuiz,
     setShowQuiz,
     completeSubchapter,
 }: {
@@ -133,34 +132,35 @@ export const moveToNextSlide = async ({
     contentData: any[];
     setCurrentIndex: (index: number) => void;
     maxIndexVisited: number;
-    setMaxIndexVisited: (index: number) => void;
+    setMaxIndexVisited: (index: number | ((prev: number) => number)) => void;
     saveCurrentProgress: (index: number) => Promise<void>;
     showQuiz: boolean;
     setShowQuiz: (show: boolean) => void;
     completeSubchapter: () => Promise<void>;
 }) => {
+    console.log("moveToNextSlide called. Current index:", currentIndex);
     const isLastSlide = currentIndex === contentData.length - 1;
 
     if (!isLastSlide) {
         const newIndex = currentIndex + 1;
         const nextContent = contentData[newIndex];
-    
+
         if (!nextContent) {
+            console.warn("No content available for the next slide.");
             return;
         }
-    
-        if ('QuizId' in nextContent) {;
-            setShowQuiz(true);
+
+        if ('QuizId' in nextContent) {
+            setShowQuiz(true); // Enter quiz mode
         } else if ('ContentId' in nextContent) {
-            setShowQuiz(false); // Ensure we leave quiz mode
+            setShowQuiz(false); // Exit quiz mode
             setCurrentIndex(newIndex);
-            setMaxIndexVisited(Math.max(maxIndexVisited, newIndex));
+            setMaxIndexVisited((prev) => Math.max(prev, newIndex));
             await saveCurrentProgress(newIndex);
         } else {
             console.error("Unrecognized content type. Skipping.");
         }
-    }
-     else {
+    } else {
         console.log("On the last slide. Checking for quiz or completing subchapter.");
 
         try {

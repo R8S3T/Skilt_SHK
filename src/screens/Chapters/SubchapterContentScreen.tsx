@@ -150,8 +150,9 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     
 
     // Handle navigating to the next slide or finish using imported nextContent
-    const handleNextContent = () => {
-        nextContent({
+    const handleNextContent = async () => {
+        console.log("handleNextContent called. Current index:", currentIndex);
+        await nextContent({
             showQuiz,
             setShowQuiz,
             currentIndex,
@@ -199,17 +200,11 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
             {showQuiz ? (
                 <QuizSlide
                     contentId={(contentData[currentIndex] as Quiz).ContentId}
+                    setShowQuiz={setShowQuiz}
                     onContinue={async () => {
-                        console.log("Quiz finished. Completing subchapter.");
-                        await completeSubchapter({
-                            subchapterId,
-                            chapterId,
-                            chapterTitle,
-                            navigation,
-                            markSubchapterAsFinished,
-                            unlockSubchapter,
-                            origin,
-                        });
+                        console.log("Quiz finished. Proceeding to next content.");
+                        setShowQuiz(false); // Exit quiz mode
+                        handleNextContent(); // Move to the next slide
                     }}
                 />
             ) : (

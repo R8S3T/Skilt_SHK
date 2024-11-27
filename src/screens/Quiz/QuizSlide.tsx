@@ -16,9 +16,10 @@ interface QuizSlideProps {
     contentId: number;
     onContinue: () => void;
     style?: ViewStyle;
+    setShowQuiz: (show: boolean) => void;
 }
 
-const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) => {
+const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, setShowQuiz }) => {
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
     const [options, setOptions] = useState<MultipleChoiceOption[] | { options: string[]; correctAnswers: (string | null)[] }>([]);
     const [currentQuizIndex, setCurrentQuizIndex] = useState<number>(0);
@@ -64,14 +65,15 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style }) =
         loadQuizData();
     }, [contentId]);
 
-    const handleContinue = () => {
+    const handleContinue = async () => {
         const nextIndex = currentQuizIndex + 1;
         if (nextIndex < quizzes.length) {
-            setOptions([]); // Clear options for a fresh start
-            setCurrentQuizIndex(nextIndex); // Move to the next quiz
-            loadQuizOptions(quizzes[nextIndex]); // Load options for the next quiz
+            setOptions([]);
+            setCurrentQuizIndex(nextIndex);
+            loadQuizOptions(quizzes[nextIndex]);
         } else {
-            onContinue(); // All quizzes completed
+            setShowQuiz(false); // Ensure we exit quiz mode
+            await onContinue(); // Call the parent-provided onContinue handler
         }
     };
     
