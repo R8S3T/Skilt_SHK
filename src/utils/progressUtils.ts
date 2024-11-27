@@ -10,7 +10,7 @@ export const saveProgress = async (
     subchapterId: number,
     subchapterName: string,
     currentIndex: number,
-    imageName: string | null // Add imageName parameter
+    imageName: string | null
 ) => {
     try {
         const progressData = {
@@ -275,9 +275,11 @@ export const nextContent = async ({
     const saveCurrentProgress = async (newIndex: number) => {
         try {
             console.log("saveCurrentProgress called with newIndex:", newIndex);
-
+    
             const subchapters = await fetchSubchaptersByChapterId(chapterId);
             const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
+    
+            const imageName = currentSubchapter?.ImageName || null; // Fetch imageName
             if (currentSubchapter) {
                 await saveProgress(
                     'section1',
@@ -285,14 +287,15 @@ export const nextContent = async ({
                     subchapterId,
                     subchapterTitle,
                     newIndex,
-                    currentSubchapter.ImageName
+                    imageName // Include imageName here
                 );
-                console.log("saveCurrentProgress: Progress saved successfully.");
+                console.log("saveCurrentProgress: Progress saved successfully with imageName:", imageName);
             }
         } catch (error) {
             console.error("Error saving progress:", error);
         }
     };
+    
 
     const completeSubchapterWrapper = async () => {
         await completeSubchapter({

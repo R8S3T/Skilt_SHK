@@ -146,7 +146,6 @@ app.get('/multiplechoiceoptions/:quizId', async (req, res) => {
 
     try {
         const options = await fetchMultipleChoiceOptionsByQuizId(quizId);
-        console.log(`Fetched options for QuizId ${quizId}:`, options); // Debugging
         res.json(options);
     } catch (error) {
         console.error(`Error fetching multiple-choice options for QuizId ${quizId}:`, error);

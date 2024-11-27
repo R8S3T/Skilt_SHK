@@ -51,6 +51,7 @@ export interface GenericContent {
         Options: string[];
     };
     imagePaths?: string[];
+    imageName?: string;
 }
 
 export interface Quiz {
@@ -63,6 +64,7 @@ export interface Quiz {
         options: string[];
         correctAnswers: (string | null)[];
     };
+    imageName?: string;
 }
 
 

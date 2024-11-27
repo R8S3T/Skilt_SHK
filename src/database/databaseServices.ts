@@ -59,6 +59,7 @@ export async function fetchSubchaptersByChapterId(chapterId: number): Promise<Su
                 'SELECT * FROM Subchapters WHERE ChapterId = ? ORDER BY SortOrder ASC',
                 [chapterId]
             );
+            console.log("Fetched subchapters (SQLite):", result);
             return result;
         } catch (error) {
             console.error(`Failed to fetch subchapters for chapterId ${chapterId} from SQLite:`, error);
@@ -73,6 +74,7 @@ export async function fetchSubchaptersByChapterId(chapterId: number): Promise<Su
                 throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
             }
             const subchapters: Subchapter[] = await response.json();
+            console.log("Fetched subchapters (Server):", subchapters);
             return subchapters;
         } catch (error) {
             console.error(`Failed to fetch subchapters for chapterId ${chapterId} from server:`, error);
@@ -234,8 +236,6 @@ export async function fetchMathContentBySubchapterId(subchapterId: number): Prom
 }
 
 export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
-    console.log("Calling fetchQuizByContentId with contentId:", contentId); // Log the contentId being passed
-
     if (DATABASE_MODE === 'local') {
         // Fetch from local SQLite database
         const db = await initializeDatabase();
@@ -256,7 +256,6 @@ export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
                 } else if (quiz.QuizType === 'multiple_choice') {
                     quiz.Options = await fetchMultipleChoiceOptionsByQuizId(quiz.QuizId);
                 }
-                console.log(`Fetched options for quiz ${quiz.QuizId}:`, quiz.Options); // Log the options fetched for each quiz
             }
 
             return result;
@@ -281,7 +280,6 @@ export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
                 } else if (quiz.QuizType === 'multiple_choice') {
                     quiz.Options = await fetchMultipleChoiceOptionsByQuizId(quiz.QuizId);
                 }
-                console.log(`Fetched options for quiz ${quiz.QuizId}:`, quiz.Options); // Log the options fetched for each quiz
             }
             return quizzes;
         } catch (error) {
@@ -362,8 +360,6 @@ export async function fetchClozeTestOptionsByQuizId(
         try {
             const response = await fetch(`${API_URL}/clozetestoptions/${quizId}`);
             const data = await response.json();
-
-            console.log('Raw server response:', data); // Log the server response for debugging
 
             if (!response.ok) {
                 throw new Error('Server response was not ok.');

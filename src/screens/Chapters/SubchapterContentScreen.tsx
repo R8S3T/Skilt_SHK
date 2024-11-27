@@ -9,13 +9,12 @@ import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { LearnStackParamList } from 'src/types/navigationTypes';
 import { GenericContent } from 'src/types/contentTypes';
-import { fetchSubchapterContentBySubchapterId } from 'src/database/databaseServices';
+import { fetchSubchapterContentBySubchapterId, fetchSubchaptersByChapterId  } from 'src/database/databaseServices';
 import { useSubchapter } from '../../context/SubchapterContext';
 import { LinearGradient } from 'expo-linear-gradient';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
-import {  loadProgress, nextContent } from 'src/utils/progressUtils';
-import { completeSubchapter } from 'src/utils/progressUtils';
+import {  loadProgress, nextContent, completeSubchapter, saveProgress } from 'src/utils/progressUtils';
 import { useTheme } from 'src/context/ThemeContext';
 import LottieView from 'lottie-react-native';
 
@@ -163,29 +162,49 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     
         loadInitialMaxIndex();
     }, []);
-
-    // Handle navigating to the next slide or finish using imported nextContent
+    
     const handleNextContent = async () => {
-        console.log("handleNextContent called. Current index:", currentIndex);
-        await nextContent({
-            showQuiz,
-            setShowQuiz,
-            currentIndex,
-            contentData,
-            setCurrentIndex,
-            maxIndexVisited,
-            setMaxIndexVisited,
-            subchapterId,
-            subchapterTitle,
-            chapterId,
-            chapterTitle,
-            navigation,
-            markSubchapterAsFinished,
-            unlockSubchapter,
-            origin, 
-        });
+        const nextIndex = currentIndex + 1;
+    
+        if (nextIndex < contentData.length) {
+            const nextContent = contentData[nextIndex];
+            const isQuiz = 'QuizId' in nextContent;
+    
+            // Fetch the imageName for the current subchapter
+            const subchapters = await fetchSubchaptersByChapterId(chapterId);
+            const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
+            const imageName = currentSubchapter?.ImageName || null;
+    
+            setCurrentIndex((prevIndex) => {
+                setShowQuiz(isQuiz);
+                setMaxIndexVisited((prev) => Math.max(prev, nextIndex));
+                return nextIndex;
+            });
+    
+            await saveProgress(
+                'section1',
+                chapterId,
+                subchapterId,
+                subchapterTitle,
+                nextIndex,
+                imageName // Save the fetched imageName
+            );
+        } else {
+            console.log('Last slide reached. Preparing to navigate to CongratsScreen.');
+            navigation.navigate('CongratsScreen', {
+                targetScreen: 'SubchaptersScreen',
+                targetParams: { chapterId, chapterTitle, origin: 'SubchapterComplete' },
+            });
+            try {
+                await markSubchapterAsFinished(subchapterId);
+                console.log("Subchapter marked as finished.");
+                unlockSubchapter(subchapterId); // Unlock the next subchapter
+            } catch (error) {
+                console.error("Error marking subchapter as finished:", error);
+            }
+        }
     };
-
+    
     const goBack = () => {
         // Only navigate back if not in a quiz
         if (showQuiz) return;
