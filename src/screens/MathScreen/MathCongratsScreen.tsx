@@ -1,11 +1,21 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import LottieView from 'lottie-react-native';
-import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
+import { CommonActions, useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { MathStackParamList } from 'src/types/navigationTypes';
 import { useMathSubchapter } from '../../context/MathSubchapterContext';
 
 type MathCongratsScreenRouteProp = RouteProp<MathStackParamList, 'MathCongratsScreen'>;
+
+export interface MathCongratsScreenParams {
+    subchapterId: number;
+    targetScreen: keyof MathStackParamList;
+    targetParams: {
+        chapterId: number;
+        chapterTitle: string;
+        origin?: string;
+    };
+}
 
 const MathCongratsScreen: React.FC = () => {
     const navigation = useNavigation<any>();
@@ -35,11 +45,30 @@ const MathCongratsScreen: React.FC = () => {
     }
 
     const handleContinue = () => {
-        if (subchapterId) {
-            markSubchapterAsFinished(subchapterId);
+        const { targetScreen, targetParams } = route.params;
+    
+        if (targetScreen === 'HomeScreen') {
+            navigation.dispatch(
+                CommonActions.reset({
+                    index: 0,
+                    routes: [{ name: 'HomeScreen' }],
+                })
+            );
+        } else if (targetScreen === 'MathSubchapterScreen') {
+            navigation.dispatch(
+                CommonActions.reset({
+                    index: 1,
+                    routes: [
+                        { name: 'MathChapterScreen', params: { chapterId: targetParams.chapterId } },
+                        { name: 'MathSubchapterScreen', params: targetParams },
+                    ],
+                })
+            );
+        } else {
+            console.error("Unexpected targetScreen:", targetScreen);
         }
-        navigation.navigate(targetScreen, targetParams);
     };
+    
 
     return (
         <View style={styles.container}>

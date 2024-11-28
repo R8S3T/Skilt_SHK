@@ -165,7 +165,7 @@ useEffect(() => {
                 subchapterId,
                 subchapterTitle,
                 newIndex,
-                null // Pass imageName if needed
+                null
             );
 
             // Use preloaded quiz if available
@@ -181,19 +181,45 @@ useEffect(() => {
             // All content and quizzes completed, navigate to the congrats screen
             markSubchapterAsFinished(subchapterId);
             unlockSubchapter(subchapterId + 1);
-            navigation.navigate('MathCongratsScreen', {
-                subchapterId,
-                targetScreen: 'MathSubchapterScreen',
-                targetParams: {
-                    chapterId,
-                    chapterTitle,
-                },
+        // Determine the origin and navigate accordingly
+        const origin = route.params?.origin;
+        if (origin === 'HomeScreen') {
+            navigation.reset({
+                index: 0,
+                routes: [
+                    {
+                        name: 'MathCongratsScreen',
+                        params: {
+                            subchapterId,
+                            targetScreen: 'HomeScreen', // End at HomeScreen
+                            targetParams: {},
+                        },
+                    },
+                ],
             });
         } else {
-            // Toggle to show the quiz after the content slide
-            setShowQuiz(true);
+            navigation.reset({
+                index: 0,
+                routes: [
+                    {
+                        name: 'MathCongratsScreen',
+                        params: {
+                            subchapterId,
+                            targetScreen: 'MathSubchapterScreen', // Default behavior
+                            targetParams: {
+                                chapterId,
+                                chapterTitle,
+                            },
+                        },
+                    },
+                ],
+            });
         }
-    };
+    } else {
+        // Toggle to show the quiz after the content slide
+        setShowQuiz(true);
+    }
+};
 
     return (
         <View style={[styles.container, { backgroundColor: theme.background }]}>

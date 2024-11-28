@@ -14,7 +14,7 @@ import { useSubchapter } from '../../context/SubchapterContext';
 import { LinearGradient } from 'expo-linear-gradient';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
-import {  loadProgress, nextContent, completeSubchapter, saveProgress, } from 'src/utils/progressUtils';
+import {  loadProgress, completeSubchapter, saveProgress, } from 'src/utils/progressUtils';
 import { useTheme } from 'src/context/ThemeContext';
 import LottieView from 'lottie-react-native';
 
@@ -57,38 +57,38 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                 ? { headerShown: false } // Hide the header during loading
                 : {
                       headerShown: true, // Show the header after loading
-                      headerLeft: () => (
-                          <TouchableOpacity
-                              onPress={() => {
-                                  if (route.params.origin === 'ResumeSection') {
-                                      // Navigate directly to HomeScreen if accessed via ResumeSection
-                                      navigation.navigate('HomeScreen');
-                                  } else if (route.params.origin === 'SearchScreen') {
-                                      // Navigate back to SearchScreen if accessed via SearchScreen
-                                      navigation.goBack();
-                                  } else {
-                                      // Default: Navigate back to SubchaptersScreen
-                                      navigation.navigate('SubchaptersScreen', {
-                                          chapterId,
-                                          chapterTitle,
-                                      });
-                                  }
-                              }}
-                              style={{ marginLeft: 15 }}
-                          >
-                              <Ionicons
-                                  name="close"
-                                  size={24}
-                                  color={theme.primaryText}
-                              />
-                          </TouchableOpacity>
-                      ),
-                      headerRight: () => null, // Remove any headerRight component if it exists
-                      headerStyle: {
-                          backgroundColor: theme.surface, // Dynamic background for dark mode
-                      },
-                  }
-        );
+                        headerLeft: () => (
+                            <TouchableOpacity
+                                onPress={() => {
+                                    if (route.params.origin === 'ResumeSection') {
+                                        // Navigate directly to HomeScreen if accessed via ResumeSection
+                                        navigation.navigate('HomeScreen');
+                                    } else if (route.params.origin === 'SearchScreen') {
+                                        // Navigate back to SearchScreen if accessed via SearchScreen
+                                        navigation.goBack();
+                                    } else {
+                                        // Default: Navigate back to SubchaptersScreen
+                                        navigation.navigate('SubchaptersScreen', {
+                                            chapterId,
+                                            chapterTitle,
+                                        });
+                                    }
+                                }}
+                                style={{ marginLeft: 15 }}
+                            >
+                                <Ionicons
+                                    name="close"
+                                    size={24}
+                                    color={theme.primaryText}
+                                />
+                            </TouchableOpacity>
+                        ),
+                        headerRight: () => null, // Remove any headerRight component if it exists
+                        headerStyle: {
+                            backgroundColor: theme.surface, // Dynamic background for dark mode
+                        },
+                    }
+            );
     }, [
         loading, // Re-run whenever the loading state changes
         navigation,
