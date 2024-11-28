@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ViewStyle } from 'react-native';
-import { useFocusEffect } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import MultipleChoice from './MultipleChoice';
 import ClozeTest from './ClozeTest';
 import { fetchQuizByContentId, fetchMultipleChoiceOptionsByQuizId, fetchClozeTestOptionsByQuizId } from 'src/database/databaseServices';
@@ -20,6 +20,7 @@ interface QuizSlideProps {
 }
 
 const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, setShowQuiz }) => {
+    const navigation = useNavigation();
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
     const [options, setOptions] = useState<MultipleChoiceOption[] | { options: string[]; correctAnswers: (string | null)[] }>([]);
     const [currentQuizIndex, setCurrentQuizIndex] = useState<number>(0);
@@ -45,12 +46,18 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, set
     };
 
     useEffect(() => {
+        if (typeof navigation !== 'undefined') {
+            navigation.setOptions({
+                headerLeft: () => null,
+            });
+        }
+
         const loadQuizData = async () => {
             try {
                 const fetchedQuizzes = await fetchQuizByContentId(contentId);
                 if (fetchedQuizzes.length > 0) {
                     setQuizzes(fetchedQuizzes);
-                    loadQuizOptions(fetchedQuizzes[0]); // Load options for the first quiz
+                    loadQuizOptions(fetchedQuizzes[0]);
                 } else {
                     setError('No quiz found for this content.');
                 }

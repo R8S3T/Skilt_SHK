@@ -40,6 +40,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     const [maxIndexVisited, setMaxIndexVisited] = useState<number>(0);
     const [showQuiz, setShowQuiz] = useState<boolean>(false);
     const { theme, isDarkMode } = useTheme();
+    const [navigating, setNavigating] = useState(false);
 
     const { finishedSubchapters, markSubchapterAsFinished, unlockSubchapter } = useSubchapter();
 
@@ -216,20 +217,23 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                 );
             }
         } else {
-            // Handle subchapter completion
             const subchapters = await fetchSubchaptersByChapterId(chapterId);
             const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
             const imageName = currentSubchapter?.ImageName || null;
-    
-            await completeSubchapter({
-                subchapterId,
-                chapterId,
-                chapterTitle,
-                navigation,
-                markSubchapterAsFinished,
-                unlockSubchapter,
-                origin,
-            });
+
+            setNavigating(true);
+
+            setTimeout(async () => {
+                await completeSubchapter({
+                    subchapterId,
+                    chapterId,
+                    chapterTitle,
+                    navigation,
+                    markSubchapterAsFinished,
+                    unlockSubchapter,
+                    origin,
+                });
+            }, 200); // Delay to ensure smooth transition
         }
     };
     
@@ -251,7 +255,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     };
     
 
-    if (loading) {
+    if (loading || navigating) {
         return (
             <View style={styles.loadingContainer}>
                 <LottieView

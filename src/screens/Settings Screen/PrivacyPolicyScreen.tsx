@@ -49,7 +49,7 @@ const PrivacyPolicyScreen: React.FC = () => {
 
                 <Text style={[styles.sectionTitle, { color: theme.primaryText }]}>4. Verlust der lokalen Daten</Text>
                 <Text style={[styles.description, { color: theme.primaryText }]}>
-                    Alle Daten werden nur lokal auf deinem Gerät gespeichert. Sie gehen verloren, wenn du die App deinstallierst oder den Cache leerst. In diesem Fall startet die App bei einer erneuten Installation ohne gespeicherte Fortschritte.
+                    Alle Daten werden nur lokal auf deinem Gerät gespeichert. Sie gehen verloren, wenn du die App deinstallierst oder die App-Daten löschst. In diesem Fall startet die App bei einer erneuten Installation ohne gespeicherte Fortschritte.
                 </Text>
 
                 <Text style={[styles.sectionTitle, { color: theme.primaryText }]}>5. App-Updates</Text>
