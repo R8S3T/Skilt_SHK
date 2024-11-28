@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect} from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { CommonActions, useNavigation, useRoute, RouteProp } from '@react-navigation/native';
@@ -21,6 +21,12 @@ const MathCongratsScreen: React.FC = () => {
     const navigation = useNavigation<any>();
     const route = useRoute<MathCongratsScreenRouteProp>();
     const { markSubchapterAsFinished } = useMathSubchapter();
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerShown: false, // Completely hide the header
+        });
+    }, [navigation]);
 
     const targetScreen = route.params?.targetScreen as keyof MathStackParamList;
     const targetParams = route.params?.targetParams;
