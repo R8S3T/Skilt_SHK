@@ -24,8 +24,8 @@ const App = () => {
             const db = await initializeDatabase();
 
             // Fetch version number
-            const version = await fetchVersionNumber();
-            setVersionNumber(version);
+/*             const version = await fetchVersionNumber();
+            setVersionNumber(version); */
 
             // Mark app as ready
             setIsReady(true);
