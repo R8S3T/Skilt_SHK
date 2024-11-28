@@ -50,13 +50,22 @@ useEffect(() => {
                             subchapterId,
                             subchapterTitle,
                             currentIndex,
-                            null // Pass imageName if needed
+                            null
                         );
                     }
-                    navigation.navigate('MathSubchapterScreen', {
-                        chapterId,
-                        chapterTitle,
-                        origin: 'HomeScreen',
+                    // Use reset to ensure no duplicate stack
+                    navigation.reset({
+                        index: 1,
+                        routes: [
+                            {
+                                name: 'MathSubchapterScreen',
+                                params: {
+                                    chapterId,
+                                    chapterTitle,
+                                    origin: 'MathChapterScreen',
+                                },
+                            },
+                        ],
                     });
                 }}
                 style={{ marginLeft: 15 }}
@@ -68,7 +77,16 @@ useEffect(() => {
         headerTintColor: theme.primaryText,
         title: subchapterTitle,
     });
-}, [navigation, chapterId, chapterTitle, theme, subchapterTitle, finishedSubchapters, currentIndex]);
+}, [
+    navigation,
+    chapterId,
+    chapterTitle,
+    theme,
+    subchapterTitle,
+    finishedSubchapters,
+    currentIndex,
+]);
+
 
 
     // Load content data and initial quiz
@@ -89,7 +107,6 @@ useEffect(() => {
                 if (isSubchapterFinished) {
                     // If finished, resume from the last saved progress
                     const savedProgress = await loadProgress('math');
-                    console.log('Loaded Progress Data:', savedProgress);
 
                     if (
                         savedProgress &&

@@ -66,6 +66,7 @@ export type MathStackParamList = {
             origin?: string;
         };
     };
+    HomeScreen: undefined;
 };
 
 // A TypeScript type that defines all possible navigation paths and parameters in AppNavigator, ensuring that navigation across the entire app is type-safe and well-organized.

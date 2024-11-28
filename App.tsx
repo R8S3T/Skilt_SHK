@@ -5,14 +5,17 @@ import AppNavigator from "src/navigation/AppNavigator";
 import { loadFonts } from "src/utils/fonts";
 import { ActivityIndicator, Text, Button, View, StyleSheet } from "react-native";
 import { ThemeProvider } from "src/context/ThemeContext";
-import { initializeDatabase, fetchVersionNumber } from "src/database/initializeLocalDatabase";
+import { initializeDatabase } from "src/database/initializeLocalDatabase";
+import { fetchVersionNumber } from "src/database/initializeLocalDatabase";
 import { DATABASE_MODE } from "@env";
+
 
 const App = () => {
   const [isReady, setIsReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [dbVersion, setDbVersion] = useState<number | null>(null);
 
-  // Move prepare function outside of useEffect
+  // Prepare the app
   const prepare = async () => {
     try {
       // Clear previous errors
@@ -22,7 +25,12 @@ const App = () => {
       await loadFonts();
 
       // Initialize the database
-      const db = await initializeDatabase();
+      await initializeDatabase();
+
+      // Fetch the database version
+      const version = await fetchVersionNumber();
+      console.log("Database Version Retrieved:", version);
+      setDbVersion(version); // Save version to state
 
       // Mark app as ready
       setIsReady(true);
@@ -66,17 +74,24 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   errorContainer: {
-    alignItems: 'center',
+    alignItems: "center",
   },
   errorText: {
-    color: 'red',
+    color: "red",
     fontSize: 16,
     marginBottom: 10,
-    textAlign: 'center',
+    textAlign: "center",
+  },
+  versionText: {
+    position: "absolute",
+    bottom: 10,
+    left: 10,
+    fontSize: 14,
+    color: "gray",
   },
 });
 

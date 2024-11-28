@@ -36,7 +36,6 @@ const MathStackNavigator: React.FC = () => {
                 options={{
                     title: 'Module',
                     headerTitleAlign: 'left',
-                    headerBackTitleVisible: false,
                     headerTitleStyle: {
                         fontWeight: '600',
                         paddingLeft: -20, // Adjust this as needed to position closer to the arrow

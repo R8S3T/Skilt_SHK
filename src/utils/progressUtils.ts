@@ -31,8 +31,6 @@ export const saveProgress = async (
             imageName,
         });
 
-        console.log('Progress data being saved:', JSON.stringify(progressData, null, 2));
-
         await AsyncStorage.setItem(`progress_${sectionKey}`, JSON.stringify(progressData));
 
         // Confirm the data was successfully saved

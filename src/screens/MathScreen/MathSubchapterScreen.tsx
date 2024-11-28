@@ -1,6 +1,6 @@
 // MathSubchapterScreen.tsx
 import React, { useEffect, useState, useLayoutEffect } from "react";
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { MathStackParamList } from 'src/types/navigationTypes';
@@ -12,6 +12,7 @@ import SubchapterInfoModal from '../Chapters/SubchapterInfoModal';
 import { useTheme } from 'src/context/ThemeContext';
 import { scaleFontSize } from "src/utils/screenDimensions";
 import { fetchMathMiniQuizByContentId, fetchMathContentBySubchapterId } from "src/database/databaseServices";
+import { Ionicons } from "@expo/vector-icons";
 
 type MathSubchapterScreenRouteProp = RouteProp<MathStackParamList, 'MathSubchapterScreen'>;
 type MathSubchapterScreenNavigationProp = StackNavigationProp<MathStackParamList, 'MathSubchapterScreen'>;
@@ -33,11 +34,22 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            headerTitle: origin === 'HomeScreen' ? 'Start' : 'Module',
+            headerTitle: 'Module', // Set title for this screen
             headerStyle: { backgroundColor: theme.surface },
             headerTintColor: theme.primaryText,
+            headerLeft: () => (
+                <TouchableOpacity
+                    onPress={() => {
+                        // Navigate back to MathChapterScreen
+                        navigation.navigate('MathChapterScreen');
+                    }}
+                    style={{ marginLeft: 15 }}
+                >
+                    <Ionicons name="arrow-back" size={24} color={theme.primaryText} />
+                </TouchableOpacity>
+            ),
         });
-    }, [navigation, origin, theme]);
+    }, [navigation, theme]);
 
     useEffect(() => {
         const loadSubchapters = async () => {

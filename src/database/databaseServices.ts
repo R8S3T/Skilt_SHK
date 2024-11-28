@@ -18,6 +18,39 @@ import {
 
 console.log("DATABASE_MODE at runtime:", DATABASE_MODE);
 
+
+export async function fetchVersionNumber(): Promise<number | null> {
+    if (DATABASE_MODE === 'local') {
+        // Local SQLite database
+        const db = await initializeDatabase();
+        try {
+            console.log("Fetching database version...");
+            const result = await db.getAllAsync<{ version_number: number }>(
+                'SELECT version_number FROM Version LIMIT 1;',
+                []
+            );
+            console.log("Version query result:", result);
+            return result.length > 0 ? result[0].version_number : null; // Return version number or null
+        } catch (error) {
+            console.error('Failed to fetch version number from SQLite:', error);
+            return null; // Return null on error
+        }
+    } else {
+        // Server-side fetch
+        try {
+            const response = await fetch(`${API_URL}/version`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            const { version_number }: { version_number: number } = await response.json();
+            return version_number; // Return the server version number
+        } catch (error) {
+            console.error('Failed to fetch version number from server:', error);
+            return null; // Return null on error
+        }
+    }
+}
+
 // Fetch chapters by year via the server
 export async function fetchChaptersByYear(year: number): Promise<Chapter[]> {
     if (DATABASE_MODE === 'local') {

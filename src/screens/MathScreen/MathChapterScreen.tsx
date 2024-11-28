@@ -10,6 +10,7 @@ import { imageMap } from "src/utils/imageMappings";
 import { useTheme } from 'src/context/ThemeContext';
 import ThemeWrapper from 'src/components/ThemeWrapper';
 import { scaleFontSize } from "src/utils/screenDimensions";
+import { Ionicons } from "@expo/vector-icons";
 
 type MathChapterScreenNavigationProp = StackNavigationProp<MathStackParamList, 'MathChapterScreen'>;
 
@@ -24,6 +25,16 @@ const MathChapterScreen: React.FC = () => {
             headerTitle: 'Start',
             headerStyle: { backgroundColor: theme.surface },
             headerTintColor: theme.primaryText,
+            headerLeft: () => (
+                <TouchableOpacity
+                    onPress={() => {
+                        navigation.navigate('HomeScreen'); // Navigate back to HomeScreen
+                    }}
+                    style={{ marginLeft: 15 }}
+                >
+                    <Ionicons name="arrow-back" size={24} color={theme.primaryText} />
+                </TouchableOpacity>
+            ),
         });
     }, [navigation, theme]);
 

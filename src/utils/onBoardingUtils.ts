@@ -35,8 +35,7 @@ export const setProgressComplete = async (): Promise<void> => {
  */
 export const hasMadeProgress = async (): Promise<boolean> => {
     try {
-        const progressData = await AsyncStorage.getItem('progress_section1'); // Ensure key matches your saved progress key
-        console.log("Progress Data Retrieved:", progressData);
+        const progressData = await AsyncStorage.getItem('progress_section1');
         
         if (progressData) {
             const parsedProgress = JSON.parse(progressData);

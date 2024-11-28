@@ -15,12 +15,12 @@ export default {
     },
     ios: {
       supportsTablet: true,
-      newArchEnabled: true // Explicitly enable the new architecture
+      newArchEnabled: true
     },
     android: {
-      package: "com.yourcompanyname.skiltshk", // Add your unique package name here
+      package: "com.yourcompanyname.skiltshk",
       adaptiveIcon: {
-        foregroundImage: "./assets/adaptive-icon.png",
+        foregroundImage: "./assets/icon.png",
         backgroundColor: "#ffffff"
       },
       permissions: [
@@ -28,7 +28,7 @@ export default {
         "android.permission.WRITE_EXTERNAL_STORAGE",
         "android.permission.INTERNET"
       ],
-      newArchEnabled: true // Explicitly enable the new architecture
+      newArchEnabled: true
     },
     web: {
       favicon: "./assets/favicon.png"
@@ -36,7 +36,8 @@ export default {
     assetBundlePatterns: [
       "assets/fonts/**/*",
       "assets/images/**/*",
-      "assets/icons/**/*"
+      "assets/icons/**/*",
+      "assets/*.db"
     ],
     plugins: [
       "expo-font"
@@ -44,7 +45,8 @@ export default {
     extra: {
       eas: {
         projectId: "ec8271bd-0e41-4a36-ad84-fddfffb1cce9"
-      }
+      },
+      DATABASE_MODE: process.env.DATABASE_MODE || "production"
     }
   }
 };
