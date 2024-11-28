@@ -235,13 +235,21 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     
 
     const goBack = () => {
-        // Only navigate back if not in a quiz
-        if (showQuiz) return;
-
-        if (currentIndex > 0) {
-            setCurrentIndex(currentIndex - 1);
+        // Skip quiz slides and navigate to the previous content slide
+        let newIndex = currentIndex - 1;
+    
+        // Find the nearest previous ContentSlide
+        while (newIndex >= 0 && 'QuizId' in contentData[newIndex]) {
+            newIndex--;
+        }
+    
+        // Only update index if a valid ContentSlide is found
+        if (newIndex >= 0) {
+            setShowQuiz(false); // Exit quiz mode
+            setCurrentIndex(newIndex);
         }
     };
+    
 
     if (loading) {
         return (
