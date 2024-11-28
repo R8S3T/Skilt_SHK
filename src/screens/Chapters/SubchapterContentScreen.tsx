@@ -5,7 +5,7 @@ import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import ContentSlide from '../ContentSlide';
 import QuizSlide from '../Quiz/QuizSlide';
 import { Quiz } from 'src/types/contentTypes';
-import { RouteProp } from '@react-navigation/native';
+import { CommonActions, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { LearnStackParamList } from 'src/types/navigationTypes';
 import { GenericContent } from 'src/types/contentTypes';
@@ -62,16 +62,35 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                                 onPress={() => {
                                     if (route.params.origin === 'ResumeSection') {
                                         // Navigate directly to HomeScreen if accessed via ResumeSection
-                                        navigation.navigate('HomeScreen');
+                                        navigation.dispatch(
+                                            CommonActions.reset({
+                                                index: 0,
+                                                routes: [{ name: 'HomeScreen' }],
+                                            })
+                                        );
                                     } else if (route.params.origin === 'SearchScreen') {
                                         // Navigate back to SearchScreen if accessed via SearchScreen
                                         navigation.goBack();
                                     } else {
-                                        // Default: Navigate back to SubchaptersScreen
-                                        navigation.navigate('SubchaptersScreen', {
-                                            chapterId,
-                                            chapterTitle,
-                                        });
+                                        // Default: Reset stack to SubchaptersScreen
+                                        navigation.dispatch(
+                                            CommonActions.reset({
+                                                index: 1,
+                                                routes: [
+                                                    {
+                                                        name: 'YearsScreen',
+                                                        params: { chapterId },
+                                                    }, // Add YearsScreen to stack
+                                                    {
+                                                        name: 'SubchaptersScreen',
+                                                        params: {
+                                                            chapterId,
+                                                            chapterTitle,
+                                                        },
+                                                    }, // Reset to SubchaptersScreen
+                                                ],
+                                            })
+                                        );
                                     }
                                 }}
                                 style={{ marginLeft: 15 }}
