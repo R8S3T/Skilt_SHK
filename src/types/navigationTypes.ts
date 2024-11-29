@@ -25,7 +25,7 @@ export type LearnStackParamList = {
         subchapterTitle: string;
         chapterId?: number;
         chapterTitle?: string;
-        contentId?: number;
+        currentIndex?: number;
         onCompletion?: () => void;
         origin?: string;
         previousScreen?: string;

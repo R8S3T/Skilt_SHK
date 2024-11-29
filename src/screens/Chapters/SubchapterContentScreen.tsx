@@ -120,16 +120,22 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     
     // Load saved slide index on first render or reset to 0 if finished
     useEffect(() => {
-        const initializeProgress = async () => {
-            const savedProgress = await loadProgress('section1');
-            if (finishedSubchapters.includes(subchapterId)) {
-                setCurrentIndex(0);
-            } else if (savedProgress?.subchapterId === subchapterId && savedProgress.currentIndex !== null) {
-                setCurrentIndex(savedProgress.currentIndex);
-            }
-        };
-        initializeProgress();
-    }, [finishedSubchapters, subchapterId]);
+        // Reset progress to the first slide when re-entering via ResumeSection
+        if (route.params.origin === 'ResumeSection') {
+            setCurrentIndex(0);
+        } else {
+            const initializeProgress = async () => {
+                const savedProgress = await loadProgress('section1');
+                if (finishedSubchapters.includes(subchapterId)) {
+                    setCurrentIndex(0);
+                } else if (savedProgress?.subchapterId === subchapterId && savedProgress.currentIndex !== null) {
+                    setCurrentIndex(savedProgress.currentIndex);
+                }
+            };
+            initializeProgress();
+        }
+    }, [finishedSubchapters, subchapterId, route.params.origin]);
+    
 
     // Load content data for the subchapter
     useEffect(() => {

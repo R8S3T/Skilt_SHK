@@ -66,7 +66,7 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
                     subchapterTitle: lastSubchapterName || `Kapitel ${lastSubchapter}`,
                     chapterId: lastChapterId ?? 1,
                     chapterTitle: lastChapterTitle ?? "Standard Kapitel Titel",
-                    contentId: lastContentId,
+                    currentIndex: 0,
                     origin: 'ResumeSection',
                 },
             });
