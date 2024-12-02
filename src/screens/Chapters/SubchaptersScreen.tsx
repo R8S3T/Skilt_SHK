@@ -83,7 +83,8 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
                 subchapterId,
                 subchapterTitle,
                 chapterId,
-                chapterTitle
+                chapterTitle,
+                currentIndex: 0
             });
         }
     };
@@ -95,7 +96,8 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
                 subchapterId: selectedSubchapter.SubchapterId,
                 subchapterTitle: selectedSubchapter.SubchapterName,
                 chapterId,
-                chapterTitle
+                chapterTitle,
+                currentIndex: 0
             });
         }
         setModalVisible(false);
@@ -109,7 +111,8 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
                 subchapterId: selectedSubchapter.SubchapterId,
                 subchapterTitle: selectedSubchapter.SubchapterName,
                 chapterId,
-                chapterTitle
+                chapterTitle,
+                currentIndex: 0
             });
         }
         setModalVisible(false);

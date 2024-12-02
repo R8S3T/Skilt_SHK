@@ -118,24 +118,11 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         theme,
     ]);
     
-    // Load saved slide index on first render or reset to 0 if finished
+    // Always reset to the first slide when entering a subchapter
     useEffect(() => {
-        // Reset progress to the first slide when re-entering via ResumeSection
-        if (route.params.origin === 'ResumeSection') {
-            setCurrentIndex(0);
-        } else {
-            const initializeProgress = async () => {
-                const savedProgress = await loadProgress('section1');
-                if (finishedSubchapters.includes(subchapterId)) {
-                    setCurrentIndex(0);
-                } else if (savedProgress?.subchapterId === subchapterId && savedProgress.currentIndex !== null) {
-                    setCurrentIndex(savedProgress.currentIndex);
-                }
-            };
-            initializeProgress();
-        }
-    }, [finishedSubchapters, subchapterId, route.params.origin]);
-    
+        setCurrentIndex(0);
+    }, [subchapterId]);
+
 
     // Load content data for the subchapter
     useEffect(() => {
@@ -193,35 +180,24 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     useEffect(() => {
         console.log("SubchapterContentScreen loaded with route params:", route.params);
     }, []);
-    
+
     const handleNextContent = async () => {
         const nextIndex = currentIndex + 1;
-    
+
         if (nextIndex < contentData.length) {
             const nextContent = contentData[nextIndex];
             const isQuiz = 'QuizId' in nextContent;
-    
+
             const subchapters = await fetchSubchaptersByChapterId(chapterId);
             const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
             const imageName = currentSubchapter?.ImageName || null;
-    
+
             setCurrentIndex((prevIndex) => {
                 setShowQuiz(isQuiz);
                 setMaxIndexVisited((prev) => Math.max(prev, nextIndex));
                 return nextIndex;
             });
-    
-            // Only save progress if not from SearchScreen
-            if (origin !== 'SearchScreen') {
-                await saveProgress(
-                    'section1',
-                    chapterId,
-                    subchapterId,
-                    subchapterTitle,
-                    nextIndex,
-                    imageName
-                );
-            }
+
         } else {
             const subchapters = await fetchSubchaptersByChapterId(chapterId);
             const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
