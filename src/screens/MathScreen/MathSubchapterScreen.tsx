@@ -80,14 +80,10 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
         }); // Log the received route params
     }, [chapterId, chapterTitle, origin]);
 
-    
     const handleNodePress = async (subchapterId: number, subchapterTitle: string) => {
         const isFinished = finishedSubchapters.includes(subchapterId);
         const isLocked = !unlockedSubchapters.includes(subchapterId);
         const selected = subchapters.find(sub => sub.SubchapterId === subchapterId);
-        console.log("Subchapter node pressed with ID and title:", { subchapterId, subchapterTitle }); // Log subchapter details
-        console.log("Finished Subchapters:", finishedSubchapters); // Log finished subchapters
-        console.log("Unlocked Subchapters:", unlockedSubchapters); // Log unlocked subchapters
 
         if (isFinished && selected) {
             setSelectedSubchapter(selected);
@@ -99,7 +95,7 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
             setIsJumpAhead(true);
         } else {
             setCurrentSubchapter(subchapterId, subchapterTitle);
-
+    
             try {
                 // Preload content and the first quiz
                 const content = await fetchMathContentBySubchapterId(subchapterId);
@@ -107,8 +103,8 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
                     content.length > 0
                         ? await fetchMathMiniQuizByContentId(content[0].ContentId)
                         : [];
-
-                // Navigate with preloaded content and quiz
+    
+                // Replace the current screen with the subchapter content screen
                 navigation.navigate('MathSubchapterContentScreen', {
                     subchapterId,
                     subchapterTitle,
@@ -123,6 +119,7 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
             }
         }
     };
+    
 
     const handleReviewLesson = () => {
         if (selectedSubchapter) {

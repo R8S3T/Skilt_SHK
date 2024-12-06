@@ -177,6 +177,10 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         loadInitialMaxIndex();
     }, []);
 
+    useEffect(() => {
+        console.log("SubchapterContentScreen loaded with route params:", route.params);
+    }, []);
+
     const handleNextContent = async () => {
         const nextIndex = currentIndex + 1;
 
@@ -193,6 +197,18 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                 setMaxIndexVisited((prev) => Math.max(prev, nextIndex));
                 return nextIndex;
             });
+
+            // Only save progress if not from SearchScreen
+            if (origin !== 'SearchScreen') {
+                await saveProgress(
+                    'section1',
+                    chapterId,
+                    subchapterId,
+                    subchapterTitle,
+                    nextIndex,
+                    imageName
+                );
+            }
 
         } else {
             const subchapters = await fetchSubchaptersByChapterId(chapterId);

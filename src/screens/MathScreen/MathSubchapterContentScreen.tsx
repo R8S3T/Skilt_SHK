@@ -35,7 +35,6 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
     const [completedQuizzes, setCompletedQuizzes] = useState<boolean[]>([]);
     const { finishedSubchapters } = useMathSubchapter();
 
-
 // Configure navigation header
 useEffect(() => {
     navigation.setOptions({
@@ -53,20 +52,13 @@ useEffect(() => {
                             null
                         );
                     }
-                    // Use reset to ensure no duplicate stack
-                    navigation.reset({
-                        index: 1,
-                        routes: [
-                            {
-                                name: 'MathSubchapterScreen',
-                                params: {
-                                    chapterId,
-                                    chapterTitle,
-                                    origin: 'MathChapterScreen',
-                                },
-                            },
-                        ],
-                    });
+
+                    // Use navigation.navigate for controlled navigation
+                    if (route.params?.origin === 'MathModulSection') {
+                        navigation.navigate('MathChapterScreen');
+                    } else {
+                        navigation.goBack();
+                    }
                 }}
                 style={{ marginLeft: 15 }}
             >
@@ -85,9 +77,8 @@ useEffect(() => {
     subchapterTitle,
     finishedSubchapters,
     currentIndex,
+    route.params?.origin,
 ]);
-
-
 
     // Load content data and initial quiz
     useEffect(() => {

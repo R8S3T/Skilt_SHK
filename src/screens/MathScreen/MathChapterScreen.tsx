@@ -55,7 +55,6 @@ const MathChapterScreen: React.FC = () => {
 
     const renderItem = ({ item }: { item: MathChapter }) => {
         console.log("Rendering MathChapter item:", item);
-    
         return (
             <TouchableOpacity
                 style={[styles.itemContainer, { borderColor: theme.border }]}
@@ -84,7 +83,7 @@ const MathChapterScreen: React.FC = () => {
             <View style={[styles.container, { backgroundColor: theme.background }]}>
                 {/* Sticky Header */}
                 <Text style={[styles.stickyHeader, { color: theme.primaryText, backgroundColor: theme.surface }]}>
-                    Fachmathematik
+                    Wähle ein Modul
                 </Text>
 
                 {/* Scrollable Content */}

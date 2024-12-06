@@ -18,14 +18,13 @@ const MathStackNavigator: React.FC = () => {
                 },
             }}
         >
-            <Stack.Screen 
+            <Stack.Screen
                 name="MathChapterScreen" 
                 component={MathChapterScreen}
-                options={{ 
-                    title: 'Start',
+                options={{
+                    title: 'Wähle dein Modul',
                     headerTitleAlign: 'left',
                     headerTitleStyle: {
-                        paddingLeft: -20, // Adjust this value as needed
                         fontWeight: '600',
                     },
                 }}
@@ -33,19 +32,24 @@ const MathStackNavigator: React.FC = () => {
             <Stack.Screen
                 name="MathSubchapterScreen"
                 component={MathSubchapterScreen}
-                options={{
-                    title: 'Module',
+                options={({ route }) => ({
+                    title: route.params.chapterTitle || 'Modul',
                     headerTitleAlign: 'left',
                     headerTitleStyle: {
                         fontWeight: '600',
-                        paddingLeft: -20, // Adjust this as needed to position closer to the arrow
                     },
-                }}
+                })}
             />
             <Stack.Screen
                 name="MathSubchapterContentScreen"
                 component={MathSubchapterContentScreen}
-                options={{ title: 'Math Content' }}
+                options={({ route }) => ({
+                    title: route.params.subchapterTitle || 'Inhalt', // Dynamically show subchapter title
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: {
+                        fontWeight: '600',
+                    },
+                })}
             />
             <Stack.Screen
                 name="MathCongratsScreen"

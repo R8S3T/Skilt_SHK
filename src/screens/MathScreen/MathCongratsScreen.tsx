@@ -56,10 +56,9 @@ const MathCongratsScreen: React.FC = () => {
             targetScreen,
             targetParams
         });
-
+    
         if (targetScreen === 'HomeScreen') {
-            console.log("Navigating to HomeScreen"); // Log navigation to HomeScreen
-
+            console.log("Navigating to HomeScreen with stack reset");
             navigation.dispatch(
                 CommonActions.reset({
                     index: 0,
@@ -67,25 +66,16 @@ const MathCongratsScreen: React.FC = () => {
                 })
             );
         } else if (targetScreen === 'MathSubchapterScreen') {
-            console.log("Navigating to MathSubchapterScreen with reset stack:", {
+            console.log("Replacing current screen with MathSubchapterScreen:", {
                 chapterId: targetParams.chapterId,
                 chapterTitle: targetParams.chapterTitle
             });
-            navigation.dispatch(
-                CommonActions.reset({
-                    index: 1,
-                    routes: [
-                        { name: 'MathChapterScreen', params: { chapterId: targetParams.chapterId } },
-                        { name: 'MathSubchapterScreen', params: targetParams },
-                    ],
-                })
-            );
+            navigation.replace('MathSubchapterScreen', targetParams); // Use replace directly from navigation
         } else {
             console.error("Unexpected targetScreen:", targetScreen);
         }
     };
     
-
     return (
         <View style={styles.container}>
             <LottieView
