@@ -22,19 +22,18 @@ const MathChapterScreen: React.FC = () => {
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            headerTitle: 'Start',
-            headerStyle: { backgroundColor: theme.surface },
+            title: 'Start',
+            headerStyle: {
+                backgroundColor: theme.surface,
+            },
+            headerTitleStyle: {
+                color: theme.primaryText,
+                fontSize: 20,
+                fontWeight: '600',
+                paddingLeft: -20,
+            },
+            headerTitleAlign: 'left',
             headerTintColor: theme.primaryText,
-            headerLeft: () => (
-                <TouchableOpacity
-                    onPress={() => {
-                        navigation.navigate('HomeScreen'); // Navigate back to HomeScreen
-                    }}
-                    style={{ marginLeft: 15 }}
-                >
-                    <Ionicons name="arrow-back" size={24} color={theme.primaryText} />
-                </TouchableOpacity>
-            ),
         });
     }, [navigation, theme]);
 

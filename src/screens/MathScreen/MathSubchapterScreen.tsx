@@ -37,17 +37,10 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
             headerTitle: 'Module', // Set title for this screen
             headerStyle: { backgroundColor: theme.surface },
             headerTintColor: theme.primaryText,
-            headerLeft: () => (
-                <TouchableOpacity
-                    onPress={() => {
-                        // Navigate back to MathChapterScreen
-                        navigation.navigate('MathChapterScreen');
-                    }}
-                    style={{ marginLeft: 15 }}
-                >
-                    <Ionicons name="arrow-back" size={24} color={theme.primaryText} />
-                </TouchableOpacity>
-            ),
+            headerTitleStyle: {
+                fontWeight: '600',
+            },
+            headerTitleAlign: 'center',
         });
     }, [navigation, theme]);
 

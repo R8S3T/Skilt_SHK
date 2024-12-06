@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { dynamicCardHeight, scaleFontSize } from 'src/utils/screenDimensions';
+import { dynamicCardHeight, scaleFontSize, screenWidth } from 'src/utils/screenDimensions';
 import { Chapter } from 'src/types/contentTypes';
 import { fetchChaptersByYear } from 'src/database/databaseServices';
 import { LearnStackParamList } from 'src/types/navigationTypes'; 
@@ -16,7 +16,7 @@ type ChaptersScreenRouteProps = {
 };
 
 type NavigationType = StackNavigationProp<LearnStackParamList, 'ChaptersScreen'>;
-
+console.log(`Screen width is: ${screenWidth}`);
 const ChaptersScreen: React.FC<ChaptersScreenRouteProps> = ({ route }) => {
     const { year } = route.params;
     const [chapters, setChapters] = useState<Chapter[]>([]);
@@ -104,11 +104,11 @@ const styles = StyleSheet.create({
         marginLeft: 28,
         fontFamily: 'OpenSans-Regular',
         color: '#2b4353',
-        fontSize: scaleFontSize(13),
+        fontSize: scaleFontSize(15),
     },
     playButton: {
-        width: iconSize,
-        height: iconSize,
+        width: screenWidth > 600 ? 32 : iconSize, // Larger for tablets
+        height: screenWidth > 600 ? 32 : iconSize, // Larger for tablets
     },
 });
 

@@ -5,7 +5,7 @@ import { LearnStackParamList } from 'src/types/navigationTypes';
 import { fetchChaptersByYear } from 'src/database/databaseServices';
 import { NavigationProp } from '@react-navigation/native';
 import { useTheme } from 'src/context/ThemeContext';
-import { scaleFontSize } from "src/utils/screenDimensions";
+import { scaleFontSize, screenWidth } from "src/utils/screenDimensions";
 
 
 const YearsScreen: React.FC = () => {
@@ -168,19 +168,19 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: 'Lato-Bold',
-        fontSize: scaleFontSize(16),
+        fontSize: screenWidth > 600 ? scaleFontSize(14) : scaleFontSize(18),
         textAlign: 'center',
     },
     container: {
         flex: 1,
-        paddingVertical: 30,
+        paddingVertical: screenWidth > 600 ? 40 : 30, // Increased padding for tablets
     },
     cardContainer: {
-        marginHorizontal: 10,
-        marginBottom: 15,
-        borderRadius: 12,
-        paddingVertical: 20,
-        paddingHorizontal: 15,
+        marginHorizontal: screenWidth > 600 ? 20 : 10,
+        marginBottom: screenWidth > 600 ? 25 : 15,
+        borderRadius: screenWidth > 600 ? 18 : 12,
+        paddingVertical: screenWidth > 600 ? 30 : 20,
+        paddingHorizontal: screenWidth > 600 ? 25 : 15,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
@@ -196,16 +196,16 @@ const styles = StyleSheet.create({
         width: '100%',
         justifyContent: 'center',
         alignItems: 'flex-start',
-        paddingHorizontal: 10,
+        paddingHorizontal: screenWidth > 600 ? 15 : 10,
     },
     number: {
-        fontSize: 22,
+        fontSize: screenWidth > 600 ? 28 : 22,
     },
     learnArea: {
-        fontSize: 18,
+        fontSize: screenWidth > 600 ? 24 : 20,
         alignSelf: 'flex-end',
-        marginTop: 10,
-        marginRight: 10,
+        marginTop: screenWidth > 600 ? 15 : 10,
+        marginRight: screenWidth > 600 ? 20 : 10,
     },
     chaptersContainer: {
         marginTop: 10,
@@ -222,11 +222,11 @@ const styles = StyleSheet.create({
     introText: {
         flex: 1,
         marginLeft: 28,
-        fontSize: 16,
+        fontSize: screenWidth > 600 ? scaleFontSize(11) : scaleFontSize(16),
     },
     playButton: {
-        width: iconSize,
-        height: iconSize,
+        width: screenWidth > 600 ? iconSize * 1.5 : iconSize,
+        height: screenWidth > 600 ? iconSize * 1.5 : iconSize,
     },
     modalOverlay: {
         flex: 1,

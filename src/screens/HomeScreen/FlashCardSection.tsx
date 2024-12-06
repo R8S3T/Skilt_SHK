@@ -4,6 +4,7 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons'; // Using Ionicons from Expo
 import { RootStackParamList } from 'src/types/navigationTypes';
 import { useTheme } from 'src/context/ThemeContext';
+import { screenWidth } from 'src/utils/screenDimensions';
 
 interface FlashcardsSectionProps {
     onButtonPress: (title: string) => void;
@@ -33,12 +34,12 @@ const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({ onButtonPress }) 
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#eeeeee',
-        width: '90%',
+        width: screenWidth > 600 ? '95%' : '90%',
         borderColor: '#497285',
         borderWidth: 1,
         borderRadius: 8,
-        padding: 20,
-        marginVertical: 10,
+        padding: screenWidth > 600 ? 30 : 20,
+        marginVertical: screenWidth > 600 ? 15 : 10,
         alignSelf: 'center',
     },
     header: {
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     title: {
-        fontSize: 20,
+        fontSize: screenWidth > 600 ? 22 : 20,
         fontWeight: '600',
     },
     icon: {
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
     },
     subheader: {
         marginTop: 8,
-        fontSize: 18,
+        fontSize: screenWidth > 600 ? 20 : 18,
         color: '#4a4a4a',
     },
 });

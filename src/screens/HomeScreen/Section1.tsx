@@ -5,7 +5,7 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import RenderButton from "./RenderButton";
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { RootStackParamList } from "src/types/navigationTypes";
-import { scaleFontSize, screenWidth } from "src/utils/screenDimensions";
+import { scaleFontSize, screenWidth, dynamicMargin } from "src/utils/screenDimensions";
 import { useTheme } from 'src/context/ThemeContext';
 
 interface Section1Props {
@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
         padding: 20,
         width: screenWidth * 0.90,
         borderRadius: 5,
-        marginTop: 10,
-        marginBottom: 20,
+        marginTop: dynamicMargin(10, 20),
+        marginBottom: dynamicMargin(10, 20),
         alignItems: 'center',
     },
     horizontalContainer: {
@@ -69,31 +69,31 @@ const styles = StyleSheet.create({
     },
     heading: {
         fontFamily: 'Lato-Bold',
-        fontSize: scaleFontSize(16),
+        fontSize: screenWidth > 600 ? scaleFontSize(14) : scaleFontSize(16),
         textAlign: 'center',
         marginBottom: 10,
     },
     description: {
         fontFamily: 'OpenSans-Regular',
-        fontSize: scaleFontSize(13),
+        fontSize: screenWidth > 600 ? scaleFontSize(10) : scaleFontSize(13),
         textAlign: 'center',
         marginBottom: 10,
     },
     image: {
-        width: 100,
-        height: 100,
+        width: screenWidth > 600 ? 150 : 100, // Adjusted size for tablets
+        height: screenWidth > 600 ? 150 : 100,
         marginRight: 20,
     },
     ovalButton: {
         borderRadius: 20,
-        paddingHorizontal: 20,
-        paddingVertical: 10,
-        width: 150,
-        marginTop: 20,
+        paddingHorizontal: scaleFontSize(20),
+        paddingVertical: scaleFontSize(10),
+        width: scaleFontSize(150),
+        marginTop: dynamicMargin(10, 20),
     },
     topButtonText: {
         fontFamily: 'Lato-Bold',
-        fontSize: scaleFontSize(14),
+        fontSize: screenWidth > 600 ? scaleFontSize(12) : scaleFontSize(14),
     },
 });
 
