@@ -177,10 +177,6 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         loadInitialMaxIndex();
     }, []);
 
-    useEffect(() => {
-        console.log("SubchapterContentScreen loaded with route params:", route.params);
-    }, []);
-
     const handleNextContent = async () => {
         const nextIndex = currentIndex + 1;
 

@@ -53,19 +53,23 @@ const MathChapterScreen: React.FC = () => {
         loadChapters();
     }, []);
 
-    const renderItem = ({ item }: { item: MathChapter }) => (
-        <TouchableOpacity
-            style={[styles.itemContainer, { borderColor: theme.border }]}
-            onPress={() => {
-                navigation.navigate('MathSubchapterScreen', { chapterId: item.ChapterId, chapterTitle: item.ChapterName });
-            }}
-        >
-            {item.Image && imageMap[item.Image as keyof typeof imageMap] && (
-                <Image source={imageMap[item.Image as keyof typeof imageMap]} style={styles.image} />
-            )}
-            <Text style={[styles.itemText, { color: theme.primaryText }]}>{item.ChapterName}</Text>
-        </TouchableOpacity>
-    );
+    const renderItem = ({ item }: { item: MathChapter }) => {
+        console.log("Rendering MathChapter item:", item);
+    
+        return (
+            <TouchableOpacity
+                style={[styles.itemContainer, { borderColor: theme.border }]}
+                onPress={() => {
+                    navigation.navigate('MathSubchapterScreen', { chapterId: item.ChapterId, chapterTitle: item.ChapterName });
+                }}
+            >
+                {item.Image && imageMap[item.Image as keyof typeof imageMap] && (
+                    <Image source={imageMap[item.Image as keyof typeof imageMap]} style={styles.image} />
+                )}
+                <Text style={[styles.itemText, { color: theme.primaryText }]}>{item.ChapterName}</Text>
+            </TouchableOpacity>
+        );
+    };
 
     if (loading) {
         return (
@@ -82,7 +86,7 @@ const MathChapterScreen: React.FC = () => {
                 <Text style={[styles.stickyHeader, { color: theme.primaryText, backgroundColor: theme.surface }]}>
                     Fachmathematik
                 </Text>
-    
+
                 {/* Scrollable Content */}
                 <FlatList
                     contentContainerStyle={styles.flatListContent}
@@ -93,7 +97,6 @@ const MathChapterScreen: React.FC = () => {
             </View>
         </ThemeWrapper>
     );
-    
 };
 
 const styles = StyleSheet.create({

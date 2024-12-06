@@ -201,7 +201,6 @@ export const fetchQuizByContentId = async (contentId: number): Promise<Quiz[]> =
             'SELECT * FROM Quiz WHERE ContentId = ?',
             [contentId]
         );
-        console.log('Fetched quizzes:', quizzes); // Log the fetched results
         return quizzes;
     } catch (error) {
         console.error('Failed to fetch quiz:', error);

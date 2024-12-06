@@ -32,19 +32,27 @@ const MathModulSection: React.FC<MathModulSectionProps> = ({ onButtonPress }) =>
     }, []);
 
     const handleButtonPress = (module: MathChapter | { ChapterName: string }) => {
-        onButtonPress?.(module.ChapterName); // Call the onButtonPress prop
+        console.log("Navigating from MathModulSection with module:", module);
+        onButtonPress?.(module.ChapterName);
 
         if (module.ChapterName === 'Alle Module') {
             navigation.navigate('Math', { screen: 'MathChapterScreen' });
+            console.log("Navigating to MathChapterScreen"); // Log the target screen
+
         } else if ('ChapterId' in module) {  // Check if it's a MathChapter type
             navigation.navigate('Math', { 
                 screen: 'MathSubchapterScreen', 
-                params: { 
+                params: {
                     chapterId: module.ChapterId, 
                     chapterTitle: module.ChapterName,
                     origin: 'HomeScreen'  // Pass the origin parameter
                 }
             });
+            console.log("Navigating to MathSubchapterScreen with params:", {
+                chapterId: module.ChapterId,
+                chapterTitle: module.ChapterName,
+                origin: 'HomeScreen'
+            }); // Log the params
         }
     };
 

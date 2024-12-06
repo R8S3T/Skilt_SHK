@@ -276,8 +276,6 @@ export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
                 [contentId]
             );
 
-            console.log('Fetched quizzes:', result);  // Log the fetched quizzes to see if any data is returned
-
             // Process options for each quiz
             for (let quiz of result) {
                 console.log(`Fetching options for quiz with QuizId: ${quiz.QuizId}`); // Log the quiz ID to check what quiz options are fetched
@@ -366,8 +364,6 @@ export async function fetchClozeTestOptionsByQuizId(
                  WHERE QuizId = ?`,
                 [quizId]
             );
-
-            console.log('Raw result from local DB:', result);
 
             if (!result || result.length === 0) {
                 console.warn(`No cloze test options found for QuizId ${quizId}`);

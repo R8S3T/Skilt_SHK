@@ -72,11 +72,23 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
         loadSubchapters();
     }, [chapterId, unlockedSubchapters, unlockSubchapter]);
 
+    useEffect(() => {
+        console.log("MathSubchapterScreen loaded with route params:", {
+            chapterId,
+            chapterTitle,
+            origin
+        }); // Log the received route params
+    }, [chapterId, chapterTitle, origin]);
+
+    
     const handleNodePress = async (subchapterId: number, subchapterTitle: string) => {
         const isFinished = finishedSubchapters.includes(subchapterId);
         const isLocked = !unlockedSubchapters.includes(subchapterId);
         const selected = subchapters.find(sub => sub.SubchapterId === subchapterId);
-    
+        console.log("Subchapter node pressed with ID and title:", { subchapterId, subchapterTitle }); // Log subchapter details
+        console.log("Finished Subchapters:", finishedSubchapters); // Log finished subchapters
+        console.log("Unlocked Subchapters:", unlockedSubchapters); // Log unlocked subchapters
+
         if (isFinished && selected) {
             setSelectedSubchapter(selected);
             setModalVisible(true);
