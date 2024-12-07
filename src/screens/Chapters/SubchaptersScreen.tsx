@@ -9,7 +9,7 @@ import { SubchapterContext } from '../../context/SubchapterContext';
 import SubchapterInfoModal from './SubchapterInfoModal';
 import GenericRows from '../GenericRows';
 import { useTheme } from 'src/context/ThemeContext';
-import { scaleFontSize } from "src/utils/screenDimensions";
+import { scaleFontSize, screenWidth } from "src/utils/screenDimensions";
 
 type SubchaptersScreenRouteProps = {
     route: RouteProp<LearnStackParamList, 'SubchaptersScreen'>;
@@ -35,15 +35,19 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
     const { unlockedSubchapters, finishedSubchapters, setCurrentSubchapter, unlockSubchapter } = context;
 
     useLayoutEffect(() => {
+        const headerFontSize = screenWidth > 600 ? 24 : 20;
         navigation.setOptions({
             title: chapterTitle || 'Lehrjahre',
             headerTitleAlign: 'left',
             headerTitleStyle: {
                 color: theme.primaryText,
+                fontSize: headerFontSize,
                 marginLeft: -15,
             },
             headerStyle: {
                 backgroundColor: theme.surface,
+                elevation: 0, // Remove shadow on Android
+                shadowOpacity: 0,
             },
             headerTintColor: theme.primaryText,
         });
@@ -145,7 +149,7 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
                     styles.heading,
                     { color: theme.primaryText }
                 ]}>{chapterTitle}</Text>
-                
+
                 {loading ? (
                     <Text style={{ color: theme.primaryText }}>Loading...</Text>
                 ) : (
@@ -177,22 +181,23 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     dynamicHeadingContainer: {
-        padding: 20,
+        padding: screenWidth > 600 ? 30 : 20,
         alignItems: 'center',
         zIndex: 1,
     },
     dynamicHeading: {
         fontFamily: 'Lato-Bold',
-        fontSize: scaleFontSize(16),
+        fontSize: screenWidth > 600 ? scaleFontSize(14) : scaleFontSize(16),
         textAlign: 'center',
+        marginBottom: screenWidth > 600 ? 15 : 10,
     },
     scrollViewContent: {
-        paddingTop: 10,
+        paddingTop: screenWidth > 600 ? 20 : 10,
     },
     heading: {
         fontSize: 18,
         textAlign: 'center',
-        marginTop: 10,
+        marginTop: 8,
     },
 });
 

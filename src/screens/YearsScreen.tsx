@@ -18,6 +18,7 @@ const YearsScreen: React.FC = () => {
     const [modalMessage, setModalMessage] = useState<string | null>(null);
 
     useLayoutEffect(() => {
+        const headerFontSize = screenWidth > 600 ? 24 : 20;
         navigation.setOptions({
             title: 'Start',
             headerStyle: {
@@ -25,7 +26,7 @@ const YearsScreen: React.FC = () => {
             },
             headerTitleStyle: {
                 color: theme.primaryText,
-                fontSize: 20,
+                fontSize: headerFontSize,
                 fontWeight: 'normal',
             },
             headerTitleAlign: 'left',
@@ -222,7 +223,7 @@ const styles = StyleSheet.create({
     introText: {
         flex: 1,
         marginLeft: 28,
-        fontSize: screenWidth > 600 ? scaleFontSize(11) : scaleFontSize(16),
+        fontSize: screenWidth > 600 ? scaleFontSize(9) : scaleFontSize(14),
     },
     playButton: {
         width: screenWidth > 600 ? iconSize * 1.5 : iconSize,

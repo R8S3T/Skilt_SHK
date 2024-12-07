@@ -17,6 +17,7 @@ import { Ionicons } from '@expo/vector-icons';
 import {  loadProgress, completeSubchapter, saveProgress, } from 'src/utils/progressUtils';
 import { useTheme } from 'src/context/ThemeContext';
 import LottieView from 'lottie-react-native';
+import { screenWidth, scaleFontSize } from 'src/utils/screenDimensions';
 
 type SubchapterContentScreenRouteProp = RouteProp<LearnStackParamList, 'SubchapterContentScreen'>;
 type SubchapterContentScreenNavigationProp = StackNavigationProp<LearnStackParamList, 'SubchapterContentScreen'>;
@@ -194,7 +195,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
 
             setCurrentIndex((prevIndex) => {
                 setShowQuiz(isQuiz);
-                setMaxIndexVisited((prev) => Math.max(prev, nextIndex));
+                setMaxIndexVisited((prev) => Math.max(prev, nextIndex)); // Ensure maxIndexVisited is updated
                 return nextIndex;
             });
 
@@ -230,24 +231,22 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
             }, 200); // Delay to ensure smooth transition
         }
     };
-    
 
     const goBack = () => {
         // Skip quiz slides and navigate to the previous content slide
         let newIndex = currentIndex - 1;
-    
+
         // Find the nearest previous ContentSlide
         while (newIndex >= 0 && 'QuizId' in contentData[newIndex]) {
             newIndex--;
         }
-    
+
         // Only update index if a valid ContentSlide is found
         if (newIndex >= 0) {
             setShowQuiz(false); // Exit quiz mode
             setCurrentIndex(newIndex);
         }
     };
-    
 
     if (loading || navigating) {
         return (
@@ -261,7 +260,6 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
             </View>
         );
     }
-    
 
     return (
         <GestureHandlerRootView style={styles.container}>
@@ -289,23 +287,28 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                         <Ionicons
                             name="chevron-back"
                             size={30}
-                            color={currentIndex === 0 || showQuiz ? 'lightgray' : 'gray'}
+                            color={currentIndex === 0 || showQuiz ? 'lightgray' : '#e8630a'}
                             style={styles.arrowStyle}
                         />
                     </TouchableOpacity>
 
                     {/* Forward Arrow */}
                     <TouchableOpacity
-                        onPress={handleNextContent}
-                        disabled={currentIndex === contentData.length - 1}
-                    >
-                        <Ionicons
-                            name="chevron-forward"
-                            size={30}
-                            color={currentIndex === contentData.length - 1 ? 'lightgray' : 'gray'}
-                            style={styles.arrowStyle}
-                        />
-                    </TouchableOpacity>
+    onPress={handleNextContent}
+    disabled={currentIndex >= contentData.length - 1 || currentIndex >= maxIndexVisited}
+>
+    <Ionicons
+        name="chevron-forward"
+        size={30}
+        color={
+            currentIndex >= contentData.length - 1 || currentIndex >= maxIndexVisited
+                ? 'lightgray' // Deactivated arrow
+                : '#e8630a'   // Activated arrow
+        }
+        style={styles.arrowStyle}
+    />
+</TouchableOpacity>
+
                 </View>
             </View>
         </GestureHandlerRootView>
@@ -323,14 +326,16 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 10,
         position: 'absolute',
-        bottom: 20,
+        bottom: screenWidth > 600 ? 30 : 20,
         width: '100%',
     },
     arrowStyle: {
         opacity: 0.8,
+        fontSize: screenWidth > 600 ? 38 : 30, // Larger size for tablets
     },
+    
     progressBarContainer: {
-        height: 16,
+        height: screenWidth > 600 ? 20 : 16,
         width: '90%',
         backgroundColor: '#e0e0e0',
         borderRadius: 10,

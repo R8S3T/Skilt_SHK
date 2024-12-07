@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { View, TouchableOpacity, Image, StyleSheet, Text } from 'react-native';
-import { getDynamicIconSize } from 'src/utils/screenDimensions';
+import { getDynamicIconSize, screenWidth } from 'src/utils/screenDimensions';
 import { useTheme } from 'src/context/ThemeContext';
 
 interface GenericNodeProps {
@@ -71,7 +71,7 @@ const GenericNode: React.FC<GenericNodeProps> = ({
         },
         text: {
             flex: 1,
-            fontSize: 15,
+            fontSize: screenWidth > 600 ? 20 : 18, // Larger font size for tablets
             color: isLocked ? '#A9A9A9' : '#000000',
             ...(isDarkMode && {
                 color: isLocked ? '#A9A9A9' : theme.primaryText,

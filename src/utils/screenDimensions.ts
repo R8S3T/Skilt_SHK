@@ -5,11 +5,10 @@ export const screenWidth = Dimensions.get('window').width;
 
 // Function to calculate fontsize
 export const scaleFontSize = (size: number): number => {
-    const isTablet = screenWidth > 600; // Tablet threshold
-    const scale = screenWidth / 375; // Use mobile-friendly base
-    const scaledSize = size * scale;
-
-    return isTablet ? Math.round(scaledSize * 1.2) : Math.round(scaledSize); // Add multiplier for tablets
+    const scale = screenWidth / 320;
+    const newSize = size * scale;
+    // Optionally add a condition to ensure a minimum font size
+    return newSize > size ? Math.round(newSize) : size;
 };
 
 // Function to calculate dynamic margin

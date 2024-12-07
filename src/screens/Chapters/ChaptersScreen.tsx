@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
         marginLeft: 28,
         fontFamily: 'OpenSans-Regular',
         color: '#2b4353',
-        fontSize: scaleFontSize(15),
+        fontSize: scaleFontSize(12),
     },
     playButton: {
         width: screenWidth > 600 ? 32 : iconSize, // Larger for tablets

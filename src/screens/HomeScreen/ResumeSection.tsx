@@ -121,12 +121,12 @@ const styles = StyleSheet.create({
     },
     resumeTitle: {
         fontFamily: 'Lato-Bold',
-        fontSize: scaleFontSize(16),
+        fontSize: screenWidth > 600 ? 35 : 16,
         marginBottom: 10,
     },
     subtitle: {
         fontFamily: 'OpenSans-Regular',
-        fontSize: scaleFontSize(14),
+        fontSize: screenWidth > 600 ? 22 : 14,
         textAlign: 'center',
         marginTop: 15,
     },
