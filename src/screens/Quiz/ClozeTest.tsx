@@ -4,6 +4,7 @@ import ControlButtons from './ControlButtons';
 import SentenceWithBlanks from './SentenceWithBlanks';
 import OptionButton from './OptionButton';
 import { Quiz, AnswerStatus } from 'src/types/contentTypes';
+import { screenWidth, scaleFontSize } from 'src/utils/screenDimensions';
 
 interface ClozeTestProps {
     quiz: Quiz;
@@ -21,6 +22,7 @@ const ClozeTest: React.FC<ClozeTestProps> = ({ quiz, options, correctAnswers, on
     );
     const [submitButtonText, setSubmitButtonText] = useState('Bestätigen');
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+    const [answerFeedback, setAnswerFeedback] = useState<string | null>(null);
 
     // Reset state when a new quiz is loaded
     useEffect(() => {
@@ -58,12 +60,20 @@ const ClozeTest: React.FC<ClozeTestProps> = ({ quiz, options, correctAnswers, on
         // Determine overall correctness
         const isOverallCorrect = newSelectedOptions.every(opt => opt.isCorrect);
     
-        setSubmitButtonText(isOverallCorrect ? 'Weiter' : 'Bestätigen');
+        if (isOverallCorrect) {
+            setSubmitButtonText('Weiter');
+            setAnswerFeedback('Richtig! Gut gemacht.'); // Correct feedback
+        } else {
+            setAnswerFeedback('Falsch. Bitte überprüfe deine Antworten.'); // Incorrect feedback
+        }
+    
         setIsButtonDisabled(!isOverallCorrect);
     };
     
 
     const handleClear = () => {
+        setAnswerFeedback(null);
+
         const lastFilledIndex = selectedOptions
             .map((opt, index) => ({ ...opt, index }))
             .filter(opt => opt.answer !== null)
@@ -96,6 +106,9 @@ const ClozeTest: React.FC<ClozeTestProps> = ({ quiz, options, correctAnswers, on
                             />
                         ))}
                     </View>
+                    {answerFeedback && ( // Display feedback
+                        <Text style={styles.answerFeedback}>{answerFeedback}</Text>
+                    )}
                     <View style={styles.controlButtonsContainer}>
                         <ControlButtons
                             onSubmit={handleSubmit}
@@ -112,28 +125,38 @@ const ClozeTest: React.FC<ClozeTestProps> = ({ quiz, options, correctAnswers, on
             )}
         </ScrollView>
     );
-    
 };
 
 const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
-        justifyContent: 'space-between', // Ensures even spacing between children
-        paddingHorizontal: 10,
-        paddingVertical: 40, // Adds vertical padding for better spacing
+        justifyContent: 'space-between',
+        paddingHorizontal: screenWidth > 600 ? 25 : 10,
+        paddingVertical: screenWidth > 600 ? 60 : 40,
         backgroundColor: '#2b4353',
     },
     optionsContainer: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        justifyContent: 'space-evenly', // More even spacing between options
-        marginVertical: 30, // Adds space above and below the options
+        justifyContent: 'space-evenly',
+        marginVertical: screenWidth > 600 ? 50 : 30,
+        padding: screenWidth > 600 ? 15 : 10,
     },
     sentenceContainer: {
-        marginBottom: 40, // Adds space below the sentence with blanks
+        marginBottom: screenWidth > 600 ? 50 : 40,
     },
     controlButtonsContainer: {
-        marginTop: 40, // Adds space above the control buttons
+        marginTop: screenWidth > 600 ? 60 : 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+    },
+    answerFeedback: {
+        color: '#FFF',
+        fontSize: screenWidth > 600 ? 22 : 18,
+        textAlign: 'center',
+        marginVertical: 20,
+        fontWeight: 'bold',
     },
 });
 

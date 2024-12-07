@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
+import { screenWidth, scaleFontSize } from 'src/utils/screenDimensions';
 
 interface SentenceWithBlanksProps {
     sentenceParts: string[];
@@ -35,17 +36,18 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         paddingHorizontal: 10,
+        marginTop: screenWidth > 600 ? 20 : 0,
     },
     sentencePart: {
-        fontSize: 20,
+        fontSize: screenWidth > 600 ? 24 : 20,
         fontWeight: 'bold',
         color: '#FFF',
         marginHorizontal: 3,
-        lineHeight: 30,
+        lineHeight: screenWidth > 600 ? 36 : 30,
     },
     blank: {
         fontWeight: 'bold',
-        fontSize: 20,
+        fontSize: screenWidth > 600 ? 24 : 20,
         color: '#8fc2c2',
         paddingHorizontal: 5,
         textDecorationLine: 'underline',

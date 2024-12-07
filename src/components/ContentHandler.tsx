@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Dimensions, Image, TextStyle } from 'react-nati
 import { imageMap } from 'src/utils/imageMappings';
 import ImageModal from 'react-native-image-modal';
 import { useTheme } from 'src/context/ThemeContext';
+import { screenWidth, scaleFontSize } from 'src/utils/screenDimensions';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -140,7 +141,7 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
 const styles = StyleSheet.create({
   contentText: {
     fontFamily: 'OpenSans-Regular',
-    fontSize: 18,
+    fontSize: screenWidth > 600 ? 22 : 18,
     letterSpacing: 0.8,
     marginTop: 5,
   },
@@ -159,19 +160,19 @@ const styles = StyleSheet.create({
   },
   boldText: {
     fontFamily: 'OpenSans-Bold',
-    fontSize: 18,
+    fontSize: screenWidth > 600 ? 20 : 18,
   },
   headingText: {
     fontFamily: 'Lato-Bold',
-    fontSize: 24,
+    fontSize: screenWidth > 600 ? 28 : 24,
   },
   subheadingText: {
     fontFamily: 'Lato-Medium',
-    fontSize: 22,
+    fontSize: screenWidth > 600 ? 26 : 22,
   },
   sectionText: {
     fontFamily: 'OpenSans-Semibold',
-    fontSize: 20,
+    fontSize: screenWidth > 600 ? 24 : 20,
     letterSpacing: 1.2,
   },
   frameWithBulb: {
@@ -183,15 +184,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   infoSign: {
-    width: 32,
-    height: 32,
+    width: screenWidth > 600 ? 48 : 32,
+    height: screenWidth > 600 ? 48 : 32,
     position: 'absolute',
-    top: 30,
-    left: -30,
+    top: screenWidth > 600 ? 40 : 30,
+    left: screenWidth > 600 ? -40 : -30,
   },
   image: {
     width: '100%',
-    height: 200,
+    height: screenWidth > 600 ? 250 : 200,
     resizeMode: 'contain',
     marginVertical: 0,
   },
@@ -199,20 +200,20 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 400,
     resizeMode: 'contain',
-    marginVertical: 10,
+    marginVertical: screenWidth > 600 ? 25 : 10,
   },
   smallImage: {
     width: '100%',
-    height: 80,
+    height: screenWidth > 600 ? 120 : 80,
     resizeMode: 'contain',
-    marginVertical: 5,
+    marginVertical: screenWidth > 600 ? 10 : 5,
   },
   zoomIcon: {
     position: 'absolute',
-    bottom: 8,
-    right: 8,
-    width: 24,
-    height: 24,
+    bottom: screenWidth > 600 ? 12 : 8,
+    right: screenWidth > 600 ? 12 : 8,
+    width: screenWidth > 600 ? 36 : 24,
+    height: screenWidth > 600 ? 36 : 24,
   },
   bulletTextContainer: {
     flexDirection: 'row',
@@ -230,8 +231,8 @@ const styles = StyleSheet.create({
   },
   bulletText: {
     fontFamily: 'OpenSans-Regular',
-    fontSize: 18,
-    lineHeight: 24,
+    fontSize: screenWidth > 600 ? 20 : 18, // Larger for tablets
+    lineHeight: screenWidth > 600 ? 28 : 24,
     flex: 1,
     flexWrap: 'wrap',
   },

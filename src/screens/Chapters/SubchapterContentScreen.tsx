@@ -294,20 +294,20 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
 
                     {/* Forward Arrow */}
                     <TouchableOpacity
-    onPress={handleNextContent}
-    disabled={currentIndex >= contentData.length - 1 || currentIndex >= maxIndexVisited}
->
-    <Ionicons
-        name="chevron-forward"
-        size={30}
-        color={
-            currentIndex >= contentData.length - 1 || currentIndex >= maxIndexVisited
-                ? 'lightgray' // Deactivated arrow
-                : '#e8630a'   // Activated arrow
-        }
-        style={styles.arrowStyle}
-    />
-</TouchableOpacity>
+                        onPress={handleNextContent}
+                        disabled={currentIndex >= contentData.length - 1 || currentIndex >= maxIndexVisited}
+                    >
+                        <Ionicons
+                            name="chevron-forward"
+                            size={30}
+                            color={
+                                currentIndex >= contentData.length - 1 || currentIndex >= maxIndexVisited
+                                    ? 'lightgray' // Deactivated arrow
+                                    : '#e8630a'   // Activated arrow
+                            }
+                            style={styles.arrowStyle}
+                        />
+                    </TouchableOpacity>
 
                 </View>
             </View>
@@ -331,9 +331,9 @@ const styles = StyleSheet.create({
     },
     arrowStyle: {
         opacity: 0.8,
-        fontSize: screenWidth > 600 ? 38 : 30, // Larger size for tablets
+        fontSize: screenWidth > 600 ? 42 : 34, // Larger size for tablets
     },
-    
+
     progressBarContainer: {
         height: screenWidth > 600 ? 20 : 16,
         width: '90%',

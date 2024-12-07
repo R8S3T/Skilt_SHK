@@ -5,6 +5,8 @@ import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from 'src/types/navigationTypes';
 import { CommonActions } from '@react-navigation/native';
 import { useTheme } from 'src/context/ThemeContext';
+import { screenWidth, scaleFontSize } from 'src/utils/screenDimensions';
+
 type CongratsScreenRouteProp = RouteProp<RootStackParamList, 'CongratsScreen'>;
 
 const CongratsScreen: React.FC = () => {
@@ -104,26 +106,26 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        paddingHorizontal: screenWidth > 600 ? 40 : 20,
     },
     animation: {
-        width: 300,
-        height: 300,
+        width: screenWidth > 600 ? 400 : 250,
+        height: screenWidth > 600 ? 400 : 250,
     },
     button: {
-        minWidth: 100,
-        padding: 10,
-        borderRadius: 5,
+        backgroundColor: '#e8630a',
+        paddingVertical: screenWidth > 600 ? 20 : 15, // Larger padding for tablets
+        paddingHorizontal: screenWidth > 600 ? 30 : 20,
+        borderRadius: 8,
+        marginTop: screenWidth > 600 ? 50 : 30,
         alignSelf: 'center',
-        marginVertical: 20,
-        alignItems: 'center',
-        justifyContent: 'center',
     },
     active: {
         backgroundColor: '#ff8f00',
     },
     text: {
         color: 'white',
-        fontSize: 18,
+        fontSize: screenWidth > 600 ? 20 : 18,
         textAlign: 'center',
     },
 });

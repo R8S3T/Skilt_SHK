@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import ControlButtons from './ControlButtons';
 import { Quiz, MultipleChoiceOption } from 'src/types/contentTypes';
+import { screenWidth, scaleFontSize } from 'src/utils/screenDimensions';
 
 interface MultipleChoiceProps {
     quiz: Quiz;
@@ -78,7 +79,7 @@ const MultipleChoice: React.FC<MultipleChoiceProps> = ({ quiz, options, onAnswer
             ))}
             {showFeedback && (
                 <Text style={styles.answerText}>
-                    {selectedOption === quiz.Answer ? 'Richtig!' : 'Falsch, bitte versuche es nochmal.'}
+                    {selectedOption === quiz.Answer ? 'Richtig! Gut gemacht.' : 'Falsch, bitte versuche es nochmal.'}
                 </Text>
             )}
             <ControlButtons
@@ -103,22 +104,22 @@ const styles = StyleSheet.create({
         backgroundColor: '#2b4353',
     },
     quizText: {
-        fontSize: 20,
+        fontSize: screenWidth > 600 ? 26 : 20,
         fontWeight: 'bold',
-        marginTop: 60,
-        marginBottom: 50,
+        marginTop: screenWidth > 600 ? 80 : 60,
+        marginBottom: screenWidth > 600 ? 60 : 50,
         marginHorizontal: 20,
         textAlign: 'center',
         color: '#FFF',
-        lineHeight: 30,
+        lineHeight: screenWidth > 600 ? 40 : 30,
     },
     option: {
         backgroundColor: '#2b4353',
-        minWidth: '85%',
-        padding: 20,
-        marginVertical: 10,
+        minWidth: screenWidth > 600 ? '90%' : '85%',
+        padding: screenWidth > 600 ? 25 : 20,
+        marginVertical: screenWidth > 600 ? 15 : 10,
         marginHorizontal: 20,
-        borderRadius: 5,
+        borderRadius: 8,
         borderWidth: 1,
         borderColor: '#8fc2c2',
         alignItems: 'center',
@@ -135,24 +136,14 @@ const styles = StyleSheet.create({
     optionText: {
         color: '#FFF',
         fontFamily: 'OpenSans-Regular',
-        fontSize: 18,
+        fontSize: screenWidth > 600 ? 24 : 18,
         textAlign: 'center',
     },
     answerText: {
         color: '#FFF',
-        marginVertical: 20,
-        fontSize: 18,
+        marginVertical: screenWidth > 600 ? 30 : 20,
+        fontSize: screenWidth > 600 ? 22 : 18,
         textAlign: 'center',
-    },
-    submitButton: {
-        marginTop: 20,
-        padding: 10,
-        backgroundColor: '#2196f3',
-        borderRadius: 5,
-    },
-    submitButtonText: {
-        fontSize: 16,
-        color: '#fff',
     },
 });
 

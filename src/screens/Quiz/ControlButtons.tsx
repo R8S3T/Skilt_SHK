@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+import { screenWidth, scaleFontSize } from 'src/utils/screenDimensions';
 
 interface ControlButtonsProps {
     onClear: () => void;
@@ -50,24 +51,25 @@ const styles = StyleSheet.create({
         marginTop: 50,
     },
     backspaceIcon: {
-        width: 30,
-        height: 30,
+        width: screenWidth > 600 ? 40 : 30, // Larger for tablets
+        height: screenWidth > 600 ? 40 : 30, // Larger for tablets
         margin: 10,
-        marginRight: 50,
+        marginRight: screenWidth > 600 ? 60 : 50, // Adjust margin for tablets
         tintColor: '#e8630a',
     },
+    
     submitButton: {
         backgroundColor: '#2b4353',
         borderWidth: 1,
         borderColor: '#e8630a',
-        paddingVertical: 15,
-        paddingHorizontal: 20,
+        paddingVertical: screenWidth > 600 ? 20 : 15,
+        paddingHorizontal: screenWidth > 600 ? 25 : 20,
         borderRadius: 5,
     },
     submitButtonText: {
         color: 'white',
         textAlign: 'center',
-        fontSize: 16,
+        fontSize: screenWidth > 600 ? 20 : 16,
     },
     disabledButton: {
         backgroundColor: '#d3d3d3',

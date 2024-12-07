@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { screenWidth, scaleFontSize } from 'src/utils/screenDimensions';
 
 interface OptionButtonProps {
     option: string;
@@ -25,16 +26,17 @@ const styles = StyleSheet.create({
     option: {
         backgroundColor: '#2b4353',
         padding: 15,
-        margin: 5,
+        marginHorizontal: screenWidth > 600 ? 15 : 10, // More horizontal space for tablets
+        marginVertical: screenWidth > 600 ? 15 : 10,   // More vertical space for tablets
         borderRadius: 5,
         borderWidth: 1,
         borderColor: '#8fc2c2',
-        width: '60%',
+        width: screenWidth > 600 ? '50%' : '60%', // Adjust width for tablets
     },
     optionText: {
         color: '#FFF',
         fontFamily: 'OpenSans-Regular',
-        fontSize: 18,
+        fontSize: screenWidth > 600 ? 24 : 18,
         textAlign: 'center',
     },
 });
