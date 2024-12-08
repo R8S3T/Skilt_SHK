@@ -739,17 +739,33 @@ const img_LF7FlachheizkrperInnenansichtzoom = require('../../assets/DbImages/Sub
 const img_LF7Flachheizkrperzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Flachheizkörper_zoom.png');
 const img_LF7Gebudeenergiegesetz = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Gebäudeenergiegesetz.png');
 const img_LF7Gebudeenergiegesetzwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Gebäudeenergiegesetz_welcome.png');
+const img_LF7Gegenstromzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Gegenstrom_zoom.png');
+const img_LF7Gleichstromzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Gleichstrom_zoom.png');
 const img_LF7Heizsystemewelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Heizsysteme_welcome.png');
 const img_LF7Heizungspumpewelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Heizungspumpe_welcome.png');
 const img_LF7HydraulischerAbgleichwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Hydraulischer_Abgleich_welcome.png');
+const img_LF7Konvektionzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Konvektion_zoom.png');
 const img_LF7Konvektorzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Konvektor_zoom.png');
+const img_LF7Kreuzstromprinzipzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Kreuzstromprinzip_zoom.png');
 const img_LF7Plattenheizkrperzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Plattenheizkörper_zoom.png');
+const img_LF7RSezoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_RSe_zoom.png');
+const img_LF7RSizoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_RSi_zoom.png');
+const img_LF7Rzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_R_zoom.png');
 const img_LF7Radiatorenzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Radiatoren_zoom.png');
 const img_LF7Rohrheizungwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Rohrheizung_welcome.png');
 const img_LF7RohrverlegungEinrohrheizungzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Rohrverlegung_Einrohrheizung_zoom.png');
+const img_LF7Skalenzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Skalen_zoom.png');
+const img_LF7Teilchenlangsam = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Teilchen_langsam.png');
+const img_LF7Teilchenlangsamzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Teilchen_langsam_zoom.png');
 const img_LF7Temperatureinheitenwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Temperatureinheiten_welcome.png');
 const img_LF7Unterflurkonvektorzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Unterflurkonvektor_zoom.png');
+const img_LF7Wrmedurchgangzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmedurchgang_zoom.png');
+const img_LF7Wrmestrahlungzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmestrahlung_zoom.png');
 const img_LF7Wrmetransferwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmetransfer_welcome.png');
+const img_LF7Wrmetransferzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmetransfer_zoom.png');
+const img_LF7Wrmebergangzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmeübergang_zoom.png');
+const img_LF7Wrmebergangskoeffizientsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmeübergangskoeffizient_small.png');
+const img_LF7Wrmebergangswiderstandsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmeübergangswiderstand_small.png');
 const img_LF8Dichtungwelcome = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Dichtung_welcome.png');
 const img_LF8Sanitrplanungwelcome = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Sanitärplanung_welcome.png');
 
@@ -1494,17 +1510,33 @@ export const imageMap = {
     "LF_7_Flachheizkörper_zoom": img_LF7Flachheizkrperzoom,
     "LF_7_Gebäudeenergiegesetz": img_LF7Gebudeenergiegesetz,
     "LF_7_Gebäudeenergiegesetz_welcome": img_LF7Gebudeenergiegesetzwelcome,
+    "LF_7_Gegenstrom_zoom": img_LF7Gegenstromzoom,
+    "LF_7_Gleichstrom_zoom": img_LF7Gleichstromzoom,
     "LF_7_Heizsysteme_welcome": img_LF7Heizsystemewelcome,
     "LF_7_Heizungspumpe_welcome": img_LF7Heizungspumpewelcome,
     "LF_7_Hydraulischer_Abgleich_welcome": img_LF7HydraulischerAbgleichwelcome,
+    "LF_7_Konvektion_zoom": img_LF7Konvektionzoom,
     "LF_7_Konvektor_zoom": img_LF7Konvektorzoom,
+    "LF_7_Kreuzstromprinzip_zoom": img_LF7Kreuzstromprinzipzoom,
     "LF_7_Plattenheizkörper_zoom": img_LF7Plattenheizkrperzoom,
+    "LF_7_RSe_zoom": img_LF7RSezoom,
+    "LF_7_RSi_zoom": img_LF7RSizoom,
+    "LF_7_R_zoom": img_LF7Rzoom,
     "LF_7_Radiatoren_zoom": img_LF7Radiatorenzoom,
     "LF_7_Rohrheizung_welcome": img_LF7Rohrheizungwelcome,
     "LF_7_Rohrverlegung_Einrohrheizung_zoom": img_LF7RohrverlegungEinrohrheizungzoom,
+    "LF_7_Skalen_zoom": img_LF7Skalenzoom,
+    "LF_7_Teilchen_langsam": img_LF7Teilchenlangsam,
+    "LF_7_Teilchen_langsam_zoom": img_LF7Teilchenlangsamzoom,
     "LF_7_Temperatureinheiten_welcome": img_LF7Temperatureinheitenwelcome,
     "LF_7_Unterflurkonvektor_zoom": img_LF7Unterflurkonvektorzoom,
+    "LF_7_Wärmedurchgang_zoom": img_LF7Wrmedurchgangzoom,
+    "LF_7_Wärmestrahlung_zoom": img_LF7Wrmestrahlungzoom,
     "LF_7_Wärmetransfer_welcome": img_LF7Wrmetransferwelcome,
+    "LF_7_Wärmetransfer_zoom": img_LF7Wrmetransferzoom,
+    "LF_7_Wärmeübergang_zoom": img_LF7Wrmebergangzoom,
+    "LF_7_Wärmeübergangskoeffizient_small": img_LF7Wrmebergangskoeffizientsmall,
+    "LF_7_Wärmeübergangswiderstand_small": img_LF7Wrmebergangswiderstandsmall,
     "LF_8_Dichtung_welcome": img_LF8Dichtungwelcome,
     "LF_8_Sanitärplanung_welcome": img_LF8Sanitrplanungwelcome
 };

@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   },
   boldText: {
     fontFamily: 'OpenSans-Bold',
-    fontSize: screenWidth > 600 ? 20 : 18,
+    fontSize: screenWidth > 600 ? 20 : 19,
   },
   headingText: {
     fontFamily: 'Lato-Bold',
@@ -168,11 +168,11 @@ const styles = StyleSheet.create({
   },
   subheadingText: {
     fontFamily: 'Lato-Medium',
-    fontSize: screenWidth > 600 ? 26 : 22,
+    fontSize: screenWidth > 600 ? 26 : 23,
   },
   sectionText: {
     fontFamily: 'OpenSans-Semibold',
-    fontSize: screenWidth > 600 ? 24 : 20,
+    fontSize: screenWidth > 600 ? 24 : 21,
     letterSpacing: 1.2,
   },
   frameWithBulb: {
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
   },
   bulletText: {
     fontFamily: 'OpenSans-Regular',
-    fontSize: screenWidth > 600 ? 20 : 18, // Larger for tablets
+    fontSize: screenWidth > 600 ? 20 : 19, // Larger for tablets
     lineHeight: screenWidth > 600 ? 28 : 24,
     flex: 1,
     flexWrap: 'wrap',

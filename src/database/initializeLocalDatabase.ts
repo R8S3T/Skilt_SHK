@@ -30,7 +30,9 @@ export async function initializeDatabase() {
         const fileInfo = await FileSystem.getInfoAsync(dbPath);
 
         if (fileInfo.exists) {
-            await FileSystem.deleteAsync(dbPath, { idempotent: true });
+            console.log("Alte Datenbank gefunden. Löschen der alten Version...");
+            await FileSystem.deleteAsync(dbPath, { idempotent: true }); // Alte Datenbank löschen
+            console.log("Alte Datenbank erfolgreich gelöscht.");
         }
 
         // Get the bundled database asset
@@ -38,11 +40,15 @@ export async function initializeDatabase() {
         await asset.downloadAsync();
 
         // Log bundled database URI (useful for debugging)
-
+        console.log("Bundled database asset downloaded.");
 
         // Check bundled database file info (logs existence and size)
         const bundledFileInfo = await FileSystem.getInfoAsync(asset.localUri!);
-
+        if (bundledFileInfo.exists) {
+            console.log(`Bundled database exists at ${asset.localUri} with size ${bundledFileInfo.size} bytes.`);
+        } else {
+            throw new Error("Bundled database asset not found.");
+        }
 
         // Copy the database from bundled assets
 
@@ -53,6 +59,11 @@ export async function initializeDatabase() {
 
 
         const copiedFileInfo = await FileSystem.getInfoAsync(dbPath);
+        if (copiedFileInfo.exists) {
+            console.log(`Datenbank erfolgreich nach ${dbPath} kopiert.`);
+        } else {
+            throw new Error("Fehler beim Kopieren der Datenbank.");
+        }
 
     } catch (error) {
         console.error("Error in database initialization:", error);
