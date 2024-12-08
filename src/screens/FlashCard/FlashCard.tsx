@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import FlipCard from 'react-native-flip-card';
-import { scaleFontSize } from 'src/utils/screenDimensions';
+import { screenWidth } from 'src/utils/screenDimensions';
 import { useTheme } from 'src/context/ThemeContext';
 import { lightenColor } from 'src/components/theme';
 
@@ -78,7 +78,7 @@ const Flashcard = ({
                             <TouchableOpacity
                                 style={[
                                     styles.incorrectButton,
-                                    { backgroundColor: isDarkMode ? '#B55454' : '#e46161' }, // Muted red for dark mode
+                                    { backgroundColor: isDarkMode ? '#5585b5' : '#385170' }, // Muted red for dark mode
                                 ]}
                                 onPress={onMarkIncorrect}
                             >
@@ -87,7 +87,7 @@ const Flashcard = ({
                             <TouchableOpacity
                                 style={[
                                     styles.correctButton,
-                                    { backgroundColor: isDarkMode ? '#5cb85c' : '#118a7e' }, // Muted green for dark mode
+                                    { backgroundColor: isDarkMode ? '#f46134' : '#f46134' }, // Muted green for dark mode
                                 ]}
                                 onPress={onMarkCorrect}
                             >
@@ -104,8 +104,8 @@ const Flashcard = ({
 
 const styles = StyleSheet.create({
     cardWrapper: {
-        width: 350,
-        height: 480,
+        width: screenWidth > 600 ? 450 : 350,
+        height: screenWidth > 600 ? 550 : 480,
         borderRadius: 15,
         overflow: 'hidden',
         shadowColor: '#000',
@@ -116,8 +116,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     flipCard: {
-        width: 350,
-        height: 480,
+        width: screenWidth > 600 ? 450 : 350,
+        height: screenWidth > 600 ? 550 : 480,
     },
     front: {
         width: '100%',
@@ -149,9 +149,9 @@ const styles = StyleSheet.create({
     },
     questionText: {
         fontFamily: 'Lato-Bold',
-        fontSize: scaleFontSize(16),
+        fontSize: screenWidth > 600 ? 28 : 24,
         textAlign: 'center',
-        paddingHorizontal: 10,
+        paddingHorizontal: screenWidth > 600 ? 10 : 8,
         lineHeight: 30,
     },
     answerBox: {
@@ -166,12 +166,12 @@ const styles = StyleSheet.create({
         elevation: 3,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 15,
-        marginBottom: 30,
+        padding: screenWidth > 600 ? 20 : 15,
+        marginBottom: screenWidth > 600 ? 35 : 30,
     },
     answerText: {
         fontFamily: 'OpenSans-Semibold',
-        fontSize: scaleFontSize(14),
+        fontSize: screenWidth > 600 ? 20 : 16,
         textAlign: 'center',
     },
     buttonContainer: {
@@ -180,16 +180,14 @@ const styles = StyleSheet.create({
         bottom: 20,
     },
     incorrectButton: {
-        backgroundColor: '#e46161',
-        paddingVertical: 10,
-        paddingHorizontal: 20,
+        paddingVertical: screenWidth > 600 ? 20 : 10,
+        paddingHorizontal: screenWidth > 600 ? 25 : 20,
         borderRadius: 5,
         marginHorizontal: 10,
     },
     correctButton: {
-        backgroundColor: '#118a7e',
-        paddingVertical: 10,
-        paddingHorizontal: 20,
+        paddingVertical: screenWidth > 600 ? 20 : 10,
+        paddingHorizontal: screenWidth > 600 ? 25 : 20,
         borderRadius: 5,
         marginHorizontal: 10,
     },
@@ -202,7 +200,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: 'white',
-        fontSize: 16,
+        fontSize: screenWidth > 600 ? 18 : 16,
     },
 });
 

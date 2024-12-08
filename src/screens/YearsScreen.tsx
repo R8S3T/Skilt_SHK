@@ -5,8 +5,8 @@ import { LearnStackParamList } from 'src/types/navigationTypes';
 import { fetchChaptersByYear } from 'src/database/databaseServices';
 import { NavigationProp } from '@react-navigation/native';
 import { useTheme } from 'src/context/ThemeContext';
-import { scaleFontSize, screenWidth } from "src/utils/screenDimensions";
-
+import { screenWidth } from "src/utils/screenDimensions";
+import { Ionicons } from '@expo/vector-icons';
 
 const YearsScreen: React.FC = () => {
     const navigation = useNavigation<NavigationProp<LearnStackParamList>>();
@@ -18,21 +18,41 @@ const YearsScreen: React.FC = () => {
     const [modalMessage, setModalMessage] = useState<string | null>(null);
 
     useLayoutEffect(() => {
-        const headerFontSize = screenWidth > 600 ? 24 : 20;
+        const headerFontSize = screenWidth > 600 ? 28 : 22;
+        const backIconSize = screenWidth > 600 ? 35 : 28;
+    
         navigation.setOptions({
-            title: 'Start',
             headerStyle: {
                 backgroundColor: theme.surface,
             },
-            headerTitleStyle: {
-                color: theme.primaryText,
-                fontSize: headerFontSize,
-                fontWeight: 'normal',
-            },
-            headerTitleAlign: 'left',
+            headerTitle: '', // Entfernt den automatischen Titel
+            headerLeft: () => (
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
+                    <TouchableOpacity
+                        onPress={() => navigation.goBack()}
+                        style={{ marginRight: 10 }}
+                    >
+                        <Ionicons
+                            name="arrow-back"
+                            size={backIconSize}
+                            color={theme.primaryText}
+                        />
+                    </TouchableOpacity>
+                    <Text
+                        style={{
+                            color: theme.primaryText,
+                            fontSize: headerFontSize,
+                            fontWeight: '600', // Titel fett machen
+                        }}
+                    >
+                        Start
+                    </Text>
+                </View>
+            ),
             headerTintColor: theme.primaryText,
         });
     }, [navigation, theme]);
+    
 
     const educationData = [
         { year: 1, learnAreas: 4 },
@@ -169,7 +189,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: 'Lato-Bold',
-        fontSize: screenWidth > 600 ? scaleFontSize(14) : scaleFontSize(18),
+        fontSize: screenWidth > 600 ? 36 : 24,
         textAlign: 'center',
     },
     container: {
@@ -223,7 +243,7 @@ const styles = StyleSheet.create({
     introText: {
         flex: 1,
         marginLeft: 28,
-        fontSize: screenWidth > 600 ? scaleFontSize(9) : scaleFontSize(14),
+        fontSize: screenWidth > 600 ? 22 : 18,
     },
     playButton: {
         width: screenWidth > 600 ? iconSize * 1.5 : iconSize,

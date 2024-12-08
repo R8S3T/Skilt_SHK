@@ -5,7 +5,7 @@ import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { RootStackParamList } from 'src/types/navigationTypes';
 import { CommonActions } from '@react-navigation/native';
 import { useTheme } from 'src/context/ThemeContext';
-import { screenWidth, scaleFontSize } from 'src/utils/screenDimensions';
+import { screenWidth } from 'src/utils/screenDimensions';
 
 type CongratsScreenRouteProp = RouteProp<RootStackParamList, 'CongratsScreen'>;
 

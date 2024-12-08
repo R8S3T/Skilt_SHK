@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Dimensions, Image, TextStyle } from 'react-nati
 import { imageMap } from 'src/utils/imageMappings';
 import ImageModal from 'react-native-image-modal';
 import { useTheme } from 'src/context/ThemeContext';
-import { screenWidth, scaleFontSize } from 'src/utils/screenDimensions';
+import { screenWidth } from 'src/utils/screenDimensions';
 
 const deviceWidth = Dimensions.get('window').width;
 

@@ -10,8 +10,8 @@ import GenericRows from '../GenericRows';
 import { useMathSubchapter } from '../../context/MathSubchapterContext';
 import SubchapterInfoModal from '../Chapters/SubchapterInfoModal';
 import { useTheme } from 'src/context/ThemeContext';
-import { scaleFontSize } from "src/utils/screenDimensions";
 import { fetchMathMiniQuizByContentId, fetchMathContentBySubchapterId } from "src/database/databaseServices";
+import { scaleFontSize, screenWidth } from "src/utils/screenDimensions";
 import { Ionicons } from "@expo/vector-icons";
 
 type MathSubchapterScreenRouteProp = RouteProp<MathStackParamList, 'MathSubchapterScreen'>;
@@ -33,14 +33,39 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
     const { unlockedSubchapters, finishedSubchapters, setCurrentSubchapter, unlockSubchapter } = useMathSubchapter();
 
     useLayoutEffect(() => {
+        const headerFontSize = screenWidth > 600 ? 28 : 20; // Größer für Tablets
+        const backIconSize = screenWidth > 600 ? 35 : 28; // Größerer Pfeil für Tablets
+    
         navigation.setOptions({
-            headerTitle: 'Module', // Set title for this screen
-            headerStyle: { backgroundColor: theme.surface },
-            headerTintColor: theme.primaryText,
-            headerTitleStyle: {
-                fontWeight: '600',
+            headerStyle: {
+                backgroundColor: theme.surface,
+                elevation: 0, // Entfernt Schatten auf Android
+                shadowOpacity: 0,
             },
-            headerTitleAlign: 'center',
+            headerTitle: '', // Verhindert automatischen Header-Text
+            headerLeft: () => (
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
+                    <TouchableOpacity
+                        onPress={() => navigation.goBack()}
+                        style={{ marginRight: 10 }}
+                    >
+                        <Ionicons
+                            name="arrow-back"
+                            size={backIconSize}
+                            color={theme.primaryText}
+                        />
+                    </TouchableOpacity>
+                    <Text
+                        style={{
+                            color: theme.primaryText,
+                            fontSize: headerFontSize,
+                            fontWeight: '600',
+                        }}
+                    >
+                        Module
+                    </Text>
+                </View>
+            ),
         });
     }, [navigation, theme]);
 
@@ -187,10 +212,11 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        padding: screenWidth > 600 ? 20 : 5,
     },
     stickyHeading: {
         fontFamily: 'Lato-Bold',
-        fontSize: scaleFontSize(16),
+        fontSize: screenWidth > 600 ? 36 : 24,
         textAlign: 'center',
         paddingVertical: 10,
         position: 'absolute',
@@ -200,12 +226,8 @@ const styles = StyleSheet.create({
         zIndex: 1,
     },
     scrollViewContent: {
-        paddingTop: 60,  // Offset to avoid overlap with sticky heading
+        paddingTop: screenWidth > 600 ? 70 : 40,
     },
 });
 
 export default MathSubchapterScreen;
-
-
-
-

@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'rea
 import { imageMap } from 'src/utils/imageMappings';
 import { scaleFontSize } from 'src/utils/screenDimensions';
 import ControlButtons from './ControlButtons';
+import { screenWidth } from 'src/utils/screenDimensions';
 
 interface MathMiniQuiz {
     Question: string;
@@ -153,11 +154,11 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         justifyContent: 'flex-start',
         alignItems: 'center',
-        padding: 20,
+        padding: screenWidth > 600 ? 50 : 40,
         backgroundColor: '#3a7563',
     },
     questionContainer: {
-        marginTop: 30,
+        marginTop: screenWidth > 600 ? 70 : 40,
         alignItems: 'center',
     },
     questionText: {
@@ -165,7 +166,7 @@ const styles = StyleSheet.create({
         fontSize: scaleFontSize(16),
         textAlign: 'center',
         color: '#FFF',
-        lineHeight: 30,
+        lineHeight: screenWidth > 600 ? 50 : 30,
     },
     imageContainer: {
         alignItems: 'center',
@@ -182,15 +183,15 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
         borderColor: '#b8e1dd',
         borderWidth: 1,
-        padding: 15,
-        marginVertical: 10,
+        padding: screenWidth > 600 ? 25 : 15,
+        marginVertical: screenWidth > 600 ? 20 : 10,
         width: '80%',
         borderRadius: 5,
         alignItems: 'center',
     },
     optionText: {
         color: '#fff',
-        fontSize: 18,
+        fontSize: screenWidth > 600 ? 22 : 18,
     },
     correctOption: {
         backgroundColor: '#32CD32',

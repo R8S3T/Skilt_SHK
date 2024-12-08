@@ -134,8 +134,8 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
     resumeImage: {
-        width: '85%',
-        height: 200,
+        width: '90%',
+        height: screenWidth > 600 ? 280 : 200,
         marginBottom: 10,
         marginTop: 10,
     },

@@ -6,8 +6,9 @@ import { NavigationProp, RouteProp, useRoute, useNavigation } from '@react-navig
 import { RootStackParamList } from 'src/types/navigationTypes';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { loadFlashcardProgress, saveFlashcardProgress } from 'src/utils/progressUtils';
-import { scaleFontSize } from 'src/utils/screenDimensions';
+import { screenWidth } from 'src/utils/screenDimensions';
 import { useTheme } from 'src/context/ThemeContext';
+import { Ionicons } from '@expo/vector-icons';
 
 const INCORRECT_CARDS_KEY = 'incorrect_cards';
 
@@ -23,21 +24,43 @@ const FlashcardScreen = () => {
     const { theme, isDarkMode } = useTheme();
 
     useLayoutEffect(() => {
+        const headerFontSize = screenWidth > 600 ? 28 : 22; // Larger font size for tablets
+        const backIconSize = screenWidth > 600 ? 35 : 28; // Larger back icon size for tablets
+    
         navigation.setOptions({
-            title: 'Lernfelder',
+            headerTitle: '', // Remove automatic title
+            headerLeft: () => (
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
+                    <TouchableOpacity
+                        onPress={() => navigation.goBack()}
+                        style={{ marginRight: 10 }}
+                    >
+                        <Ionicons
+                            name="arrow-back"
+                            size={backIconSize}
+                            color={theme.primaryText}
+                        />
+                    </TouchableOpacity>
+                    <Text
+                        style={{
+                            color: theme.primaryText,
+                            fontSize: headerFontSize,
+                            fontWeight: '600', // Bold title text
+                            marginLeft: 5, // Spacing between icon and title
+                        }}
+                    >
+                        Lernfelder
+                    </Text>
+                </View>
+            ),
             headerStyle: {
                 backgroundColor: theme.surface,
+                elevation: 0, // Remove shadow on Android
+                shadowOpacity: 0,
             },
-            headerTitleStyle: {
-                color: theme.primaryText,
-                fontSize: 20,
-                fontWeight: '600',
-                paddingLeft: -20,
-            },
-            headerTitleAlign: 'left',
             headerTintColor: theme.primaryText,
         });
-    }, [navigation, chapterId, theme]);
+    }, [navigation, theme]);
 
     // Load flashcard progress
     useEffect(() => {
@@ -206,39 +229,39 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     header: {
-        paddingVertical: 5,
+        paddingVertical: screenWidth > 600 ? 15 : 5,
         alignItems: 'center',
     },
     headerText: {
         fontFamily: 'Lato-Bold',
-        fontSize: scaleFontSize(16),
+        fontSize: screenWidth > 600 ? 36 : 24,
     },
     counterText: {
-        fontSize: 20,
+        fontSize: screenWidth > 600 ? 28 : 20,
         color: '#333',
         textAlign: 'center',
-        marginTop: 20,
+        marginTop: screenWidth > 600 ? 25 : 20,
     },
     contentContainer: {
         justifyContent: 'center',
         alignItems: 'center',
-        height: 400,
-        marginVertical: 60,
+        height: screenWidth > 600 ? 600 : 400,
+        marginVertical: screenWidth > 600 ? 80 : 60,
     },
     loadingText: {
-        fontSize: 18,
+        fontSize: screenWidth > 600 ? 22 : 18,
         color: '#666',
         textAlign: 'center',
     },
     buttonContainer: {
-        marginTop: 20,
+        marginTop: screenWidth > 600 ? 25 : 20,
         alignItems: 'center',
-        paddingHorizontal: 10,
+        paddingHorizontal: screenWidth > 600 ? 15 : 10,
     },
     reviewButton: {
         borderColor: '#24527a',
-        paddingVertical: 12,
-        paddingHorizontal: 20,
+        paddingVertical: screenWidth > 600 ? 16 : 12,
+        paddingHorizontal: screenWidth > 600 ? 25 : 20,
         borderRadius: 10,
         borderWidth: 1,
         marginVertical: 10,
@@ -247,7 +270,7 @@ const styles = StyleSheet.create({
     },
     buttonContainerText: {
         color: '#24527a',
-        fontSize: 16,
+        fontSize: screenWidth > 600 ? 20 : 16,
         textAlign: 'center',
     },
     scrollContent: {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useLayoutEffect } from 'react';
-import { Text, View, ScrollView, StyleSheet } from 'react-native';
+import { Text, View, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { RouteProp, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { fetchSubchaptersByChapterId } from 'src/database/databaseServices';
@@ -9,7 +9,8 @@ import { SubchapterContext } from '../../context/SubchapterContext';
 import SubchapterInfoModal from './SubchapterInfoModal';
 import GenericRows from '../GenericRows';
 import { useTheme } from 'src/context/ThemeContext';
-import { scaleFontSize, screenWidth } from "src/utils/screenDimensions";
+import { screenWidth } from "src/utils/screenDimensions";
+import { Ionicons } from '@expo/vector-icons';
 
 type SubchaptersScreenRouteProps = {
     route: RouteProp<LearnStackParamList, 'SubchaptersScreen'>;
@@ -35,18 +36,38 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
     const { unlockedSubchapters, finishedSubchapters, setCurrentSubchapter, unlockSubchapter } = context;
 
     useLayoutEffect(() => {
-        const headerFontSize = screenWidth > 600 ? 24 : 20;
+        const headerFontSize = screenWidth > 600 ? 28 : 22; // Größere Schrift für Tablets
+        const backIconSize = screenWidth > 600 ? 35 : 28; // Größerer Pfeil für Tablets
+
         navigation.setOptions({
-            title: chapterTitle || 'Lehrjahre',
-            headerTitleAlign: 'left',
-            headerTitleStyle: {
-                color: theme.primaryText,
-                fontSize: headerFontSize,
-                marginLeft: -15,
-            },
+            headerTitle: '', // Entfernt den automatischen Titel
+            headerLeft: () => (
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
+                    <TouchableOpacity
+                        onPress={() => navigation.goBack()}
+                        style={{ marginRight: 10 }}
+                    >
+                        <Ionicons
+                            name="arrow-back"
+                            size={backIconSize}
+                            color={theme.primaryText}
+                        />
+                    </TouchableOpacity>
+                    <Text
+                        style={{
+                            color: theme.primaryText,
+                            fontSize: headerFontSize,
+                            fontWeight: '600', // Titel fett machen
+                            marginLeft: 5, // Abstand zwischen Icon und Text
+                        }}
+                    >
+                        {chapterTitle || 'Lehrjahre'}
+                    </Text>
+                </View>
+            ),
             headerStyle: {
                 backgroundColor: theme.surface,
-                elevation: 0, // Remove shadow on Android
+                elevation: 0, // Entfernt Schatten auf Android
                 shadowOpacity: 0,
             },
             headerTintColor: theme.primaryText,
@@ -187,7 +208,7 @@ const styles = StyleSheet.create({
     },
     dynamicHeading: {
         fontFamily: 'Lato-Bold',
-        fontSize: screenWidth > 600 ? scaleFontSize(14) : scaleFontSize(16),
+        fontSize: screenWidth > 600 ? 36 : 24,
         textAlign: 'center',
         marginBottom: screenWidth > 600 ? 15 : 10,
     },
@@ -195,7 +216,7 @@ const styles = StyleSheet.create({
         paddingTop: screenWidth > 600 ? 20 : 10,
     },
     heading: {
-        fontSize: 18,
+        fontSize: screenWidth > 600 ? 22 : 18,
         textAlign: 'center',
         marginTop: 8,
     },

@@ -4,6 +4,7 @@ import LottieView from 'lottie-react-native';
 import { CommonActions, useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { MathStackParamList } from 'src/types/navigationTypes';
 import { useMathSubchapter } from '../../context/MathSubchapterContext';
+import { screenWidth } from 'src/utils/screenDimensions';
 
 type MathCongratsScreenRouteProp = RouteProp<MathStackParamList, 'MathCongratsScreen'>;
 
@@ -96,26 +97,26 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        paddingHorizontal: screenWidth > 600 ? 40 : 20,
     },
     animation: {
-        width: 300,
-        height: 300,
+        width: screenWidth > 600 ? 400 : 250,
+        height: screenWidth > 600 ? 400 : 250,
     },
     button: {
-        minWidth: 100,
-        padding: 10,
-        borderRadius: 5,
+        backgroundColor: '#e8630a',
+        paddingVertical: screenWidth > 600 ? 20 : 15, // Larger padding for tablets
+        paddingHorizontal: screenWidth > 600 ? 30 : 20,
+        borderRadius: 8,
+        marginTop: screenWidth > 600 ? 50 : 30,
         alignSelf: 'center',
-        marginVertical: 20,
-        alignItems: 'center',
-        justifyContent: 'center',
     },
     active: {
         backgroundColor: '#ff8f00',
     },
     text: {
         color: 'white',
-        fontSize: 18,
+        fontSize: screenWidth > 600 ? 20 : 18,
         textAlign: 'center',
     },
 });

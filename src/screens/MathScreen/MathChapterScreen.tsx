@@ -9,7 +9,7 @@ import { MathChapter } from "src/types/contentTypes";
 import { imageMap } from "src/utils/imageMappings";
 import { useTheme } from 'src/context/ThemeContext';
 import ThemeWrapper from 'src/components/ThemeWrapper';
-import { scaleFontSize } from "src/utils/screenDimensions";
+import { scaleFontSize, screenWidth } from "src/utils/screenDimensions";
 import { Ionicons } from "@expo/vector-icons";
 
 type MathChapterScreenNavigationProp = StackNavigationProp<MathStackParamList, 'MathChapterScreen'>;
@@ -21,19 +21,33 @@ const MathChapterScreen: React.FC = () => {
     const [loading, setLoading] = useState(true);
 
     useLayoutEffect(() => {
+        const headerFontSize = screenWidth > 600 ? 24 : 20;
         navigation.setOptions({
             title: 'Start',
             headerStyle: {
                 backgroundColor: theme.surface,
+                elevation: 0, // Remove shadow on Android
+                shadowOpacity: 0,
             },
             headerTitleStyle: {
                 color: theme.primaryText,
-                fontSize: 20,
-                fontWeight: '600',
+                fontSize: headerFontSize,
+                fontWeight: 'normal',
                 paddingLeft: -20,
             },
             headerTitleAlign: 'left',
-            headerTintColor: theme.primaryText,
+            headerLeft: () => (
+                <TouchableOpacity
+                    onPress={() => navigation.goBack()}
+                    style={{ marginLeft: 10 }}
+                >
+                    <Ionicons
+                        name="arrow-back" // Das gewünschte Icon
+                        size={screenWidth > 600 ? 35 : 28} // Größe des Icons
+                        color={theme.primaryText} // Farbe des Icons
+                    />
+                </TouchableOpacity>
+            ),
         });
     }, [navigation, theme]);
 
@@ -104,15 +118,15 @@ const styles = StyleSheet.create({
     itemContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingVertical: 15,
-        paddingHorizontal: 15,
+        paddingVertical: screenWidth > 600 ? 20 : 15,
+        paddingHorizontal: screenWidth > 600 ? 20 : 15,
         borderBottomWidth: 1,
     },
     stickyHeader: {
         fontFamily: 'Lato-Bold',
-        fontSize: scaleFontSize(16),
+        fontSize: screenWidth > 600 ? 36 : 24,
         textAlign: 'center',
-        paddingVertical: 10,
+        paddingVertical: screenWidth > 600 ? 15 : 10,
         position: 'absolute',
         top: 0,
         left: 0,
@@ -120,22 +134,21 @@ const styles = StyleSheet.create({
         zIndex: 1,
     },
     title: {
-        fontSize: 24,
-        fontWeight: 'bold',
+        fontFamily: 'Lato-Bold',
+        fontSize: screenWidth > 600 ? scaleFontSize(14) : scaleFontSize(18),
         textAlign: 'center',
-        paddingVertical: 15,
     },
     flatListContent: {
-        paddingTop: 60,
+        paddingTop: screenWidth > 600 ? 70 : 40,
     },
     image: {
-        width: 100,
-        height: 100,
+        width: screenWidth > 600 ? 140 : 100,
+        height: screenWidth > 600 ? 140 : 100,
         marginRight: 10,
         resizeMode: 'contain',
     },
     itemText: {
-        fontSize: 18,
+        fontSize: screenWidth > 600 ? 22 : 18,
         flexShrink: 1,
         flexWrap: 'wrap',
         maxWidth: '75%',

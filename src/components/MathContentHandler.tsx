@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet } from 'react-native';
 import { imageMap } from 'src/utils/imageMappings';
 import { useTheme } from 'src/context/ThemeContext';
+import { screenWidth } from 'src/utils/screenDimensions';
 
 interface MathContentHandlerProps {
     part: string;
@@ -179,13 +180,13 @@ const styles = StyleSheet.create({
     },
     image: {
         width: '100%',
-        height: 150,
+        height: screenWidth > 600 ? 250 : 150,
         resizeMode: 'contain',
         marginVertical: 8,
     },
     welcomeImage: {
         width: '100%',
-        height: 300,
+        height: screenWidth > 600 ? 450 : 300,
         resizeMode: 'contain',
         marginVertical: 0,
     },
@@ -208,7 +209,7 @@ const styles = StyleSheet.create({
         marginVertical: 5,
     },
     contentText: {
-        fontSize: 18,
+        fontSize: screenWidth > 600 ? 22 : 19,
         marginVertical: 1.5,
         color: '#000',
         padding: 5,
@@ -234,20 +235,20 @@ const styles = StyleSheet.create({
     },
         headingText: {
             fontFamily: 'Lato-Bold',
-            fontSize: 22,
+            fontSize: screenWidth > 600 ? 28 : 24,
     },
         subheadingText: {
         fontFamily: 'Lato-Medium',
-        fontSize: 20,
+        fontSize: screenWidth > 600 ? 26 : 23,
     },
         sectionText: {
         fontFamily: 'OpenSans-Semibold',
-        fontSize: 20,
+        fontSize: screenWidth > 600 ? 24 : 21,
         letterSpacing: 1.2,
     },
         boldText: {
         fontFamily: 'OpenSans-Bold',
-        fontSize: 18,
+        fontSize: screenWidth > 600 ? 20 : 19,
     },
     bulletContainer: {
         flexDirection: 'row',

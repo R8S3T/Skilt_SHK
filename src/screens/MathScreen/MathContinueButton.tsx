@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { screenWidth } from 'src/utils/screenDimensions';
 
 interface ContinueButtonProps {
     label: string;
@@ -31,19 +32,19 @@ const ContinueButton: React.FC<ContinueButtonProps> = ({ label, onPress, disable
 
 const styles = StyleSheet.create({
     button: {
-        marginTop: 10,
-        paddingVertical: 8,
-        paddingHorizontal: 12,
+        marginTop: screenWidth > 600 ? 20 : 10, // Größerer Abstand oben für Tablets
+        paddingVertical: screenWidth > 600 ? 12 : 8, // Mehr Polsterung für Tablets
+        paddingHorizontal: screenWidth > 600 ? 20 : 12,
         borderRadius: 5,
         alignItems: 'center',
-        height: 40,
+        height: screenWidth > 600 ? 60 : 40, // Höherer Button für Tablets
     },
     activeButton: {
         backgroundColor: '#5f6769',
     },
     buttonText: {
         color: 'white',
-        fontSize: 16,
+        fontSize: screenWidth > 600 ? 22 : 18, // Größere Schrift für Tablets
         fontWeight: 'bold',
     },
 });
