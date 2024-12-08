@@ -77,7 +77,7 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
     
 
     const imageSource = lastImageName ? imageMap[lastImageName as keyof typeof imageMap] : null;
-    console.log("Image source:", imageSource);
+    
     return (
         <View style={styles.container}>
             <Text style={[styles.resumeTitle, { color: theme.primaryText }]}>{sectionTitle}</Text>
@@ -121,12 +121,12 @@ const styles = StyleSheet.create({
     },
     resumeTitle: {
         fontFamily: 'Lato-Bold',
-        fontSize: screenWidth > 600 ? 35 : 16,
+        fontSize: screenWidth > 600 ? 35 : 22,
         marginBottom: 10,
     },
     subtitle: {
         fontFamily: 'OpenSans-Regular',
-        fontSize: screenWidth > 600 ? 22 : 14,
+        fontSize: screenWidth > 600 ? 22 : 18,
         textAlign: 'center',
         marginTop: 15,
     },

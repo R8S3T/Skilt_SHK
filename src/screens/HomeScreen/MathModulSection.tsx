@@ -101,8 +101,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontFamily: 'Lato-Bold',
-        fontSize: screenWidth > 600 ? scaleFontSize(14) : scaleFontSize(16),
-        marginBottom: 15,
+        fontSize: screenWidth > 600 ? 35 : 22,
         alignSelf: 'flex-start',
     },
     button: {

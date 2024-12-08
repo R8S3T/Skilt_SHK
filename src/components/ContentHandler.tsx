@@ -141,8 +141,8 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
 const styles = StyleSheet.create({
   contentText: {
     fontFamily: 'OpenSans-Regular',
-    fontSize: screenWidth > 600 ? 22 : 18,
-    letterSpacing: 0.8,
+    fontSize: screenWidth > 600 ? 22 : 19,
+    letterSpacing: 0.9,
     marginTop: 5,
   },
   darkImageContainer: {

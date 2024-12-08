@@ -139,6 +139,15 @@ export const moveToNextSlide = async ({
     completeSubchapter: () => Promise<void>;
 }) => {
     console.log("moveToNextSlide called. Current index:", currentIndex);
+    console.log(
+        "moveToNextSlide:",
+        "currentIndex:",
+        currentIndex,
+        "maxIndexVisited:",
+        maxIndexVisited,
+        "contentData.length:",
+        contentData.length
+    );
     const isLastSlide = currentIndex === contentData.length - 1;
 
     if (!isLastSlide) {
@@ -146,7 +155,8 @@ export const moveToNextSlide = async ({
         const nextContent = contentData[newIndex];
     
         if (!nextContent) {
-            console.warn("No content available for the next slide.");
+            console.warn("No content available for the next slide. Skipping update.");
+
             return;
         }
     
@@ -156,7 +166,7 @@ export const moveToNextSlide = async ({
             setShowQuiz(false); // Exit quiz mode
             setCurrentIndex(newIndex);
             setMaxIndexVisited((prev) => {
-                const updatedValue = Math.max(prev, newIndex);
+                const updatedValue = Math.max(prev, currentIndex + 1);
                 return updatedValue;
             });
             await saveCurrentProgress(newIndex);
@@ -176,7 +186,7 @@ export const moveToNextSlide = async ({
             }
         } catch (error) {
             console.error("Error fetching quiz data for last slide:", error);
-            await completeSubchapter(); // Fallback to CongratsScreen
+            await completeSubchapter();
         }
     }
 };
@@ -199,12 +209,6 @@ export const completeSubchapter = async ({
     unlockSubchapter: (id: number) => void;
     origin?: string;
 }) => {
-    console.log("completeSubchapter called with:", {
-        subchapterId,
-        chapterId,
-        chapterTitle,
-        origin,
-    });
     // Mark the current subchapter as finished and unlock the next one
     markSubchapterAsFinished(subchapterId);
     unlockSubchapter(subchapterId + 1);
@@ -247,7 +251,6 @@ export const completeSubchapter = async ({
     }
     // Case 1: If origin is SearchScreen, navigate to SearchEndScreen
     if (origin === 'SearchScreen') {
-        console.log("Navigating to SearchEndScreen from SearchScreen origin");
         (navigation as unknown as NavigationProp<RootStackParamList>).navigate('SearchEndScreen');
         return; // Ensure no further navigation occurs
     }
@@ -282,9 +285,7 @@ export const nextContent = async ({
     origin,
 }: NextContentParams) => {
     const saveCurrentProgress = async (newIndex: number) => {
-        try {
-            console.log("saveCurrentProgress called with newIndex:", newIndex);
-    
+        try {    
             const subchapters = await fetchSubchaptersByChapterId(chapterId);
             const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
     
@@ -298,7 +299,6 @@ export const nextContent = async ({
                     newIndex,
                     imageName // Include imageName here
                 );
-                console.log("saveCurrentProgress: Progress saved successfully with imageName:", imageName);
             }
         } catch (error) {
             console.error("Error saving progress:", error);
@@ -329,7 +329,6 @@ export const nextContent = async ({
         setShowQuiz,
         completeSubchapter: completeSubchapterWrapper,
     });
-    console.log("nextContent: Finished moveToNextSlide. Max Index Visited:", maxIndexVisited);
 };
 
 

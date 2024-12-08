@@ -146,7 +146,7 @@ const styles = StyleSheet.create({
         marginBottom: screenWidth > 600 ? 50 : 40,
     },
     controlButtonsContainer: {
-        marginTop: screenWidth > 600 ? 60 : 40,
+        marginTop: screenWidth > 600 ? 60 : 30,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontSize: screenWidth > 600 ? 22 : 18,
         textAlign: 'center',
-        marginVertical: 20,
+        marginVertical: 10,
         fontWeight: 'bold',
     },
 });

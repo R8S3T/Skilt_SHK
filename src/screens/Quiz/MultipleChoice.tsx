@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     quizText: {
         fontSize: screenWidth > 600 ? 26 : 20,
         fontWeight: 'bold',
-        marginTop: screenWidth > 600 ? 80 : 60,
+        marginTop: screenWidth > 600 ? 60 : 40,
         marginBottom: screenWidth > 600 ? 60 : 50,
         marginHorizontal: 20,
         textAlign: 'center',

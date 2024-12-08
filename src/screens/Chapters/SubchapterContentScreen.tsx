@@ -33,7 +33,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         subchapterTitle,
         chapterId = 0,
         chapterTitle = '',
-        origin = undefined, // Add default value for origin
+        origin = undefined,
     } = route.params;
     const [contentData, setContentData] = useState<(GenericContent | Quiz)[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -133,6 +133,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                 const data = await fetchSubchapterContentBySubchapterId(subchapterId);
                 setContentData(data);
                 setLoading(false);
+
             } catch (error) {
                 console.error('Failed to load content data:', error);
                 setLoading(false);
@@ -140,6 +141,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         };
         loadData();
     }, [navigation, subchapterId, subchapterTitle]);
+
 
     // Update header progress bar
     useEffect(() => {
@@ -167,7 +169,6 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
             try {
                 const savedProgress = await loadProgress('section1');
                 if (savedProgress?.currentIndex !== null) {
-                    console.log("loadInitialMaxIndex: Setting initial maxIndexVisited to", savedProgress.currentIndex);
                     setMaxIndexVisited(savedProgress.currentIndex);
                 }
             } catch (error) {
@@ -176,10 +177,6 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         };
 
         loadInitialMaxIndex();
-    }, []);
-
-    useEffect(() => {
-        console.log("SubchapterContentScreen loaded with route params:", route.params);
     }, []);
 
     const handleNextContent = async () => {
@@ -193,9 +190,11 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
             const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
             const imageName = currentSubchapter?.ImageName || null;
 
-            setCurrentIndex((prevIndex) => {
-                setShowQuiz(isQuiz);
-                setMaxIndexVisited((prev) => Math.max(prev, nextIndex)); // Ensure maxIndexVisited is updated
+
+            setMaxIndexVisited((prev) => Math.max(prev, nextIndex)); // Always track the furthest slide
+
+            setCurrentIndex(() => {
+                setShowQuiz(isQuiz); // Handle quiz display
                 return nextIndex;
             });
 
@@ -261,6 +260,17 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         );
     }
 
+    const isForwardArrowDisabled =
+    loading || currentIndex >= contentData.length - 1 || currentIndex >= maxIndexVisited;
+
+console.log(
+    "Arrow Debug:",
+    "currentIndex:", currentIndex,
+    "maxIndexVisited:", maxIndexVisited,
+    "contentData.length:", contentData.length,
+    "loading:", loading,
+    "Arrow Disabled:", isForwardArrowDisabled
+);
     return (
         <GestureHandlerRootView style={styles.container}>
             <View style={styles.container}>
@@ -269,9 +279,8 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                     contentId={(contentData[currentIndex] as Quiz).ContentId}
                     setShowQuiz={setShowQuiz}
                     onContinue={async () => {
-                        console.log("Quiz finished. Proceeding to next content.");
-                        setShowQuiz(false); // Exit quiz mode
-                        handleNextContent(); // Move to the next slide
+                        setShowQuiz(false);
+                        handleNextContent();
                     }}
                 />
             ) : (
@@ -295,18 +304,21 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                     {/* Forward Arrow */}
                     <TouchableOpacity
                         onPress={handleNextContent}
-                        disabled={currentIndex >= contentData.length - 1 || currentIndex >= maxIndexVisited}
+                        disabled={
+                            loading || currentIndex >= contentData.length - 1 || currentIndex >= maxIndexVisited
+                        }
                     >
                         <Ionicons
                             name="chevron-forward"
                             size={30}
                             color={
-                                currentIndex >= contentData.length - 1 || currentIndex >= maxIndexVisited
+                                loading || currentIndex >= contentData.length - 1 || currentIndex >= maxIndexVisited
                                     ? 'lightgray' // Deactivated arrow
                                     : '#e8630a'   // Activated arrow
                             }
                             style={styles.arrowStyle}
                         />
+                        
                     </TouchableOpacity>
 
                 </View>
