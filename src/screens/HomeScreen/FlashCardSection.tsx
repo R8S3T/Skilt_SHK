@@ -24,7 +24,11 @@ const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({ onButtonPress }) 
 >
             <View style={styles.header}>
                 <Text style={[styles.title, { color: theme.primaryText }]}>Lernkarten</Text>
-                <Ionicons name="book-outline" size={40} color={theme.primaryText} style={styles.icon} />
+                <Ionicons
+                    name="book-outline"
+                    size={screenWidth > 600 ? 60 : 40}
+                    color={theme.primaryText} 
+                    style={styles.icon} />
             </View>
             <Text style={[styles.subheader, { color: theme.secondaryText }]}>Teste Dein Wissen hier</Text>
         </TouchableOpacity>
@@ -35,6 +39,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: '#eeeeee',
         width: screenWidth > 600 ? '95%' : '90%',
+        height: screenWidth > 600 ? 200 : 120,
         borderColor: '#497285',
         borderWidth: 1,
         borderRadius: 8,
@@ -48,7 +53,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     title: {
-        fontSize: screenWidth > 600 ? 22 : 20,
+        fontSize: screenWidth > 600 ? 24 : 20,
         fontWeight: '600',
     },
     icon: {
@@ -56,7 +61,7 @@ const styles = StyleSheet.create({
     },
     subheader: {
         marginTop: 8,
-        fontSize: screenWidth > 600 ? 20 : 18,
+        fontSize: screenWidth > 600 ? 22 : 18,
         color: '#4a4a4a',
     },
 });

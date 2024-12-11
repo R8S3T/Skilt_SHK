@@ -191,7 +191,6 @@ export const moveToNextSlide = async ({
     }
 };
 
-
 export const completeSubchapter = async ({
     subchapterId,
     chapterId,

@@ -272,20 +272,18 @@ export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
         try {
             console.log(`Fetching quiz for contentId: ${contentId}`);
             const result = await db.getAllAsync<Quiz>(
-                'SELECT * FROM Quiz WHERE ContentId = ?',
+                'SELECT QuizId, ContentId, Question, QuizType, Answer, Image FROM Quiz WHERE ContentId = ?',
                 [contentId]
             );
 
             // Process options for each quiz
             for (let quiz of result) {
-                console.log(`Fetching options for quiz with QuizId: ${quiz.QuizId}`); // Log the quiz ID to check what quiz options are fetched
                 if (quiz.QuizType === 'cloze_test') {
                     quiz.Options = await fetchClozeTestOptionsByQuizId(quiz.QuizId);
                 } else if (quiz.QuizType === 'multiple_choice') {
                     quiz.Options = await fetchMultipleChoiceOptionsByQuizId(quiz.QuizId);
                 }
             }
-
             return result;
         } catch (error) {
             console.error(`Failed to fetch quiz for contentId ${contentId} from SQLite:`, error);
@@ -302,7 +300,6 @@ export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
 
             // Fetch options for each quiz
             for (let quiz of quizzes) {
-                console.log(`Fetching options for quiz with QuizId: ${quiz.QuizId}`); // Log the quiz ID to check what quiz options are fetched
                 if (quiz.QuizType === 'cloze_test') {
                     quiz.Options = await fetchClozeTestOptionsByQuizId(quiz.QuizId);
                 } else if (quiz.QuizType === 'multiple_choice') {
@@ -328,6 +325,7 @@ export async function fetchMultipleChoiceOptionsByQuizId(quizId: number): Promis
                 'SELECT OptionText1, OptionText2, OptionText3 FROM MultipleChoiceOptions WHERE QuizId = ?',
                 [quizId]
             );
+            console.log('Fetched options:', result);
             return result;
         } catch (error) {
             console.error(`Failed to fetch multiple choice options for quizId ${quizId} from SQLite:`, error);
@@ -341,7 +339,6 @@ export async function fetchMultipleChoiceOptionsByQuizId(quizId: number): Promis
                 throw new Error('Network response was not ok.');
             }
             const options: MultipleChoiceOption[] = await response.json();
-            console.log(`Query result for QuizId ${quizId}:`, options);
             return options;
         } catch (error) {
             console.error(`Database query failed for QuizId ${quizId}:`, error); // Log error details

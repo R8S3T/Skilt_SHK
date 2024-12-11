@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: 10,
-        marginTop: 50,
+        marginTop: screenWidth > 600 ? 25 : 20,
     },
     backspaceIcon: {
         width: screenWidth > 600 ? 40 : 30, // Larger for tablets

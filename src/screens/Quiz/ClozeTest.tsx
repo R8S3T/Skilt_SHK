@@ -15,6 +15,7 @@ interface ClozeTestProps {
 }
 
 const ClozeTest: React.FC<ClozeTestProps> = ({ quiz, options, correctAnswers, onAnswerSubmit, onContinue }) => {
+    // Split the question into parts for the blanks
     const sentenceParts = useMemo(() => quiz.Question.split('_'), [quiz.Question]);
 
     const [selectedOptions, setSelectedOptions] = useState<AnswerStatus[]>(
@@ -24,10 +25,9 @@ const ClozeTest: React.FC<ClozeTestProps> = ({ quiz, options, correctAnswers, on
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
     const [answerFeedback, setAnswerFeedback] = useState<string | null>(null);
 
-    // Reset state when a new quiz is loaded
     useEffect(() => {
-        const resetOptions = Array(sentenceParts.length - 1).fill({ answer: null, isCorrect: null });
-        setSelectedOptions(resetOptions);
+        // Reset state when a new quiz is loaded
+        setSelectedOptions(Array(sentenceParts.length - 1).fill({ answer: null, isCorrect: null }));
         setSubmitButtonText('Bestätigen');
         setIsButtonDisabled(true);
     }, [sentenceParts]);
@@ -48,39 +48,31 @@ const ClozeTest: React.FC<ClozeTestProps> = ({ quiz, options, correctAnswers, on
             onContinue();
             return;
         }
-    
+
         // Check correctness for each blank individually
         const newSelectedOptions = selectedOptions.map((opt, index) => ({
             ...opt,
             isCorrect: opt.answer === correctAnswers[index],
         }));
-    
+
         setSelectedOptions(newSelectedOptions);
-    
+
         // Determine overall correctness
         const isOverallCorrect = newSelectedOptions.every(opt => opt.isCorrect);
-    
+
         if (isOverallCorrect) {
             setSubmitButtonText('Weiter');
-            setAnswerFeedback('Richtig! Gut gemacht.'); // Correct feedback
+            setAnswerFeedback('Richtig! Gut gemacht.');
         } else {
-            setAnswerFeedback('Falsch. Bitte überprüfe deine Antworten.'); // Incorrect feedback
+            setAnswerFeedback('Falsch. Bitte überprüfe deine Antworten.');
         }
-    
+
         setIsButtonDisabled(!isOverallCorrect);
     };
-    
 
     const handleClear = () => {
-        setAnswerFeedback(null);
-
-        const lastFilledIndex = selectedOptions
-            .map((opt, index) => ({ ...opt, index }))
-            .filter(opt => opt.answer !== null)
-            .map(opt => opt.index)
-            .pop();
-
-        if (lastFilledIndex !== undefined) {
+        const lastFilledIndex = selectedOptions.findIndex(opt => opt.answer !== null);
+        if (lastFilledIndex !== -1) {
             const newSelectedOptions = [...selectedOptions];
             newSelectedOptions[lastFilledIndex] = { answer: null, isCorrect: null };
             setSelectedOptions(newSelectedOptions);
@@ -91,38 +83,34 @@ const ClozeTest: React.FC<ClozeTestProps> = ({ quiz, options, correctAnswers, on
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            {selectedOptions.length === sentenceParts.length - 1 ? (
-                <>
-                    <View style={styles.sentenceContainer}>
-                        <SentenceWithBlanks sentenceParts={sentenceParts} filledAnswers={selectedOptions} />
-                    </View>
-                    <View style={styles.optionsContainer}>
-                        {options.map((option, idx) => (
-                            <OptionButton
-                                key={idx}
-                                option={option}
-                                onSelect={() => handleOptionSelect(option)}
-                                isSelected={selectedOptions.some(opt => opt.answer === option)}
-                            />
-                        ))}
-                    </View>
-                    {answerFeedback && ( // Display feedback
-                        <Text style={styles.answerFeedback}>{answerFeedback}</Text>
-                    )}
-                    <View style={styles.controlButtonsContainer}>
-                        <ControlButtons
-                            onSubmit={handleSubmit}
-                            onClear={handleClear}
-                            onContinue={onContinue}
-                            submitButtonText={submitButtonText}
-                            disabled={isButtonDisabled}
-                            showBackspaceButton={true}
-                        />
-                    </View>
-                </>
-            ) : (
-                <Text>Loading...</Text>
-            )}
+            <View style={styles.sentenceContainer}>
+                <SentenceWithBlanks
+                    sentenceParts={sentenceParts}
+                    filledAnswers={selectedOptions}
+                />
+            </View>
+            <View style={styles.optionsContainer}>
+                {options.map((option, idx) => (
+                    <OptionButton
+                        key={idx}
+                        option={option}
+                        onSelect={() => handleOptionSelect(option)}
+                        isSelected={selectedOptions.some(opt => opt.answer === option)}
+                    />
+                ))}
+            </View>
+            {/* Feedback Container*/}
+            <View style={styles.feedbackContainer}>
+                {answerFeedback && <Text style={styles.answerFeedback}>{answerFeedback}</Text>}
+            </View>
+            <ControlButtons
+                onSubmit={handleSubmit}
+                onClear={handleClear}
+                onContinue={onContinue} // Ensure this is passed
+                submitButtonText={submitButtonText}
+                disabled={isButtonDisabled}
+                showBackspaceButton={true} // Ensure this is passed
+            />
         </ScrollView>
     );
 };
@@ -150,6 +138,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
+    },
+    feedbackContainer: {
+        height: screenWidth > 600 ? 100 : 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginVertical: 0,
     },
     answerFeedback: {
         color: '#FFF',

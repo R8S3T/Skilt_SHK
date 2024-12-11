@@ -17,7 +17,7 @@ import { Ionicons } from '@expo/vector-icons';
 import {  loadProgress, completeSubchapter, saveProgress, } from 'src/utils/progressUtils';
 import { useTheme } from 'src/context/ThemeContext';
 import LottieView from 'lottie-react-native';
-import { screenWidth, scaleFontSize } from 'src/utils/screenDimensions';
+import { screenWidth } from 'src/utils/screenDimensions';
 
 type SubchapterContentScreenRouteProp = RouteProp<LearnStackParamList, 'SubchapterContentScreen'>;
 type SubchapterContentScreenNavigationProp = StackNavigationProp<LearnStackParamList, 'SubchapterContentScreen'>;
@@ -38,7 +38,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     const [contentData, setContentData] = useState<(GenericContent | Quiz)[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [currentIndex, setCurrentIndex] = useState<number>(0);
-    const [maxIndexVisited, setMaxIndexVisited] = useState<number>(0);
+    const [maxIndexVisited, setMaxIndexVisited] = useState<number>(-1);
     const [showQuiz, setShowQuiz] = useState<boolean>(false);
     const { theme, isDarkMode } = useTheme();
     const [navigating, setNavigating] = useState(false);
@@ -119,6 +119,11 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         theme,
     ]);
     
+
+    useEffect(() => {
+        console.log("maxIndexVisited updated:", maxIndexVisited);
+    }, [maxIndexVisited]);
+
     // Always reset to the first slide when entering a subchapter
     useEffect(() => {
         setCurrentIndex(0);
@@ -168,36 +173,43 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         const loadInitialMaxIndex = async () => {
             try {
                 const savedProgress = await loadProgress('section1');
-                if (savedProgress?.currentIndex !== null) {
+                console.log("Saved progress:", savedProgress);
+                if (savedProgress?.currentIndex !== null && maxIndexVisited === -1) {
+                    console.log("Setting maxIndexVisited from saved progress:", savedProgress.currentIndex);
                     setMaxIndexVisited(savedProgress.currentIndex);
                 }
             } catch (error) {
                 console.error("Error loading initial maxIndexVisited:", error);
             }
         };
-
+    
         loadInitialMaxIndex();
-    }, []);
+    }, [maxIndexVisited]);
+    
 
     const handleNextContent = async () => {
+        if (currentIndex > maxIndexVisited) return;
+        
         const nextIndex = currentIndex + 1;
 
         if (nextIndex < contentData.length) {
             const nextContent = contentData[nextIndex];
             const isQuiz = 'QuizId' in nextContent;
-
+        
             const subchapters = await fetchSubchaptersByChapterId(chapterId);
             const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
             const imageName = currentSubchapter?.ImageName || null;
-
-
-            setMaxIndexVisited((prev) => Math.max(prev, nextIndex)); // Always track the furthest slide
-
+        
+            // Only update maxIndexVisited for new slides
+            if (nextIndex > maxIndexVisited) {
+                setMaxIndexVisited(nextIndex);
+            }
+        
             setCurrentIndex(() => {
                 setShowQuiz(isQuiz); // Handle quiz display
                 return nextIndex;
             });
-
+        
             // Only save progress if not from SearchScreen
             if (origin !== 'SearchScreen') {
                 await saveProgress(
@@ -209,8 +221,8 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                     imageName
                 );
             }
-
-        } else {
+        }
+         else {
             const subchapters = await fetchSubchaptersByChapterId(chapterId);
             const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
             const imageName = currentSubchapter?.ImageName || null;
@@ -261,16 +273,15 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     }
 
     const isForwardArrowDisabled =
-    loading || currentIndex >= contentData.length - 1 || currentIndex >= maxIndexVisited;
+    loading || currentIndex > maxIndexVisited || currentIndex >= contentData.length - 1;
 
-console.log(
-    "Arrow Debug:",
-    "currentIndex:", currentIndex,
-    "maxIndexVisited:", maxIndexVisited,
-    "contentData.length:", contentData.length,
-    "loading:", loading,
-    "Arrow Disabled:", isForwardArrowDisabled
-);
+    console.log(
+        "Forward Arrow State:",
+        "currentIndex:", currentIndex,
+        "maxIndexVisited:", maxIndexVisited,
+        "isForwardArrowDisabled:", isForwardArrowDisabled
+    );
+
     return (
         <GestureHandlerRootView style={styles.container}>
             <View style={styles.container}>
@@ -292,7 +303,9 @@ console.log(
 
                 <View style={styles.bottomNavContainer}>
                     {/* Back Arrow */}
-                    <TouchableOpacity onPress={goBack} disabled={currentIndex === 0 || showQuiz}>
+                    <TouchableOpacity
+                        onPress={goBack}
+                        disabled={currentIndex === 0 || showQuiz}>
                         <Ionicons
                             name="chevron-back"
                             size={30}
@@ -304,9 +317,7 @@ console.log(
                     {/* Forward Arrow */}
                     <TouchableOpacity
                         onPress={handleNextContent}
-                        disabled={
-                            loading || currentIndex >= contentData.length - 1 || currentIndex >= maxIndexVisited
-                        }
+                        disabled={isForwardArrowDisabled}
                     >
                         <Ionicons
                             name="chevron-forward"

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import ControlButtons from './ControlButtons';
+import ContentHandler from 'src/components/ContentHandler';
 import { Quiz, MultipleChoiceOption } from 'src/types/contentTypes';
-import { screenWidth, scaleFontSize } from 'src/utils/screenDimensions';
+import { screenWidth } from 'src/utils/screenDimensions';
 
 interface MultipleChoiceProps {
     quiz: Quiz;
@@ -63,7 +64,16 @@ const MultipleChoice: React.FC<MultipleChoiceProps> = ({ quiz, options, onAnswer
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.quizText}>{quiz.Question}</Text>
+            {/* Render Question */}
+            <Text style={styles.questionText}>{quiz.Question}</Text>
+
+            {/* Render Image */}
+            {quiz.Image && (
+                <View style={styles.imageContainer}>
+                    <ContentHandler part={quiz.Image} style={styles.resizedImage} />
+                </View>
+            )}
+
             {options.map((option, index) => (
                 [option.OptionText1, option.OptionText2, option.OptionText3]
                     .filter(text => text) // Filter out empty option fields
@@ -77,11 +87,14 @@ const MultipleChoice: React.FC<MultipleChoiceProps> = ({ quiz, options, onAnswer
                         </TouchableOpacity>
                     ))
             ))}
-            {showFeedback && (
-                <Text style={styles.answerText}>
-                    {selectedOption === quiz.Answer ? 'Richtig! Gut gemacht.' : 'Falsch, bitte versuche es nochmal.'}
-                </Text>
-            )}
+            {/* Fixed Feedback Container */}
+            <View style={styles.feedbackContainer}>
+                {showFeedback && (
+                    <Text style={styles.answerText}>
+                        {selectedOption === quiz.Answer ? 'Richtig! Gut gemacht.' : 'Falsch, bitte versuche es nochmal.'}
+                    </Text>
+                )}
+            </View>
             <ControlButtons
                 onClear={() => setSelectedOption(null)}
                 onSubmit={handleSubmit}
@@ -100,29 +113,45 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: 20,
+        padding: screenWidth > 600 ? 15 : 5,
         backgroundColor: '#2b4353',
     },
-    quizText: {
-        fontSize: screenWidth > 600 ? 26 : 20,
-        fontWeight: 'bold',
-        marginTop: screenWidth > 600 ? 60 : 40,
-        marginBottom: screenWidth > 600 ? 60 : 50,
-        marginHorizontal: 20,
-        textAlign: 'center',
+    questionText: {
         color: '#FFF',
-        lineHeight: screenWidth > 600 ? 40 : 30,
+        fontSize: screenWidth > 600 ? 24 : 19,
+        letterSpacing: 1.5,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginVertical: screenWidth > 600 ? 40 : 5,
+        maxWidth: '90%',
+        alignSelf: 'center',
     },
     option: {
         backgroundColor: '#2b4353',
-        minWidth: screenWidth > 600 ? '90%' : '85%',
-        padding: screenWidth > 600 ? 25 : 20,
-        marginVertical: screenWidth > 600 ? 15 : 10,
-        marginHorizontal: 20,
+        minWidth: screenWidth > 600 ? '90%' : '90%',
+        minHeight: screenWidth > 600 ? 100 : 60,
+        padding: screenWidth > 600 ? 25 : 15,
+        marginVertical: screenWidth > 600 ? 20 : 10,
+        marginHorizontal: screenWidth > 600 ? 25 : 20,
         borderRadius: 8,
         borderWidth: 1,
         borderColor: '#8fc2c2',
         alignItems: 'center',
+    },
+    imageContainer: {
+        padding: 2,
+        borderRadius: 4,
+        marginBottom: screenWidth > 600 ? 25 : 10,
+        width: '100%',
+        height: 150,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    resizedImage: {
+        width: 250,
+        height: 200,
+        borderRadius: 8,
     },
     selectedOption: {
         backgroundColor: '#d0d0d0',
@@ -139,9 +168,15 @@ const styles = StyleSheet.create({
         fontSize: screenWidth > 600 ? 24 : 18,
         textAlign: 'center',
     },
+    feedbackContainer: {
+        height: screenWidth > 600 ? 100 : 60,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginVertical: 0,
+    },
     answerText: {
         color: '#FFF',
-        marginVertical: screenWidth > 600 ? 30 : 20,
+        marginVertical: screenWidth > 600 ? 20 : 10,
         fontSize: screenWidth > 600 ? 22 : 18,
         textAlign: 'center',
     },

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { View, Text, StyleSheet, ViewStyle } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import MultipleChoice from './MultipleChoice';
@@ -27,6 +27,44 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, set
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
+    // Ensure quizzes are loaded before accessing currentQuiz
+    const currentQuiz = quizzes.length > 0 ? quizzes[currentQuizIndex] : null;
+
+    // Safeguard sentenceParts calculation
+    const sentenceParts = useMemo(() => {
+        return currentQuiz && isClozeTestOptions(options)
+            ? currentQuiz.Question.split('_')
+            : [];
+    }, [currentQuiz, options]);
+
+    // Ensure filledAnswers is only calculated when sentenceParts and options are valid
+    const [filledAnswers, setFilledAnswers] = useState<
+        { answer: string | null; isCorrect: boolean | null }[]
+    >([]);
+
+    useEffect(() => {
+        if (sentenceParts.length > 1) { // Ensure there are blanks to fill
+            setFilledAnswers(
+                Array(sentenceParts.length - 1).fill({ answer: null, isCorrect: null })
+            );
+        } else {
+            setFilledAnswers([]); // Clear if no blanks
+        }
+    }, [sentenceParts]);
+    
+
+    const handleOptionSelect = (selectedOption: string) => {
+        const updatedAnswers = [...filledAnswers];
+        const firstEmptyIndex = updatedAnswers.findIndex(answer => answer.answer === null);
+        if (firstEmptyIndex !== -1) {
+            updatedAnswers[firstEmptyIndex] = { answer: selectedOption, isCorrect: null };
+            setFilledAnswers(updatedAnswers);
+        } else {
+            console.warn("All blanks are filled. Cannot add more answers.");
+        }
+    };
+
+
     const loadQuizOptions = async (quiz: Quiz) => {
         try {
             let fetchedOptions: MultipleChoiceOption[] | { options: string[]; correctAnswers: (string | null)[] };
@@ -37,7 +75,6 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, set
             } else {
                 throw new Error('Unsupported quiz type');
             }
-
             setOptions(fetchedOptions);
         } catch (err) {
             setError('Failed to load quiz options.');
@@ -46,12 +83,6 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, set
     };
 
     useEffect(() => {
-        if (typeof navigation !== 'undefined') {
-            navigation.setOptions({
-                headerLeft: () => null,
-            });
-        }
-
         const loadQuizData = async () => {
             try {
                 const fetchedQuizzes = await fetchQuizByContentId(contentId);
@@ -68,7 +99,6 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, set
                 setLoading(false);
             }
         };
-
         loadQuizData();
     }, [contentId]);
 
@@ -79,12 +109,12 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, set
             setCurrentQuizIndex(nextIndex);
             loadQuizOptions(quizzes[nextIndex]);
         } else {
-            setShowQuiz(false); // Ensure we exit quiz mode
-            await onContinue(); // Call the parent-provided onContinue handler
+            setShowQuiz(false);
+            await onContinue();
         }
     };
-    
 
+    // Return statement with all safeguards
     if (loading) {
         return <View style={{ flex: 1, backgroundColor: '#2b4353' }} />;
     }
@@ -97,10 +127,13 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, set
         return <Text>Hier scheint es wohl kein Quiz zu geben...</Text>;
     }
 
-    const currentQuiz = quizzes[currentQuizIndex];
+    if (!currentQuiz) {
+        return <Text>Fehler: Quiz konnte nicht geladen werden.</Text>;
+    }
 
     return (
         <View style={[styles.slide, style]}>
+            {/* Render Multiple Choice */}
             {currentQuiz.QuizType === 'multiple_choice' && Array.isArray(options) && (
                 <MultipleChoice
                     key={`multiple-choice-${currentQuizIndex}`}
@@ -114,7 +147,11 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, set
                     onContinue={handleContinue}
                 />
             )}
-            {currentQuiz.QuizType === 'cloze_test' && !Array.isArray(options) && isClozeTestOptions(options) && (
+    
+            {/* Render Cloze Test */}
+            {currentQuiz.QuizType === 'cloze_test' &&
+            !Array.isArray(options) &&
+            isClozeTestOptions(options) && (
                 <ClozeTest
                     key={`cloze-test-${currentQuizIndex}`}
                     quiz={currentQuiz}

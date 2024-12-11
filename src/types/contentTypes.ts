@@ -64,7 +64,7 @@ export interface Quiz {
         options: string[];
         correctAnswers: (string | null)[];
     };
-    imageName?: string;
+    Image?: string;
 }
 
 
@@ -74,6 +74,7 @@ export interface MultipleChoiceOption {
     OptionText1: string;
     OptionText2: string;
     OptionText3: string;
+    Image?: string;
 }
 
 export interface ClozeTestOption {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Dimensions, Image, TextStyle } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Image, ViewStyle } from 'react-native';
 import { imageMap } from 'src/utils/imageMappings';
 import ImageModal from 'react-native-image-modal';
 import { useTheme } from 'src/context/ThemeContext';
@@ -9,6 +9,7 @@ const deviceWidth = Dimensions.get('window').width;
 
 interface ContentHandlerProps {
   part: string;
+  style?: ViewStyle;
 }
 
 const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
@@ -204,7 +205,7 @@ const styles = StyleSheet.create({
   },
   smallImage: {
     width: '100%',
-    height: screenWidth > 600 ? 120 : 80,
+    height: screenWidth > 600 ? 100 : 80,
     resizeMode: 'contain',
     marginVertical: screenWidth > 600 ? 10 : 5,
   },
