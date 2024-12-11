@@ -52,6 +52,7 @@ export interface GenericContent {
     };
     imagePaths?: string[];
     imageName?: string;
+    Index?: number; 
 }
 
 export interface Quiz {
