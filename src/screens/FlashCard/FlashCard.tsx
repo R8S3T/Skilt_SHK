@@ -78,7 +78,7 @@ const Flashcard = ({
                             <TouchableOpacity
                                 style={[
                                     styles.incorrectButton,
-                                    { backgroundColor: isDarkMode ? '#5585b5' : '#385170' }, // Muted red for dark mode
+                                    { backgroundColor: isDarkMode ? '#5585b5' : '#f46134' }, // Muted red for dark mode
                                 ]}
                                 onPress={onMarkIncorrect}
                             >
@@ -87,7 +87,7 @@ const Flashcard = ({
                             <TouchableOpacity
                                 style={[
                                     styles.correctButton,
-                                    { backgroundColor: isDarkMode ? '#f46134' : '#f46134' }, // Muted green for dark mode
+                                    { backgroundColor: isDarkMode ? '#f46134' : '#385170' }, // Muted green for dark mode
                                 ]}
                                 onPress={onMarkCorrect}
                             >
@@ -99,7 +99,6 @@ const Flashcard = ({
             </FlipCard>
         </View>
     );
-    
 };
 
 const styles = StyleSheet.create({
@@ -192,7 +191,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
     },
     nextButton: {  // Add this style for the "Weiter" button
-        backgroundColor: '#343A40',
+        backgroundColor: '#385170',
         padding: 10,
         borderRadius: 5,
         width: '50%',

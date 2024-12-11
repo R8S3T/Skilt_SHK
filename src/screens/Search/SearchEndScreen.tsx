@@ -4,6 +4,7 @@ import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from 'src/types/navigationTypes';
 import LottieView from 'lottie-react-native';
 import { useTheme } from 'src/context/ThemeContext';
+import { screenWidth } from 'src/utils/screenDimensions';
 
 const SearchEndScreen: React.FC = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -60,12 +61,12 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 16,
+        padding: screenWidth > 600 ? 32 : 16,
     },
     animation: {
-        width: 200, // Adjust size as needed
-        height: 200,
-        marginBottom: 20,
+        width: screenWidth > 600 ? 300 : 200,
+        height: screenWidth > 600 ? 300 : 200,
+        marginBottom: screenWidth > 600 ? 30 : 20,
     },
     buttonsContainer: {
         justifyContent: 'center',
@@ -75,12 +76,12 @@ const styles = StyleSheet.create({
     borderedButton: {
         borderWidth: 1,
         borderRadius: 8,
-        paddingVertical: 10,
-        paddingHorizontal: 20,
+        paddingVertical: screenWidth > 600 ? 14 : 10,
+        paddingHorizontal: screenWidth > 600 ? 40 : 20,
         alignItems: 'center',
     },
     buttonText: {
-        fontSize: 16,
+        fontSize: screenWidth > 600 ? 18 : 16,
         fontWeight: 'bold',
     },
 });

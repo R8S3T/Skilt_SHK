@@ -45,10 +45,11 @@ const ControlButtons: React.FC<ControlButtonsProps> = ({
 const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
         padding: 10,
         marginTop: screenWidth > 600 ? 25 : 20,
+        gap: 20,
     },
     backspaceIcon: {
         width: screenWidth > 600 ? 40 : 30, // Larger for tablets
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
         marginRight: screenWidth > 600 ? 60 : 50, // Adjust margin for tablets
         tintColor: '#e8630a',
     },
-    
+
     submitButton: {
         backgroundColor: '#2b4353',
         borderWidth: 1,

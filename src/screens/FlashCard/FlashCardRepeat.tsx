@@ -4,9 +4,10 @@ import { RouteProp, useRoute, useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Flashcard from './FlashCard';
-import { loadFlashcardProgress, saveFlashcardProgress } from 'src/utils/progressUtils';
+import {  saveFlashcardProgress } from 'src/utils/progressUtils';
 import { RootStackParamList } from 'src/types/navigationTypes';
 import { useTheme } from 'src/context/ThemeContext';
+import { screenWidth } from 'src/utils/screenDimensions';
 
 type FlashCardRepeatRouteProp = RouteProp<RootStackParamList, 'FlashCardRepeat'>;
 
@@ -24,8 +25,8 @@ const FlashCardRepeat = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
             headerLeft: () => (
-                <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginLeft: 15 }}>
-                    <Ionicons name="close" size={24} color={theme.primaryText} />
+                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.closeButton}>
+                    <Ionicons name="close" size={screenWidth > 600 ? 30 : 24} color={theme.primaryText} />
                 </TouchableOpacity>
             ),
             title: `Lernfeld ${chapterId} wiederholen`,
@@ -34,7 +35,7 @@ const FlashCardRepeat = () => {
             },
             headerTitleStyle: {
                 color: theme.primaryText,
-                fontSize: 20,
+                fontSize: screenWidth > 600 ? 24 : 20, // Größere Schrift für Tablets
                 fontWeight: '600',
             },
             headerTitleAlign: 'center',
@@ -76,14 +77,18 @@ const FlashCardRepeat = () => {
     return (
         <View style={[styles.container, { backgroundColor: theme.background }]}>
             {incorrectCards.length > 0 && (
-                <Text
-                    style={[
-                        styles.counterText,
-                        { color: isDarkMode ? '#CCCCCC' : theme.primaryText }, // Bright gray for dark mode, primaryText for light mode
-                    ]}
-                >
-                    {`${currentCardIndex + 1} / ${totalCards}`}
-                </Text>
+            <Text
+                style={[
+                    styles.counterText,
+                    {
+                        fontSize: screenWidth > 600 ? 22 : 18, // Größerer Text für Tablets
+                        top: screenWidth > 600 ? 30 : 20, // Höher für Tablets
+                        color: isDarkMode ? '#CCCCCC' : theme.primaryText,
+                    },
+                ]}
+            >
+                {`${currentCardIndex + 1} / ${totalCards}`}
+            </Text>
             )}
 
             <View style={styles.contentContainer}>
@@ -112,11 +117,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#ffffff',
     },
+    closeButton: {
+        marginLeft: 15,
+    },
     counterText: {
-        fontSize: 18,
+        position: 'absolute',
+        top: 20,
+        fontSize: screenWidth > 600 ? 28 : 20,
         color: '#333',
-        position: 'absolute', // Position counter independently
-        top: 20, // Move it further up
         textAlign: 'center',
     },
     contentContainer: {
@@ -124,7 +132,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        height: 400, // Ensure consistent height for flashcard positioning
+        height: 400,
     },
     loadingText: {
         fontSize: 18,
@@ -132,6 +140,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
 });
+
 
 export default FlashCardRepeat;
 

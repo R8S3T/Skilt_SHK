@@ -1,15 +1,61 @@
-// src/utils/searchUtils.ts
+import { SubchapterWithPreview } from "src/types/contentTypes";
 
-import { SubchapterWithPreview } from 'src/types/contentTypes';
-
-// Define and export the extended type
 export interface SubchapterWithPreviewExtended extends SubchapterWithPreview {
-    cleanedPreview: string; // Add cleanedPreview to the extended type
+    cleanedPreview: string[]; // Updated to handle highlighted parts as an array
 }
 
-// Define the cleanContent function to clean the content
 const cleanContent = (content: string): string => {
-    return content.replace(/\[.*?\]/g, '');  // Remove [markers]
+    return content.replace(/\[.*?\]/g, ""); // Entfernt [Marker]
+};
+
+const adjustPreview = (content: string, query: string): string => {
+    const cleanedContent = cleanContent(content);
+
+    // Split the content into sentences
+    const sentences = cleanedContent.match(/[^\.!\?]+[\.!\?]+|[^\.!\?]+$/g);
+
+    if (!sentences) {
+        // If no sentences found, return an empty string
+        return '';
+    }
+
+    // Find the index of the sentence that contains the query
+    const queryRegex = new RegExp(query, 'i');
+
+    const index = sentences.findIndex(sentence => queryRegex.test(sentence));
+
+    if (index === -1) {
+        // If query not found, return the first sentence(s) as a fallback
+        const preview = sentences.slice(0, 1).join(' ').trim();
+        return preview.length > 0 ? preview + '...' : '';
+    } else {
+        // Start the preview from the matching sentence
+        const previewSentences = [];
+
+        // Add the matching sentence
+        previewSentences.push(sentences[index]);
+
+        // Optionally, include subsequent sentences until preview length is reached
+        let totalLength = sentences[index].length;
+        let i = index + 1;
+        const previewLength = 50; // Adjust the desired preview length as needed
+
+        while (i < sentences.length && totalLength < previewLength) {
+            totalLength += sentences[i].length;
+            previewSentences.push(sentences[i]);
+            i++;
+        }
+
+        const preview = previewSentences.join(' ').trim();
+        return preview.length > 0 ? preview + '...' : '';
+    }
+};
+
+
+// Highlight the query in the preview
+export const highlightQuery = (content: string, query: string): string[] => {
+    const queryRegex = new RegExp(`(${query})`, "gi");
+    return content.split(queryRegex); // Teilt den Text in Treffer und Nicht-Treffer
 };
 
 export const handleSearch = async (
@@ -20,30 +66,16 @@ export const handleSearch = async (
 
     const filteredResults = searchResults
         .map((subchapter) => {
-            const subchapterNameLower = subchapter.SubchapterName.toLowerCase();
-            const contentPreviewLower = (subchapter.ContentPreview || '').toLowerCase();
-            const queryLower = query.toLowerCase();
-
-            const nameMatchCount = (subchapterNameLower.match(new RegExp(`\\b${queryLower}\\b`, 'g')) || []).length;
-            const previewMatchCount = (contentPreviewLower.match(new RegExp(queryLower, 'g')) || []).length;
-
-            const isExactTitleMatch = subchapterNameLower === queryLower ? 5 : 0; // Higher weight for exact matches
-            const isPartialMatch = subchapterNameLower.includes(queryLower) ? 2 : 0;
+            const adjustedPreview = adjustPreview(subchapter.ContentPreview || "", query);
+            const highlightedPreview = highlightQuery(adjustedPreview, query);
 
             return {
                 ...subchapter,
-                relevanceScore: nameMatchCount * 3 + previewMatchCount + isExactTitleMatch + isPartialMatch,
-                cleanedPreview: cleanContent(subchapter.ContentPreview || '').substring(0, 100), // Clean and trim content
+                relevanceScore: 0, // (Optional) You can implement relevance logic here
+                cleanedPreview: highlightedPreview, // Return as an array of strings for highlighting
             };
         })
         .sort((a, b) => b.relevanceScore - a.relevanceScore);
 
-    // Deduplicate results
-    const uniqueResults = filteredResults.filter(
-        (result, index, self) =>
-            index === self.findIndex((r) => r.SubchapterId === result.SubchapterId)
-    );
-
-    return uniqueResults;
+    return filteredResults;
 };
-

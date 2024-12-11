@@ -5,7 +5,7 @@ import { fetchChapters } from 'src/database/databaseServices';
 import { NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from 'src/types/navigationTypes';
 import { useTheme } from 'src/context/ThemeContext';
-import { scaleFontSize } from "src/utils/screenDimensions";
+import { scaleFontSize, screenWidth } from "src/utils/screenDimensions";
 
 // Main component
 const FlashCardChapters = () => {
@@ -176,18 +176,18 @@ const styles = StyleSheet.create({
     },
     modalContainer: {
         width: '80%',
-        padding: 16,
+        padding: screenWidth > 600 ? 24 : 18,
         backgroundColor: 'white',
         borderRadius: 8,
         alignItems: 'center',
     },
     modalText: {
-        fontSize: 16,
+        fontSize: screenWidth > 600 ? 22 : 18,
         marginBottom: 16,
         textAlign: 'center',
     },
     modalButton: {
-        fontSize: 14,
+        fontSize: screenWidth > 600 ? 22 : 16,
         color: '#007bff',
     },
 });

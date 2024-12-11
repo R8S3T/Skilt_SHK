@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { View, Text, StyleSheet, Modal, TouchableOpacity, TouchableWithoutFeedback, Animated } from 'react-native';
 import { SubchapterInfoModalProps } from 'src/types/uiTypes';
-import { scaleFontSize } from 'src/utils/screenDimensions';
+import { scaleFontSize, screenWidth } from 'src/utils/screenDimensions';
 
 const SubchapterInfoModal: React.FC<SubchapterInfoModalProps> = ({
     visible,
@@ -91,31 +91,27 @@ const styles = StyleSheet.create({
     subchapterName: {
         marginBottom: 15,
         textAlign: 'center',
-        fontSize: 18,
+        fontSize: screenWidth > 600 ? 22 : 18,
         fontWeight: 'bold',
     },
     description: {
         color: '#333',
         fontFamily: 'OpenSans-Regular',
-        fontSize: scaleFontSize(12),
+        fontSize: screenWidth > 600 ? 22 : 18,
         marginBottom: 15,
         textAlign: 'center',
-    },
-    subchapterNameHighlight: {
-        fontSize: scaleFontSize(14), // Make it slightly larger
-        fontWeight: 'bold', // Bold text
-        color: '#333', // Optional: color to match the theme
     },
     button: {
         backgroundColor: '#343A40',
         borderRadius: 20,
-        padding: 10,
+        padding: screenWidth > 600 ? 14 : 10,
         elevation: 2,
     },
     buttonText: {
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center',
+        fontSize: screenWidth > 600 ? 22 : 18,
     },
 });
 

@@ -5,7 +5,7 @@ import { useTheme } from '../../context/ThemeContext';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RootStackParamList } from 'src/types/navigationTypes';
-import { scaleFontSize } from 'src/utils/screenDimensions';
+import { screenWidth } from 'src/utils/screenDimensions';
 
 const SettingsScreen = () => {
     const [name, setName] = useState('');
@@ -52,40 +52,46 @@ const SettingsScreen = () => {
                 </View>
 
                 {/* Name Change Section */}
-{/* Name Change Section */}
-<View style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}>
-    <View style={styles.row}>
-        {isEditing ? (
-            // Show input field during editing
-            <TextInput
-                style={[
-                    styles.input,
-                    {
-                        backgroundColor: isDarkMode ? theme.surface : '#fff',
-                        color: theme.primaryText,
-                        borderColor: theme.border,
-                    },
-                ]}
-                value={name}
-                onChangeText={setName}
-                placeholder="Wie heißt du?"
-                placeholderTextColor={isDarkMode ? '#ccc' : '#aaa'}
-            />
-        ) : (
-            // Display name or placeholder when not editing
-            <Text style={[styles.name, { color: theme.primaryText }]}>
-                {name || 'Wie heißt du?'}
-            </Text>
-        )}
-        <TouchableOpacity
-            style={[styles.button, isEditing ? styles.saveButton : styles.editButton]}
-            onPress={isEditing ? handleSave : () => setIsEditing(true)}
-        >
-            <Text style={styles.buttonText}>{isEditing ? 'Speichern' : 'Ändern'}</Text>
-        </TouchableOpacity>
-    </View>
-</View>
-
+                <View style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}>
+                    <View style={styles.row}>
+                        {isEditing ? (
+                            // Show input field during editing
+                            <TextInput
+                                style={[
+                                    styles.input,
+                                    {
+                                        backgroundColor: isDarkMode ? theme.surface : '#fff',
+                                        color: theme.primaryText,
+                                        borderColor: theme.border,
+                                    },
+                                ]}
+                                value={name}
+                                onChangeText={setName}
+                                placeholder="Namen festlegen"
+                                placeholderTextColor={isDarkMode ? '#ccc' : '#aaa'}
+                            />
+                        ) : (
+                            // Display name or placeholder when not editing
+                        <Text
+                            style={[
+                                styles.name,
+                                {
+                                    color: theme.primaryText,
+                                    fontSize: screenWidth > 600 ? 22 : 18, // Match this with the input font size
+                                },
+                            ]}
+                        >
+                            {name || 'Wie heißt du?'}
+                        </Text>
+                        )}
+                        <TouchableOpacity
+                            style={[styles.button, isEditing ? styles.saveButton : styles.editButton]}
+                            onPress={isEditing ? handleSave : () => setIsEditing(true)}
+                        >
+                            <Text style={styles.buttonText}>{isEditing ? 'Speichern' : 'Ändern'}</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
 
                 {/* Divider Line */}
                 <View style={[styles.divider, { backgroundColor: theme.border }]} />
@@ -117,21 +123,22 @@ const SettingsScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal: 24,
-        paddingVertical: 20,
+        paddingHorizontal: screenWidth > 600 ? 40 : 20,
+        paddingVertical: screenWidth > 600 ? 30 : 24,
     },
     headerContainer: {
-        paddingVertical: 20,
+        paddingVertical: screenWidth > 600 ? 30 : 20,
         alignItems: 'center',
-        marginBottom: 24,
+        marginBottom: screenWidth > 600 ? 32 : 24,
     },
+    
     headerText: {
         fontFamily: 'Lato-Bold',
-        fontSize: scaleFontSize(16),
+        fontSize: screenWidth > 600 ? 24 : 20,
     },
     section: {
-        paddingVertical: 16,
-        paddingHorizontal: 20,
+        paddingVertical: screenWidth > 600 ? 20 : 16,
+        paddingHorizontal: screenWidth > 600 ? 24 : 20,
         backgroundColor: '#fff',
         marginBottom: 24,
     },
@@ -140,33 +147,29 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between', // Place text and input/button in one row
     },
-    label: {
-        fontSize: 16,
-        fontWeight: '600',
-    },
     name: {
         fontSize: 16,
         color: '#333', // Dynamically overridden by theme.primaryText
     },
     input: {
-        fontSize: 16,
-        paddingVertical: 6,
-        paddingHorizontal: 12,
+        fontSize: screenWidth > 600 ? 22 : 18,
+        paddingVertical: screenWidth > 600 ? 10 : 6,
+        paddingHorizontal: screenWidth > 600 ? 16 : 12,
         borderWidth: 1,
         borderRadius: 8,
-        flex: 1, // Ensure it adjusts dynamically in the row
+        flex: 1,
     },
     buttonContainer: {
-        paddingVertical: 12,
-        paddingHorizontal: 20,
+        paddingVertical: screenWidth > 600 ? 16 : 12,
+        paddingHorizontal: screenWidth > 600 ? 26 : 20,
         borderRadius: 8,
     },
     editButton: {
-        backgroundColor: '#cccccc',
+        backgroundColor: '#007BFF', // A vibrant blue to grab attention
     },
     button: {
-        paddingVertical: 8,
-        paddingHorizontal: 16,
+        paddingVertical: screenWidth > 600 ? 12 : 8,
+        paddingHorizontal: screenWidth > 600 ? 20 : 16,
         borderRadius: 8,
         marginLeft: 10,
     },
@@ -175,13 +178,17 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: '#fff',
-        fontSize: 16,
+        fontSize: screenWidth > 600 ? 20 : 16,
         fontWeight: '600',
     },
     divider: {
         height: 1,
         backgroundColor: '#ccc', // Dynamically overridden by theme.border
         marginHorizontal: 20,
+    },
+    label: {
+        fontSize: screenWidth > 600 ? 22 : 18, // Adjust for larger screens
+        fontWeight: '600',
     },
 });
 

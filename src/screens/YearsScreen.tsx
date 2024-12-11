@@ -91,7 +91,7 @@ const YearsScreen: React.FC = () => {
 
     const handleChapterPress = (chapterId: number, year: number) => {
         // Lock chapter IDs 7 and 8, and years 3 and 4
-        if ((chapterId === 9 || chapterId === 10) || (year === 3 || year === 4)) {
+        if ((chapterId === 7 || chapterId === 8) || (year === 3 || year === 4)) {
             setModalMessage('Dieser Inhalt ist in der Tesversion nicht verfügbar.');
             setModalVisible(true);
         } else {
@@ -257,18 +257,18 @@ const styles = StyleSheet.create({
     },
     modalContainer: {
         width: '80%',
-        padding: 16,
+        padding: screenWidth > 600 ? 24 : 16,
         backgroundColor: 'white',
         borderRadius: 8,
         alignItems: 'center',
     },
     modalText: {
-        fontSize: 16,
+        fontSize: screenWidth > 600 ? 22 : 16,
         marginBottom: 16,
         textAlign: 'center',
     },
     modalButton: {
-        fontSize: 14,
+        fontSize: screenWidth > 600 ? 20 : 16,
         color: '#007bff',
     },
 });
