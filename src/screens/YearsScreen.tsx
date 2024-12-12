@@ -64,7 +64,7 @@ const YearsScreen: React.FC = () => {
     const handlePress = async (year: number) => {
         // Lock years 3 and 4
         if (year === 3 || year === 4) {
-            setModalMessage('Inhalte momentan nicht verfügbar');
+            setModalMessage('Dieser Inhalt ist in der Tesversion nicht verfügbar.');
             setModalVisible(true);
             return; // Prevent further execution if year is locked
         }
@@ -91,7 +91,7 @@ const YearsScreen: React.FC = () => {
 
     const handleChapterPress = (chapterId: number, year: number) => {
         // Lock chapter IDs 7 and 8, and years 3 and 4
-        if ((chapterId === 7 || chapterId === 8) || (year === 3 || year === 4)) {
+        if ((chapterId === 9 || chapterId === 10) || (year === 3 || year === 4)) {
             setModalMessage('Dieser Inhalt ist in der Tesversion nicht verfügbar.');
             setModalVisible(true);
         } else {

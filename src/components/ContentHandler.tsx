@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     width: screenWidth > 600 ? 48 : 32,
     height: screenWidth > 600 ? 48 : 32,
     position: 'absolute',
-    top: screenWidth > 600 ? 40 : 30,
+    top: screenWidth > 600 ? 25 : 30,
     left: screenWidth > 600 ? -40 : -30,
   },
   image: {
@@ -220,15 +220,15 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   bulletPoint: {
-    width: 10,
-    fontSize: 18,
+    width: screenWidth > 600 ? 14 : 10,
+    fontSize: screenWidth > 600 ? 14 : 18,
     lineHeight: 24,
     marginRight: 10,
     textAlign: 'center',
   },
   bulletText: {
     fontFamily: 'OpenSans-Regular',
-    fontSize: screenWidth > 600 ? 20 : 19, // Larger for tablets
+    fontSize: screenWidth > 600 ? 22 : 19, // Larger for tablets
     lineHeight: screenWidth > 600 ? 28 : 24,
     flex: 1,
     flexWrap: 'wrap',

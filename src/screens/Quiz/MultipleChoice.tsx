@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
         minHeight: screenWidth > 600 ? 100 : 60,
         padding: screenWidth > 600 ? 25 : 15,
         marginVertical: screenWidth > 600 ? 20 : 10,
-        marginHorizontal: screenWidth > 600 ? 25 : 20,
+        marginHorizontal: screenWidth > 600 ? 25 : 10,
         borderRadius: 8,
         borderWidth: 1,
         borderColor: '#8fc2c2',
