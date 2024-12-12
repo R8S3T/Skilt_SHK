@@ -5,12 +5,14 @@ import ContentHandler from 'src/components/ContentHandler';
 import { Quiz } from 'src/types/contentTypes';
 import { GenericContent } from 'src/types/contentTypes';
 import { useTheme } from 'src/context/ThemeContext';
-import { loadContentSlideIndex, saveContentSlideIndex } from 'src/utils/progressUtils';
+import { loadContentSlideIndex } from 'src/utils/progressUtils';
+import { screenWidth } from 'src/utils/screenDimensions';
+import { Ionicons } from '@expo/vector-icons';
 
 interface ContentSlideProps {
-    contentData: (GenericContent | Quiz)[]; // Include all content for navigation checks
+    contentData: (GenericContent | Quiz)[];
     onNext: () => void;
-    currentIndex: number; // Add currentIndex prop
+    currentIndex: number;
     setCurrentIndex: (index: number) => void;
     subchapterId: number;
     setShowQuiz: (value: boolean) => void;
@@ -22,11 +24,11 @@ const ContentSlide: React.FC<ContentSlideProps> = ({
     setCurrentIndex,
     subchapterId,
     onNext,
-    setShowQuiz, // Ensure this is included
+    setShowQuiz,
 }) => {
     console.log("setShowQuiz in ContentSlide:", setShowQuiz);
-    const currentSlide = contentData[currentIndex]; // Get the current slide data
-    const { ContentData } = currentSlide as GenericContent; // Extract ContentData if it's a GenericContent
+    const currentSlide = contentData[currentIndex];
+    const { ContentData } = currentSlide as GenericContent;
     const [isButtonActive, setIsButtonActive] = useState(false);
     const scrollViewRef = useRef<ScrollView>(null);
     const { theme, isDarkMode } = useTheme();
@@ -36,8 +38,8 @@ const ContentSlide: React.FC<ContentSlideProps> = ({
     const [containerHeight, setContainerHeight] = useState<number>(0);
     const [contentHeight, setContentHeight] = useState<number>(0);
 
-    const [canNavigateBack, setCanNavigateBack] = useState(false); // For the left arrow
-    const [canNavigateForward, setCanNavigateForward] = useState(false); // For the right arrow
+    const [canNavigateBack, setCanNavigateBack] = useState(false);
+    const [canNavigateForward, setCanNavigateForward] = useState(false);
 
     // Handle navigation backward
     const onPrev = () => {
@@ -46,13 +48,12 @@ const ContentSlide: React.FC<ContentSlideProps> = ({
 
             // Check if the previous slide is a quiz
             if ('QuizId' in contentData[previousIndex]) {
-                setCurrentIndex(previousIndex - 1); // Skip the quiz and move to the previous content slide
+                setCurrentIndex(previousIndex - 1);
             } else {
-                setCurrentIndex(previousIndex); // Move to the previous slide
+                setCurrentIndex(previousIndex);
             }
         }
     };
-
 
     // Handle navigation forward
     const onForwardArrowPress = async () => {
@@ -65,11 +66,11 @@ const ContentSlide: React.FC<ContentSlideProps> = ({
             // Check if the next content is a quiz
             if (contentData[nextIndex] && 'QuizId' in contentData[nextIndex]) {
                 console.log("Displaying quiz:", contentData[nextIndex]);
-                setShowQuiz(true); // Trigger quiz mode
-                setCurrentIndex(nextIndex); // Move to the quiz
+                setShowQuiz(true); 
+                setCurrentIndex(nextIndex);
             } else {
                 console.log("Displaying regular content slide:", contentData[nextIndex]);
-                setCurrentIndex(nextIndex); // Move to the next slide
+                setCurrentIndex(nextIndex);
             }
         } else {
             console.log("Cannot move forward beyond the most recently visited slide.");
@@ -84,7 +85,7 @@ const ContentSlide: React.FC<ContentSlideProps> = ({
 
             setCanNavigateForward(
                 lastVisitedIndex !== null && currentIndex < lastVisitedIndex
-            ); // Enable forward arrow only for visited slides
+            );
         };
 
         checkProgress();
@@ -93,7 +94,7 @@ const ContentSlide: React.FC<ContentSlideProps> = ({
 
     useEffect(() => {
         if (ContentData) {
-            setLoading(false); // Stop loading when content is available
+            setLoading(false);
         }
     }, [ContentData]);
 
@@ -164,26 +165,28 @@ const ContentSlide: React.FC<ContentSlideProps> = ({
                 </Text>
             )}
             </ScrollView>
-                <View style={styles.buttonContainer}>
-                    <Text
-                        style={[styles.arrow, !canNavigateBack && styles.disabledArrow]}
-                        onPress={canNavigateBack ? onPrev : undefined}
-                    >
-                        {"<"}
-                    </Text>
-                    <NextSlideButton
-                        onPress={onNext}
-                        isActive={isButtonActive}
-                        label="Weiter"
-                        style={styles.nextButton}
-                    />
-                    <Text
-                        style={[styles.arrow, !canNavigateForward && styles.disabledArrow]}
-                        onPress={canNavigateForward ? onForwardArrowPress : undefined}
-                    >
-                        {">"}
-                    </Text>
-                </View>
+            <View style={styles.buttonContainer}>
+                {/* Left Arrow */}
+                <Ionicons
+                    name="chevron-back-outline"
+                    size={screenWidth > 600 ? 36 : 30}
+                    color={canNavigateBack ? '#e8630a' : '#ccc'}
+                    onPress={canNavigateBack ? onPrev : undefined}
+                />
+                <NextSlideButton
+                    onPress={onNext}
+                    isActive={isButtonActive}
+                    label="Weiter"
+                    style={styles.nextButton}
+                />
+                {/* Right Arrow */}
+                <Ionicons
+                    name="chevron-forward-outline"
+                    size={screenWidth > 600 ? 36 : 30}
+                    color={canNavigateForward ? '#e8630a' : '#ccc'}
+                    onPress={canNavigateForward ? onForwardArrowPress : undefined}
+                />
+            </View>
         </View>
     );
 };
@@ -211,7 +214,7 @@ const styles = StyleSheet.create({
         margin: 10,
     },
     arrow: {
-        fontSize: 24,
+        fontSize: screenWidth > 600 ? 36 : 28,
         fontWeight: 'bold',
         color: '#000', // Default color for active arrows
     },

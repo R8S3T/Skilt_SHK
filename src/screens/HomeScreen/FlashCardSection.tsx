@@ -30,7 +30,7 @@ const FlashcardsSection: React.FC<FlashcardsSectionProps> = ({ onButtonPress }) 
                     color={theme.primaryText} 
                     style={styles.icon} />
             </View>
-            <Text style={[styles.subheader, { color: theme.secondaryText }]}>Teste Dein Wissen hier</Text>
+            <Text style={[styles.subheader, { color: theme.secondaryText }]}>Teste dein Wissen hier</Text>
         </TouchableOpacity>
     );
 };

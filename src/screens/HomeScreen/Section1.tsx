@@ -25,7 +25,7 @@ const Section1: React.FC<Section1Props> = ({ onButtonPress }) => {
         <View style={[styles.newContainer, { backgroundColor: isDarkMode ? theme.surface : '#eeeeee' }]}>
             <Text style={[styles.heading, { color: isDarkMode ? theme.primaryText : '#2b4353' }]}>Meistere Dein Handwerk</Text>
             <Text style={[styles.description, { color: isDarkMode ? theme.secondaryText : '#2b4353' }]}>
-                Vertiefe Dein Wissen mit maßgeschneiderten Lernhäppchen, die auf deine Ausbildung abgestimmt sind.
+                Vertiefe dein Wissen mit maßgeschneiderten Lernhäppchen, die auf deine Ausbildung abgestimmt sind.
             </Text>
             <View style={styles.horizontalContainer}>
                 <Image source={require('../../../assets/Images/start_rocket.png')} style={styles.image} />

@@ -60,15 +60,11 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
               <ImageModal
                 source={imageSource}
                 resizeMode="contain"
-                overlayBackgroundColor="#c1c1c1"  // Darker grey color for zoomable overlay
+                overlayBackgroundColor="#c1c1c1"
                 style={{
                   width: deviceWidth * 0.9,
                   height: deviceWidth * 0.75,
                 }}
-              />
-              <Image
-                source={require('../../assets/Images/zoom_icon.png')}
-                style={[styles.zoomIcon, isDarkMode && { tintColor: '#4d4d4d' }]} // Dark gray in dark mode
               />
             </>
           ) : (
