@@ -79,7 +79,7 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
 
 
   const processText = (text: string) => {
-    const parts = text.split(/(\[bold\].*?\[\/bold\])|(\[heading\].*?\[\/heading\])|(\[subheading\].*?\[\/subheading\])|(\[section\].*?\[\/section\])/g);
+    const parts = text.split(/(\[bold\].*?\[\/bold\])|(\[heading\].*?\[\/heading\])|(\[subheading\].*?\[\/subheading\])|(\[section\].*?\[\/section\])|(\[lowText\].*?\[\/lowText\])/g);
 
     return (
       <Text style={[styles.contentText, { color: theme.primaryText }]}>
@@ -122,6 +122,15 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
             );
           }
 
+          if (part.startsWith('[lowText]') && part.endsWith('[/lowText]')) {
+            const lowText = part.replace('[lowText]', '').replace('[/lowText]', '');
+            return (
+              <Text key={index} style={[styles.lowText, { color: theme.secondaryText }]}>
+                {lowText}
+              </Text>
+            );
+          }
+
           return part.trim() !== '' ? (
             <Text key={index} style={[styles.contentText, { color: theme.primaryText }]}>
               {part}
@@ -141,6 +150,12 @@ const styles = StyleSheet.create({
     fontSize: screenWidth > 600 ? 22 : 19,
     letterSpacing: 0.9,
     marginTop: 5,
+  },
+  lowText: {
+    fontFamily: 'OpenSans-Regular',
+    fontSize: screenWidth > 600 ? 16 : 14,
+    lineHeight: screenWidth > 600 ? 22 : 20,
+    fontWeight: 'bold',
   },
   darkImageContainer: {
     backgroundColor: '#c1c1c1',
