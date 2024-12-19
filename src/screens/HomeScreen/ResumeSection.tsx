@@ -28,6 +28,7 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
 
     const loadLastViewed = async () => {
         const result = await loadProgress('section1');
+        console.log('Fetched progress:', result);
         const { chapterId, chapterTitle, subchapterId, subchapterName, currentIndex, imageName } = result;
     
         // If chapter or year is locked, clear resume data
@@ -74,7 +75,6 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
             console.error("Cannot navigate: Missing one or more required parameters.");
         }
     };
-    
 
     const imageSource = lastImageName ? imageMap[lastImageName as keyof typeof imageMap] : null;
     

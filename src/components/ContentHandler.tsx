@@ -18,23 +18,90 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
   // Handle special markers like frame, bullet point, images, etc.
   if (part.startsWith('[frame]') && part.endsWith('[/frame]')) {
     const frameText = part.replace('[frame]', '').replace('[/frame]', '');
+  
+    // Process the text inside the frame for nested markers
+    const processNestedMarkers = (text: string) => {
+      const nestedParts = text.split(/(\[bold\].*?\[\/bold\])|(\[lowText\].*?\[\/lowText\])/g);
+  
+      return nestedParts.map((nestedPart, nestedIndex) => {
+        if (!nestedPart) return null;
+  
+        if (nestedPart.startsWith('[bold]') && nestedPart.endsWith('[/bold]')) {
+          const boldText = nestedPart.replace('[bold]', '').replace('[/bold]', '');
+          return (
+            <Text key={nestedIndex} style={[styles.boldText, { color: theme.primaryText }]}>
+              {boldText}
+            </Text>
+          );
+        }
+  
+        // Default to regular text for other parts
+        return (
+          <Text key={nestedIndex} style={[styles.contentText, { color: theme.primaryText }]}>
+            {nestedPart}
+          </Text>
+        );
+      });
+    };
+  
     return (
       <View style={[styles.frameWithBulb, { backgroundColor: theme.surface }]}>
         <Image source={require('assets/Images/info_sign.png')} style={styles.infoSign} />
-        <Text style={[styles.contentText, { color: theme.primaryText }]}>{frameText}</Text>
+        <Text style={[styles.contentText, { color: theme.primaryText }]}>
+          {processNestedMarkers(frameText)}
+        </Text>
       </View>
     );
   }
+  
 
   if (part.startsWith('[bullet]') && part.endsWith('[/bullet]')) {
     const bulletText = part.replace('[bullet]', '').replace('[/bullet]', '');
+  
+    // Process the text inside the bullet for nested markers
+    const processNestedMarkers = (text: string) => {
+      const nestedParts = text.split(/(\[bold\].*?\[\/bold\])|(\[lowText\].*?\[\/lowText\])/g);
+  
+      return nestedParts.map((nestedPart, nestedIndex) => {
+        if (!nestedPart) return null;
+  
+        if (nestedPart.startsWith('[bold]') && nestedPart.endsWith('[/bold]')) {
+          const boldText = nestedPart.replace('[bold]', '').replace('[/bold]', '');
+          return (
+            <Text key={nestedIndex} style={[styles.boldText, { color: theme.primaryText }]}>
+              {boldText}
+            </Text>
+          );
+        }
+  
+        if (nestedPart.startsWith('[lowText]') && nestedPart.endsWith('[/lowText]')) {
+          const lowText = nestedPart.replace('[lowText]', '').replace('[/lowText]', '');
+          return (
+            <Text key={nestedIndex} style={[styles.lowText, { color: theme.secondaryText }]}>
+              {lowText}
+            </Text>
+          );
+        }
+  
+        // Default to regular text for other parts
+        return (
+          <Text key={nestedIndex} style={[styles.contentText, { color: theme.primaryText }]}>
+            {nestedPart}
+          </Text>
+        );
+      });
+    };
+  
     return (
       <View style={styles.bulletTextContainer}>
         <Text style={[styles.bulletPoint, { color: theme.primaryText }]}>○</Text>
-        <Text style={[styles.bulletText, { color: theme.primaryText }]}>{bulletText}</Text>
+        <Text style={[styles.bulletText, { color: theme.primaryText }]}>
+          {processNestedMarkers(bulletText)}
+        </Text>
       </View>
     );
   }
+  
 
   if (part.startsWith('[LF_')) {
     const imageName = part.replace('[', '').replace(']', '').trim();
@@ -147,6 +214,7 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
 const styles = StyleSheet.create({
   contentText: {
     fontFamily: 'OpenSans-Regular',
+    lineHeight: screenWidth > 600 ? 28 : 24,
     fontSize: screenWidth > 600 ? 22 : 19,
     letterSpacing: 0.9,
     marginTop: 5,
@@ -175,15 +243,15 @@ const styles = StyleSheet.create({
     fontSize: screenWidth > 600 ? 20 : 19,
   },
   headingText: {
-    fontFamily: 'Lato-Bold',
+    fontFamily: 'Lato-Medium',
     fontSize: screenWidth > 600 ? 28 : 24,
   },
   subheadingText: {
-    fontFamily: 'Lato-Medium',
+    fontFamily: 'Lato-Bold',
     fontSize: screenWidth > 600 ? 26 : 23,
   },
   sectionText: {
-    fontFamily: 'OpenSans-Semibold',
+    fontFamily: 'OpenSans-Regular',
     fontSize: screenWidth > 600 ? 24 : 21,
     letterSpacing: 1.2,
   },
@@ -231,13 +299,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     flexWrap: 'wrap',
-    marginBottom: 5,
+    marginBottom: 10,
     width: '100%',
   },
   bulletPoint: {
     width: screenWidth > 600 ? 14 : 10,
     fontSize: screenWidth > 600 ? 14 : 18,
-    lineHeight: 24,
+    lineHeight: screenWidth > 600 ? 28 : 24,
     marginRight: 10,
     textAlign: 'center',
   },

@@ -727,16 +727,23 @@ const img_LF6welcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_
 const img_LF6bergangsstckewelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Übergangsstücke_welcome.png');
 const img_LF6bergangsstckezoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Übergangsstücke_zoom.png');
 const img_LFRegenwassernutzungsanlagezoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF__Regenwassernutzungsanlage_zoom.png');
+const img_LF7AnschlussEinrohrheizungSchnittzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Anschluss_Einrohrheizung_Schnitt_zoom.png');
+const img_LF7AnschlussEinrohrheizungzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Anschluss_Einrohrheizung_zoom.png');
 const img_LF7Aufheizprotokollzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Aufheizprotokoll_zoom.png');
 const img_LF7AxialventilSchnittzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Axialventil_Schnitt_zoom.png');
 const img_LF7Badheizkrperzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Badheizkörper_zoom.png');
+const img_LF7BerechnungHeizungsrohrewelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Berechnung_Heizungsrohre_welcome.png');
+const img_LF7BerechnungWrmeenergiewelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Berechnung_Wärmeenergie_welcome.png');
 const img_LF7Berechnungwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Berechnung_welcome.png');
 const img_LF7Betriebspunktezoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Betriebspunkte_zoom.png');
 const img_LF7Celsiuszoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Celsius_zoom.png');
 const img_LF7Dichteanomaliezoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Dichteanomalie_zoom.png');
+const img_LF7Durchflussanzeigezoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Durchflussanzeige_zoom.png');
+const img_LF7Durchgangsventilzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Durchgangsventil_zoom.png');
 const img_LF7EckventilSchnittzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Eckventil_Schnitt_zoom.png');
 const img_LF7Energieausweiszoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Energieausweis_zoom.png');
 const img_LF7FBHeizungzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_FB_Heizung_zoom.png');
+const img_LF7FBVerteilerzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_FB_Verteiler_zoom.png');
 const img_LF7FBbifilarzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_FB_bifilar_zoom.png');
 const img_LF7FBmanderzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_FB_mäander_zoom.png');
 const img_LF7FlachheizkrperBerechnung = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Flachheizkörper_Berechnung.png');
@@ -745,7 +752,20 @@ const img_LF7FlachheizkrperFormel3small = require('../../assets/DbImages/Subchap
 const img_LF7FlachheizkrperInnenansichtzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Flachheizkörper_Innenansicht_zoom.png');
 const img_LF7Flachheizkrperzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Flachheizkörper_zoom.png');
 const img_LF7Flchenheizung = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Flächenheizung.png');
+const img_LF7Formel2Druckverlustsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_2_Druckverlust_small.png');
+const img_LF7Formel2Massestromsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_2_Massestrom_small.png');
+const img_LF7FormelDimensionierungsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Dimensionierung_small.png');
+const img_LF7FormelDrehzahl2small = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Drehzahl_2_small.png');
+const img_LF7FormelDrehzahlsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Drehzahl_small.png');
+const img_LF7FormelDruckverlustsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Druckverlust_small.png');
+const img_LF7FormelFlachheizkrper2small = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Flachheizkörper_2_small.png');
+const img_LF7FormelFlachheizkrperHeizkrperleistungsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Flachheizkörper_Heizkörperleistung_small.png');
 const img_LF7FormelFlachheizkrpersmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Flachheizkörper_small.png');
+const img_LF7FormelGliederheizkrperHeizkrperleistungsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Gliederheizkörper_Heizkörperleistung_small.png');
+const img_LF7FormelGliederheizkrpersmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Gliederheizkörper_small.png');
+const img_LF7FormelMassestromsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Massestrom_small.png');
+const img_LF7FormelNormwrmeleistung2small = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Normwärmeleistung_2_small.png');
+const img_LF7FormelNormwrmeleistungsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Normwärmeleistung_small.png');
 const img_LF7FormelPumpenleistung2small = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Pumpenleistung_2_small.png');
 const img_LF7FormelPumpenleistungsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Pumpenleistung_small.png');
 const img_LF7FormelUWertsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_U-Wert_small.png');
@@ -758,6 +778,7 @@ const img_LF7Gleichstromzoom = require('../../assets/DbImages/SubchapterContent/
 const img_LF7GliederheizkrperFormel2small = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Gliederheizkörper_Formel_2_small.png');
 const img_LF7GliederheizkrperFormelsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Gliederheizkörper_Formel_small.png');
 const img_LF7GliederheizungBerechnung = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Gliederheizung_Berechnung.png');
+const img_LF7Heizkostenverteilerzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Heizkostenverteiler_zoom.png');
 const img_LF7Heizkrperanschlssewelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Heizkörperanschlüsse_welcome.png');
 const img_LF7Heizkrperleistungzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Heizkörperleistung_zoom.png');
 const img_LF7Heizsystemewelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Heizsysteme_welcome.png');
@@ -767,11 +788,19 @@ const img_LF7HydraulischerAbgleichwelcome = require('../../assets/DbImages/Subch
 const img_LF7Konvektionzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Konvektion_zoom.png');
 const img_LF7Konvektorzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Konvektor_zoom.png');
 const img_LF7Kreuzstromprinzipzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Kreuzstromprinzip_zoom.png');
+const img_LF7Leistungsminderungsfaktor1zoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Leistungsminderungsfaktor_1_zoom.png');
+const img_LF7Leistungsminderungsfaktor2zoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Leistungsminderungsfaktor_2_zoom.png');
+const img_LF7Leistungsminderungsfaktor3zoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Leistungsminderungsfaktor_3_zoom.png');
+const img_LF7Luftabscheider1zoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Luftabscheider_1_zoom.png');
+const img_LF7Luftabscheider2zoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Luftabscheider_2_zoom.png');
 const img_LF7NassluferpumpeAnsichtzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Nassläuferpumpe_Ansicht_zoom.png');
 const img_LF7NassluferpumpeSchnittzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Nassläuferpumpe_Schnitt_zoom.png');
+const img_LF7Nassverlegesystemzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Nassverlegesystem_zoom.png');
 const img_LF7Niedrigenergiehauszoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Niedrigenergiehaus_zoom.png');
 const img_LF7NormWrmeleistung = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Norm_Wärmeleistung.png');
 const img_LF7Plattenheizkrperzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Plattenheizkörper_zoom.png');
+const img_LF7PrfenInbetriebnahmewelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Prüfen_Inbetriebnahme_welcome.png');
+const img_LF7Prfprotokoll = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Prüfprotokoll.png');
 const img_LF7Pumpenkennliniezoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Pumpenkennlinie_zoom.png');
 const img_LF7RSezoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_RSe_zoom.png');
 const img_LF7RSizoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_RSi_zoom.png');
@@ -781,22 +810,35 @@ const img_LF7Randzonezoom = require('../../assets/DbImages/SubchapterContent/LF_
 const img_LF7Rohrheizungwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Rohrheizung_welcome.png');
 const img_LF7Rohrnetzkennliniezoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Rohrnetzkennlinie_zoom.png');
 const img_LF7RohrverlegungEinrohrheizungzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Rohrverlegung_Einrohrheizung_zoom.png');
+const img_LF7Schnellentlfter2zoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Schnellentlüfter_2_zoom.png');
+const img_LF7Schnellentlfterzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Schnellentlüfter_zoom.png');
 const img_LF7Skalenzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Skalen_zoom.png');
 const img_LF7Solarzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Solar_zoom.png');
+const img_LF7Stellantriebzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Stellantrieb_zoom.png');
 const img_LF7Teilchenlangsam = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Teilchen_langsam.png');
 const img_LF7Teilchenlangsamzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Teilchen_langsam_zoom.png');
 const img_LF7Temperatureinheitenwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Temperatureinheiten_welcome.png');
+const img_LF7Thermostatkopfzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Thermostatkopf_zoom.png');
 const img_LF7Tichelmannzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Tichelmann_zoom.png');
 const img_LF7TrockenluferpumpeAnsicht1zoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Trockenläuferpumpe_Ansicht1_zoom.png');
 const img_LF7TrockenluferpumpeAnsicht2zoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Trockenläuferpumpe_Ansicht2_zoom.png');
+const img_LF7Trockenverlegesystemzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Trockenverlegesystem_zoom.png');
 const img_LF7UWertzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_U-Wert_zoom.png');
 const img_LF7Unterflurkonvektorzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Unterflurkonvektor_zoom.png');
+const img_LF7Ventil1small = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Ventil_1_small.png');
+const img_LF7Ventil2small = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Ventil_2_small.png');
+const img_LF7Ventil3small = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Ventil_3_small.png');
+const img_LF7VentilatorKonvektor2zoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Ventilator_Konvektor_2_zoom.png');
+const img_LF7VentilatorKonvektorzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Ventilator_Konvektor_zoom.png');
+const img_LF7Ventilheizkrperzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Ventilheizkörper_zoom.png');
 const img_LF7Verteilungsarten = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Verteilungsarten.png');
 const img_LF7WinkelEckventilzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Winkel_Eckventil_zoom.png');
 const img_LF7Wrmedurchgangzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmedurchgang_zoom.png');
 const img_LF7Wrmedurchlasswiderstandsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmedurchlasswiderstand_small.png');
+const img_LF7WrmekapazittWasser = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmekapazität_Wasser.png');
 const img_LF7Wrmeleitfhigkeitsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmeleitfähigkeit_small.png');
 const img_LF7Wrmeleitfhigkeitzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmeleitfähigkeit_zoom.png');
+const img_LF7Wrmemengenzhlerzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmemengenzähler_zoom.png');
 const img_LF7Wrmestrahlungzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmestrahlung_zoom.png');
 const img_LF7Wrmetransferwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmetransfer_welcome.png');
 const img_LF7Wrmetransferzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmetransfer_zoom.png');
@@ -804,11 +846,55 @@ const img_LF7Wrmebergangzoom = require('../../assets/DbImages/SubchapterContent/
 const img_LF7Wrmebergangskoeffizientsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmeübergangskoeffizient_small.png');
 const img_LF7Wrmebergangswiderstandsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmeübergangswiderstand_small.png');
 const img_LF7Zweirohrheizungzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Zweirohrheizung_zoom.png');
+const img_LF7hydraulischerAbgleichzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_hydraulischer_Abgleich_zoom.png');
 const img_LF7obereVerteilungzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_obere_Verteilung_zoom.png');
+const img_LF7spezifHeizkrperleistungFlachsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_spezif.Heizkörperleistung_Flach_small.png');
 const img_LF7untereVerteilungzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_untere_Verteilung_zoom.png');
 const img_LF7zentraleVerteilungzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_zentrale_Verteilung_zoom.png');
+const img_LF8Ablagezoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Ablage_zoom.png');
+const img_LF8Absperrarmaturzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Absperrarmatur_zoom.png');
+const img_LF8Aufputzarmaturzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Aufputzarmatur_zoom.png');
+const img_LF8Aufsatzwaschbeckenzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Aufsatzwaschbecken_zoom.png');
+const img_LF8Badewanneacrylzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Badewanne_acryl_zoom.png');
+const img_LF8Bewegungsflchezoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Bewegungsfläche_zoom.png');
+const img_LF8Bidetzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Bidet_zoom.png');
 const img_LF8Dichtungwelcome = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Dichtung_welcome.png');
+const img_LF8Drucksphlerzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Druckspühler_zoom.png');
+const img_LF8Duschabtrennungzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Duschabtrennung_zoom.png');
+const img_LF8Duschkabinezoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Duschkabine_zoom.png');
+const img_LF8Eckbadewannezoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Eckbadewanne_zoom.png');
+const img_LF8Einbaubadewannezoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Einbaubadewanne_zoom.png');
+const img_LF8Einbauwaschbeckenzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Einbauwaschbecken_zoom.png');
+const img_LF8Einhebelmischarmaturenzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Einhebelmischarmaturen_zoom.png');
+const img_LF8Exentergarniturzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Exentergarnitur_zoom.png');
+const img_LF8Flaschensiphonzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Flaschensiphon_zoom.png');
+const img_LF8Handtuchhalterzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Handtuchhalter_zoom.png');
+const img_LF8Infrarotzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Infrarot_zoom.png');
+const img_LF8Klosetartenzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Klosetarten_zoom.png');
+const img_LF8Kopfbrausezoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Kopfbrause_zoom.png');
+const img_LF8Porzellanzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Porzellan_zoom.png');
+const img_LF8Reinigungsmittel = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Reinigungsmittel.png');
+const img_LF8Sanitrarmaturenwelcome = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Sanitärarmaturen_welcome.png');
+const img_LF8Sanitrgegenstndewelcome = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Sanitärgegenstände_welcome.png');
 const img_LF8Sanitrplanungwelcome = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Sanitärplanung_welcome.png');
+const img_LF8Schallquellenzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Schallquellen_zoom.png');
+const img_LF8Siphon1zoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Siphon_1_zoom.png');
+const img_LF8Siphonzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Siphon_zoom.png');
+const img_LF8ThermostatarmaturSchnittzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Thermostatarmatur_Schnitt_zoom.png');
+const img_LF8Thermostatarmaturzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Thermostatarmatur_zoom.png');
+const img_LF8Univentilzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Univentil_zoom.png');
+const img_LF8UnterputzSplkastenzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Unterputz_Spülkasten_zoom.png');
+const img_LF8Unterputzarmaturzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Unterputzarmatur_zoom.png');
+const img_LF8Urinalzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Urinal_zoom.png');
+const img_LF8Vorwandinstallationwelcome = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Vorwandinstallation_welcome.png');
+const img_LF8WalkinDuschezoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Walkin_Dusche_zoom.png');
+const img_LF8WaschbeckenEdelstahlzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Waschbecken_Edelstahl_zoom.png');
+const img_LF8WaschbeckenWandzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Waschbecken_Wand_zoom.png');
+const img_LF8Wassersparen = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Wasser_sparen.png');
+const img_LF8WerkstoffeSanitrwelcome = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Werkstoffe_Sanitär_welcome.png');
+const img_LF8Zweihebelmischarmaturenzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Zweihebelmischarmaturen_zoom.png');
+const img_LF8fliesengerechteInstallation1zoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_fliesengerechte_Installation_1_zoom.png');
+const img_LF8fliesengerechteInstallation2zoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_fliesengerechte_Installation_2_zoom.png');
 
 export const imageMap = {
     "equations_1": img_equations1,
@@ -1539,16 +1625,23 @@ export const imageMap = {
     "LF_6_Übergangsstücke_welcome": img_LF6bergangsstckewelcome,
     "LF_6_Übergangsstücke_zoom": img_LF6bergangsstckezoom,
     "LF__Regenwassernutzungsanlage_zoom": img_LFRegenwassernutzungsanlagezoom,
+    "LF_7_Anschluss_Einrohrheizung_Schnitt_zoom": img_LF7AnschlussEinrohrheizungSchnittzoom,
+    "LF_7_Anschluss_Einrohrheizung_zoom": img_LF7AnschlussEinrohrheizungzoom,
     "LF_7_Aufheizprotokoll_zoom": img_LF7Aufheizprotokollzoom,
     "LF_7_Axialventil_Schnitt_zoom": img_LF7AxialventilSchnittzoom,
     "LF_7_Badheizkörper_zoom": img_LF7Badheizkrperzoom,
+    "LF_7_Berechnung_Heizungsrohre_welcome": img_LF7BerechnungHeizungsrohrewelcome,
+    "LF_7_Berechnung_Wärmeenergie_welcome": img_LF7BerechnungWrmeenergiewelcome,
     "LF_7_Berechnung_welcome": img_LF7Berechnungwelcome,
     "LF_7_Betriebspunkte_zoom": img_LF7Betriebspunktezoom,
     "LF_7_Celsius_zoom": img_LF7Celsiuszoom,
     "LF_7_Dichteanomalie_zoom": img_LF7Dichteanomaliezoom,
+    "LF_7_Durchflussanzeige_zoom": img_LF7Durchflussanzeigezoom,
+    "LF_7_Durchgangsventil_zoom": img_LF7Durchgangsventilzoom,
     "LF_7_Eckventil_Schnitt_zoom": img_LF7EckventilSchnittzoom,
     "LF_7_Energieausweis_zoom": img_LF7Energieausweiszoom,
     "LF_7_FB_Heizung_zoom": img_LF7FBHeizungzoom,
+    "LF_7_FB_Verteiler_zoom": img_LF7FBVerteilerzoom,
     "LF_7_FB_bifilar_zoom": img_LF7FBbifilarzoom,
     "LF_7_FB_mäander_zoom": img_LF7FBmanderzoom,
     "LF_7_Flachheizkörper_Berechnung": img_LF7FlachheizkrperBerechnung,
@@ -1557,7 +1650,20 @@ export const imageMap = {
     "LF_7_Flachheizkörper_Innenansicht_zoom": img_LF7FlachheizkrperInnenansichtzoom,
     "LF_7_Flachheizkörper_zoom": img_LF7Flachheizkrperzoom,
     "LF_7_Flächenheizung": img_LF7Flchenheizung,
+    "LF_7_Formel_2_Druckverlust_small": img_LF7Formel2Druckverlustsmall,
+    "LF_7_Formel_2_Massestrom_small": img_LF7Formel2Massestromsmall,
+    "LF_7_Formel_Dimensionierung_small": img_LF7FormelDimensionierungsmall,
+    "LF_7_Formel_Drehzahl_2_small": img_LF7FormelDrehzahl2small,
+    "LF_7_Formel_Drehzahl_small": img_LF7FormelDrehzahlsmall,
+    "LF_7_Formel_Druckverlust_small": img_LF7FormelDruckverlustsmall,
+    "LF_7_Formel_Flachheizkörper_2_small": img_LF7FormelFlachheizkrper2small,
+    "LF_7_Formel_Flachheizkörper_Heizkörperleistung_small": img_LF7FormelFlachheizkrperHeizkrperleistungsmall,
     "LF_7_Formel_Flachheizkörper_small": img_LF7FormelFlachheizkrpersmall,
+    "LF_7_Formel_Gliederheizkörper_Heizkörperleistung_small": img_LF7FormelGliederheizkrperHeizkrperleistungsmall,
+    "LF_7_Formel_Gliederheizkörper_small": img_LF7FormelGliederheizkrpersmall,
+    "LF_7_Formel_Massestrom_small": img_LF7FormelMassestromsmall,
+    "LF_7_Formel_Normwärmeleistung_2_small": img_LF7FormelNormwrmeleistung2small,
+    "LF_7_Formel_Normwärmeleistung_small": img_LF7FormelNormwrmeleistungsmall,
     "LF_7_Formel_Pumpenleistung_2_small": img_LF7FormelPumpenleistung2small,
     "LF_7_Formel_Pumpenleistung_small": img_LF7FormelPumpenleistungsmall,
     "LF_7_Formel_U-Wert_small": img_LF7FormelUWertsmall,
@@ -1570,6 +1676,7 @@ export const imageMap = {
     "LF_7_Gliederheizkörper_Formel_2_small": img_LF7GliederheizkrperFormel2small,
     "LF_7_Gliederheizkörper_Formel_small": img_LF7GliederheizkrperFormelsmall,
     "LF_7_Gliederheizung_Berechnung": img_LF7GliederheizungBerechnung,
+    "LF_7_Heizkostenverteiler_zoom": img_LF7Heizkostenverteilerzoom,
     "LF_7_Heizkörperanschlüsse_welcome": img_LF7Heizkrperanschlssewelcome,
     "LF_7_Heizkörperleistung_zoom": img_LF7Heizkrperleistungzoom,
     "LF_7_Heizsysteme_welcome": img_LF7Heizsystemewelcome,
@@ -1579,11 +1686,19 @@ export const imageMap = {
     "LF_7_Konvektion_zoom": img_LF7Konvektionzoom,
     "LF_7_Konvektor_zoom": img_LF7Konvektorzoom,
     "LF_7_Kreuzstromprinzip_zoom": img_LF7Kreuzstromprinzipzoom,
+    "LF_7_Leistungsminderungsfaktor_1_zoom": img_LF7Leistungsminderungsfaktor1zoom,
+    "LF_7_Leistungsminderungsfaktor_2_zoom": img_LF7Leistungsminderungsfaktor2zoom,
+    "LF_7_Leistungsminderungsfaktor_3_zoom": img_LF7Leistungsminderungsfaktor3zoom,
+    "LF_7_Luftabscheider_1_zoom": img_LF7Luftabscheider1zoom,
+    "LF_7_Luftabscheider_2_zoom": img_LF7Luftabscheider2zoom,
     "LF_7_Nassläuferpumpe_Ansicht_zoom": img_LF7NassluferpumpeAnsichtzoom,
     "LF_7_Nassläuferpumpe_Schnitt_zoom": img_LF7NassluferpumpeSchnittzoom,
+    "LF_7_Nassverlegesystem_zoom": img_LF7Nassverlegesystemzoom,
     "LF_7_Niedrigenergiehaus_zoom": img_LF7Niedrigenergiehauszoom,
     "LF_7_Norm_Wärmeleistung": img_LF7NormWrmeleistung,
     "LF_7_Plattenheizkörper_zoom": img_LF7Plattenheizkrperzoom,
+    "LF_7_Prüfen_Inbetriebnahme_welcome": img_LF7PrfenInbetriebnahmewelcome,
+    "LF_7_Prüfprotokoll": img_LF7Prfprotokoll,
     "LF_7_Pumpenkennlinie_zoom": img_LF7Pumpenkennliniezoom,
     "LF_7_RSe_zoom": img_LF7RSezoom,
     "LF_7_RSi_zoom": img_LF7RSizoom,
@@ -1593,22 +1708,35 @@ export const imageMap = {
     "LF_7_Rohrheizung_welcome": img_LF7Rohrheizungwelcome,
     "LF_7_Rohrnetzkennlinie_zoom": img_LF7Rohrnetzkennliniezoom,
     "LF_7_Rohrverlegung_Einrohrheizung_zoom": img_LF7RohrverlegungEinrohrheizungzoom,
+    "LF_7_Schnellentlüfter_2_zoom": img_LF7Schnellentlfter2zoom,
+    "LF_7_Schnellentlüfter_zoom": img_LF7Schnellentlfterzoom,
     "LF_7_Skalen_zoom": img_LF7Skalenzoom,
     "LF_7_Solar_zoom": img_LF7Solarzoom,
+    "LF_7_Stellantrieb_zoom": img_LF7Stellantriebzoom,
     "LF_7_Teilchen_langsam": img_LF7Teilchenlangsam,
     "LF_7_Teilchen_langsam_zoom": img_LF7Teilchenlangsamzoom,
     "LF_7_Temperatureinheiten_welcome": img_LF7Temperatureinheitenwelcome,
+    "LF_7_Thermostatkopf_zoom": img_LF7Thermostatkopfzoom,
     "LF_7_Tichelmann_zoom": img_LF7Tichelmannzoom,
     "LF_7_Trockenläuferpumpe_Ansicht1_zoom": img_LF7TrockenluferpumpeAnsicht1zoom,
     "LF_7_Trockenläuferpumpe_Ansicht2_zoom": img_LF7TrockenluferpumpeAnsicht2zoom,
+    "LF_7_Trockenverlegesystem_zoom": img_LF7Trockenverlegesystemzoom,
     "LF_7_U-Wert_zoom": img_LF7UWertzoom,
     "LF_7_Unterflurkonvektor_zoom": img_LF7Unterflurkonvektorzoom,
+    "LF_7_Ventil_1_small": img_LF7Ventil1small,
+    "LF_7_Ventil_2_small": img_LF7Ventil2small,
+    "LF_7_Ventil_3_small": img_LF7Ventil3small,
+    "LF_7_Ventilator_Konvektor_2_zoom": img_LF7VentilatorKonvektor2zoom,
+    "LF_7_Ventilator_Konvektor_zoom": img_LF7VentilatorKonvektorzoom,
+    "LF_7_Ventilheizkörper_zoom": img_LF7Ventilheizkrperzoom,
     "LF_7_Verteilungsarten": img_LF7Verteilungsarten,
     "LF_7_Winkel_Eckventil_zoom": img_LF7WinkelEckventilzoom,
     "LF_7_Wärmedurchgang_zoom": img_LF7Wrmedurchgangzoom,
     "LF_7_Wärmedurchlasswiderstand_small": img_LF7Wrmedurchlasswiderstandsmall,
+    "LF_7_Wärmekapazität_Wasser": img_LF7WrmekapazittWasser,
     "LF_7_Wärmeleitfähigkeit_small": img_LF7Wrmeleitfhigkeitsmall,
     "LF_7_Wärmeleitfähigkeit_zoom": img_LF7Wrmeleitfhigkeitzoom,
+    "LF_7_Wärmemengenzähler_zoom": img_LF7Wrmemengenzhlerzoom,
     "LF_7_Wärmestrahlung_zoom": img_LF7Wrmestrahlungzoom,
     "LF_7_Wärmetransfer_welcome": img_LF7Wrmetransferwelcome,
     "LF_7_Wärmetransfer_zoom": img_LF7Wrmetransferzoom,
@@ -1616,9 +1744,53 @@ export const imageMap = {
     "LF_7_Wärmeübergangskoeffizient_small": img_LF7Wrmebergangskoeffizientsmall,
     "LF_7_Wärmeübergangswiderstand_small": img_LF7Wrmebergangswiderstandsmall,
     "LF_7_Zweirohrheizung_zoom": img_LF7Zweirohrheizungzoom,
+    "LF_7_hydraulischer_Abgleich_zoom": img_LF7hydraulischerAbgleichzoom,
     "LF_7_obere_Verteilung_zoom": img_LF7obereVerteilungzoom,
+    "LF_7_spezif.Heizkörperleistung_Flach_small": img_LF7spezifHeizkrperleistungFlachsmall,
     "LF_7_untere_Verteilung_zoom": img_LF7untereVerteilungzoom,
     "LF_7_zentrale_Verteilung_zoom": img_LF7zentraleVerteilungzoom,
+    "LF_8_Ablage_zoom": img_LF8Ablagezoom,
+    "LF_8_Absperrarmatur_zoom": img_LF8Absperrarmaturzoom,
+    "LF_8_Aufputzarmatur_zoom": img_LF8Aufputzarmaturzoom,
+    "LF_8_Aufsatzwaschbecken_zoom": img_LF8Aufsatzwaschbeckenzoom,
+    "LF_8_Badewanne_acryl_zoom": img_LF8Badewanneacrylzoom,
+    "LF_8_Bewegungsfläche_zoom": img_LF8Bewegungsflchezoom,
+    "LF_8_Bidet_zoom": img_LF8Bidetzoom,
     "LF_8_Dichtung_welcome": img_LF8Dichtungwelcome,
-    "LF_8_Sanitärplanung_welcome": img_LF8Sanitrplanungwelcome
+    "LF_8_Druckspühler_zoom": img_LF8Drucksphlerzoom,
+    "LF_8_Duschabtrennung_zoom": img_LF8Duschabtrennungzoom,
+    "LF_8_Duschkabine_zoom": img_LF8Duschkabinezoom,
+    "LF_8_Eckbadewanne_zoom": img_LF8Eckbadewannezoom,
+    "LF_8_Einbaubadewanne_zoom": img_LF8Einbaubadewannezoom,
+    "LF_8_Einbauwaschbecken_zoom": img_LF8Einbauwaschbeckenzoom,
+    "LF_8_Einhebelmischarmaturen_zoom": img_LF8Einhebelmischarmaturenzoom,
+    "LF_8_Exentergarnitur_zoom": img_LF8Exentergarniturzoom,
+    "LF_8_Flaschensiphon_zoom": img_LF8Flaschensiphonzoom,
+    "LF_8_Handtuchhalter_zoom": img_LF8Handtuchhalterzoom,
+    "LF_8_Infrarot_zoom": img_LF8Infrarotzoom,
+    "LF_8_Klosetarten_zoom": img_LF8Klosetartenzoom,
+    "LF_8_Kopfbrause_zoom": img_LF8Kopfbrausezoom,
+    "LF_8_Porzellan_zoom": img_LF8Porzellanzoom,
+    "LF_8_Reinigungsmittel": img_LF8Reinigungsmittel,
+    "LF_8_Sanitärarmaturen_welcome": img_LF8Sanitrarmaturenwelcome,
+    "LF_8_Sanitärgegenstände_welcome": img_LF8Sanitrgegenstndewelcome,
+    "LF_8_Sanitärplanung_welcome": img_LF8Sanitrplanungwelcome,
+    "LF_8_Schallquellen_zoom": img_LF8Schallquellenzoom,
+    "LF_8_Siphon_1_zoom": img_LF8Siphon1zoom,
+    "LF_8_Siphon_zoom": img_LF8Siphonzoom,
+    "LF_8_Thermostatarmatur_Schnitt_zoom": img_LF8ThermostatarmaturSchnittzoom,
+    "LF_8_Thermostatarmatur_zoom": img_LF8Thermostatarmaturzoom,
+    "LF_8_Univentil_zoom": img_LF8Univentilzoom,
+    "LF_8_Unterputz_Spülkasten_zoom": img_LF8UnterputzSplkastenzoom,
+    "LF_8_Unterputzarmatur_zoom": img_LF8Unterputzarmaturzoom,
+    "LF_8_Urinal_zoom": img_LF8Urinalzoom,
+    "LF_8_Vorwandinstallation_welcome": img_LF8Vorwandinstallationwelcome,
+    "LF_8_Walkin_Dusche_zoom": img_LF8WalkinDuschezoom,
+    "LF_8_Waschbecken_Edelstahl_zoom": img_LF8WaschbeckenEdelstahlzoom,
+    "LF_8_Waschbecken_Wand_zoom": img_LF8WaschbeckenWandzoom,
+    "LF_8_Wasser_sparen": img_LF8Wassersparen,
+    "LF_8_Werkstoffe_Sanitär_welcome": img_LF8WerkstoffeSanitrwelcome,
+    "LF_8_Zweihebelmischarmaturen_zoom": img_LF8Zweihebelmischarmaturenzoom,
+    "LF_8_fliesengerechte_Installation_1_zoom": img_LF8fliesengerechteInstallation1zoom,
+    "LF_8_fliesengerechte_Installation_2_zoom": img_LF8fliesengerechteInstallation2zoom
 };
