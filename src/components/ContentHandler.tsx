@@ -113,6 +113,7 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
       const isZoomable = markers.includes('zoom');
       const isWelcome = markers.includes('welcome');
       const isSmall = markers.includes('small');
+      const isIcon = imageName.startsWith('LF_icon');
 
       if (isWelcome) {
         imageStyle = styles.welcomeImage;
@@ -121,19 +122,21 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
       }
 
       return (
-        <View style={[styles.imageContainer, isDarkMode && styles.darkImageContainer]}>
-          {isZoomable ? (
-            <>
-              <ImageModal
-                source={imageSource}
-                resizeMode="contain"
-                overlayBackgroundColor="#c1c1c1"
-                style={{
-                  width: deviceWidth * 0.9,
-                  height: deviceWidth * 0.75,
-                }}
-              />
-            </>
+        <View style={[
+                styles.imageContainer,
+                isDarkMode && !isIcon && styles.darkImageContainer
+              ]}
+            >
+              {isZoomable ? (
+                  <ImageModal
+                    source={imageSource}
+                    resizeMode="contain"
+                    overlayBackgroundColor="#c1c1c1"
+                    style={{
+                      width: deviceWidth * 0.9,
+                      height: deviceWidth * 0.75,
+                    }}
+                  />
           ) : (
             <Image source={imageSource} style={imageStyle} resizeMode="contain" />
           )}

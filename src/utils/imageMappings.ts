@@ -895,6 +895,8 @@ const img_LF8WerkstoffeSanitrwelcome = require('../../assets/DbImages/Subchapter
 const img_LF8Zweihebelmischarmaturenzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Zweihebelmischarmaturen_zoom.png');
 const img_LF8fliesengerechteInstallation1zoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_fliesengerechte_Installation_1_zoom.png');
 const img_LF8fliesengerechteInstallation2zoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_fliesengerechte_Installation_2_zoom.png');
+const img_LF9EinteilungTrinkwassererwrmungwelcome = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Einteilung_Trinkwassererwärmung_welcome.png');
+const img_LFiconFunctionsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Function_small.png');
 
 export const imageMap = {
     "equations_1": img_equations1,
@@ -1792,5 +1794,7 @@ export const imageMap = {
     "LF_8_Werkstoffe_Sanitär_welcome": img_LF8WerkstoffeSanitrwelcome,
     "LF_8_Zweihebelmischarmaturen_zoom": img_LF8Zweihebelmischarmaturenzoom,
     "LF_8_fliesengerechte_Installation_1_zoom": img_LF8fliesengerechteInstallation1zoom,
-    "LF_8_fliesengerechte_Installation_2_zoom": img_LF8fliesengerechteInstallation2zoom
+    "LF_8_fliesengerechte_Installation_2_zoom": img_LF8fliesengerechteInstallation2zoom,
+    "LF_9_Einteilung_Trinkwassererwärmung_welcome": img_LF9EinteilungTrinkwassererwrmungwelcome,
+    "LF_icon_Function_small": img_LFiconFunctionsmall
 };
