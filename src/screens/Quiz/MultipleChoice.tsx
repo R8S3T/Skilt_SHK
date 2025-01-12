@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
         minWidth: screenWidth > 600 ? '90%' : '90%',
         minHeight: screenWidth > 600 ? 100 : 60,
         padding: screenWidth > 600 ? 25 : 15,
-        marginVertical: screenWidth > 600 ? 20 : 10,
+        marginVertical: screenWidth > 600 ? 20 : 0,
         marginHorizontal: screenWidth > 600 ? 25 : 10,
         borderRadius: 8,
         borderWidth: 1,

@@ -123,10 +123,9 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
 
       return (
         <View style={[
-                styles.imageContainer,
-                isDarkMode && !isIcon && styles.darkImageContainer
-              ]}
-            >
+          styles.imageContainer,
+          isDarkMode && !isIcon && !imageName.toLowerCase().includes('formel') && styles.darkImageContainer
+        ]}>
               {isZoomable ? (
                   <ImageModal
                     source={imageSource}
@@ -231,7 +230,7 @@ const styles = StyleSheet.create({
   darkImageContainer: {
     backgroundColor: '#c1c1c1',
     paddingHorizontal: 2,
-    paddingVertical: 10,
+    paddingVertical: screenWidth > 600 ? 15 : 10,
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
@@ -287,7 +286,7 @@ const styles = StyleSheet.create({
   },
   smallImage: {
     width: '100%',
-    height: screenWidth > 600 ? 100 : 80,
+    height: screenWidth > 600 ? 120 : 110,
     resizeMode: 'contain',
     marginVertical: screenWidth > 600 ? 10 : 5,
   },

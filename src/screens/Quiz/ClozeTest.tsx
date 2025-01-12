@@ -119,8 +119,8 @@ const styles = StyleSheet.create({
     container: {
         flexGrow: 1,
         justifyContent: 'space-between',
-        paddingHorizontal: screenWidth > 600 ? 25 : 10,
-        paddingVertical: screenWidth > 600 ? 60 : 40,
+        alignItems: 'center',
+        padding: screenWidth > 600 ? 15 : 5,
         backgroundColor: '#2b4353',
     },
     optionsContainer: {
@@ -131,16 +131,16 @@ const styles = StyleSheet.create({
         padding: screenWidth > 600 ? 15 : 10,
     },
     sentenceContainer: {
-        marginBottom: screenWidth > 600 ? 50 : 40,
+        marginBottom: screenWidth > 600 ? 50 : 15,
     },
-    controlButtonsContainer: {
-        marginTop: screenWidth > 600 ? 60 : 30,
+/*     controlButtonsContainer: {
+        marginTop: screenWidth > 600 ? 60 : 15,
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection: 'row',
-    },
+    }, */
     feedbackContainer: {
-        height: screenWidth > 600 ? 100 : 60,
+        height: screenWidth > 600 ? 100 : 30,
         justifyContent: 'center',
         alignItems: 'center',
         marginVertical: 0,
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
         color: '#FFF',
         fontSize: screenWidth > 600 ? 22 : 18,
         textAlign: 'center',
-        marginVertical: 10,
+        marginVertical: screenWidth > 600 ? 20 : 4,
         fontWeight: 'bold',
     },
 });

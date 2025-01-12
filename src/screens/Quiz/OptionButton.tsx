@@ -25,13 +25,15 @@ const OptionButton: React.FC<OptionButtonProps> = ({ option, onSelect, isSelecte
 const styles = StyleSheet.create({
     option: {
         backgroundColor: '#2b4353',
-        padding: 15,
-        marginHorizontal: screenWidth > 600 ? 15 : 10, // More horizontal space for tablets
-        marginVertical: screenWidth > 600 ? 15 : 10,   // More vertical space for tablets
-        borderRadius: 5,
+        minWidth: screenWidth > 600 ? '90%' : '90%',
+        minHeight: screenWidth > 600 ? 100 : 60,
+        padding: screenWidth > 600 ? 25 : 15,
+        marginVertical: screenWidth > 600 ? 20 : 10,
+        marginHorizontal: screenWidth > 600 ? 25 : 10,
+        borderRadius: 8,
         borderWidth: 1,
         borderColor: '#8fc2c2',
-        width: screenWidth > 600 ? '50%' : '60%', // Adjust width for tablets
+        alignItems: 'center',
     },
     optionText: {
         color: '#FFF',
