@@ -34,4 +34,9 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
+# Bilderordner ignorieren
+assets/DbImages/
+assets/Images/
 
+# Datenbankdatei ignorieren
+assets/skiltSHK.db
