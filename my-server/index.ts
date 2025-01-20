@@ -219,7 +219,7 @@ app.get('/chapters', async (req, res) => {
 
 // Start the server on the specified port and IP address
 app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Server running on http://192.168.150.38:${PORT}`);
+    console.log(`Server running on http://192.168.225.38:${PORT}`);
 });
 
 
