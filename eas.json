@@ -14,7 +14,13 @@
     "production": {
       "autoIncrement": true,
       "android": {
-        "buildType": "app-bundle"
+        "buildType": "app-bundle",
+        "keystore": {
+          "keystorePath": "./@rst83__Skilt_SHK.jks",
+          "keystoreAlias": "0e3cde439b049b09299455aed999ed37",
+          "keystorePassword": "e43580992259aaf3fa867340f3d43545",
+          "keyPassword": "5ee328abe929f9655b471bf1fb92534b"
+        }
       }
     }
   },
