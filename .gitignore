@@ -35,8 +35,8 @@ yarn-error.*
 *.tsbuildinfo
 
 # Bilderordner ignorieren
-assets/DbImages/
-assets/Images/
+#assets/DbImages/
+#assets/Images/
 
 # Datenbankdatei ignorieren
-assets/skiltSHK.db
+#assets/skiltSHK.db

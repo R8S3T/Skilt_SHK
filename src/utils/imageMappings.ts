@@ -373,6 +373,78 @@ const img_LF10Verbrennungsluftversorgungwelcome = require('../../assets/DbImages
 const img_LF10VerwahrungGasleitungwelcome = require('../../assets/DbImages/SubchapterContent/LF_10/LF_10_Verwahrung_Gasleitung_welcome.png');
 const img_LF10maxAbstndezoom = require('../../assets/DbImages/SubchapterContent/LF_10/LF_10_max_Abstände_zoom.png');
 const img_LFiconraumluftunabhngigeBetriebsstttezoom = require('../../assets/DbImages/SubchapterContent/LF_10/LF_icon_raumluftunabhängige_Betriebsstätte_zoom.png');
+const img_LF11Abgasmessunglwelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Abgasmessung_Öl_welcome.png');
+const img_LF11Antiheberventilwelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Antiheberventil_welcome.png');
+const img_LF11BerechnungMAGwelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Berechnung_MAG_welcome.png');
+const img_LF11Berechnunglfeuerungenwelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Berechnung_Ölfeuerungen_welcome.png');
+const img_LF11Brennerwelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Brenner_welcome.png');
+const img_LF11Brennwertkesselwelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Brennwertkessel_welcome.png');
+const img_LF11CO2neutralzoom = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_CO2_neutral_zoom.png');
+const img_LF11DIN129536welcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_DIN_129536_welcome.png');
+const img_LF11Festbrennstoffewelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Festbrennstoffe_welcome.png');
+const img_LF11FormelAbgasverlustrechnungsmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_Abgasverlustrechnung_small.png');
+const img_LF11FormelAusdehnungsvolumensmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_Ausdehnungsvolumen_small.png');
+const img_LF11FormelBerechnung2Abgasverlustrechnungsmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_Berechnung_2_Abgasverlustrechnung_small.png');
+const img_LF11FormelBerechnungAbgasverlustrechnungsmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_Berechnung_Abgasverlustrechnung_small.png');
+const img_LF11FormelBerechnungAusdehnungsvolumensmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_Berechnung_Ausdehnungsvolumen_small.png');
+const img_LF11FormelBerechnungBrennstoffmenge2small = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_Berechnung_Brennstoffmenge_2_small.png');
+const img_LF11FormelBerechnungEnergiebedarfsmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_Berechnung_Energiebedarf_small.png');
+const img_LF11FormelBerechnungFaustformelsmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_Berechnung_Faustformel_small.png');
+const img_LF11FormelBerechnungMAGsmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_Berechnung_MAG_small.png');
+const img_LF11FormelBerechnungWirkungsgradsmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_Berechnung_Wirkungsgrad_small.png');
+const img_LF11FormelBerechnungWrmegewinnsmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_Berechnung_Wärmegewinn_small.png');
+const img_LF11FormelBerechnungfeuerungstechWirkungsgradsmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_Berechnung_feuerungstech_Wirkungsgrad_small.png');
+const img_LF11FormelBerechnungprzisesmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_Berechnung_präzise_small.png');
+const img_LF11FormelBrechnungBrennstoffmengesmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_Brechnung_Brennstoffmenge_small.png');
+const img_LF11FormelBrennstoffmenge2small = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_Brennstoffmenge_2_small.png');
+const img_LF11FormelBrennstoffmengesmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_Brennstoffmenge_small.png');
+const img_LF11FormelEnergiesmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_Energie_small.png');
+const img_LF11FormelFaustformelsmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_Faustformel_small.png');
+const img_LF11FormelMAGsmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_MAG_small.png');
+const img_LF11FormelWirkungsgradsmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_Wirkungsgrad_small.png');
+const img_LF11FormelWrmegewinnsmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_Wärmegewinn_small.png');
+const img_LF11FormelfeuerungstechWirkungsgradsmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_feuerungstech_Wirkungsgrad_small.png');
+const img_LF11Formelprzisesmall = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Formel_präzise_small.png');
+const img_LF11GeschlosseneAnlagenwelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Geschlossene_Anlagen_welcome.png');
+const img_LF11GrenzwerteTabellezoom = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Grenzwerte_Tabelle_zoom.png');
+const img_LF11Hackschnitzelzoom = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Hackschnitzel_zoom.png');
+const img_LF11Heizkesselwelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Heizkessel_welcome.png');
+const img_LF11HeizwasserPufferspeicherwelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Heizwasser_Pufferspeicher_welcome.png');
+const img_LF11HeizwertBaumartzoom = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Heizwert_Baumart_zoom.png');
+const img_LF11Heizlwelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Heizöl_welcome.png');
+const img_LF11Heizllagerungwelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Heizöllagerung_welcome.png');
+const img_LF11Holzbirkettszoom = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Holzbirketts_zoom.png');
+const img_LF11Holzheizkesselwelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Holzheizkessel_welcome.png');
+const img_LF11Holzpelletszoom = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Holzpellets_zoom.png');
+const img_LF11LagerungFestbrennstoffewelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Lagerung_Festbrennstoffe_welcome.png');
+const img_LF11LagerungHeizkesselzoom = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Lagerung_Heizkessel_zoom.png');
+const img_LF11Lagerunggesondertzoom = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Lagerung_gesondert_zoom.png');
+const img_LF11Lagerungunterirdischzoom = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Lagerung_unterirdisch_zoom.png');
+const img_LF11Niedertemperaturheizkesselwelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Niedertemperaturheizkessel_welcome.png');
+const img_LF11Schadstoffemissionenwelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Schadstoffemissionen_welcome.png');
+const img_LF11VerbrennungFeststoffewelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Verbrennung_Feststoffe_welcome.png');
+const img_LF11lleitungenwelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Ölleitungen_welcome.png');
+const img_LF11lvorfilterwelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Ölvorfilter_welcome.png');
+const img_LF12hydrothermaleGeothermiezoom = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_ hydrothermale_Geothermie_zoom.png');
+const img_LF12Erdwrmekollektorenzoom = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_Erdwärmekollektoren_zoom.png');
+const img_LF12Erdwrmesondezoom = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_Erdwärmesonde_zoom.png');
+const img_LF12ErneuerbareEnergiequellenwelcome = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_Erneuerbare_Energiequellen_welcome.png');
+const img_LF12FormelCOPsmall = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_Formel_COP_small.png');
+const img_LF12FormelJAZsmall = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_Formel_JAZ_small.png');
+const img_LF12Geothermiewelcome = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_Geothermie_welcome.png');
+const img_LF12LuftWasserzoom = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_Luft_Wasser_zoom.png');
+const img_LF12VergleichMonoSplitzoom = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_Vergleich_Mono_Split_zoom.png');
+const img_LF12Wrmepumpenwelcome = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_Wärmepumpen_welcome.png');
+const img_LF12iconAdsorption2small = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_icon_Adsorption_2_small.png');
+const img_LF12iconAdsorption3small = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_icon_Adsorption_3_small.png');
+const img_LF12iconKompression2small = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_icon_Kompression_2_small.png');
+const img_LF12iconKompression3small = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_icon_Kompression_3_small.png');
+const img_LFicon12Absorption1small = require('../../assets/DbImages/SubchapterContent/LF_12/LF_icon_12_Absorption_1_small.png');
+const img_LFicon12Absorption2small = require('../../assets/DbImages/SubchapterContent/LF_12/LF_icon_12_Absorption_2_small.png');
+const img_LFicon12Absorption3small = require('../../assets/DbImages/SubchapterContent/LF_12/LF_icon_12_Absorption_3_small.png');
+const img_LFicon12Absorption4smal = require('../../assets/DbImages/SubchapterContent/LF_12/LF_icon_12_Absorption_4_smal.png');
+const img_LFicon12Absorption4small = require('../../assets/DbImages/SubchapterContent/LF_12/LF_icon_12_Absorption_4_small.png');
+const img_LFicon12Kompression4small = require('../../assets/DbImages/SubchapterContent/LF_12/LF_icon_12_Kompression_4_small.png');
 const img_LF1Strichliniesmall = require('../../assets/DbImages/SubchapterContent/LF_1_Strichlinie_small.png');
 const img_LF1Strichpunktliniesmall = require('../../assets/DbImages/SubchapterContent/LF_1_Strichpunktlinie_small.png');
 const img_LF1Vollliniesmall = require('../../assets/DbImages/SubchapterContent/LF_1_Volllinie_small.png');
@@ -381,7 +453,6 @@ const img_LF2Anziehdrehmomentwelcome = require('../../assets/DbImages/Subchapter
 const img_LF2Anziehdrehmomentzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Anziehdrehmoment_zoom.png');
 const img_LF2Aufbauzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Aufbau_zoom.png');
 const img_LF2Befestigungwelcome = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Befestigung_welcome.png');
-const img_LF2BerechnungSchnittgeschwindigkeitsmall = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Berechnung_Schnittgeschwindigkeit_small.png');
 const img_LF2Blindnietenzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Blindnieten_zoom.png');
 const img_LF2Bohrerwelcome = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Bohrer_welcome.png');
 const img_LF2Bohrerarten1zoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Bohrerarten_1_zoom.png');
@@ -393,6 +464,7 @@ const img_LF2Dbelgrezoom = require('../../assets/DbImages/SubchapterContent/LF_2
 const img_LF2Einschlagdbelzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Einschlagdübel_zoom.png');
 const img_LF2Fallrohrschellezoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Fallrohrschelle_zoom.png');
 const img_LF2Federringezoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Federringe_zoom.png');
+const img_LF2FormelBerechnungSchnittgeschwindigkeitsmall = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Formel_Berechnung_Schnittgeschwindigkeit_small.png');
 const img_LF2FormelGeschwindigkeitsmall = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Formel_Geschwindigkeit_small.png');
 const img_LF2FormelSchnittgeschwindigkeitsmall = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Formel_Schnittgeschwindigkeit_small.png');
 const img_LF2Gebotszeichenzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Gebotszeichen_zoom.png');
@@ -411,7 +483,6 @@ const img_LF2RohrschellemitGummieinlagezoom = require('../../assets/DbImages/Sub
 const img_LF2SchallSchwitzwasserdmmungzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Schall_Schwitzwasserdämmung_zoom.png');
 const img_LF2SchallentkoppelteHalterungzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Schallentkoppelte_Halterung_zoom.png');
 const img_LF2Schallschutzwelcome = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Schallschutz_welcome.png');
-const img_LF2SchnittgeschwindigkeitLsungsmall = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Schnittgeschwindigkeit _Lösung_small.png');
 const img_LF2Schraubenartenzoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Schraubenarten_zoom.png');
 const img_LF2Schraubzwingezoom = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Schraubzwinge_zoom.png');
 const img_LF2Trennschleifenwelcome = require('../../assets/DbImages/SubchapterContent/LF_2/LF_2_Trennschleifen_welcome.png');
@@ -539,7 +610,6 @@ const img_LF5DruckStrmungwelcome = require('../../assets/DbImages/SubchapterCont
 const img_LF5Druckminderer2zoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Druckminderer_2_zoom.png');
 const img_LF5Druckmindererwelcome = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Druckminderer_welcome.png');
 const img_LF5Druckmindererzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Druckminderer_zoom.png');
-const img_LF5Druckverlust = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Druckverlust.png');
 const img_LF5Edelstahl = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Edelstahl.png');
 const img_LF5EinzelanschlussleitungenTabellezoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Einzelanschlussleitungen_Tabelle_zoom.png');
 const img_LF5Einzelzuleitungzoom = require('../../assets/DbImages/SubchapterContent/LF_5/LF_5_Einzelzuleitung_zoom.png');
@@ -935,6 +1005,7 @@ const img_LF9AnschlussSolaranlagewelcome = require('../../assets/DbImages/Subcha
 const img_LF9AnschlussSolaranlagezoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Anschluss_Solaranlage_zoom.png');
 const img_LF9AnschlussTrinkwassererwrmerwelcome = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Anschluss_Trinkwassererwärmer_welcome.png');
 const img_LF9AnschlussUntertischgertzoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Anschluss_Untertischgerät_zoom.png');
+const img_LF9Ausblaseleitungzoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Ausblaseleitung_zoom.png');
 const img_LF9BerechnungMischwassersmall = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Berechnung_Mischwasser_small.png');
 const img_LF9BerechnungWarmwasserwelcome = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Berechnung_Warmwasser_welcome.png');
 const img_LF9BerechnungWrmeenergiesmall = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Berechnung_Wärmeenergie_small.png');
@@ -951,7 +1022,9 @@ const img_LF9FormelNutzeffektsmall = require('../../assets/DbImages/SubchapterCo
 const img_LF9FunktionSolaranlagezoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Funktion_Solaranlage_zoom.png');
 const img_LF9HygienepufferspeicherSchnittzoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Hygienepufferspeicher_Schnitt_zoom.png');
 const img_LF9Hygienepufferspeicherzoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Hygienepufferspeicher_zoom.png');
+const img_LF9Kombigasthermezoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Kombigastherme_zoom.png');
 const img_LF9KombipufferspeicherSchnittzoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Kombipufferspeicher_Schnitt_zoom.png');
+const img_LF9Kombipufferspeicherzoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Kombipufferspeicher_zoom.png');
 const img_LF9Legionellenwelcome = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Legionellen_welcome.png');
 const img_LF9MAGAufbauSchnittzoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_MAG_Aufbau_Schnitt_zoom.png');
 const img_LF9MAGAufbauzoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_MAG_Aufbau_zoom.png');
@@ -970,9 +1043,11 @@ const img_LF9WWSolaspeicherAuenzoom = require('../../assets/DbImages/SubchapterC
 const img_LF9WWSolaspeicherSchnittzoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_WW_Solaspeicher_Schnitt_zoom.png');
 const img_LF9WWmitHeizstabzoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_WW_mit_Heizstab_zoom.png');
 const img_LF9Warmwasserspeicherzoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Warmwasserspeicher_zoom.png');
+const img_LF9WartungSpeicherzoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Wartung_Speicher_zoom.png');
 const img_LF9WartungWarmwasserbereiterwelcome = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Wartung_Warmwasserbereiter_welcome.png');
 const img_LF9Zirkulationsleitungwelcome = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Zirkulationsleitung_welcome.png');
 const img_LF9Zirkulationspumpezoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Zirkulationspumpe_zoom.png');
+const img_LF9globaleSonnenstrahlungzoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_globale_Sonnenstrahlung_zoom.png');
 const img_LFFormelVolumenausdehnungsmall = require('../../assets/DbImages/SubchapterContent/LF_9/LF_Formel_Volumenausdehnung_small.png');
 const img_LFiconAbdichtung2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Abdichtung_2_small.png');
 const img_LFiconAbdichtungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Abdichtung_small.png');
@@ -989,6 +1064,7 @@ const img_LFiconAtemschutzsmall = require('../../assets/DbImages/SubchapterConte
 const img_LFiconAufbau2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Aufbau_2_small.png');
 const img_LFiconAufbau3small = require('../../assets/DbImages/SubchapterContent/LF_icon_Aufbau_3_small.png');
 const img_LFiconAufbausmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Aufbau_small.png');
+const img_LFiconAunahmesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Außnahme_small.png');
 const img_LFiconBadewannepremiumsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Badewanne_premium_small.png');
 const img_LFiconBadewannesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Badewanne_small.png');
 const img_LFiconBadezimmersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Badezimmer_small.png');
@@ -999,6 +1075,7 @@ const img_LFiconBiogassmall = require('../../assets/DbImages/SubchapterContent/L
 const img_LFiconBodenablaufsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Bodenablauf_small.png');
 const img_LFiconBrandschutzsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Brandschutz_small.png');
 const img_LFiconBreitesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Breite_small.png');
+const img_LFiconBrennwertsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Brennwert_small.png');
 const img_LFiconCO2small = require('../../assets/DbImages/SubchapterContent/LF_icon_CO2_small.png');
 const img_LFiconChlorsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Chlor_small.png');
 const img_LFiconDIN12056small = require('../../assets/DbImages/SubchapterContent/LF_icon_DIN12056_small.png');
@@ -1010,6 +1087,7 @@ const img_LFiconDauersmall = require('../../assets/DbImages/SubchapterContent/LF
 const img_LFiconDichtheitsprfungGassmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Dichtheitsprüfung_Gas_small.png');
 const img_LFiconDichtheitsprfungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Dichtheitsprüfung_small.png');
 const img_LFiconDokumentationsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Dokumentation_small.png');
+const img_LFiconDruckSicherheitsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Druck_Sicherheit_small.png');
 const img_LFiconDrucksmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Druck_small.png');
 const img_LFiconDruckminderersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Druckminderer_small.png');
 const img_LFiconDruckprfungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Druckprüfung_small.png');
@@ -1022,16 +1100,21 @@ const img_LFiconDuschkopfsmall = require('../../assets/DbImages/SubchapterConten
 const img_LFiconDynamosmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Dynamo_small.png');
 const img_LFiconDmmungDickesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Dämmung_Dicke_small.png');
 const img_LFiconDmmungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Dämmung_small.png');
+const img_LFiconEU5172014small = require('../../assets/DbImages/SubchapterContent/LF_icon_EU 5172014_small.png');
 const img_LFiconEdelstahlsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Edelstahl_small.png');
 const img_LFiconEigenschaften2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Eigenschaften_2_small.png');
 const img_LFiconEigenschaftensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Eigenschaften_small.png');
 const img_LFiconEinbauortsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Einbauort_small.png');
 const img_LFiconElektronensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Elektronen_small.png');
+const img_LFiconEmissionreduzierensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Emission_reduzieren_small.png');
 const img_LFiconEnergie2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Energie_2_small.png');
+const img_LFiconEnergieMixsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Energie_Mix_small.png');
 const img_LFiconEnergiesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Energie_small.png');
 const img_LFiconEnergiesparendsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Energiesparend_small.png');
+const img_LFiconEnergiespeicherungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Energiespeicherung_small.png');
 const img_LFiconErdensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Erden_small.png');
 const img_LFiconErdverlegteLeitungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Erdverlegte_Leitung_small.png');
+const img_LFiconErdwrmesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Erdwärme_small.png');
 const img_LFiconErklrung2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Erklärung_2_small.png');
 const img_LFiconErklrungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Erklärung_small.png');
 const img_LFiconEstrichsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Estrich_small.png');
@@ -1040,6 +1123,7 @@ const img_LFiconFallleitungsmall = require('../../assets/DbImages/SubchapterCont
 const img_LFiconFehlersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Fehler_small.png');
 const img_LFiconFettsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Fett_small.png');
 const img_LFiconFeuerlschersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Feuerlöscher_small.png');
+const img_LFiconFeuerraumdrucksmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Feuerraumdruck_small.png');
 const img_LFiconFiltersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Filter_small.png');
 const img_LFiconFischsterbensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Fischsterben_small.png');
 const img_LFiconFlammenberwachungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Flammenüberwachung_small.png');
@@ -1053,11 +1137,14 @@ const img_LFiconFormel2small = require('../../assets/DbImages/SubchapterContent/
 const img_LFiconFormel3small = require('../../assets/DbImages/SubchapterContent/LF_icon_Formel_3_small.png');
 const img_LFiconFormel4small = require('../../assets/DbImages/SubchapterContent/LF_icon_Formel_4_small.png');
 const img_LFiconFormelsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Formel_small.png');
+const img_LFiconFortschritt2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Fortschritt_2_small.png');
 const img_LFiconFortschrittsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Fortschritt_small.png');
+const img_LFiconFristsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Frist_small.png');
 const img_LFiconFrostfreismall = require('../../assets/DbImages/SubchapterContent/LF_icon_Frost_frei_small.png');
 const img_LFiconFrostschutzsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Frostschutz_small.png');
 const img_LFiconFrostschutzmittelsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Frostschutzmittel_small.png');
 const img_LFiconFunktion2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Funktion_2_small.png');
+const img_LFiconFunktion3small = require('../../assets/DbImages/SubchapterContent/LF_icon_Funktion_3_small.png');
 const img_LFiconFunktionsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Funktion_small.png');
 const img_LFiconFllgradsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Füllgrad_small.png');
 const img_LFiconGasFirmasmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Gas_Firma_small.png');
@@ -1077,6 +1164,7 @@ const img_LFiconGaswarngertsmall = require('../../assets/DbImages/SubchapterCont
 const img_LFiconGefllesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Gefälle_small.png');
 const img_LFiconGehrschutzsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Gehörschutz_small.png');
 const img_LFiconGeltungsbereichsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Geltungsbereich_small.png');
+const img_LFiconGeothermieWasserdampfsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Geothermie_Wasserdampf_small.png');
 const img_LFiconGeruchsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Geruch_small.png');
 const img_LFiconGeruschMehrfamilinehaussmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Geräusch_Mehrfamilinehaus_small.png');
 const img_LFiconGesetzsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Gesetz_small.png');
@@ -1084,14 +1172,19 @@ const img_LFiconGewindesmall = require('../../assets/DbImages/SubchapterContent/
 const img_LFiconGewindebohrersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Gewindebohrer_small.png');
 const img_LFiconGlassmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Glas_small.png');
 const img_LFiconGlasrohrsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Glasrohr_small.png');
+const img_LFiconGrenzewerteAbgasmessungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Grenzewerte_Abgasmessung_small.png');
 const img_LFiconGre2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Größe_2_small.png');
 const img_LFiconGresmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Größe_small.png');
 const img_LFiconH2Osmall = require('../../assets/DbImages/SubchapterContent/LF_icon_H2O_small.png');
+const img_LFiconHeizkesselraumsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Heizkesselraum_small.png');
+const img_LFiconHeizleistungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Heizleistung_small.png');
 const img_LFiconHeizsystemsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Heizsystem_small.png');
 const img_LFiconHeizungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Heizung_small.png');
+const img_LFiconHeizwertsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Heizwert_small.png');
 const img_LFiconHerkunftsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Herkunft_small.png');
 const img_LFiconHitzebestndigsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Hitzebeständig_small.png');
 const img_LFiconHheLngesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Höhe_Länge_small.png');
+const img_LFiconInfrastruktursmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Infrastruktur_small.png');
 const img_LFiconInhibitorsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Inhibitor_small.png');
 const img_LFiconInspektionsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Inspektion_small.png');
 const img_LFiconInstandsetzungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Instandsetzung_small.png');
@@ -1104,9 +1197,11 @@ const img_LFiconKanalisationsmall = require('../../assets/DbImages/SubchapterCon
 const img_LFiconKategorien2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Kategorien_2_small.png');
 const img_LFiconKategoriensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Kategorien_small.png');
 const img_LFiconKelvinsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Kelvin_small.png');
+const img_LFiconKesselWarmwasserHeizungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Kessel_Warmwasser_Heizung_small.png');
 const img_LFiconKleindurchlauferhitzersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Kleindurchlauferhitzer_small.png');
 const img_LFiconKlranlagesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Kläranlage_small.png');
 const img_LFiconKnopfdrucksmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Knopfdruck_small.png');
+const img_LFiconKohlenmonoxidGefahrsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Kohlenmonoxid_Gefahr_small.png');
 const img_LFiconKondensatsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Kondensat_small.png');
 const img_LFiconKontrollesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Kontrolle_small.png');
 const img_LFiconKonvektionsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Konvektion_small.png');
@@ -1120,6 +1215,10 @@ const img_LFiconLSSchaltersmall = require('../../assets/DbImages/SubchapterConte
 const img_LFiconLadegertsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Ladegerät_small.png');
 const img_LFiconLage2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Lage_2_small.png');
 const img_LFiconLagesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Lage_small.png');
+const img_LFiconLagerungHolzsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Lagerung_Holz_small.png');
+const img_LFiconLagerungPlatzsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Lagerung_Platz_small.png');
+const img_LFiconLagerungSilosmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Lagerung_Silo_small.png');
+const img_LFiconLagerungtrockensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Lagerung_trocken_small.png');
 const img_LFiconLambdasmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Lambda_small.png');
 const img_LFiconLeichtsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Leicht_small.png');
 const img_LFiconLeistungsminderungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Leistungsminderung_small.png');
@@ -1133,6 +1232,7 @@ const img_LFiconLngenausdehnungsmall = require('../../assets/DbImages/Subchapter
 const img_LFiconLtensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Löten_small.png');
 const img_LFiconLftungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Lüftung_small.png');
 const img_LFiconLftungsleitungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Lüftungsleitung_small.png');
+const img_LFiconMAGsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_MAG_small.png');
 const img_LFiconMagnetspulesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Magnetspule_small.png');
 const img_LFiconMaterialanforderungensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Materialanforderungen_small.png');
 const img_LFiconMaterialien2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Materialien_2_small.png');
@@ -1142,6 +1242,8 @@ const img_LFiconManahmesmall = require('../../assets/DbImages/SubchapterContent/
 const img_LFiconMembransmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Membran_small.png');
 const img_LFiconMengeLitersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Menge_Liter_small.png');
 const img_LFiconMerkmale2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Merkmale_2_small.png');
+const img_LFiconMerkmale3small = require('../../assets/DbImages/SubchapterContent/LF_icon_Merkmale_3_small.png');
+const img_LFiconMerkmale4small = require('../../assets/DbImages/SubchapterContent/LF_icon_Merkmale_4_small.png');
 const img_LFiconMerkmalesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Merkmale_small.png');
 const img_LFiconMessensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Messen_small.png');
 const img_LFiconMethansmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Methan_small.png');
@@ -1162,9 +1264,11 @@ const img_LFiconPlanungsmall = require('../../assets/DbImages/SubchapterContent/
 const img_LFiconPorzellansmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Porzellan_small.png');
 const img_LFiconPropansmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Propan_small.png');
 const img_LFiconPrfensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Prüfen_small.png');
+const img_LFiconPrfintervallesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Prüfintervalle_small.png');
 const img_LFiconPrfungSplensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Prüfung_Spülen_small.png');
 const img_LFiconPrfungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Prüfung_small.png');
 const img_LFiconPrfzeichenRohrsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Prüfzeichen_Rohr_small.png');
+const img_LFiconPufferspeichersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Pufferspeicher_small.png');
 const img_LFiconQualifizierungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Qualifizierung_small.png');
 const img_LFiconQualittsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Qualität_small.png');
 const img_LFiconRCDsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_RCD_small.png');
@@ -1175,8 +1279,11 @@ const img_LFiconRegel1small = require('../../assets/DbImages/SubchapterContent/L
 const img_LFiconRegelnsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Regeln_small.png');
 const img_LFiconRegelungGasbrennersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Regelung_Gasbrenner_small.png');
 const img_LFiconRegelungGebudeenergiesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Regelung_Gebäudeenergie_small.png');
+const img_LFiconRegelungPufferspeichersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Regelung_Pufferspeicher_small.png');
+const img_LFiconRegelungWarmwassersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Regelung_Warmwasser_small.png');
 const img_LFiconRegelunggassmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Regelung_gas_small.png');
 const img_LFiconRegelungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Regelung_small.png');
+const img_LFiconRegelunglsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Regelung_Öl_small.png');
 const img_LFiconRegelungenAbgassmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Regelungen_Abgas_small.png');
 const img_LFiconRegenerationsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Regeneration_small.png');
 const img_LFiconRegenrinnesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Regenrinne_small.png');
@@ -1194,6 +1301,7 @@ const img_LFiconRuhedrucksmall = require('../../assets/DbImages/SubchapterConten
 const img_LFiconSanitrMontagesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sanitär_Montage_small.png');
 const img_LFiconSaubersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sauber_small.png');
 const img_LFiconSauerstoffsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sauerstoff_small.png');
+const img_LFiconSchadstoffesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Schadstoffe_small.png');
 const img_LFiconSchalldmmungWohngebudesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Schalldämmung_Wohngebäude_small.png');
 const img_LFiconSchalldmmungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Schalldämmung_small.png');
 const img_LFiconSchaltplansmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Schaltplan_small.png');
@@ -1207,8 +1315,11 @@ const img_LFiconSchweiensmall = require('../../assets/DbImages/SubchapterContent
 const img_LFiconSchwerkraftsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Schwerkraft_small.png');
 const img_LFiconSeesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_See_small.png');
 const img_LFiconSicherheit1small = require('../../assets/DbImages/SubchapterContent/LF_icon_Sicherheit_1_small.png');
+const img_LFiconSicherheitFrostschutzmittelsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sicherheit_Frostschutzmittel_small.png');
+const img_LFiconSicherheitLagerungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sicherheit_Lagerung_small.png');
 const img_LFiconSicherheitTrinkwassererwrmersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sicherheit_Trinkwassererwärmer_small.png');
 const img_LFiconSicherheitsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sicherheit_small.png');
+const img_LFiconSicherheitlsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sicherheit_Öl_small.png');
 const img_LFiconSonnenenergiesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sonnenenergie_small.png');
 const img_LFiconSpannungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Spannung_small.png');
 const img_LFiconSpannungsmessungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Spannungsmessung_small.png');
@@ -1244,6 +1355,7 @@ const img_LFiconVentil4small = require('../../assets/DbImages/SubchapterContent/
 const img_LFiconVentilatorsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Ventilator_small.png');
 const img_LFiconVerbindung2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Verbindung_2_small.png');
 const img_LFiconVerbindungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Verbindung_small.png');
+const img_LFiconVerordnungGrenzwertesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Verordnung_Grenzwerte_small.png');
 const img_LFiconVerteilungsartensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Verteilungsarten_small.png');
 const img_LFiconVerwendung1small = require('../../assets/DbImages/SubchapterContent/LF_icon_Verwendung_1_small.png');
 const img_LFiconVerwendung2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Verwendung_2_small.png');
@@ -1262,6 +1374,7 @@ const img_LFiconWartungAbgasanlagensmall = require('../../assets/DbImages/Subcha
 const img_LFiconWartungFliesensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Fliesen_small.png');
 const img_LFiconWartungKaminsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Kamin_small.png');
 const img_LFiconWartungRckstauverschlusssmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Rückstauverschluss_small.png');
+const img_LFiconWartungSicherheitsventilsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Sicherheitsventil_small.png');
 const img_LFiconWartungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_small.png');
 const img_LFiconWaschbeckensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Waschbecken_small.png');
 const img_LFiconWaschtischsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Waschtisch_small.png');
@@ -1276,6 +1389,7 @@ const img_LFiconWerkzeugsmall = require('../../assets/DbImages/SubchapterContent
 const img_LFiconWidereinschaltensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Widereinschalten_small.png');
 const img_LFiconWiderstandsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Widerstand_small.png');
 const img_LFiconWiderstandmessungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Widerstandmessung_small.png');
+const img_LFiconWirkungsgradsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wirkungsgrad_small.png');
 const img_LFiconWrmefluss2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Wärmefluss_2_small.png');
 const img_LFiconWrmeflusssmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wärmefluss_small.png');
 const img_LFiconWrmekapazittsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wärmekapazität_small.png');
@@ -1285,11 +1399,15 @@ const img_LFiconWrmebertragungsmall = require('../../assets/DbImages/SubchapterC
 const img_LFiconZeitsteuerungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Zeitsteuerung_small.png');
 const img_LFiconZementsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Zement_small.png');
 const img_LFiconZielsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Ziel_small.png');
+const img_LFiconZieleKlimasmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Ziele_Klima_small.png');
 const img_LFiconZugangsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Zugang_small.png');
+const img_LFiconZugfhrungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Zugführung_small.png');
 const img_LFiconZusammensetzungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Zusammensetzung_small.png');
 const img_LFiconZndeinrichtungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Zündeinrichtung_small.png');
+const img_LFiconerneuerbareEnergiesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_erneuerbare_Energie_small.png');
 const img_LFiconfederleichtsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_federleicht_small.png');
 const img_LFiconhitzebestndigsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_hitzebeständig_small.png');
+const img_LFiconhydraulischerAbgleichsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_hydraulischer_Abgleich_small.png');
 const img_LFiconkaltsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_kalt_small.png');
 const img_LFiconnichtuvsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_nichtuv_small.png');
 const img_LFicontrinkwasserverordnungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_trinkwasserverordnung_small.png');
@@ -1297,6 +1415,10 @@ const img_LFiconwandhngendsmall = require('../../assets/DbImages/SubchapterConte
 const img_LFiconwarmsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_warm_small.png');
 const img_LFiconwichtigsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_wichtig_small.png');
 const img_LFiconlsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Öl_small.png');
+const img_LFiconltankLeckagesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Öltank_Leckage_small.png');
+const img_LFiconltankPrfungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Öltank_Prüfung_small.png');
+const img_LFiconltanksmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Öltank_small.png');
+const img_LFiconberhitzungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Überhitzung_small.png');
 const img_LFsymbol = require('../../assets/DbImages/SubchapterContent/Symbole/LF_symbol_.png');
 const img_LFsymbolGasdruckmesserGasdruckwchtersmall = require('../../assets/DbImages/SubchapterContent/Symbole/LF_symbol_Gasdruckmesser_Gasdruckwächter_small.png');
 const img_LFsymbolGasdruckreglersmall = require('../../assets/DbImages/SubchapterContent/Symbole/LF_symbol_Gasdruckregler_small.png');
@@ -1679,6 +1801,78 @@ export const imageMap = {
     "LF_10_Verwahrung_Gasleitung_welcome": img_LF10VerwahrungGasleitungwelcome,
     "LF_10_max_Abstände_zoom": img_LF10maxAbstndezoom,
     "LF_icon_raumluftunabhängige_Betriebsstätte_zoom": img_LFiconraumluftunabhngigeBetriebsstttezoom,
+    "LF_11_Abgasmessung_Öl_welcome": img_LF11Abgasmessunglwelcome,
+    "LF_11_Antiheberventil_welcome": img_LF11Antiheberventilwelcome,
+    "LF_11_Berechnung_MAG_welcome": img_LF11BerechnungMAGwelcome,
+    "LF_11_Berechnung_Ölfeuerungen_welcome": img_LF11Berechnunglfeuerungenwelcome,
+    "LF_11_Brenner_welcome": img_LF11Brennerwelcome,
+    "LF_11_Brennwertkessel_welcome": img_LF11Brennwertkesselwelcome,
+    "LF_11_CO2_neutral_zoom": img_LF11CO2neutralzoom,
+    "LF_11_DIN_129536_welcome": img_LF11DIN129536welcome,
+    "LF_11_Festbrennstoffe_welcome": img_LF11Festbrennstoffewelcome,
+    "LF_11_Formel_Abgasverlustrechnung_small": img_LF11FormelAbgasverlustrechnungsmall,
+    "LF_11_Formel_Ausdehnungsvolumen_small": img_LF11FormelAusdehnungsvolumensmall,
+    "LF_11_Formel_Berechnung_2_Abgasverlustrechnung_small": img_LF11FormelBerechnung2Abgasverlustrechnungsmall,
+    "LF_11_Formel_Berechnung_Abgasverlustrechnung_small": img_LF11FormelBerechnungAbgasverlustrechnungsmall,
+    "LF_11_Formel_Berechnung_Ausdehnungsvolumen_small": img_LF11FormelBerechnungAusdehnungsvolumensmall,
+    "LF_11_Formel_Berechnung_Brennstoffmenge_2_small": img_LF11FormelBerechnungBrennstoffmenge2small,
+    "LF_11_Formel_Berechnung_Energiebedarf_small": img_LF11FormelBerechnungEnergiebedarfsmall,
+    "LF_11_Formel_Berechnung_Faustformel_small": img_LF11FormelBerechnungFaustformelsmall,
+    "LF_11_Formel_Berechnung_MAG_small": img_LF11FormelBerechnungMAGsmall,
+    "LF_11_Formel_Berechnung_Wirkungsgrad_small": img_LF11FormelBerechnungWirkungsgradsmall,
+    "LF_11_Formel_Berechnung_Wärmegewinn_small": img_LF11FormelBerechnungWrmegewinnsmall,
+    "LF_11_Formel_Berechnung_feuerungstech_Wirkungsgrad_small": img_LF11FormelBerechnungfeuerungstechWirkungsgradsmall,
+    "LF_11_Formel_Berechnung_präzise_small": img_LF11FormelBerechnungprzisesmall,
+    "LF_11_Formel_Brechnung_Brennstoffmenge_small": img_LF11FormelBrechnungBrennstoffmengesmall,
+    "LF_11_Formel_Brennstoffmenge_2_small": img_LF11FormelBrennstoffmenge2small,
+    "LF_11_Formel_Brennstoffmenge_small": img_LF11FormelBrennstoffmengesmall,
+    "LF_11_Formel_Energie_small": img_LF11FormelEnergiesmall,
+    "LF_11_Formel_Faustformel_small": img_LF11FormelFaustformelsmall,
+    "LF_11_Formel_MAG_small": img_LF11FormelMAGsmall,
+    "LF_11_Formel_Wirkungsgrad_small": img_LF11FormelWirkungsgradsmall,
+    "LF_11_Formel_Wärmegewinn_small": img_LF11FormelWrmegewinnsmall,
+    "LF_11_Formel_feuerungstech_Wirkungsgrad_small": img_LF11FormelfeuerungstechWirkungsgradsmall,
+    "LF_11_Formel_präzise_small": img_LF11Formelprzisesmall,
+    "LF_11_Geschlossene_Anlagen_welcome": img_LF11GeschlosseneAnlagenwelcome,
+    "LF_11_Grenzwerte_Tabelle_zoom": img_LF11GrenzwerteTabellezoom,
+    "LF_11_Hackschnitzel_zoom": img_LF11Hackschnitzelzoom,
+    "LF_11_Heizkessel_welcome": img_LF11Heizkesselwelcome,
+    "LF_11_Heizwasser_Pufferspeicher_welcome": img_LF11HeizwasserPufferspeicherwelcome,
+    "LF_11_Heizwert_Baumart_zoom": img_LF11HeizwertBaumartzoom,
+    "LF_11_Heizöl_welcome": img_LF11Heizlwelcome,
+    "LF_11_Heizöllagerung_welcome": img_LF11Heizllagerungwelcome,
+    "LF_11_Holzbirketts_zoom": img_LF11Holzbirkettszoom,
+    "LF_11_Holzheizkessel_welcome": img_LF11Holzheizkesselwelcome,
+    "LF_11_Holzpellets_zoom": img_LF11Holzpelletszoom,
+    "LF_11_Lagerung_Festbrennstoffe_welcome": img_LF11LagerungFestbrennstoffewelcome,
+    "LF_11_Lagerung_Heizkessel_zoom": img_LF11LagerungHeizkesselzoom,
+    "LF_11_Lagerung_gesondert_zoom": img_LF11Lagerunggesondertzoom,
+    "LF_11_Lagerung_unterirdisch_zoom": img_LF11Lagerungunterirdischzoom,
+    "LF_11_Niedertemperaturheizkessel_welcome": img_LF11Niedertemperaturheizkesselwelcome,
+    "LF_11_Schadstoffemissionen_welcome": img_LF11Schadstoffemissionenwelcome,
+    "LF_11_Verbrennung_Feststoffe_welcome": img_LF11VerbrennungFeststoffewelcome,
+    "LF_11_Ölleitungen_welcome": img_LF11lleitungenwelcome,
+    "LF_11_Ölvorfilter_welcome": img_LF11lvorfilterwelcome,
+    "LF_12_ hydrothermale_Geothermie_zoom": img_LF12hydrothermaleGeothermiezoom,
+    "LF_12_Erdwärmekollektoren_zoom": img_LF12Erdwrmekollektorenzoom,
+    "LF_12_Erdwärmesonde_zoom": img_LF12Erdwrmesondezoom,
+    "LF_12_Erneuerbare_Energiequellen_welcome": img_LF12ErneuerbareEnergiequellenwelcome,
+    "LF_12_Formel_COP_small": img_LF12FormelCOPsmall,
+    "LF_12_Formel_JAZ_small": img_LF12FormelJAZsmall,
+    "LF_12_Geothermie_welcome": img_LF12Geothermiewelcome,
+    "LF_12_Luft_Wasser_zoom": img_LF12LuftWasserzoom,
+    "LF_12_Vergleich_Mono_Split_zoom": img_LF12VergleichMonoSplitzoom,
+    "LF_12_Wärmepumpen_welcome": img_LF12Wrmepumpenwelcome,
+    "LF_12_icon_Adsorption_2_small": img_LF12iconAdsorption2small,
+    "LF_12_icon_Adsorption_3_small": img_LF12iconAdsorption3small,
+    "LF_12_icon_Kompression_2_small": img_LF12iconKompression2small,
+    "LF_12_icon_Kompression_3_small": img_LF12iconKompression3small,
+    "LF_icon_12_Absorption_1_small": img_LFicon12Absorption1small,
+    "LF_icon_12_Absorption_2_small": img_LFicon12Absorption2small,
+    "LF_icon_12_Absorption_3_small": img_LFicon12Absorption3small,
+    "LF_icon_12_Absorption_4_smal": img_LFicon12Absorption4smal,
+    "LF_icon_12_Absorption_4_small": img_LFicon12Absorption4small,
+    "LF_icon_12_Kompression_4_small": img_LFicon12Kompression4small,
     "LF_1_Strichlinie_small": img_LF1Strichliniesmall,
     "LF_1_Strichpunktlinie_small": img_LF1Strichpunktliniesmall,
     "LF_1_Volllinie_small": img_LF1Vollliniesmall,
@@ -1687,7 +1881,6 @@ export const imageMap = {
     "LF_2_Anziehdrehmoment_zoom": img_LF2Anziehdrehmomentzoom,
     "LF_2_Aufbau_zoom": img_LF2Aufbauzoom,
     "LF_2_Befestigung_welcome": img_LF2Befestigungwelcome,
-    "LF_2_Berechnung_Schnittgeschwindigkeit_small": img_LF2BerechnungSchnittgeschwindigkeitsmall,
     "LF_2_Blindnieten_zoom": img_LF2Blindnietenzoom,
     "LF_2_Bohrer_welcome": img_LF2Bohrerwelcome,
     "LF_2_Bohrerarten_1_zoom": img_LF2Bohrerarten1zoom,
@@ -1699,6 +1892,7 @@ export const imageMap = {
     "LF_2_Einschlagdübel_zoom": img_LF2Einschlagdbelzoom,
     "LF_2_Fallrohrschelle_zoom": img_LF2Fallrohrschellezoom,
     "LF_2_Federringe_zoom": img_LF2Federringezoom,
+    "LF_2_Formel_Berechnung_Schnittgeschwindigkeit_small": img_LF2FormelBerechnungSchnittgeschwindigkeitsmall,
     "LF_2_Formel_Geschwindigkeit_small": img_LF2FormelGeschwindigkeitsmall,
     "LF_2_Formel_Schnittgeschwindigkeit_small": img_LF2FormelSchnittgeschwindigkeitsmall,
     "LF_2_Gebotszeichen_zoom": img_LF2Gebotszeichenzoom,
@@ -1717,7 +1911,6 @@ export const imageMap = {
     "LF_2_Schall_Schwitzwasserdämmung_zoom": img_LF2SchallSchwitzwasserdmmungzoom,
     "LF_2_Schallentkoppelte_Halterung_zoom": img_LF2SchallentkoppelteHalterungzoom,
     "LF_2_Schallschutz_welcome": img_LF2Schallschutzwelcome,
-    "LF_2_Schnittgeschwindigkeit _Lösung_small": img_LF2SchnittgeschwindigkeitLsungsmall,
     "LF_2_Schraubenarten_zoom": img_LF2Schraubenartenzoom,
     "LF_2_Schraubzwinge_zoom": img_LF2Schraubzwingezoom,
     "LF_2_Trennschleifen_welcome": img_LF2Trennschleifenwelcome,
@@ -1845,7 +2038,6 @@ export const imageMap = {
     "LF_5_Druckminderer_2_zoom": img_LF5Druckminderer2zoom,
     "LF_5_Druckminderer_welcome": img_LF5Druckmindererwelcome,
     "LF_5_Druckminderer_zoom": img_LF5Druckmindererzoom,
-    "LF_5_Druckverlust": img_LF5Druckverlust,
     "LF_5_Edelstahl": img_LF5Edelstahl,
     "LF_5_Einzelanschlussleitungen_Tabelle_zoom": img_LF5EinzelanschlussleitungenTabellezoom,
     "LF_5_Einzelzuleitung_zoom": img_LF5Einzelzuleitungzoom,
@@ -2241,6 +2433,7 @@ export const imageMap = {
     "LF_9_Anschluss_Solaranlage_zoom": img_LF9AnschlussSolaranlagezoom,
     "LF_9_Anschluss_Trinkwassererwärmer_welcome": img_LF9AnschlussTrinkwassererwrmerwelcome,
     "LF_9_Anschluss_Untertischgerät_zoom": img_LF9AnschlussUntertischgertzoom,
+    "LF_9_Ausblaseleitung_zoom": img_LF9Ausblaseleitungzoom,
     "LF_9_Berechnung_Mischwasser_small": img_LF9BerechnungMischwassersmall,
     "LF_9_Berechnung_Warmwasser_welcome": img_LF9BerechnungWarmwasserwelcome,
     "LF_9_Berechnung_Wärmeenergie_small": img_LF9BerechnungWrmeenergiesmall,
@@ -2257,7 +2450,9 @@ export const imageMap = {
     "LF_9_Funktion_Solaranlage_zoom": img_LF9FunktionSolaranlagezoom,
     "LF_9_Hygienepufferspeicher_Schnitt_zoom": img_LF9HygienepufferspeicherSchnittzoom,
     "LF_9_Hygienepufferspeicher_zoom": img_LF9Hygienepufferspeicherzoom,
+    "LF_9_Kombigastherme_zoom": img_LF9Kombigasthermezoom,
     "LF_9_Kombipufferspeicher_Schnitt_zoom": img_LF9KombipufferspeicherSchnittzoom,
+    "LF_9_Kombipufferspeicher_zoom": img_LF9Kombipufferspeicherzoom,
     "LF_9_Legionellen_welcome": img_LF9Legionellenwelcome,
     "LF_9_MAG_Aufbau_Schnitt_zoom": img_LF9MAGAufbauSchnittzoom,
     "LF_9_MAG_Aufbau_zoom": img_LF9MAGAufbauzoom,
@@ -2276,9 +2471,11 @@ export const imageMap = {
     "LF_9_WW_Solaspeicher_Schnitt_zoom": img_LF9WWSolaspeicherSchnittzoom,
     "LF_9_WW_mit_Heizstab_zoom": img_LF9WWmitHeizstabzoom,
     "LF_9_Warmwasserspeicher_zoom": img_LF9Warmwasserspeicherzoom,
+    "LF_9_Wartung_Speicher_zoom": img_LF9WartungSpeicherzoom,
     "LF_9_Wartung_Warmwasserbereiter_welcome": img_LF9WartungWarmwasserbereiterwelcome,
     "LF_9_Zirkulationsleitung_welcome": img_LF9Zirkulationsleitungwelcome,
     "LF_9_Zirkulationspumpe_zoom": img_LF9Zirkulationspumpezoom,
+    "LF_9_globale_Sonnenstrahlung_zoom": img_LF9globaleSonnenstrahlungzoom,
     "LF_Formel_Volumenausdehnung_small": img_LFFormelVolumenausdehnungsmall,
     "LF_icon_Abdichtung_2_small": img_LFiconAbdichtung2small,
     "LF_icon_Abdichtung_small": img_LFiconAbdichtungsmall,
@@ -2295,6 +2492,7 @@ export const imageMap = {
     "LF_icon_Aufbau_2_small": img_LFiconAufbau2small,
     "LF_icon_Aufbau_3_small": img_LFiconAufbau3small,
     "LF_icon_Aufbau_small": img_LFiconAufbausmall,
+    "LF_icon_Außnahme_small": img_LFiconAunahmesmall,
     "LF_icon_Badewanne_premium_small": img_LFiconBadewannepremiumsmall,
     "LF_icon_Badewanne_small": img_LFiconBadewannesmall,
     "LF_icon_Badezimmer_small": img_LFiconBadezimmersmall,
@@ -2305,6 +2503,7 @@ export const imageMap = {
     "LF_icon_Bodenablauf_small": img_LFiconBodenablaufsmall,
     "LF_icon_Brandschutz_small": img_LFiconBrandschutzsmall,
     "LF_icon_Breite_small": img_LFiconBreitesmall,
+    "LF_icon_Brennwert_small": img_LFiconBrennwertsmall,
     "LF_icon_CO2_small": img_LFiconCO2small,
     "LF_icon_Chlor_small": img_LFiconChlorsmall,
     "LF_icon_DIN12056_small": img_LFiconDIN12056small,
@@ -2316,6 +2515,7 @@ export const imageMap = {
     "LF_icon_Dichtheitsprüfung_Gas_small": img_LFiconDichtheitsprfungGassmall,
     "LF_icon_Dichtheitsprüfung_small": img_LFiconDichtheitsprfungsmall,
     "LF_icon_Dokumentation_small": img_LFiconDokumentationsmall,
+    "LF_icon_Druck_Sicherheit_small": img_LFiconDruckSicherheitsmall,
     "LF_icon_Druck_small": img_LFiconDrucksmall,
     "LF_icon_Druckminderer_small": img_LFiconDruckminderersmall,
     "LF_icon_Druckprüfung_small": img_LFiconDruckprfungsmall,
@@ -2328,16 +2528,21 @@ export const imageMap = {
     "LF_icon_Dynamo_small": img_LFiconDynamosmall,
     "LF_icon_Dämmung_Dicke_small": img_LFiconDmmungDickesmall,
     "LF_icon_Dämmung_small": img_LFiconDmmungsmall,
+    "LF_icon_EU 5172014_small": img_LFiconEU5172014small,
     "LF_icon_Edelstahl_small": img_LFiconEdelstahlsmall,
     "LF_icon_Eigenschaften_2_small": img_LFiconEigenschaften2small,
     "LF_icon_Eigenschaften_small": img_LFiconEigenschaftensmall,
     "LF_icon_Einbauort_small": img_LFiconEinbauortsmall,
     "LF_icon_Elektronen_small": img_LFiconElektronensmall,
+    "LF_icon_Emission_reduzieren_small": img_LFiconEmissionreduzierensmall,
     "LF_icon_Energie_2_small": img_LFiconEnergie2small,
+    "LF_icon_Energie_Mix_small": img_LFiconEnergieMixsmall,
     "LF_icon_Energie_small": img_LFiconEnergiesmall,
     "LF_icon_Energiesparend_small": img_LFiconEnergiesparendsmall,
+    "LF_icon_Energiespeicherung_small": img_LFiconEnergiespeicherungsmall,
     "LF_icon_Erden_small": img_LFiconErdensmall,
     "LF_icon_Erdverlegte_Leitung_small": img_LFiconErdverlegteLeitungsmall,
+    "LF_icon_Erdwärme_small": img_LFiconErdwrmesmall,
     "LF_icon_Erklärung_2_small": img_LFiconErklrung2small,
     "LF_icon_Erklärung_small": img_LFiconErklrungsmall,
     "LF_icon_Estrich_small": img_LFiconEstrichsmall,
@@ -2346,6 +2551,7 @@ export const imageMap = {
     "LF_icon_Fehler_small": img_LFiconFehlersmall,
     "LF_icon_Fett_small": img_LFiconFettsmall,
     "LF_icon_Feuerlöscher_small": img_LFiconFeuerlschersmall,
+    "LF_icon_Feuerraumdruck_small": img_LFiconFeuerraumdrucksmall,
     "LF_icon_Filter_small": img_LFiconFiltersmall,
     "LF_icon_Fischsterben_small": img_LFiconFischsterbensmall,
     "LF_icon_Flammenüberwachung_small": img_LFiconFlammenberwachungsmall,
@@ -2359,11 +2565,14 @@ export const imageMap = {
     "LF_icon_Formel_3_small": img_LFiconFormel3small,
     "LF_icon_Formel_4_small": img_LFiconFormel4small,
     "LF_icon_Formel_small": img_LFiconFormelsmall,
+    "LF_icon_Fortschritt_2_small": img_LFiconFortschritt2small,
     "LF_icon_Fortschritt_small": img_LFiconFortschrittsmall,
+    "LF_icon_Frist_small": img_LFiconFristsmall,
     "LF_icon_Frost_frei_small": img_LFiconFrostfreismall,
     "LF_icon_Frostschutz_small": img_LFiconFrostschutzsmall,
     "LF_icon_Frostschutzmittel_small": img_LFiconFrostschutzmittelsmall,
     "LF_icon_Funktion_2_small": img_LFiconFunktion2small,
+    "LF_icon_Funktion_3_small": img_LFiconFunktion3small,
     "LF_icon_Funktion_small": img_LFiconFunktionsmall,
     "LF_icon_Füllgrad_small": img_LFiconFllgradsmall,
     "LF_icon_Gas_Firma_small": img_LFiconGasFirmasmall,
@@ -2383,6 +2592,7 @@ export const imageMap = {
     "LF_icon_Gefälle_small": img_LFiconGefllesmall,
     "LF_icon_Gehörschutz_small": img_LFiconGehrschutzsmall,
     "LF_icon_Geltungsbereich_small": img_LFiconGeltungsbereichsmall,
+    "LF_icon_Geothermie_Wasserdampf_small": img_LFiconGeothermieWasserdampfsmall,
     "LF_icon_Geruch_small": img_LFiconGeruchsmall,
     "LF_icon_Geräusch_Mehrfamilinehaus_small": img_LFiconGeruschMehrfamilinehaussmall,
     "LF_icon_Gesetz_small": img_LFiconGesetzsmall,
@@ -2390,14 +2600,19 @@ export const imageMap = {
     "LF_icon_Gewindebohrer_small": img_LFiconGewindebohrersmall,
     "LF_icon_Glas_small": img_LFiconGlassmall,
     "LF_icon_Glasrohr_small": img_LFiconGlasrohrsmall,
+    "LF_icon_Grenzewerte_Abgasmessung_small": img_LFiconGrenzewerteAbgasmessungsmall,
     "LF_icon_Größe_2_small": img_LFiconGre2small,
     "LF_icon_Größe_small": img_LFiconGresmall,
     "LF_icon_H2O_small": img_LFiconH2Osmall,
+    "LF_icon_Heizkesselraum_small": img_LFiconHeizkesselraumsmall,
+    "LF_icon_Heizleistung_small": img_LFiconHeizleistungsmall,
     "LF_icon_Heizsystem_small": img_LFiconHeizsystemsmall,
     "LF_icon_Heizung_small": img_LFiconHeizungsmall,
+    "LF_icon_Heizwert_small": img_LFiconHeizwertsmall,
     "LF_icon_Herkunft_small": img_LFiconHerkunftsmall,
     "LF_icon_Hitzebeständig_small": img_LFiconHitzebestndigsmall,
     "LF_icon_Höhe_Länge_small": img_LFiconHheLngesmall,
+    "LF_icon_Infrastruktur_small": img_LFiconInfrastruktursmall,
     "LF_icon_Inhibitor_small": img_LFiconInhibitorsmall,
     "LF_icon_Inspektion_small": img_LFiconInspektionsmall,
     "LF_icon_Instandsetzung_small": img_LFiconInstandsetzungsmall,
@@ -2410,9 +2625,11 @@ export const imageMap = {
     "LF_icon_Kategorien_2_small": img_LFiconKategorien2small,
     "LF_icon_Kategorien_small": img_LFiconKategoriensmall,
     "LF_icon_Kelvin_small": img_LFiconKelvinsmall,
+    "LF_icon_Kessel_Warmwasser_Heizung_small": img_LFiconKesselWarmwasserHeizungsmall,
     "LF_icon_Kleindurchlauferhitzer_small": img_LFiconKleindurchlauferhitzersmall,
     "LF_icon_Kläranlage_small": img_LFiconKlranlagesmall,
     "LF_icon_Knopfdruck_small": img_LFiconKnopfdrucksmall,
+    "LF_icon_Kohlenmonoxid_Gefahr_small": img_LFiconKohlenmonoxidGefahrsmall,
     "LF_icon_Kondensat_small": img_LFiconKondensatsmall,
     "LF_icon_Kontrolle_small": img_LFiconKontrollesmall,
     "LF_icon_Konvektion_small": img_LFiconKonvektionsmall,
@@ -2426,6 +2643,10 @@ export const imageMap = {
     "LF_icon_Ladegerät_small": img_LFiconLadegertsmall,
     "LF_icon_Lage_2_small": img_LFiconLage2small,
     "LF_icon_Lage_small": img_LFiconLagesmall,
+    "LF_icon_Lagerung_Holz_small": img_LFiconLagerungHolzsmall,
+    "LF_icon_Lagerung_Platz_small": img_LFiconLagerungPlatzsmall,
+    "LF_icon_Lagerung_Silo_small": img_LFiconLagerungSilosmall,
+    "LF_icon_Lagerung_trocken_small": img_LFiconLagerungtrockensmall,
     "LF_icon_Lambda_small": img_LFiconLambdasmall,
     "LF_icon_Leicht_small": img_LFiconLeichtsmall,
     "LF_icon_Leistungsminderung_small": img_LFiconLeistungsminderungsmall,
@@ -2439,6 +2660,7 @@ export const imageMap = {
     "LF_icon_Löten_small": img_LFiconLtensmall,
     "LF_icon_Lüftung_small": img_LFiconLftungsmall,
     "LF_icon_Lüftungsleitung_small": img_LFiconLftungsleitungsmall,
+    "LF_icon_MAG_small": img_LFiconMAGsmall,
     "LF_icon_Magnetspule_small": img_LFiconMagnetspulesmall,
     "LF_icon_Materialanforderungen_small": img_LFiconMaterialanforderungensmall,
     "LF_icon_Materialien_2_small": img_LFiconMaterialien2small,
@@ -2448,6 +2670,8 @@ export const imageMap = {
     "LF_icon_Membran_small": img_LFiconMembransmall,
     "LF_icon_Menge_Liter_small": img_LFiconMengeLitersmall,
     "LF_icon_Merkmale_2_small": img_LFiconMerkmale2small,
+    "LF_icon_Merkmale_3_small": img_LFiconMerkmale3small,
+    "LF_icon_Merkmale_4_small": img_LFiconMerkmale4small,
     "LF_icon_Merkmale_small": img_LFiconMerkmalesmall,
     "LF_icon_Messen_small": img_LFiconMessensmall,
     "LF_icon_Methan_small": img_LFiconMethansmall,
@@ -2468,9 +2692,11 @@ export const imageMap = {
     "LF_icon_Porzellan_small": img_LFiconPorzellansmall,
     "LF_icon_Propan_small": img_LFiconPropansmall,
     "LF_icon_Prüfen_small": img_LFiconPrfensmall,
+    "LF_icon_Prüfintervalle_small": img_LFiconPrfintervallesmall,
     "LF_icon_Prüfung_Spülen_small": img_LFiconPrfungSplensmall,
     "LF_icon_Prüfung_small": img_LFiconPrfungsmall,
     "LF_icon_Prüfzeichen_Rohr_small": img_LFiconPrfzeichenRohrsmall,
+    "LF_icon_Pufferspeicher_small": img_LFiconPufferspeichersmall,
     "LF_icon_Qualifizierung_small": img_LFiconQualifizierungsmall,
     "LF_icon_Qualität_small": img_LFiconQualittsmall,
     "LF_icon_RCD_small": img_LFiconRCDsmall,
@@ -2481,8 +2707,11 @@ export const imageMap = {
     "LF_icon_Regeln_small": img_LFiconRegelnsmall,
     "LF_icon_Regelung_Gasbrenner_small": img_LFiconRegelungGasbrennersmall,
     "LF_icon_Regelung_Gebäudeenergie_small": img_LFiconRegelungGebudeenergiesmall,
+    "LF_icon_Regelung_Pufferspeicher_small": img_LFiconRegelungPufferspeichersmall,
+    "LF_icon_Regelung_Warmwasser_small": img_LFiconRegelungWarmwassersmall,
     "LF_icon_Regelung_gas_small": img_LFiconRegelunggassmall,
     "LF_icon_Regelung_small": img_LFiconRegelungsmall,
+    "LF_icon_Regelung_Öl_small": img_LFiconRegelunglsmall,
     "LF_icon_Regelungen_Abgas_small": img_LFiconRegelungenAbgassmall,
     "LF_icon_Regeneration_small": img_LFiconRegenerationsmall,
     "LF_icon_Regenrinne_small": img_LFiconRegenrinnesmall,
@@ -2500,6 +2729,7 @@ export const imageMap = {
     "LF_icon_Sanitär_Montage_small": img_LFiconSanitrMontagesmall,
     "LF_icon_Sauber_small": img_LFiconSaubersmall,
     "LF_icon_Sauerstoff_small": img_LFiconSauerstoffsmall,
+    "LF_icon_Schadstoffe_small": img_LFiconSchadstoffesmall,
     "LF_icon_Schalldämmung_Wohngebäude_small": img_LFiconSchalldmmungWohngebudesmall,
     "LF_icon_Schalldämmung_small": img_LFiconSchalldmmungsmall,
     "LF_icon_Schaltplan_small": img_LFiconSchaltplansmall,
@@ -2513,8 +2743,11 @@ export const imageMap = {
     "LF_icon_Schwerkraft_small": img_LFiconSchwerkraftsmall,
     "LF_icon_See_small": img_LFiconSeesmall,
     "LF_icon_Sicherheit_1_small": img_LFiconSicherheit1small,
+    "LF_icon_Sicherheit_Frostschutzmittel_small": img_LFiconSicherheitFrostschutzmittelsmall,
+    "LF_icon_Sicherheit_Lagerung_small": img_LFiconSicherheitLagerungsmall,
     "LF_icon_Sicherheit_Trinkwassererwärmer_small": img_LFiconSicherheitTrinkwassererwrmersmall,
     "LF_icon_Sicherheit_small": img_LFiconSicherheitsmall,
+    "LF_icon_Sicherheit_Öl_small": img_LFiconSicherheitlsmall,
     "LF_icon_Sonnenenergie_small": img_LFiconSonnenenergiesmall,
     "LF_icon_Spannung_small": img_LFiconSpannungsmall,
     "LF_icon_Spannungsmessung_small": img_LFiconSpannungsmessungsmall,
@@ -2550,6 +2783,7 @@ export const imageMap = {
     "LF_icon_Ventilator_small": img_LFiconVentilatorsmall,
     "LF_icon_Verbindung_2_small": img_LFiconVerbindung2small,
     "LF_icon_Verbindung_small": img_LFiconVerbindungsmall,
+    "LF_icon_Verordnung_Grenzwerte_small": img_LFiconVerordnungGrenzwertesmall,
     "LF_icon_Verteilungsarten_small": img_LFiconVerteilungsartensmall,
     "LF_icon_Verwendung_1_small": img_LFiconVerwendung1small,
     "LF_icon_Verwendung_2_small": img_LFiconVerwendung2small,
@@ -2568,6 +2802,7 @@ export const imageMap = {
     "LF_icon_Wartung_Fliesen_small": img_LFiconWartungFliesensmall,
     "LF_icon_Wartung_Kamin_small": img_LFiconWartungKaminsmall,
     "LF_icon_Wartung_Rückstauverschluss_small": img_LFiconWartungRckstauverschlusssmall,
+    "LF_icon_Wartung_Sicherheitsventil_small": img_LFiconWartungSicherheitsventilsmall,
     "LF_icon_Wartung_small": img_LFiconWartungsmall,
     "LF_icon_Waschbecken_small": img_LFiconWaschbeckensmall,
     "LF_icon_Waschtisch_small": img_LFiconWaschtischsmall,
@@ -2582,6 +2817,7 @@ export const imageMap = {
     "LF_icon_Widereinschalten_small": img_LFiconWidereinschaltensmall,
     "LF_icon_Widerstand_small": img_LFiconWiderstandsmall,
     "LF_icon_Widerstandmessung_small": img_LFiconWiderstandmessungsmall,
+    "LF_icon_Wirkungsgrad_small": img_LFiconWirkungsgradsmall,
     "LF_icon_Wärmefluss_2_small": img_LFiconWrmefluss2small,
     "LF_icon_Wärmefluss_small": img_LFiconWrmeflusssmall,
     "LF_icon_Wärmekapazität_small": img_LFiconWrmekapazittsmall,
@@ -2591,11 +2827,15 @@ export const imageMap = {
     "LF_icon_Zeitsteuerung_small": img_LFiconZeitsteuerungsmall,
     "LF_icon_Zement_small": img_LFiconZementsmall,
     "LF_icon_Ziel_small": img_LFiconZielsmall,
+    "LF_icon_Ziele_Klima_small": img_LFiconZieleKlimasmall,
     "LF_icon_Zugang_small": img_LFiconZugangsmall,
+    "LF_icon_Zugführung_small": img_LFiconZugfhrungsmall,
     "LF_icon_Zusammensetzung_small": img_LFiconZusammensetzungsmall,
     "LF_icon_Zündeinrichtung_small": img_LFiconZndeinrichtungsmall,
+    "LF_icon_erneuerbare_Energie_small": img_LFiconerneuerbareEnergiesmall,
     "LF_icon_federleicht_small": img_LFiconfederleichtsmall,
     "LF_icon_hitzebeständig_small": img_LFiconhitzebestndigsmall,
+    "LF_icon_hydraulischer_Abgleich_small": img_LFiconhydraulischerAbgleichsmall,
     "LF_icon_kalt_small": img_LFiconkaltsmall,
     "LF_icon_nichtuv_small": img_LFiconnichtuvsmall,
     "LF_icon_trinkwasserverordnung_small": img_LFicontrinkwasserverordnungsmall,
@@ -2603,6 +2843,10 @@ export const imageMap = {
     "LF_icon_warm_small": img_LFiconwarmsmall,
     "LF_icon_wichtig_small": img_LFiconwichtigsmall,
     "LF_icon_Öl_small": img_LFiconlsmall,
+    "LF_icon_Öltank_Leckage_small": img_LFiconltankLeckagesmall,
+    "LF_icon_Öltank_Prüfung_small": img_LFiconltankPrfungsmall,
+    "LF_icon_Öltank_small": img_LFiconltanksmall,
+    "LF_icon_Überhitzung_small": img_LFiconberhitzungsmall,
     "LF_symbol_": img_LFsymbol,
     "LF_symbol_Gasdruckmesser_Gasdruckwächter_small": img_LFsymbolGasdruckmesserGasdruckwchtersmall,
     "LF_symbol_Gasdruckregler_small": img_LFsymbolGasdruckreglersmall,
