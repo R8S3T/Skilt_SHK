@@ -18,7 +18,7 @@ export default {
       newArchEnabled: true
     },
     android: {
-      package: "com.skilt.shk",
+      package: "com.yourcompanyname.skiltshk",
       adaptiveIcon: {
         foregroundImage: "./assets/icon.png",
         backgroundColor: "#ffffff"

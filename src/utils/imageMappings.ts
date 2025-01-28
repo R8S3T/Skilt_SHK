@@ -433,6 +433,7 @@ const img_LF12FormelCOPsmall = require('../../assets/DbImages/SubchapterContent/
 const img_LF12FormelJAZsmall = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_Formel_JAZ_small.png');
 const img_LF12Geothermiewelcome = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_Geothermie_welcome.png');
 const img_LF12LuftWasserzoom = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_Luft_Wasser_zoom.png');
+const img_LF12Solarthermiewelcome = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_Solarthermie_welcome.png');
 const img_LF12VergleichMonoSplitzoom = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_Vergleich_Mono_Split_zoom.png');
 const img_LF12Wrmepumpenwelcome = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_Wärmepumpen_welcome.png');
 const img_LF12iconAdsorption2small = require('../../assets/DbImages/SubchapterContent/LF_12/LF_12_icon_Adsorption_2_small.png');
@@ -1861,6 +1862,7 @@ export const imageMap = {
     "LF_12_Formel_JAZ_small": img_LF12FormelJAZsmall,
     "LF_12_Geothermie_welcome": img_LF12Geothermiewelcome,
     "LF_12_Luft_Wasser_zoom": img_LF12LuftWasserzoom,
+    "LF_12_Solarthermie_welcome": img_LF12Solarthermiewelcome,
     "LF_12_Vergleich_Mono_Split_zoom": img_LF12VergleichMonoSplitzoom,
     "LF_12_Wärmepumpen_welcome": img_LF12Wrmepumpenwelcome,
     "LF_12_icon_Adsorption_2_small": img_LF12iconAdsorption2small,
