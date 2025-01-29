@@ -14,14 +14,7 @@
     "production": {
       "autoIncrement": true,
       "android": {
-        "buildType": "app-bundle",
-        "credentialsSource": "local",
-        "keystore": {
-          "keystorePath": "./new-upload-key.jks",
-          "keystoreAlias": "upload",
-          "keystorePassword": "s654qgbnv9dbpwkk",
-          "keyPassword": "s654qgbnv9dbpwkk"
-        }
+        "buildType": "app-bundle"
       }
     }
   },
