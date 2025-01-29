@@ -15,11 +15,12 @@
       "autoIncrement": true,
       "android": {
         "buildType": "app-bundle",
+        "credentialsSource": "local",
         "keystore": {
-          "keystorePath": "./@rst83__Skilt_SHK.jks",
-          "keystoreAlias": "0e3cde439b049b09299455aed999ed37",
-          "keystorePassword": "e43580992259aaf3fa867340f3d43545",
-          "keyPassword": "5ee328abe929f9655b471bf1fb92534b"
+          "keystorePath": "./new-upload-key.jks",
+          "keystoreAlias": "upload",
+          "keystorePassword": "s654qgbnv9dbpwkk",
+          "keyPassword": "s654qgbnv9dbpwkk"
         }
       }
     }
