@@ -7,6 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BottomTabParamList } from 'src/types/navigationTypes';
 import Section1 from './Section1';
 import ResumeSection from './ResumeSection';
+import AllChaptersSection from './AllChaptersSection';
 import MathModulSection from './MathModulSection';
 import FlashcardsSection from './FlashCardSection';
 import { hasMadeProgress } from 'src/utils/onBoardingUtils';
@@ -83,11 +84,11 @@ const HomeScreen = () => {
                 { backgroundColor: theme.background }
             ]}
         >
-        {showResume ? (
-            <>
-                <ResumeSection sectionTitle="Weiterlernen" />
-                <Section1 onButtonPress={handleButtonPress} />
-            </>
+            {showResume ? (
+                <>
+                    <ResumeSection sectionTitle="Weiterlernen" />
+                    <AllChaptersSection onButtonPress={handleButtonPress} />
+                </>
             ) : (
                 <Section1 onButtonPress={handleButtonPress} />
             )}
