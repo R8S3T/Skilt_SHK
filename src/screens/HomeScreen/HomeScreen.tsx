@@ -80,11 +80,17 @@ const HomeScreen = () => {
             style={{ backgroundColor: theme.background }}
             contentContainerStyle={[
                 styles.scrollContentContainer,
-                { backgroundColor: theme.background }  // Use centralized theme background color
+                { backgroundColor: theme.background }
             ]}
         >
-            <Section1 onButtonPress={handleButtonPress} />
-            {showResume && <ResumeSection sectionTitle="Weiterlernen" />}
+        {showResume ? (
+            <>
+                <ResumeSection sectionTitle="Weiterlernen" />
+                <Section1 onButtonPress={handleButtonPress} />
+            </>
+            ) : (
+                <Section1 onButtonPress={handleButtonPress} />
+            )}
             <MathModulSection onButtonPress={handleButtonPress} />
             <FlashcardsSection onButtonPress={handleButtonPress} />
         </ScrollView>
