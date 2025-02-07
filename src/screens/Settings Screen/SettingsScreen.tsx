@@ -18,7 +18,7 @@ const SettingsScreen = () => {
             headerStyle: {
                 backgroundColor: theme.background,
             },
-            headerTitle: '',
+            headerTitle: 'Einstellungen',
             headerTintColor: theme.primaryText,
         });
     }, [navigation, theme]);
@@ -48,7 +48,6 @@ const SettingsScreen = () => {
         <View style={[styles.container, { backgroundColor: theme.background }]}>
             {/* Separate Header Container */}
                 <View style={[styles.headerContainer, { backgroundColor: theme.background }]}>
-                    <Text style={[styles.headerText, { color: theme.primaryText }]}>Einstellungen</Text>
                 </View>
 
                 {/* Name Change Section */}
@@ -77,7 +76,7 @@ const SettingsScreen = () => {
                                 styles.name,
                                 {
                                     color: theme.primaryText,
-                                    fontSize: screenWidth > 600 ? 22 : 18, // Match this with the input font size
+                                    fontSize: screenWidth > 600 ? 22 : 20,
                                 },
                             ]}
                         >
@@ -145,14 +144,14 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between', // Place text and input/button in one row
+        justifyContent: 'space-between',
     },
     name: {
-        fontSize: 16,
-        color: '#333', // Dynamically overridden by theme.primaryText
+        fontSize: screenWidth > 600 ? 22 : 18,
+        color: '#333', 
     },
     input: {
-        fontSize: screenWidth > 600 ? 22 : 18,
+        fontSize: screenWidth > 600 ? 22 : 20,
         paddingVertical: screenWidth > 600 ? 10 : 6,
         paddingHorizontal: screenWidth > 600 ? 16 : 12,
         borderWidth: 1,
@@ -160,7 +159,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     buttonContainer: {
-        paddingVertical: screenWidth > 600 ? 16 : 12,
+        paddingVertical: screenWidth > 600 ? 16 : 14,
         paddingHorizontal: screenWidth > 600 ? 26 : 20,
         borderRadius: 8,
     },
@@ -168,7 +167,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#007BFF', // A vibrant blue to grab attention
     },
     button: {
-        paddingVertical: screenWidth > 600 ? 12 : 8,
+        paddingVertical: screenWidth > 600 ? 12 : 10,
         paddingHorizontal: screenWidth > 600 ? 20 : 16,
         borderRadius: 8,
         marginLeft: 10,
@@ -178,16 +177,16 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: '#fff',
-        fontSize: screenWidth > 600 ? 20 : 16,
+        fontSize: screenWidth > 600 ? 20 : 18,
         fontWeight: '600',
     },
     divider: {
         height: 1,
-        backgroundColor: '#ccc', // Dynamically overridden by theme.border
+        backgroundColor: '#ccc',
         marginHorizontal: 20,
     },
     label: {
-        fontSize: screenWidth > 600 ? 22 : 18, // Adjust for larger screens
+        fontSize: screenWidth > 600 ? 22 : 20,
         fontWeight: '600',
     },
 });

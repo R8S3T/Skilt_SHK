@@ -16,12 +16,9 @@ const AllChaptersSection: React.FC<AllChaptersSectionProps> = ({ onButtonPress }
 
     return (
         <View style={[styles.newContainer, { backgroundColor: isDarkMode ? theme.surface : '#eeeeee' }]}>
-            {/* Beschreibungstext steht allein oben */}
             <Text style={[styles.description, { color: isDarkMode ? theme.secondaryText : '#2b4353', fontSize: scaleFontSize(16) }]}>
                 Hier findest du alle Lernfelder auf einen Blick.
             </Text>
-
-            {/* Bild & Button stehen nebeneinander */}
             <View style={styles.imageButtonContainer}>
                 <Image source={require('../../../assets/Images/Lernfelder.png')} style={styles.image} />
                 <RenderButton

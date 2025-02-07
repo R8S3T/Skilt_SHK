@@ -194,7 +194,7 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
           if (part.startsWith('[lowText]') && part.endsWith('[/lowText]')) {
             const lowText = part.replace('[lowText]', '').replace('[/lowText]', '');
             return (
-              <Text key={index} style={[styles.lowText, { color: theme.secondaryText }]}>
+              <Text key={index} style={[styles.lowText, { color: theme.primaryText }]}>
                 {lowText}
               </Text>
             );
@@ -222,7 +222,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   lowText: {
-    fontFamily: 'OpenSans-Regular',
+    fontFamily: 'OpenSans-Bold',
     fontSize: screenWidth > 600 ? 16 : 14,
     lineHeight: screenWidth > 600 ? 22 : 20,
     fontWeight: 'bold',

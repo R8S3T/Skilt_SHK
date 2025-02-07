@@ -8,6 +8,7 @@ export interface SubchapterContextType {
     unlockSubchapter: (subchapterId: number) => void;
     markSubchapterAsFinished: (subchapterId: number) => void;
     setCurrentSubchapter: (subchapterId: number | null, subchapterTitle: string) => void;
+    getFinishedSubchaptersToday: () => Promise<number>;
 }
 
 export interface MathSubchapterContextType {

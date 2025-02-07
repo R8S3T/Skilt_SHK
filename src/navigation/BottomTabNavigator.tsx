@@ -4,10 +4,11 @@ import { Ionicons } from '@expo/vector-icons';
 import HomeScreen from 'src/screens/HomeScreen/HomeScreen';
 import SettingsScreen from 'src/screens/Settings Screen/SettingsScreen';
 import SearchScreen from 'src/screens/Search/SearchScreen';
+import StatisticsScreen from 'src/screens/Statistics/StatisticsScreen';
 import { useTheme } from 'src/context/ThemeContext';
 import { screenWidth } from 'src/utils/screenDimensions';
 
-type IconName = 'book' | 'book-outline' | 'settings' | 'settings-outline' | 'search' | 'search-outline';
+type IconName = 'book' | 'book-outline' | 'settings' | 'settings-outline' | 'search' | 'search-outline' | 'stats-chart' | 'stats-chart-outline';
 
 const Tab = createBottomTabNavigator();
 
@@ -27,6 +28,8 @@ const BottomTabNavigator = () => {
                 iconName = focused ? 'book' : 'book-outline';
             } else if (route.name === 'Settings') {
                 iconName = focused ? 'settings' : 'settings-outline';
+            } else if (route.name === 'Statistics') {
+                iconName = focused ? 'stats-chart' : 'stats-chart-outline';
             } else if (route.name === 'Search') {
                 iconName = focused ? 'search' : 'search-outline';
             }
@@ -61,6 +64,13 @@ const BottomTabNavigator = () => {
                 headerTitleAlign: 'center',
             }}
         />
+        <Tab.Screen
+            name="Statistics"
+            component={StatisticsScreen}
+            options={{
+                tabBarLabel: 'Lernerfolge',
+                headerTitleAlign: 'center'
+            }} />
         <Tab.Screen
             name="Settings"
             component={SettingsScreen}

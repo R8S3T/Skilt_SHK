@@ -50,9 +50,14 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
 
     // Marks a subchapter as finished and saves to AsyncStorage
     const markSubchapterAsFinished = async (subchapterId: number) => {
+        const today = new Date().toISOString().split('T')[0];
+
         setFinishedSubchapters((current) => {
             const updated = [...new Set([...current, subchapterId])];
-            AsyncStorage.setItem('finishedSubchapters', JSON.stringify(updated)); // Persist the data
+
+            AsyncStorage.setItem('finishedSubchapters', JSON.stringify(updated));
+                    // Save completion timestamp
+            AsyncStorage.setItem(`finishedSubchapter_${subchapterId}`, today);
             return updated;
         });
         unlockSubchapter(subchapterId + 1); // Optionally unlock the next subchapter
@@ -63,6 +68,29 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
         setCurrentSubchapterTitle(subchapterTitle);
     };
 
+    const getFinishedSubchaptersToday = async (): Promise<number> => {
+        const today = new Date().toISOString().split('T')[0]; // Get today's date (YYYY-MM-DD)
+        let count = 0;
+    
+        try {
+            const storedFinished = await AsyncStorage.getItem('finishedSubchapters');
+            if (storedFinished) {
+                const finishedIds: number[] = JSON.parse(storedFinished);
+                
+                for (const subchapterId of finishedIds) {
+                    const storedDate = await AsyncStorage.getItem(`finishedSubchapter_${subchapterId}`);
+                    if (storedDate === today) {
+                        count++; // Count subchapters finished today
+                    }
+                }
+            }
+        } catch (error) {
+            console.error("Error fetching today's finished subchapters:", error);
+        }
+
+        return count;
+    };
+
     return (
         <SubchapterContext.Provider value={{
             unlockedSubchapters,
@@ -71,7 +99,8 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
             currentSubchapterTitle,
             unlockSubchapter,
             markSubchapterAsFinished,
-            setCurrentSubchapter
+            setCurrentSubchapter,
+            getFinishedSubchaptersToday
         }}>
             {children}
         </SubchapterContext.Provider>

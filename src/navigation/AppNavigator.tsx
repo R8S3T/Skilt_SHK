@@ -36,9 +36,15 @@ const AppNavigator = () => {
             />
             <Stack.Screen
                 name="HomeScreen"
-                component={BottomTabNavigator}
                 options={{ headerShown: false }}
-            />
+            >
+                {() => (
+                    <SubchapterProvider>
+                        <BottomTabNavigator />
+                    </SubchapterProvider>
+                )}
+            </Stack.Screen>
+
             <Stack.Screen
                 name="Learn"
                 options={{ headerShown: false }}
@@ -61,7 +67,7 @@ const AppNavigator = () => {
             </Stack.Screen>
             <Stack.Screen name="Search" component={SearchScreen} />
             <Stack.Screen
-                name="SearchEndScreen" // Add SearchEndScreen here
+                name="SearchEndScreen"
                 component={SearchEndScreen}
                 options={{
                     title: 'End of Search',
@@ -70,12 +76,12 @@ const AppNavigator = () => {
                 }}
             />
             <Stack.Screen
-                name="FlashCardChoice" // Add this line
-                component={FlashCardChoice} // Set the component
-                options={{ title: 'Flash Card Choices', headerTitleAlign: 'center' }} // Optional: Customize the header
+                name="FlashCardChoice"
+                component={FlashCardChoice}
+                options={{ title: 'Flash Card Choices', headerTitleAlign: 'center' }}
             />
             <Stack.Screen
-                name="FlashCardChapters" // Register the new screen
+                name="FlashCardChapters" 
                 component={FlashCardChapters}
                 options={{ title: 'Flashcard Chapters', headerTitleAlign: 'center' }}
             />
