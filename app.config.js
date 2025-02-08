@@ -9,8 +9,8 @@ export default {
     icon: "./assets/icon.png",
     userInterfaceStyle: "light",
     splash: {
-/*       image: "./assets/splash.png", */
-      resizeMode: "contain",
+      image: "./assets/Images/skilt_logo.png",
+      resizeMode: "native",
       backgroundColor: "#ffffff"
     },
     ios: {

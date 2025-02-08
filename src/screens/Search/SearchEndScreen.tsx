@@ -11,13 +11,16 @@ const SearchEndScreen: React.FC = () => {
     const { theme, isDarkMode } = useTheme();
 
     useEffect(() => {
-        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-            // Disable back navigation
-            return true;
-        });
-
-        return () => backHandler.remove();
+        const handleBackPress = () => true;
+    
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackPress);
+    
+        return () => {
+            console.log("BackHandler in SearchEndScreen entfernt");
+            backHandler.remove(); // Entfernt den Event-Listener richtig
+        };
     }, []);
+
 
     return (
         <View style={[styles.container, { backgroundColor: theme.background }]}>
@@ -37,9 +40,14 @@ const SearchEndScreen: React.FC = () => {
                         },
                     ]}
                     onPress={() => {
-                        navigation.navigate('HomeScreen', {
-                            screen: 'Search',
+                        navigation.reset({
+                            index: 1,
+                            routes: [
+                                { name: "HomeScreen" }, // Fügt HomeScreen in den Stack
+                                { name: "Search" }      // Setzt Search als aktive Seite
+                            ],
                         });
+                        
                     }}
                 >
                     <Text
@@ -87,4 +95,3 @@ const styles = StyleSheet.create({
 });
 
 export default SearchEndScreen;
-

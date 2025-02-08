@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { RootStackParamList } from 'src/types/navigationTypes';
 import IntroScreen from '../screens/IntroScreen';
+import * as SplashScreen from 'expo-splash-screen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import BottomTabNavigator from './BottomTabNavigator';
 import LearnStackNavigator from './LearnStackNavigator';
 import MathStackNavigator from './MathStackNavigator';
@@ -14,7 +16,6 @@ import FlashCardChoice from 'src/screens/FlashCard/FlashCardChoice';
 import FlashCardChapters from 'src/screens/FlashCard/FlashCardChapters';
 import FlashcardScreen from 'src/screens/FlashCard/FlashcardScreen';
 import FlashCardRepeat from 'src/screens/FlashCard/FlashCardRepeat';
-import SplashScreen from 'src/screens/SplashScreen';
 import SearchScreen from 'src/screens/Search/SearchScreen';
 import SearchEndScreen from 'src/screens/Search/SearchEndScreen';
 
@@ -22,13 +23,32 @@ import SearchEndScreen from 'src/screens/Search/SearchEndScreen';
 const Stack = createStackNavigator<RootStackParamList>();
 
 const AppNavigator = () => {
+    const [initialRoute, setInitialRoute] = useState<keyof RootStackParamList | null>(null);
+
+    useEffect(() => {
+        const checkOnboardingStatus = async () => {
+            try {
+                await SplashScreen.preventAutoHideAsync(); // Keep splash screen visible
+                
+                const hasOnboarded = await AsyncStorage.getItem('hasOnboarded');
+                setInitialRoute(hasOnboarded ? 'HomeScreen' : 'Intro');
+            } catch (error) {
+                console.error("Error loading initial route:", error);
+                setInitialRoute('HomeScreen'); // Fallback
+            } finally {
+                await SplashScreen.hideAsync(); // Hide splash screen once loading is done
+            }
+        };
+
+        checkOnboardingStatus();
+    }, []);
+
+    if (!initialRoute) {
+        return null; // Avoid rendering navigator until initialRoute is determined
+    }
+
     return (
-        <Stack.Navigator initialRouteName="SplashScreen">
-            <Stack.Screen
-                name="SplashScreen"
-                component={SplashScreen}
-                options={{ headerShown: false }}
-            />
+        <Stack.Navigator initialRouteName={initialRoute}>
             <Stack.Screen
                 name="Intro"
                 component={IntroScreen}

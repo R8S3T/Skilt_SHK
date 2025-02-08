@@ -26,7 +26,6 @@ const ContentSlide: React.FC<ContentSlideProps> = ({
     onNext,
     setShowQuiz,
 }) => {
-    console.log("setShowQuiz in ContentSlide:", setShowQuiz);
     const currentSlide = contentData[currentIndex];
     const { ContentData } = currentSlide as GenericContent;
     const [isButtonActive, setIsButtonActive] = useState(false);
