@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { getStreakData, updateStreak } from 'src/utils/streakUtils';
 
 const LearnTracker = () => {
+    const [firstActiveDay, setFirstActiveDay] = useState<string | null>(null);
     const [streak, setStreak] = useState(0);
     const [longestStreak, setLongestStreak] = useState(0);
     const [activeDays, setActiveDays] = useState<string[]>([]);
@@ -15,10 +16,16 @@ const LearnTracker = () => {
             setStreak(streak);
             setLongestStreak(longestStreak);
             setActiveDays(activeDays);
+    
+            // Find the earliest recorded active day
+            if (activeDays.length > 0) {
+                setFirstActiveDay(activeDays[0]); 
+            }
         };
-
+    
         fetchData();
     }, []);
+    
 
     const days = ['S', 'M', 'D', 'M', 'D', 'F', 'S'];
     const todayIndex = new Date().getDay();
@@ -34,37 +41,45 @@ const LearnTracker = () => {
 
             {/* Weekly Streak Visualization */}
             <View style={styles.weekContainer}>
-                {days.map((day, index) => {
+            {days.map((day, index) => {
+                const date = new Date();
+                date.setDate(date.getDate() - (todayIndex - index));
+                const dateString = date.toDateString();
 
-                    const date = new Date();
-                    date.setDate(date.getDate() - (todayIndex - index));
-                    const dateString = date.toDateString();
+                const isActive = activeDays.includes(dateString);
+                const isPastDay = date < new Date() && !isActive; // Missed day
 
-                    return (
-                        <View key={index} style={styles.dayContainer}>
-                            {/* Weekday Label */}
-                            <Text style={[styles.dayText, { color: activeDays.includes(dateString) ? '#333' : '#aaa' }]}>
-                                {day}
-                            </Text>
+                // Ensure "X" is only shown for days *after* the first tracked day
+                const showMissedX = isPastDay && firstActiveDay && new Date(dateString) >= new Date(firstActiveDay);
 
-                            {/* Day Box with Flame Inside */}
-                            <View
-                                style={[
-                                    styles.dayBox,
-                                    {
-                                        backgroundColor: activeDays.includes(dateString) ? '#FFA500' : '#E0E0E0',
-                                    },
-                                ]}
-                            >
-                                {activeDays.includes(dateString) ? (
-                                    <Ionicons name="flame" size={18} color="white" />
-                                ) : (
-                                    <View style={styles.futureDay} />
-                                )}
-                            </View>
+                return (
+                    <View key={index} style={styles.dayContainer}>
+                        {/* Weekday Label */}
+                        <Text style={[styles.dayText, { color: isActive ? '#333' : '#aaa' }]}>
+                            {day}
+                        </Text>
+
+                        {/* Day Box with Conditional Icons */}
+                        <View
+                            style={[
+                                styles.dayBox,
+                                {
+                                    backgroundColor: 'transparent', // No fill color
+                                    borderWidth: 2,
+                                    borderColor: isActive ? '#FFA500' : '#E0E0E0', // Orange for active, gray for others
+                                },
+                            ]}
+                        >
+                            {isActive ? (
+                                <Ionicons name="flame" size={18} color="#FFA500" />
+                            ) : showMissedX ? (
+                                <Ionicons name="close" size={18} color="#aaa" /> // Gray "X" only for missed days after first use
+                            ) : null}
                         </View>
-                    );
-                })}
+                    </View>
+                );
+            })}
+
             </View>
 
             {/* Streak Data */}
@@ -141,11 +156,13 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         justifyContent: 'center',
         alignItems: 'center',
+        marginTop: 6,
     },
     dayText: {
         fontSize: 12,
         fontWeight: 'bold',
         color: '#fff',
+        marginBottom: 4,
     },
     futureDay: {
         width: 18,
