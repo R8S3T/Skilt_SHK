@@ -17,7 +17,6 @@ const dbName = 'skiltSHK.db';
 const dbPath = `${FileSystem.documentDirectory}SQLite/${dbName}`;
 
 export async function initializeDatabase() {
-
     try {
         // Ensure the SQLite directory exists
         const dirInfo = await FileSystem.getInfoAsync(FileSystem.documentDirectory + 'SQLite');
@@ -29,42 +28,39 @@ export async function initializeDatabase() {
         // Check if the database file already exists
         const fileInfo = await FileSystem.getInfoAsync(dbPath);
 
-        if (fileInfo.exists) {
-            console.log("Alte Datenbank gefunden. Löschen der alten Version...");
-            await FileSystem.deleteAsync(dbPath, { idempotent: true }); // Alte Datenbank löschen
-            console.log("Alte Datenbank erfolgreich gelöscht.");
-        }
+        if (!fileInfo.exists) {
+            console.log("No existing database found, copying the bundled one...");
 
-        // Get the bundled database asset
-        const asset = Asset.fromModule(require('../../assets/skiltSHK.db'));
-        await asset.downloadAsync();
+            // Get the bundled database asset
+            const asset = Asset.fromModule(require('../../assets/skiltSHK.db'));
+            await asset.downloadAsync();
 
-        // Log bundled database URI (useful for debugging)
-        console.log("Bundled database asset downloaded.");
+            // Log bundled database URI (useful for debugging)
+            console.log("Bundled database asset downloaded.");
 
-        // Check bundled database file info (logs existence and size)
-        const bundledFileInfo = await FileSystem.getInfoAsync(asset.localUri!);
-        if (bundledFileInfo.exists) {
-            console.log(`Bundled database exists at ${asset.localUri} with size ${bundledFileInfo.size} bytes.`);
+            // Check bundled database file info (logs existence and size)
+            const bundledFileInfo = await FileSystem.getInfoAsync(asset.localUri!);
+            if (bundledFileInfo.exists) {
+                console.log(`Bundled database exists at ${asset.localUri} with size ${bundledFileInfo.size} bytes.`);
+            } else {
+                throw new Error("Bundled database asset not found.");
+            }
+
+            // Copy the database from bundled assets
+            await FileSystem.copyAsync({
+                from: asset.localUri!,
+                to: dbPath,
+            });
+
+            const copiedFileInfo = await FileSystem.getInfoAsync(dbPath);
+            if (copiedFileInfo.exists) {
+                console.log(`Datenbank erfolgreich nach ${dbPath} kopiert.`);
+            } else {
+                throw new Error("Fehler beim Kopieren der Datenbank.");
+            }
         } else {
-            throw new Error("Bundled database asset not found.");
+            console.log("Datenbank bereits vorhanden, keine Notwendigkeit, sie zu ersetzen.");
         }
-
-        // Copy the database from bundled assets
-
-        await FileSystem.copyAsync({
-            from: asset.localUri!,
-            to: dbPath,
-        });
-
-
-        const copiedFileInfo = await FileSystem.getInfoAsync(dbPath);
-        if (copiedFileInfo.exists) {
-            console.log(`Datenbank erfolgreich nach ${dbPath} kopiert.`);
-        } else {
-            throw new Error("Fehler beim Kopieren der Datenbank.");
-        }
-
     } catch (error) {
         console.error("Error in database initialization:", error);
         throw error;
