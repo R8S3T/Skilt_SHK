@@ -47,16 +47,16 @@ const SearchScreen: React.FC = () => {
 
     return (
         <View style={[styles.container, { backgroundColor: theme.background }]}>
-            <View
-                style={[
-                    styles.input,
-                    {
-                        borderColor: isDarkMode ? '#777' : theme.border,
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                    },
-                ]}
-            >
+                <View
+                    style={[
+                        styles.inputContainer, // Corrected from styles.input
+                        {
+                            borderColor: isDarkMode ? '#777' : theme.border, // Ensure border is visible
+                            borderWidth: 2, // Make border more prominent
+                            backgroundColor: isDarkMode ? '#333' : '#fff', // Ensure contrast
+                        },
+                    ]}
+                >
                 <Ionicons
                     name="search"
                     size={screenWidth > 600 ? 30 : 24}
@@ -72,10 +72,13 @@ const SearchScreen: React.FC = () => {
                         flex: 1,
                         color: theme.primaryText,
                         backgroundColor: isDarkMode ? '#333' : '#fff',
-                        paddingHorizontal: screenWidth > 600 ? 16 : 8,
-                        fontSize: screenWidth > 600 ? 20 : 16,
+                        paddingHorizontal: screenWidth > 600 ? 20 : 12, // Increased padding
+                        fontSize: screenWidth > 600 ? 24 : 18, // Increased font size
+                        height: screenWidth > 600 ? 60 : 50, // Increased height
+                        borderRadius: 8, // Slightly rounded corners for a larger appearance
                     }}
                 />
+
                 {query.length > 0 && ( 
                     <TouchableOpacity onPress={() => setQuery('')}>
                         <Ionicons
@@ -124,40 +127,47 @@ const SearchScreen: React.FC = () => {
                 )}
                 ItemSeparatorComponent={() => <View style={styles.separator} />}
                 ListFooterComponent={
-                    <View style={styles.paginationContainer}>
-                        {/* Back Arrow */}
-                        <TouchableOpacity
-                            onPress={() => setCurrentPage((prevPage) => Math.max(prevPage - 1, 0))}
-                            disabled={currentPage === 0}
+                    results.length > RESULTS_PER_PAGE ? ( // Show pagination only if there are results and multiple pages
+                        <View
+                            style={[
+                                styles.paginationContainer,
+                                { backgroundColor: theme.background }
+                            ]}
                         >
-                            <Ionicons
-                                name="arrow-back-circle"
-                                size={30}
-                                color={currentPage === 0 ? theme.secondaryText : theme.accent}
-                            />
-                        </TouchableOpacity>
-
-                        {/* Page Numbers */}
-                        <Text style={[styles.paginationText, { color: theme.primaryText }]}>
-                            Seite {currentPage + 1} von {Math.ceil(results.length / RESULTS_PER_PAGE)}
-                        </Text>
-
-                        {/* Forward Arrow */}
-                        <TouchableOpacity
-                            onPress={() =>
-                                setCurrentPage((prevPage) =>
-                                    Math.min(prevPage + 1, Math.ceil(results.length / RESULTS_PER_PAGE) - 1)
-                                )
-                            }
-                            disabled={!hasNextPage}
-                        >
-                            <Ionicons
-                                name="arrow-forward-circle"
-                                size={30}
-                                color={!hasNextPage ? theme.secondaryText : theme.accent}
-                            />
-                        </TouchableOpacity>
-                    </View>
+                            {/* Back Arrow */}
+                            <TouchableOpacity
+                                onPress={() => setCurrentPage((prevPage) => Math.max(prevPage - 1, 0))}
+                                disabled={currentPage === 0}
+                            >
+                                <Ionicons
+                                    name="arrow-back-circle"
+                                    size={40} 
+                                    color={currentPage === 0 ? theme.secondaryText : theme.accent}
+                                />
+                            </TouchableOpacity>
+                
+                            {/* Page Numbers */}
+                            <Text style={[styles.paginationText, { fontSize: 18, color: theme.primaryText }]}>
+                                Seite {currentPage + 1} von {Math.ceil(results.length / RESULTS_PER_PAGE)}
+                            </Text>
+                
+                            {/* Forward Arrow */}
+                            <TouchableOpacity
+                                onPress={() =>
+                                    setCurrentPage((prevPage) =>
+                                        Math.min(prevPage + 1, Math.ceil(results.length / RESULTS_PER_PAGE) - 1)
+                                    )
+                                }
+                                disabled={!hasNextPage}
+                            >
+                                <Ionicons
+                                    name="arrow-forward-circle"
+                                    size={40} 
+                                    color={!hasNextPage ? theme.secondaryText : theme.accent}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                    ) : null
                 }
             />
         </View>
@@ -183,12 +193,12 @@ const styles = StyleSheet.create({
     input: {
         borderWidth: 1,
         borderColor: '#ccc',
-        padding: 8,
-        borderRadius: 5,
-        marginBottom: 16,
-        height: screenWidth > 600 ? 50 : 40,
-        fontSize: screenWidth > 600 ? 18 : 16,
+        padding: screenWidth > 600 ? 14 : 10, // Increased padding
+        borderRadius: 8, 
+        height: screenWidth > 600 ? 60 : 50, // Increased height
+        fontSize: screenWidth > 600 ? 24 : 18, // Larger font size
     },
+    
     resultTitle: {
         fontFamily: 'Lato-Bold',
         fontSize: screenWidth > 600 ? 20 : 18,
