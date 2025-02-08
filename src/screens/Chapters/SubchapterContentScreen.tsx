@@ -219,7 +219,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
 
     if (loading || navigating) {
         return (
-            <View style={styles.loadingContainer}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: theme.background }}>
                 <LottieView
                     source={selectedAnimation}
                     autoPlay
@@ -229,6 +229,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
             </View>
         );
     }
+    
 
     return (
         <GestureHandlerRootView style={styles.container}>
@@ -297,7 +298,6 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#f5f5f5',
     },
     animation: {
         width: 250,
