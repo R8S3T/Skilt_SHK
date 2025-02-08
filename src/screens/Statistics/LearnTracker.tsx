@@ -131,12 +131,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     title: {
-        fontSize: 18,
-        fontWeight: 'bold',
+        fontSize: 22,
+        fontFamily: 'Lato-Bold',
         marginLeft: 5,
+        marginBottom: 10,
     },
+
     subText: {
-        fontSize: 14,
+        fontSize: 18,
         color: '#666',
         marginBottom: 10,
     },
@@ -159,7 +161,7 @@ const styles = StyleSheet.create({
         marginTop: 6,
     },
     dayText: {
-        fontSize: 12,
+        fontSize: 16,
         fontWeight: 'bold',
         color: '#fff',
         marginBottom: 4,
@@ -188,12 +190,12 @@ const styles = StyleSheet.create({
         marginRight: 8, // Adds spacing between icon and text
     },
     streakText: {
-        fontSize: 14,
+        fontSize: 18,
         color: '#666',
         textAlign: 'center',
     },
     streakNumber: {
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: 'bold',
         marginLeft: 6, // Adds space between icon and number
     },
