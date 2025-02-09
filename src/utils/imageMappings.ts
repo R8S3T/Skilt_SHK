@@ -983,6 +983,7 @@ const img_LF7VentilatorKonvektor2zoom = require('../../assets/DbImages/Subchapte
 const img_LF7VentilatorKonvektorzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Ventilator_Konvektor_zoom.png');
 const img_LF7Ventilheizkrperzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Ventilheizkörper_zoom.png');
 const img_LF7Verteilungsarten = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Verteilungsarten.png');
+const img_LF7WandDeckenheizungVergleichzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wand_Deckenheizung_Vergleich_zoom.png');
 const img_LF7WinkelEckventilzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Winkel_Eckventil_zoom.png');
 const img_LF7Wrmedurchgangzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmedurchgang_zoom.png');
 const img_LF7WrmekapazittWasser = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Wärmekapazität_Wasser.png');
@@ -1025,6 +1026,7 @@ const img_LF8HebelmitKartuschezoom = require('../../assets/DbImages/SubchapterCo
 const img_LF8Infrarotzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Infrarot_zoom.png');
 const img_LF8Klosetartenzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Klosetarten_zoom.png');
 const img_LF8Kopfbrausezoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Kopfbrause_zoom.png');
+const img_LF8MaxSchlitztiefezoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Max_Schlitztiefe_zoom.png');
 const img_LF8MontageSchallschutzzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Montage_Schallschutz_zoom.png');
 const img_LF8Porzellanzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Porzellan_zoom.png');
 const img_LF8Reinigungsmittel = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Reinigungsmittel.png');
@@ -1046,6 +1048,7 @@ const img_LF8Vorwandmontage2zoom = require('../../assets/DbImages/SubchapterCont
 const img_LF8WalkinDuschezoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Walkin_Dusche_zoom.png');
 const img_LF8WaschbeckenEdelstahlzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Waschbecken_Edelstahl_zoom.png');
 const img_LF8WaschbeckenWandzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Waschbecken_Wand_zoom.png');
+const img_LF8WassereinwirkungsklassenTabellezoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Wassereinwirkungsklassen_Tabelle_zoom.png');
 const img_LF8WerkstoffeSanitrwelcome = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Werkstoffe_Sanitär_welcome.png');
 const img_LF8Zweihebelmischarmaturenzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Zweihebelmischarmaturen_zoom.png');
 const img_LF8fliesengerechteInstallation1zoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_fliesengerechte_Installation_1_zoom.png');
@@ -1053,6 +1056,7 @@ const img_LF8fliesengerechteInstallation2zoom = require('../../assets/DbImages/S
 const img_LFiconVorwandmontagezoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_icon_Vorwandmontage_zoom.png');
 const img_LF9AnschlussMAGSchnittzoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Anschluss_MAG_Schnitt_zoom.png');
 const img_LF9AnschlussMAGzoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Anschluss_MAG_zoom.png');
+const img_LF9AnschlussSVzoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Anschluss_SV_zoom.png');
 const img_LF9AnschlussSolaranlagewelcome = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Anschluss_Solaranlage_welcome.png');
 const img_LF9AnschlussSolaranlagezoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Anschluss_Solaranlage_zoom.png');
 const img_LF9AnschlussTrinkwassererwrmerwelcome = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Anschluss_Trinkwassererwärmer_welcome.png');
@@ -1103,6 +1107,7 @@ const img_LF9globaleSonnenstrahlungzoom = require('../../assets/DbImages/Subchap
 const img_LFFormelVolumenausdehnungsmall = require('../../assets/DbImages/SubchapterContent/LF_9/LF_Formel_Volumenausdehnung_small.png');
 const img_LFicon247small = require('../../assets/DbImages/SubchapterContent/LF_icon_24_7_small.png');
 const img_LFiconAbdichtung2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Abdichtung_2_small.png');
+const img_LFiconAbdichtungBadewannesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Abdichtung_Badewanne_small.png');
 const img_LFiconAbdichtungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Abdichtung_small.png');
 const img_LFiconAbschrankensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Abschranken_small.png');
 const img_LFiconAbsperreinrichtungHerdsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Absperreinrichtung_Herd_small.png');
@@ -2499,6 +2504,7 @@ export const imageMap = {
     "LF_7_Ventilator_Konvektor_zoom": img_LF7VentilatorKonvektorzoom,
     "LF_7_Ventilheizkörper_zoom": img_LF7Ventilheizkrperzoom,
     "LF_7_Verteilungsarten": img_LF7Verteilungsarten,
+    "LF_7_Wand_Deckenheizung_Vergleich_zoom": img_LF7WandDeckenheizungVergleichzoom,
     "LF_7_Winkel_Eckventil_zoom": img_LF7WinkelEckventilzoom,
     "LF_7_Wärmedurchgang_zoom": img_LF7Wrmedurchgangzoom,
     "LF_7_Wärmekapazität_Wasser": img_LF7WrmekapazittWasser,
@@ -2541,6 +2547,7 @@ export const imageMap = {
     "LF_8_Infrarot_zoom": img_LF8Infrarotzoom,
     "LF_8_Klosetarten_zoom": img_LF8Klosetartenzoom,
     "LF_8_Kopfbrause_zoom": img_LF8Kopfbrausezoom,
+    "LF_8_Max_Schlitztiefe_zoom": img_LF8MaxSchlitztiefezoom,
     "LF_8_Montage_Schallschutz_zoom": img_LF8MontageSchallschutzzoom,
     "LF_8_Porzellan_zoom": img_LF8Porzellanzoom,
     "LF_8_Reinigungsmittel": img_LF8Reinigungsmittel,
@@ -2562,6 +2569,7 @@ export const imageMap = {
     "LF_8_Walkin_Dusche_zoom": img_LF8WalkinDuschezoom,
     "LF_8_Waschbecken_Edelstahl_zoom": img_LF8WaschbeckenEdelstahlzoom,
     "LF_8_Waschbecken_Wand_zoom": img_LF8WaschbeckenWandzoom,
+    "LF_8_Wassereinwirkungsklassen_Tabelle_zoom": img_LF8WassereinwirkungsklassenTabellezoom,
     "LF_8_Werkstoffe_Sanitär_welcome": img_LF8WerkstoffeSanitrwelcome,
     "LF_8_Zweihebelmischarmaturen_zoom": img_LF8Zweihebelmischarmaturenzoom,
     "LF_8_fliesengerechte_Installation_1_zoom": img_LF8fliesengerechteInstallation1zoom,
@@ -2569,6 +2577,7 @@ export const imageMap = {
     "LF_icon_Vorwandmontage_zoom": img_LFiconVorwandmontagezoom,
     "LF_9_Anschluss_MAG_Schnitt_zoom": img_LF9AnschlussMAGSchnittzoom,
     "LF_9_Anschluss_MAG_zoom": img_LF9AnschlussMAGzoom,
+    "LF_9_Anschluss_SV_zoom": img_LF9AnschlussSVzoom,
     "LF_9_Anschluss_Solaranlage_welcome": img_LF9AnschlussSolaranlagewelcome,
     "LF_9_Anschluss_Solaranlage_zoom": img_LF9AnschlussSolaranlagezoom,
     "LF_9_Anschluss_Trinkwassererwärmer_welcome": img_LF9AnschlussTrinkwassererwrmerwelcome,
@@ -2619,6 +2628,7 @@ export const imageMap = {
     "LF_Formel_Volumenausdehnung_small": img_LFFormelVolumenausdehnungsmall,
     "LF_icon_24_7_small": img_LFicon247small,
     "LF_icon_Abdichtung_2_small": img_LFiconAbdichtung2small,
+    "LF_icon_Abdichtung_Badewanne_small": img_LFiconAbdichtungBadewannesmall,
     "LF_icon_Abdichtung_small": img_LFiconAbdichtungsmall,
     "LF_icon_Abschranken_small": img_LFiconAbschrankensmall,
     "LF_icon_Absperreinrichtung_Herd_small": img_LFiconAbsperreinrichtungHerdsmall,

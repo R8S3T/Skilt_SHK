@@ -17,6 +17,7 @@ import {
 // Fetch chapters by year from local SQLite database
 export async function fetchChaptersByYear(year: number): Promise<Chapter[]> {
     const db = await initializeDatabase();
+    if (!db) return [];
     try {
         const result = await db.getAllAsync<Chapter>(
             'SELECT * FROM Chapters WHERE Year = ?',
@@ -33,6 +34,7 @@ export async function fetchChaptersByYear(year: number): Promise<Chapter[]> {
 // Fetch subchapters by chapter ID
 export async function fetchSubchaptersByChapterId(chapterId: number): Promise<Subchapter[]> {
     const db = await initializeDatabase();
+    if (!db) return [];
     try {
         const result = await db.getAllAsync<Subchapter>(
             'SELECT * FROM Subchapters WHERE ChapterId = ?',
@@ -49,6 +51,7 @@ export async function fetchSubchaptersByChapterId(chapterId: number): Promise<Su
 // Fetch subchapter content by subchapter ID
 export async function fetchSubchapterContentBySubchapterId(subchapterId: number): Promise<GenericContent[]> {
     const db = await initializeDatabase();
+    if (!db) return [];
     try {
         const result = await db.getAllAsync<GenericContent>(
             'SELECT * FROM SubchapterContent WHERE SubchapterId = ? ORDER BY SortOrder',
@@ -64,6 +67,7 @@ export async function fetchSubchapterContentBySubchapterId(subchapterId: number)
 // Fetch math chapters from the server
 export async function fetchMathChapters(): Promise<MathChapter[]> {
     const db = await initializeDatabase();
+    if (!db) return [];
     try {
         const result = await db.getAllAsync<MathChapter>(
             'SELECT * FROM MathChapters ORDER BY SortOrder'
@@ -78,6 +82,7 @@ export async function fetchMathChapters(): Promise<MathChapter[]> {
 // Fetch math subchapters by chapter ID
 export async function fetchMathSubchaptersByChapterId(chapterId: number): Promise<MathSubchapter[]> {
     const db = await initializeDatabase();
+    if (!db) return [];
     try {
         const result = await db.getAllAsync<MathSubchapter>(
             'SELECT * FROM MathSubchapters WHERE ChapterId = ? ORDER BY SortOrder',
@@ -93,6 +98,7 @@ export async function fetchMathSubchaptersByChapterId(chapterId: number): Promis
 // Fetch math subchapter content by subchapter ID
 export async function fetchMathContentBySubchapterId(subchapterId: number): Promise<GenericContent[]> {
     const db = await initializeDatabase();
+    if (!db) return [];
     try {
         const result = await db.getAllAsync<GenericContent>(
             'SELECT * FROM MathSubchapterContent WHERE SubchapterId = ? ORDER BY SortOrder',
@@ -108,6 +114,7 @@ export async function fetchMathContentBySubchapterId(subchapterId: number): Prom
 // Fetch quiz by content ID
 export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
     const db = await initializeDatabase();
+    if (!db) return [];
     try {
         const result = await db.getAllAsync<Quiz>(
             'SELECT * FROM Quiz WHERE ContentId = ?',
@@ -124,6 +131,7 @@ export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
 // Fetch multiple-choice options by quiz ID
 export async function fetchMultipleChoiceOptionsByQuizId(quizId: number): Promise<MultipleChoiceOption[]> {
     const db = await initializeDatabase();
+    if (!db) return [];
     try {
         const options = await db.getAllAsync<MultipleChoiceOption>(
             'SELECT OptionText1, OptionText2, OptionText3 FROM MultipleChoiceOptions WHERE QuizId = ?',
@@ -139,6 +147,7 @@ export async function fetchMultipleChoiceOptionsByQuizId(quizId: number): Promis
 // Fetch cloze test options by quiz ID
 export async function fetchClozeTestOptionsByQuizId(quizId: number): Promise<ClozeTestOption[]> {
     const db = await initializeDatabase();
+    if (!db) return [];
     try {
         const options = await db.getAllAsync<ClozeTestOption>(
             'SELECT * FROM ClozeTestOptions WHERE QuizId = ?',
@@ -154,6 +163,7 @@ export async function fetchClozeTestOptionsByQuizId(quizId: number): Promise<Clo
 // Fetch MathMiniQuiz by content ID
 export async function fetchMathMiniQuizByContentId(contentId: number): Promise<MathMiniQuiz[]> {
     const db = await initializeDatabase();
+    if (!db) return [];
     try {
         const quizzes = await db.getAllAsync<MathMiniQuiz>(
             'SELECT * FROM MathMiniQuiz WHERE ContentId = ?',
@@ -169,6 +179,7 @@ export async function fetchMathMiniQuizByContentId(contentId: number): Promise<M
 // Search subchapters by query
 export async function searchSubchapters(query: string): Promise<Subchapter[]> {
     const db = await initializeDatabase();
+    if (!db) return [];
     const sqlQuery = `
         SELECT s.SubchapterId, s.SubchapterName, GROUP_CONCAT(c.ContentData, ' ') AS ContentPreview
         FROM Subchapters s
@@ -192,6 +203,7 @@ export async function searchSubchapters(query: string): Promise<Subchapter[]> {
 // Function to fetch flashcards based on a chapterId
 export async function fetchFlashcardsForChapter(chapterId: number): Promise<{ Question: string; Answer: string }[]> {
     const db = await initializeDatabase();
+    if (!db) return [];
     try {
         const flashcards = await db.getAllAsync<{ Question: string; Answer: string }>(
             'SELECT Question, Answer FROM Flashcards WHERE ChapterId = ?',
@@ -208,6 +220,7 @@ export async function fetchFlashcardsForChapter(chapterId: number): Promise<{ Qu
 // Fetch all chapters from the server (for displaying all "Lernfelder")
 export async function fetchChapters(): Promise<{ ChapterId: number; ChapterName: string }[]> {
     const db = await initializeDatabase();
+    if (!db) return [];
     try {
         const chapters = await db.getAllAsync<{ ChapterId: number; ChapterName: string }>(
             'SELECT ChapterId, ChapterName FROM Chapters ORDER BY ChapterId'

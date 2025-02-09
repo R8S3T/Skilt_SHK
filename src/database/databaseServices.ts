@@ -23,6 +23,7 @@ export async function fetchVersionNumber(): Promise<number | null> {
     if (DATABASE_MODE === 'local') {
         // Local SQLite database
         const db = await initializeDatabase();
+        if (!db) return null;
         try {
             console.log("Fetching database version...");
             const result = await db.getAllAsync<{ version_number: number }>(
@@ -56,6 +57,7 @@ export async function fetchChaptersByYear(year: number): Promise<Chapter[]> {
     if (DATABASE_MODE === 'local') {
         // Use local SQLite database
         const db = await initializeDatabase();
+        if (!db) return [];
         try {
             const result = await db.getAllAsync<Chapter>(
                 'SELECT * FROM Chapters WHERE Year = ?',
@@ -87,6 +89,7 @@ export async function fetchSubchaptersByChapterId(chapterId: number): Promise<Su
     if (DATABASE_MODE === 'local') {
         // Fetch from local SQLite database
         const db = await initializeDatabase();
+        if (!db) return [];
         try {
             const result = await db.getAllAsync<Subchapter>(
                 'SELECT * FROM Subchapters WHERE ChapterId = ? ORDER BY SortOrder ASC',
@@ -119,6 +122,7 @@ export async function fetchSubchapterContentBySubchapterId(subchapterId: number)
     if (DATABASE_MODE === 'local') {
         // Fetch from local SQLite database
         const db = await initializeDatabase();
+        if (!db) return [];
         try {
             // Fetch all subchapter content
             const contentResult = await db.getAllAsync<GenericContent>(
@@ -178,6 +182,7 @@ export async function fetchMathChapters(): Promise<MathChapter[]> {
     if (DATABASE_MODE === 'local') {
         // Fetch from local SQLite database
         const db = await initializeDatabase();
+        if (!db) return [];
         try {
             const result = await db.getAllAsync<MathChapter>(
                 'SELECT * FROM MathChapters ORDER BY SortOrder'
@@ -208,6 +213,7 @@ export async function fetchMathSubchaptersByChapterId(chapterId: number): Promis
     if (DATABASE_MODE === 'local') {
         // Fetch from local SQLite database
         const db = await initializeDatabase();
+        if (!db) return [];
         try {
             const result = await db.getAllAsync<MathSubchapter>(
                 'SELECT * FROM MathSubchapters WHERE ChapterId = ? ORDER BY SortOrder',
@@ -239,6 +245,7 @@ export async function fetchMathContentBySubchapterId(subchapterId: number): Prom
     if (DATABASE_MODE === 'local') {
         // Fetch from local SQLite database
         const db = await initializeDatabase();
+        if (!db) return [];
         try {
             const result = await db.getAllAsync<GenericContent>(
                 'SELECT * FROM MathSubchapterContent WHERE SubchapterId = ? ORDER BY SortOrder',
@@ -269,6 +276,7 @@ export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
     if (DATABASE_MODE === 'local') {
         // Fetch from local SQLite database
         const db = await initializeDatabase();
+        if (!db) return [];
         try {
             console.log(`Fetching quiz for contentId: ${contentId}`);
             const result = await db.getAllAsync<Quiz>(
@@ -320,6 +328,7 @@ export async function fetchMultipleChoiceOptionsByQuizId(quizId: number): Promis
     if (DATABASE_MODE === 'local') {
         // Fetch from local SQLite database
         const db = await initializeDatabase();
+        if (!db) return [];
         try {
             const result = await db.getAllAsync<MultipleChoiceOption>(
                 'SELECT OptionText1, OptionText2, OptionText3 FROM MultipleChoiceOptions WHERE QuizId = ?',
@@ -354,6 +363,7 @@ export async function fetchClozeTestOptionsByQuizId(
     if (DATABASE_MODE === 'local') {
         // Fetch from local SQLite database
         const db = await initializeDatabase();
+        if (!db) return { options: [], correctAnswers: [] };
         try {
             const result = await db.getAllAsync<ClozeTestOption>(
                 `SELECT Option1, Option2, Option3, Option4, CorrectAnswerForBlank1, CorrectAnswerForBlank2
@@ -404,6 +414,7 @@ export async function fetchClozeTestOptionsByQuizId(
 export async function fetchMathMiniQuizByContentId(contentId: number): Promise<MathMiniQuiz[]> {
     if (DATABASE_MODE === 'local') {
         const db = await initializeDatabase();
+        if (!db) return [];
         try {
             const result = await db.getAllAsync<{
                 QuizId: number;
@@ -461,6 +472,7 @@ export async function searchSubchapters(query: string): Promise<Subchapter[]> {
     if (DATABASE_MODE === 'local') {
         // Search in local SQLite database
         const db = await initializeDatabase();
+        if (!db) return [];
         try {
             const result = await db.getAllAsync<Subchapter>(
                 `
@@ -499,6 +511,7 @@ export async function fetchFlashcardsForChapter(chapterId: number): Promise<{ Qu
     if (DATABASE_MODE === 'local') {
         // Fetch from local SQLite database
         const db = await initializeDatabase();
+        if (!db) return [];
         try {
             const result = await db.getAllAsync<{ Question: string; Answer: string }>(
                 'SELECT Question, Answer FROM Flashcards WHERE ChapterId = ?',
@@ -530,6 +543,7 @@ export async function fetchChapters(): Promise<{ ChapterId: number; ChapterName:
     if (DATABASE_MODE === 'local') {
         // Fetch from local SQLite database
         const db = await initializeDatabase();
+        if (!db) return [];
         try {
             const result = await db.getAllAsync<{ ChapterId: number; ChapterName: string }>(
                 'SELECT ChapterId, ChapterName FROM Chapters ORDER BY ChapterId'
