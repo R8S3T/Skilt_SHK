@@ -34,16 +34,12 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
         }, [contentData]);
 
         useEffect(() => {
-            console.log("MathContentSlide loaded with contentData:", contentData);
-            console.log("Current Part Index reset to 0");
         }, [contentData]);
         
         const handleContinue = () => {
         const nextPartIndex = currentPartIndex + 1;
-        console.log("Continue button pressed, next part index:", nextPartIndex); // Log the next part index
 
         if (nextPartIndex < parts.length) {
-            console.log("Navigating to part index:", nextPartIndex); // Log the next index being navigated to
             setCurrentPartIndex(nextPartIndex);
             setQuizAnswered(false);
             setTimeout(() => {

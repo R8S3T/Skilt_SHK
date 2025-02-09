@@ -91,11 +91,6 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
     }, [chapterId, unlockedSubchapters, unlockSubchapter]);
 
     useEffect(() => {
-        console.log("MathSubchapterScreen loaded with route params:", {
-            chapterId,
-            chapterTitle,
-            origin
-        }); // Log the received route params
     }, [chapterId, chapterTitle, origin]);
 
     const handleNodePress = async (subchapterId: number, subchapterTitle: string) => {

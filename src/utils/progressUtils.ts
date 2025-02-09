@@ -21,21 +21,11 @@ export const saveProgress = async (
             imageName,
         };
 
-        // Log the input parameters and data being saved
-        console.log('saveProgress called with:', {
-            sectionKey,
-            chapterId,
-            subchapterId,
-            subchapterName,
-            currentIndex,
-            imageName,
-        });
 
         await AsyncStorage.setItem(`progress_${sectionKey}`, JSON.stringify(progressData));
 
         // Confirm the data was successfully saved
         const savedProgress = await AsyncStorage.getItem(`progress_${sectionKey}`);
-        console.log('Progress saved in AsyncStorage:', savedProgress);
     } catch (e) {
         console.error('Error saving progress.', e);
     }
@@ -138,16 +128,7 @@ export const moveToNextSlide = async ({
     setShowQuiz: (show: boolean) => void;
     completeSubchapter: () => Promise<void>;
 }) => {
-    console.log("moveToNextSlide called. Current index:", currentIndex);
-    console.log(
-        "moveToNextSlide:",
-        "currentIndex:",
-        currentIndex,
-        "maxIndexVisited:",
-        maxIndexVisited,
-        "contentData.length:",
-        contentData.length
-    );
+
     const isLastSlide = currentIndex === contentData.length - 1;
 
     if (!isLastSlide) {
@@ -174,7 +155,6 @@ export const moveToNextSlide = async ({
             console.error("Unrecognized content type. Skipping.");
         }
     } else {
-        console.log("On the last slide. Checking for quiz or completing subchapter.");
 
         try {
             const quizData = await fetchQuizByContentId(contentData[currentIndex].ContentId);
@@ -346,7 +326,6 @@ export const saveFlashcardProgress = async (
             currentIndex,
         };
         await AsyncStorage.setItem(`flashcard_progress_${key}`, JSON.stringify(flashcardProgress));
-        console.log("Progress saved:", flashcardProgress);
     } catch (error) {
         console.error('Error saving flashcard progress:', error);
     }

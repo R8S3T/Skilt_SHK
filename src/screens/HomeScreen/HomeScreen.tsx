@@ -41,7 +41,6 @@ const HomeScreen = () => {
         const checkProgress = async () => {
             const hasProgress = await hasMadeProgress();
             setShowResume(hasProgress);
-            console.log("showResume set to:", hasProgress);
         };
         checkProgress();
     }, []);
@@ -72,7 +71,6 @@ const HomeScreen = () => {
     );
 
     const handleButtonPress = (title: string) => {
-        console.log(title);
     };
 
 

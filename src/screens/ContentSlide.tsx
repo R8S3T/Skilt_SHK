@@ -58,17 +58,13 @@ const ContentSlide: React.FC<ContentSlideProps> = ({
     const onForwardArrowPress = async () => {
         const lastVisitedIndex = await loadContentSlideIndex(subchapterId);
         const nextIndex = currentIndex + 1;
-        console.log("NextIndex:", nextIndex, "LastVisitedIndex:", lastVisitedIndex);
-        console.log("NextContent:", contentData[nextIndex]);
     
         if (currentIndex < lastVisitedIndex) {
             // Check if the next content is a quiz
             if (contentData[nextIndex] && 'QuizId' in contentData[nextIndex]) {
-                console.log("Displaying quiz:", contentData[nextIndex]);
                 setShowQuiz(true); 
                 setCurrentIndex(nextIndex);
             } else {
-                console.log("Displaying regular content slide:", contentData[nextIndex]);
                 setCurrentIndex(nextIndex);
             }
         } else {
@@ -80,7 +76,6 @@ const ContentSlide: React.FC<ContentSlideProps> = ({
         const checkProgress = async () => {
             const lastVisitedIndex = await loadContentSlideIndex(subchapterId);
             setCanNavigateBack(currentIndex > 0);
-            console.log("lastVisitedIndex on reload:", lastVisitedIndex);
 
             setCanNavigateForward(
                 lastVisitedIndex !== null && currentIndex < lastVisitedIndex

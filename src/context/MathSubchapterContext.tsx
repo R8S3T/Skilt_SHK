@@ -68,8 +68,6 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
             // Persist unlocked subchapters
             await AsyncStorage.setItem('mathUnlockedSubchapters', JSON.stringify(combinedUnlocked));
     
-            console.log('Unlocked subchapters:', combinedUnlocked);
-            console.log('Finished subchapters:', initialFinished);
         } catch (error) {
             console.error('Error loading saved progress or unlocking first subchapters:', error);
         }
@@ -101,7 +99,6 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
                     ...new Set([...updated, ...Object.values(firstSubchapters).map((sub) => sub.SubchapterId)]),
                 ];
     
-                console.log("Unlocked subchapters updated:", alwaysUnlocked);
                 AsyncStorage.setItem('mathUnlockedSubchapters', JSON.stringify(alwaysUnlocked));
                 return alwaysUnlocked;
             }
@@ -110,7 +107,6 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
     };
     
     const markSubchapterAsFinished = async (subchapterId: number) => {
-        console.log("Marking subchapter as finished:", subchapterId);
     
         // Add the subchapter to finishedSubchapters
         setFinishedSubchapters((current) => {
@@ -146,9 +142,7 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
     };
     
 
-    const setCurrentSubchapter = (subchapterId: number | null, subchapterTitle: string) => {
-        console.log("Setting current subchapter:", subchapterId, subchapterTitle);
-    
+    const setCurrentSubchapter = (subchapterId: number | null, subchapterTitle: string) => {    
         if (subchapterId !== null && !unlockedSubchapters.includes(subchapterId)) {
             unlockSubchapter(subchapterId);
         }

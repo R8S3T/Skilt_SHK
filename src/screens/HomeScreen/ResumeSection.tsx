@@ -28,12 +28,10 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
 
     const loadLastViewed = async () => {
         const result = await loadProgress('section1');
-        console.log('Fetched progress:', result);
         const { chapterId, chapterTitle, subchapterId, subchapterName, currentIndex, imageName } = result;
     
         // If chapter or year is locked, clear resume data
         if (LOCKED_CHAPTERS.includes(chapterId)) {
-            console.log('Last viewed chapter is locked and will not be displayed.');
             setLastChapterId(null);
             setLastChapterTitle(null);
             setLastSubchapter(null);

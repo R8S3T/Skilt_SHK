@@ -67,7 +67,6 @@ const MathChapterScreen: React.FC = () => {
     }, []);
 
     const renderItem = ({ item }: { item: MathChapter }) => {
-        console.log("Rendering MathChapter item:", item);
         return (
             <TouchableOpacity
                 style={[styles.itemContainer, { borderColor: theme.border }]}

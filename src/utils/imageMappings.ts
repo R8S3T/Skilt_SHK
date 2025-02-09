@@ -1221,6 +1221,7 @@ const img_LFiconGasbrennwertkesselsmall = require('../../assets/DbImages/Subchap
 const img_LFiconGasdurchlauferhitzersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Gasdurchlauferhitzer_small.png');
 const img_LFiconGasfreismall = require('../../assets/DbImages/SubchapterContent/LF_icon_Gasfrei_small.png');
 const img_LFiconGasfrmigsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Gasförmig_small.png');
+const img_LFiconGasherd2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Gasherd_2_small.png');
 const img_LFiconGasherdsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Gasherd_small.png');
 const img_LFiconGasleitungauensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Gasleitung_außen_small.png');
 const img_LFiconGasleitunginnensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Gasleitung_innen_small.png');
@@ -2742,6 +2743,7 @@ export const imageMap = {
     "LF_icon_Gasdurchlauferhitzer_small": img_LFiconGasdurchlauferhitzersmall,
     "LF_icon_Gasfrei_small": img_LFiconGasfreismall,
     "LF_icon_Gasförmig_small": img_LFiconGasfrmigsmall,
+    "LF_icon_Gasherd_2_small": img_LFiconGasherd2small,
     "LF_icon_Gasherd_small": img_LFiconGasherdsmall,
     "LF_icon_Gasleitung_außen_small": img_LFiconGasleitungauensmall,
     "LF_icon_Gasleitung_innen_small": img_LFiconGasleitunginnensmall,

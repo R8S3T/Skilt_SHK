@@ -16,7 +16,6 @@ const SearchEndScreen: React.FC = () => {
         const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackPress);
     
         return () => {
-            console.log("BackHandler in SearchEndScreen entfernt");
             backHandler.remove(); // Entfernt den Event-Listener richtig
         };
     }, []);

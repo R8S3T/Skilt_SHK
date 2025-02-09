@@ -53,7 +53,6 @@ const FlashCardChapters = () => {
             setModalMessage('Dieser Inhalt ist in der Tesversion nicht verfügbar.');
             setModalVisible(true);
         } else {
-            console.log(`Navigating to Chapter ID: ${chapterId}`);
             navigation.navigate('FlashcardScreen', { chapterId, chapterTitle: `Lernfeld ${chapterId}` });
         }
     };

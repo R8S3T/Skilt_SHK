@@ -44,13 +44,9 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
             const normalize = (text: string) => text.trim().toLowerCase();
     
             // Parse and normalize the answers
-            const parsedAnswers = parseAnswer(quiz.Answer);
-            console.log('Parsed Answers:', parsedAnswers);
-    
+            const parsedAnswers = parseAnswer(quiz.Answer);    
             const isCorrect = parsedAnswers.some(answer => normalize(answer) === normalize(selectedOption));
-    
-            console.log('Is Correct:', isCorrect);
-    
+        
             if (isCorrect) {
                 setIsAnswerCorrect(true);
                 onQuizComplete(true);

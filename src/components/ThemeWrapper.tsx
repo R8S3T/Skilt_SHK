@@ -6,7 +6,6 @@ const ThemeWrapper: React.FC<{ children: React.ReactNode }> = ({ children }) => 
     const { isDarkMode, theme } = useTheme();  // Access theme properties
 
     useEffect(() => {
-        console.log("ThemeWrapper - isDarkMode changed:", isDarkMode);
     }, [isDarkMode]);
 
     return (

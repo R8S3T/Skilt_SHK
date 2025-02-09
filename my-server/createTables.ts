@@ -97,7 +97,6 @@ export const createMathSubchaptersTable = (db: sqlite3.Database): Promise<void> 
                 console.error('Error creating MathSubchapters table:', err.message);
                 reject(err);
             } else {
-                console.log('MathSubchapters table created or already exists');
                 resolve();
             }
         });
@@ -167,7 +166,6 @@ export const createMultipleChoiceOptionsTable = (db: sqlite3.Database): Promise<
                 console.error('Error creating MultipleChoiceOptions table:', err.message);
                 reject(err);
             } else {
-                console.log('Table MultipleChoiceOptions created successfully.');
                 resolve();
             }
         });
@@ -192,7 +190,6 @@ export const createClozeTestOptionsTable = (db: sqlite3.Database): Promise<void>
                 console.error('Error creating ClozeTestOptions table:', err.message);
                 reject(err);
             } else {
-                console.log('Table ClozeTestOptions created successfully.');
                 resolve();
             }
         });
@@ -216,7 +213,6 @@ export const createMathMiniQuizTable = (db: sqlite3.Database): Promise<void> => 
                 console.error('Error creating MathMiniQuiz table:', err.message);
                 reject(err);
             } else {
-                console.log('Table MathMiniQuiz created successfully.');
                 resolve();
             }
         });

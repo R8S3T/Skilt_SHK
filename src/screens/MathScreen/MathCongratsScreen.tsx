@@ -53,13 +53,8 @@ const MathCongratsScreen: React.FC = () => {
 
     const handleContinue = () => {
         const { targetScreen, targetParams } = route.params;
-        console.log("Handling Continue in MathCongratsScreen with targetScreen and params:", {
-            targetScreen,
-            targetParams
-        });
-    
+
         if (targetScreen === 'HomeScreen') {
-            console.log("Navigating to HomeScreen with stack reset");
             navigation.dispatch(
                 CommonActions.reset({
                     index: 0,
@@ -67,10 +62,6 @@ const MathCongratsScreen: React.FC = () => {
                 })
             );
         } else if (targetScreen === 'MathSubchapterScreen') {
-            console.log("Replacing current screen with MathSubchapterScreen:", {
-                chapterId: targetParams.chapterId,
-                chapterTitle: targetParams.chapterTitle
-            });
             navigation.replace('MathSubchapterScreen', targetParams); // Use replace directly from navigation
         } else {
             console.error("Unexpected targetScreen:", targetScreen);

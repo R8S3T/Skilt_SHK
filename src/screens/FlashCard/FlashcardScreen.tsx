@@ -105,9 +105,6 @@ const FlashcardScreen = () => {
             const storedCards = await AsyncStorage.getItem(key);
             const incorrectCards = storedCards ? JSON.parse(storedCards) : [];
 
-            // Check if card is already saved
-            console.log("Current card marked incorrect:", currentCard);
-
             // Add card only if it's not already saved
             const exists = incorrectCards.some(
                 (savedCard: { question: string; answer: string }) =>
@@ -117,9 +114,6 @@ const FlashcardScreen = () => {
             if (!exists) {
                 incorrectCards.push({ question: currentCard.Question, answer: currentCard.Answer });
                 await AsyncStorage.setItem(key, JSON.stringify(incorrectCards));
-                console.log("Incorrect card saved:", incorrectCards);
-            } else {
-                console.log("Card already exists in incorrect cards, skipping save.");
             }
         } catch (error) {
             console.error('Failed to save incorrect card:', error);

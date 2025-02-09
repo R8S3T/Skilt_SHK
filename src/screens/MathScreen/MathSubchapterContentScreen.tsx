@@ -91,7 +91,6 @@ useEffect(() => {
 
                 // Check if the subchapter is marked as finished
                 const savedFinished = await loadProgress('mathFinished');
-                console.log('Loaded Finished Subchapters:', savedFinished);
 
                 const isSubchapterFinished = Array.isArray(savedFinished) && savedFinished.includes(subchapterId);
 

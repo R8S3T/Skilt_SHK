@@ -56,7 +56,6 @@ export const imageMap = {
 `;
 
     fs.writeFileSync(outputFile, fileContent);
-    console.log('Image map generated successfully!');
 }
 
 // Run the script

@@ -142,8 +142,6 @@ app.get('/quiz/:contentId', async (req, res) => {
 // Handle GET requests to fetch multiple-choice options by quiz ID
 app.get('/multiplechoiceoptions/:quizId', async (req, res) => {
     const quizId = parseInt(req.params.quizId);
-    console.log(`Received API request for QuizId: ${quizId}`); // Debugging
-
     try {
         const options = await fetchMultipleChoiceOptionsByQuizId(quizId);
         res.json(options);
