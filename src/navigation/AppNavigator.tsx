@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { RootStackParamList } from 'src/types/navigationTypes';
 import IntroScreen from '../screens/IntroScreen';
-import * as SplashScreen from 'expo-splash-screen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BottomTabNavigator from './BottomTabNavigator';
 import LearnStackNavigator from './LearnStackNavigator';
