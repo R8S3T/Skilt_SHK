@@ -28,20 +28,17 @@ const AppNavigator = () => {
     useEffect(() => {
         const checkOnboardingStatus = async () => {
             try {
-                await SplashScreen.preventAutoHideAsync(); // Keep splash screen visible
-                
                 const hasOnboarded = await AsyncStorage.getItem('hasOnboarded');
                 setInitialRoute(hasOnboarded ? 'HomeScreen' : 'Intro');
             } catch (error) {
                 console.error("Error loading initial route:", error);
                 setInitialRoute('HomeScreen'); // Fallback
-            } finally {
-                await SplashScreen.hideAsync(); // Hide splash screen once loading is done
             }
         };
-
+    
         checkOnboardingStatus();
     }, []);
+    
 
     if (!initialRoute) {
         return null; // Avoid rendering navigator until initialRoute is determined
