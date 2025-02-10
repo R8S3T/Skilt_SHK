@@ -37,31 +37,31 @@ const StatisticsScreen = () => {
             <LearnTracker />
             <View style={{ height: 50 }} />
 
-            <View style={[styles.statsContainer, { borderColor: theme.border }]}>
+            <View style={[styles.statsContainer, { borderColor: theme.border, backgroundColor: theme.surface  }]}>
 
                 <View style={styles.headerRow}>
-                    <Text style={styles.statsHeader}>Heute hast du bereits</Text>
+                <Text style={[styles.statsHeader, { color: theme.primaryText }]}>Heute hast du bereits</Text>
                 </View>
 
                 <View style={styles.statItem}>
                     <Ionicons name="book-outline" size={34} color="#4A90E2" />
-                    <Text style={styles.statsText}>
-                        <Text style={styles.boldText}>{finishedToday}</Text> Kapitel gelernt
+                    <Text style={[styles.statsText, { color: theme.primaryText }]}>
+                    <Text style={[styles.boldText, { color: theme.primaryText }]}>{finishedToday}</Text> Kapitel gelernt
                     </Text>
                 </View>
 
                 <View style={styles.statItem}>
                     <Ionicons name="checkbox-outline" size={34} color="#50C878" />
-                    <Text style={styles.statsText}>
-                        <Text style={styles.boldText}>{quizzesToday}</Text> Quizzes gelöst
+                    <Text style={[styles.statsText, { color: theme.primaryText }]}>
+                    <Text style={[styles.boldText, { color: theme.primaryText }]}>{quizzesToday}</Text> Quizzes gelöst
                     </Text>
                 </View>
 
                 <View style={styles.separator} />
                 <View style={styles.footerRow}>
                     <Ionicons name="library-outline" size={34} color="#FFD700" />
-                    <Text style={styles.statsFooter}>
-                        Insgesamt hast du <Text style={styles.boldText}>{totalSubchapters}</Text> Kapitel{'\n'} gelernt.
+                    <Text style={[styles.statsFooter, { color: theme.primaryText }]}>
+                    Insgesamt hast du <Text style={[styles.boldText, { color: theme.primaryText }]}>{totalSubchapters}</Text> Kapitel{'\n'} gelernt.
                     </Text>
                 </View>
             </View>
@@ -111,7 +111,6 @@ const styles = StyleSheet.create({
     statsText: {
         fontFamily: 'OpenSans-Regular',
         fontSize: 20,
-        color: '#000',
     },
     separator: {
         height: 1,
@@ -121,7 +120,6 @@ const styles = StyleSheet.create({
     },
     statsFooter: {
         fontSize: 20,
-        color: '#555',
     },
     boldText: {
         fontWeight: 'bold',
