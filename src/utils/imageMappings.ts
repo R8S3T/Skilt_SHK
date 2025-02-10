@@ -1093,6 +1093,7 @@ const img_LF9Solarkollektorenzoom = require('../../assets/DbImages/SubchapterCon
 const img_LF9Solarpumpengruppezoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Solarpumpengruppe_zoom.png');
 const img_LF9Speicherwassererwrmerwelcome = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Speicherwassererwärmer_welcome.png');
 const img_LF9Untertischgertzoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Untertischgerät_zoom.png');
+const img_LF9VakuumrhrenkollektorenAnsichtzoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Vakuumröhrenkollektoren_Ansicht_zoom.png');
 const img_LF9Vakuumrhrenkollektorenzoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Vakuumröhrenkollektoren_zoom.png');
 const img_LF9VolumenausdehnungRechnungsmall = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_Volumenausdehnung_Rechnung_small.png');
 const img_LF9WWSolaspeicherAuenzoom = require('../../assets/DbImages/SubchapterContent/LF_9/LF_9_WW_Solaspeicher_Außen_zoom.png');
@@ -2615,6 +2616,7 @@ export const imageMap = {
     "LF_9_Solarpumpengruppe_zoom": img_LF9Solarpumpengruppezoom,
     "LF_9_Speicherwassererwärmer_welcome": img_LF9Speicherwassererwrmerwelcome,
     "LF_9_Untertischgerät_zoom": img_LF9Untertischgertzoom,
+    "LF_9_Vakuumröhrenkollektoren_Ansicht_zoom": img_LF9VakuumrhrenkollektorenAnsichtzoom,
     "LF_9_Vakuumröhrenkollektoren_zoom": img_LF9Vakuumrhrenkollektorenzoom,
     "LF_9_Volumenausdehnung_Rechnung_small": img_LF9VolumenausdehnungRechnungsmall,
     "LF_9_WW_Solaspeicher_Außen_zoom": img_LF9WWSolaspeicherAuenzoom,

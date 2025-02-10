@@ -23,6 +23,8 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
     const [finishedSubchapters, setFinishedSubchapters] = useState<number[]>([]);
     const [currentSubchapterId, setCurrentSubchapterId] = useState<number | null>(null);
     const [currentSubchapterTitle, setCurrentSubchapterTitle] = useState<string>('');
+    const [finishedQuizzes, setFinishedQuizzes] = useState<number[]>([]);
+
 
     // Load saved progress on component mount
     useEffect(() => {
@@ -63,6 +65,18 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
         unlockSubchapter(subchapterId + 1); // Optionally unlock the next subchapter
     };
 
+    const markQuizAsFinished = async (quizId: number) => {
+        const today = new Date().toISOString().split('T')[0];
+
+        setFinishedQuizzes((current) => {
+            const updated = [...new Set([...current, quizId])];
+
+            AsyncStorage.setItem('finishedQuizzes', JSON.stringify(updated));
+            AsyncStorage.setItem(`finishedQuiz_${quizId}`, today);
+            return updated;
+        });
+    };
+
     const setCurrentSubchapter = (subchapterId: number | null, subchapterTitle: string) => {
         setCurrentSubchapterId(subchapterId);
         setCurrentSubchapterTitle(subchapterTitle);
@@ -71,12 +85,12 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
     const getFinishedSubchaptersToday = async (): Promise<number> => {
         const today = new Date().toISOString().split('T')[0]; // Get today's date (YYYY-MM-DD)
         let count = 0;
-    
+
         try {
             const storedFinished = await AsyncStorage.getItem('finishedSubchapters');
             if (storedFinished) {
                 const finishedIds: number[] = JSON.parse(storedFinished);
-                
+            
                 for (const subchapterId of finishedIds) {
                     const storedDate = await AsyncStorage.getItem(`finishedSubchapter_${subchapterId}`);
                     if (storedDate === today) {
@@ -91,6 +105,42 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
         return count;
     };
 
+    const getFinishedQuizzesToday = async (): Promise<number> => {
+        const today = new Date().toISOString().split('T')[0]; // Heutiges Datum (YYYY-MM-DD)
+        let count = 0;
+
+        try {
+            const storedFinished = await AsyncStorage.getItem('finishedQuizzes');
+            if (storedFinished) {
+                const finishedIds: number[] = JSON.parse(storedFinished);
+
+                for (const quizId of finishedIds) {
+                    const storedDate = await AsyncStorage.getItem(`finishedQuiz_${quizId}`);
+                    if (storedDate === today) {
+                        count++; // Zähler erhöhen, wenn das Quiz heute beendet wurde
+                    }
+                }
+            }
+        } catch (error) {
+            console.error("Error fetching today's finished quizzes:", error);
+        }
+
+        return count;
+    };
+
+    const getTotalFinishedSubchapters = async (): Promise<number> => {
+        try {
+            const storedFinished = await AsyncStorage.getItem('finishedSubchapters');
+            if (storedFinished) {
+                const finishedIds: number[] = JSON.parse(storedFinished);
+                return finishedIds.length;
+            }
+        } catch (error) {
+            console.error("Error fetching total finished subchapters:", error);
+        }
+        return 0;
+    };
+    
     return (
         <SubchapterContext.Provider value={{
             unlockedSubchapters,
@@ -99,8 +149,11 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
             currentSubchapterTitle,
             unlockSubchapter,
             markSubchapterAsFinished,
+            markQuizAsFinished,
             setCurrentSubchapter,
-            getFinishedSubchaptersToday
+            getFinishedSubchaptersToday,
+            getFinishedQuizzesToday,
+            getTotalFinishedSubchapters
         }}>
             {children}
         </SubchapterContext.Provider>

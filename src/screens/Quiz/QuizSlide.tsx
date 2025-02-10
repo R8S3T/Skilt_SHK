@@ -5,6 +5,7 @@ import MultipleChoice from './MultipleChoice';
 import ClozeTest from './ClozeTest';
 import { fetchQuizByContentId, fetchMultipleChoiceOptionsByQuizId, fetchClozeTestOptionsByQuizId } from 'src/database/databaseServices';
 import { Quiz, MultipleChoiceOption } from 'src/types/contentTypes';
+import { useSubchapter } from 'src/context/SubchapterContext';
 
 const isClozeTestOptions = (
     options: MultipleChoiceOption[] | { options: string[]; correctAnswers: (string | null)[] }
@@ -26,6 +27,7 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, set
     const [currentQuizIndex, setCurrentQuizIndex] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    const { markQuizAsFinished } = useSubchapter();
 
     // Ensure quizzes are loaded before accessing currentQuiz
     const currentQuiz = quizzes.length > 0 ? quizzes[currentQuizIndex] : null;
@@ -51,7 +53,6 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, set
             setFilledAnswers([]); // Clear if no blanks
         }
     }, [sentenceParts]);
-    
 
     const handleOptionSelect = (selectedOption: string) => {
         const updatedAnswers = [...filledAnswers];
@@ -103,6 +104,10 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, set
     }, [contentId]);
 
     const handleContinue = async () => {
+        if (currentQuiz) {
+            await markQuizAsFinished(currentQuiz.QuizId); // Speichert das Quiz als abgeschlossen
+        }
+
         const nextIndex = currentQuizIndex + 1;
         if (nextIndex < quizzes.length) {
             setOptions([]);

@@ -136,9 +136,8 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         marginBottom: 10,
     },
-
     subText: {
-        fontSize: 18,
+        fontSize: 20,
         color: '#666',
         marginBottom: 10,
     },
@@ -161,6 +160,7 @@ const styles = StyleSheet.create({
         marginTop: 6,
     },
     dayText: {
+        fontFamily: 'OpenSans-Regular',
         fontSize: 16,
         fontWeight: 'bold',
         color: '#fff',
@@ -170,10 +170,10 @@ const styles = StyleSheet.create({
         width: 18,
         height: 18,
         borderRadius: 5,
-        backgroundColor: '#D3D3D3', // Light grey for future days
+        backgroundColor: '#D3D3D3',
     },
     streakInfo: {
-        flexDirection: 'row', // Aligns both blocks in a row
+        flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%',
         marginTop: 10,
@@ -182,22 +182,23 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     streakRow: {
-        flexDirection: 'row', // Ensures icon and number are side by side
-        alignItems: 'center', // Centers them vertically
+        flexDirection: 'row',
+        alignItems: 'center',
         marginTop: 4,
     },
     icon: {
-        marginRight: 8, // Adds spacing between icon and text
+        marginRight: 8,
     },
     streakText: {
         fontSize: 18,
         color: '#666',
         textAlign: 'center',
+        marginBottom: 8,
     },
     streakNumber: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginLeft: 6, // Adds space between icon and number
+        marginLeft: 6,
     },
 });
 

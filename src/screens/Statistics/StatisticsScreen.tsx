@@ -9,8 +9,8 @@ import { useSubchapter } from 'src/context/SubchapterContext';
 const StatisticsScreen = () => {
     const { theme } = useTheme();
     const navigation = useNavigation();
-    const { getFinishedSubchaptersToday } = useSubchapter();
-    
+    const { getFinishedSubchaptersToday, getFinishedQuizzesToday, getTotalFinishedSubchapters } = useSubchapter();
+
     const [finishedToday, setFinishedToday] = useState<number>(0);
     const [quizzesToday, setQuizzesToday] = useState<number>(2); // Placeholder
     const [totalSubchapters, setTotalSubchapters] = useState<number>(50); // Placeholder
@@ -18,53 +18,50 @@ const StatisticsScreen = () => {
     useLayoutEffect(() => {
         navigation.setOptions({ title: 'Lernerfolge' });
     }, [navigation]);
-
     useEffect(() => {
         const fetchData = async () => {
-            const count = await getFinishedSubchaptersToday();
-            setFinishedToday(count);
+            const finishedSubchapters = await getFinishedSubchaptersToday();
+            const finishedQuizzes = await getFinishedQuizzesToday();
+            const totalFinished = await getTotalFinishedSubchapters();
+
+            setFinishedToday(finishedSubchapters);
+            setQuizzesToday(finishedQuizzes);
+            setTotalSubchapters(totalFinished);
         };
         fetchData();
     }, []);
 
     return (
         <View style={[styles.container, { backgroundColor: theme.background }]}>
-            {/* Streak Tracker */}
-            <LearnTracker />
 
-            {/* Spacing Between Tracker & Stats */}
+            <LearnTracker />
             <View style={{ height: 50 }} />
 
-            {/* Statistics Container with Left-Aligned Content and Bigger Icons */}
             <View style={[styles.statsContainer, { borderColor: theme.border }]}>
-                {/* Header with Icon */}
+
                 <View style={styles.headerRow}>
                     <Text style={styles.statsHeader}>Heute hast du bereits</Text>
                 </View>
 
-                {/* Statistic Summary (Stacked & Left-Aligned) */}
                 <View style={styles.statItem}>
                     <Ionicons name="book-outline" size={34} color="#4A90E2" />
                     <Text style={styles.statsText}>
-                        <Text style={styles.boldText}>{finishedToday}</Text> gelernt
+                        <Text style={styles.boldText}>{finishedToday}</Text> Kapitel gelernt
                     </Text>
                 </View>
 
                 <View style={styles.statItem}>
                     <Ionicons name="checkbox-outline" size={34} color="#50C878" />
                     <Text style={styles.statsText}>
-                        <Text style={styles.boldText}>{quizzesToday}</Text> gelöst
+                        <Text style={styles.boldText}>{quizzesToday}</Text> Quizzes gelöst
                     </Text>
                 </View>
 
-                {/* Thin Separator */}
                 <View style={styles.separator} />
-
-                {/* Overall Statistics with Icon */}
                 <View style={styles.footerRow}>
                     <Ionicons name="library-outline" size={34} color="#FFD700" />
                     <Text style={styles.statsFooter}>
-                        Unterkapitel insgesamt – <Text style={styles.boldText}>{totalSubchapters}</Text>
+                        Insgesamt hast du <Text style={styles.boldText}>{totalSubchapters}</Text> Kapitel{'\n'} gelernt.
                     </Text>
                 </View>
             </View>
@@ -76,28 +73,29 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        paddingTop: 20,
+        paddingTop: 40,
     },
     statsContainer: {
         width: '90%',
-        paddingVertical: 25,
+        paddingVertical: 30,
         paddingHorizontal: 20,
-        borderRadius: 12, // Rounded corners
-        borderWidth: 1, // Subtle border
-        alignItems: 'flex-start', // Align everything to the left
-        borderColor: '#ccc', // Light grey border
+        borderRadius: 12,
+        borderWidth: 1,
+        alignItems: 'flex-start',
+        marginTop: 20,
+        borderColor: '#ccc',
     },
     headerRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 10, // Space between icon and text
+        gap: 10,
         marginBottom: 15,
     },
     statItem: {
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 14, // More space between icon and text
-        marginBottom: 12, // Increased spacing
+        gap: 16,
+        marginBottom: 22,
     },
     footerRow: {
         flexDirection: 'row',
@@ -108,9 +106,11 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontFamily: 'Lato-Bold',
         color: '#333',
+        marginBottom: 14,
     },
     statsText: {
-        fontSize: 22,
+        fontFamily: 'OpenSans-Regular',
+        fontSize: 20,
         color: '#000',
     },
     separator: {

@@ -7,8 +7,11 @@ export interface SubchapterContextType {
     currentSubchapterTitle: string;
     unlockSubchapter: (subchapterId: number) => void;
     markSubchapterAsFinished: (subchapterId: number) => void;
+    markQuizAsFinished: (quizId: number) => void;
     setCurrentSubchapter: (subchapterId: number | null, subchapterTitle: string) => void;
     getFinishedSubchaptersToday: () => Promise<number>;
+    getFinishedQuizzesToday: () => Promise<number>;
+    getTotalFinishedSubchapters: () => Promise<number>;
 }
 
 export interface MathSubchapterContextType {
@@ -19,6 +22,6 @@ export interface MathSubchapterContextType {
     unlockSubchapter: (subchapterId: number) => void;
     markSubchapterAsFinished: (subchapterId: number) => void;
     setCurrentSubchapter: (subchapterId: number | null, subchapterTitle: string) => void;
-    subchapters: MathSubchapter[]; // Add this to the context type
+    subchapters: MathSubchapter[];
     setSubchapters: (subchapters: MathSubchapter[]) => void;
 }
