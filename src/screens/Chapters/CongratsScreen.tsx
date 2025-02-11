@@ -20,16 +20,16 @@ const CongratsScreen: React.FC = () => {
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            headerShown: false, // Completely hide the header
+            headerShown: false,
         });
     }, [navigation]);
 
     useEffect(() => {
         const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-            return true; // Prevent default back navigation
+            return true;
         });
 
-        return () => backHandler.remove(); // Cleanup the event listener on unmount
+        return () => backHandler.remove();
     }, []);
 
     // Array of animation sources

@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
         width: '90%',
         height: '65%',
         borderRadius: 10,
-        backgroundColor: '#ffffff', // Original light mode color
+        backgroundColor: '#ffffff',
         shadowColor: '#000',
         shadowOpacity: 0.1,
         shadowOffset: { width: 0, height: 2 },
@@ -170,7 +170,7 @@ const styles = StyleSheet.create({
     },
     answerText: {
         fontFamily: 'OpenSans-Semibold',
-        fontSize: screenWidth > 600 ? 20 : 16,
+        fontSize: screenWidth > 600 ? 22 : 20,
         textAlign: 'center',
     },
     buttonContainer: {
