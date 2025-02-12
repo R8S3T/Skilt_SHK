@@ -83,21 +83,19 @@ useEffect(() => {
     // Load content data and initial quiz
     useEffect(() => {
         const loadData = async () => {
+            if (contentData.length > 0) return; // Verhindert mehrfaches Laden, wenn bereits Daten existieren
+    
             setLoading(true);
             try {
-                // Fetch content data
                 const content = await fetchMathContentBySubchapterId(subchapterId);
                 setContentData(content);
-
-                // Check if the subchapter is marked as finished
+    
                 const savedFinished = await loadProgress('mathFinished');
-
                 const isSubchapterFinished = Array.isArray(savedFinished) && savedFinished.includes(subchapterId);
-
+    
                 if (isSubchapterFinished) {
-                    // If finished, resume from the last saved progress
                     const savedProgress = await loadProgress('math');
-
+    
                     if (
                         savedProgress &&
                         savedProgress.subchapterId === subchapterId &&
@@ -106,12 +104,10 @@ useEffect(() => {
                         const validIndex = Math.min(savedProgress.currentIndex, content.length - 1);
                         setCurrentIndex(validIndex);
 
-                        // Fetch quiz for the saved content
                         const quizzes = await fetchMathMiniQuizByContentId(content[validIndex]?.ContentId);
                         setMathQuiz(quizzes[0] || null);
                     }
                 } else if (content.length > 0) {
-                    // Default to the first slide and its quiz if not finished
                     setCurrentIndex(0);
                     const quizzes = await fetchMathMiniQuizByContentId(content[0].ContentId);
                     setMathQuiz(quizzes[0] || null);
@@ -124,7 +120,8 @@ useEffect(() => {
         };
 
         loadData();
-    }, [subchapterId]);
+    }, [subchapterId, contentData.length]);
+
 
     // Scroll to top on content index change
     useEffect(() => {

@@ -31,22 +31,22 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
             const savedFinished = await AsyncStorage.getItem('mathFinishedSubchapters');
             const initialUnlocked: number[] = savedUnlocked ? JSON.parse(savedUnlocked) : [];
             const initialFinished: number[] = savedFinished ? JSON.parse(savedFinished) : [];
-    
+
             // Fetch all chapters and subchapters
             const allChapters = await fetchMathChapters();
             const allSubchaptersPromises = allChapters.map((chapter) =>
                 fetchMathSubchaptersByChapterId(chapter.ChapterId)
             );
             const allSubchapters = (await Promise.all(allSubchaptersPromises)).flat();
-    
+
             setSubchapters(allSubchapters);
-    
+
             // Updated firstSubchapters logic
             const firstSubchapters = allChapters.map((chapter) => {
                 const chapterSubchapters = allSubchapters.filter(
                     (sub) => sub.ChapterId === chapter.ChapterId
                 );
-    
+
                 return chapterSubchapters.reduce(
                     (min, sub) =>
                         min && sub.SortOrder !== undefined && sub.SortOrder < min.SortOrder
@@ -55,35 +55,37 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
                     chapterSubchapters[0] || null // Fallback to the first subchapter
                 );
             });
-    
+
             // Always include the first subchapter in unlocked subchapters
             const firstUnlockedIds = firstSubchapters
                 .filter((sub): sub is MathSubchapter => sub !== undefined) // Filter out undefined values
                 .map((sub) => sub.SubchapterId);
             const combinedUnlocked = [...new Set([...initialUnlocked, ...firstUnlockedIds])];
-    
+
             setUnlockedSubchapters(combinedUnlocked);
             setFinishedSubchapters(initialFinished);
-    
+
             // Persist unlocked subchapters
             await AsyncStorage.setItem('mathUnlockedSubchapters', JSON.stringify(combinedUnlocked));
-    
+
         } catch (error) {
             console.error('Error loading saved progress or unlocking first subchapters:', error);
         }
     };
-    
-    
+
+
     // Call loadSavedProgress in useEffect
     useEffect(() => {
-        loadSavedProgress();
-    }, []);
-    
+        if (subchapters.length === 0) {
+            loadSavedProgress();
+        }
+    }, [subchapters.length]);
+
     const unlockSubchapter = (subchapterId: number) => {
         setUnlockedSubchapters((current) => {
             if (!current.includes(subchapterId)) {
                 const updated = [...current, subchapterId];
-    
+
                 // Ensure the first subchapter of each chapter remains unlocked
                 const firstSubchapters = subchapters.reduce((firsts, sub) => {
                     if (
@@ -94,20 +96,20 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
                     }
                     return firsts;
                 }, {} as Record<number, MathSubchapter>);
-    
+
                 const alwaysUnlocked = [
                     ...new Set([...updated, ...Object.values(firstSubchapters).map((sub) => sub.SubchapterId)]),
                 ];
-    
+
                 AsyncStorage.setItem('mathUnlockedSubchapters', JSON.stringify(alwaysUnlocked));
                 return alwaysUnlocked;
             }
             return current;
         });
     };
-    
+
     const markSubchapterAsFinished = async (subchapterId: number) => {
-    
+
         // Add the subchapter to finishedSubchapters
         setFinishedSubchapters((current) => {
             if (!current.includes(subchapterId)) {
@@ -117,7 +119,7 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
             }
             return current;
         });
-    
+
         const currentSubchapter = subchapters.find((sub) => sub.SubchapterId === subchapterId);
         if (currentSubchapter) {
             const nextSubchapter = subchapters.find(
@@ -127,7 +129,7 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
                 unlockSubchapter(nextSubchapter.SubchapterId);
             }
         }
-    
+
         // Ensure the first subchapter of the chapter is always unlocked
         const firstSubchapter = subchapters
             .filter((sub) => sub.ChapterId === currentSubchapter?.ChapterId)
@@ -135,18 +137,18 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
                 (min, sub) => (min && sub.SortOrder < min.SortOrder ? sub : min),
                 subchapters[0] || null // Provide a fallback value if subchapters array is empty
             );
-    
+
         if (firstSubchapter && !unlockedSubchapters.includes(firstSubchapter.SubchapterId)) {
             unlockSubchapter(firstSubchapter.SubchapterId);
         }
     };
-    
 
-    const setCurrentSubchapter = (subchapterId: number | null, subchapterTitle: string) => {    
+
+    const setCurrentSubchapter = (subchapterId: number | null, subchapterTitle: string) => {
         if (subchapterId !== null && !unlockedSubchapters.includes(subchapterId)) {
             unlockSubchapter(subchapterId);
         }
-    
+
         setCurrentSubchapterId(subchapterId);
         setCurrentSubchapterTitle(subchapterTitle);
     };

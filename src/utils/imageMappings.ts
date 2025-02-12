@@ -16,6 +16,7 @@ const img_equations9 = require('../../assets/DbImages/MathImages/equations_9.png
 const img_equations9small = require('../../assets/DbImages/MathImages/equations_9_small.png');
 const img_equationsDichteanomalie = require('../../assets/DbImages/MathImages/equations_Dichteanomalie.png');
 const img_equationsDichteanomaliebig = require('../../assets/DbImages/MathImages/equations_Dichteanomalie_big.png');
+const img_equationsGeflle = require('../../assets/DbImages/MathImages/equations_Gefälle.png');
 const img_equationsGleichgewichtHeizung = require('../../assets/DbImages/MathImages/equations_Gleichgewicht_Heizung.png');
 const img_equationsHypothenuseAnkatheteGegenkathete = require('../../assets/DbImages/MathImages/equations_Hypothenuse_Ankathete_Gegenkathete.png');
 const img_equationsHypothenuseAnkatheteGegenkathetedarkmode = require('../../assets/DbImages/MathImages/equations_Hypothenuse_Ankathete_Gegenkathete_darkmode.png');
@@ -25,6 +26,11 @@ const img_equationsKreissektor = require('../../assets/DbImages/MathImages/equat
 const img_equationsKreissektorFormelsmall = require('../../assets/DbImages/MathImages/equations_Kreissektor_Formel_small.png');
 const img_equationsKreisumfang = require('../../assets/DbImages/MathImages/equations_Kreisumfang.png');
 const img_equationsKreisumfangFormelsmall = require('../../assets/DbImages/MathImages/equations_Kreisumfang_Formel_small.png');
+const img_equationsPythagoras = require('../../assets/DbImages/MathImages/equations_Pythagoras.png');
+const img_equationsPythagorasBerechnung = require('../../assets/DbImages/MathImages/equations_Pythagoras_Berechnung.png');
+const img_equationsSinusBerechnung = require('../../assets/DbImages/MathImages/equations_Sinus_Berechnung.png');
+const img_equationsTangensWinkel = require('../../assets/DbImages/MathImages/equations_Tangens_Winkel.png');
+const img_equationsTaschenrechnersmall = require('../../assets/DbImages/MathImages/equations_Taschenrechner_small.png');
 const img_equationsTrigonometriestart = require('../../assets/DbImages/MathImages/equations_Trigonometrie_start.png');
 const img_equationsalgebra1 = require('../../assets/DbImages/MathImages/equations_algebra_1.png');
 const img_equationsalgebra10 = require('../../assets/DbImages/MathImages/equations_algebra_10.png');
@@ -114,6 +120,7 @@ const img_equationsgeometrie1 = require('../../assets/DbImages/MathImages/equati
 const img_equationsgeometrie2 = require('../../assets/DbImages/MathImages/equations_geometrie_2.png');
 const img_equationsgeometrie3 = require('../../assets/DbImages/MathImages/equations_geometrie_3.png');
 const img_equationsgeometriewelcome = require('../../assets/DbImages/MathImages/equations_geometrie_welcome.png');
+const img_equationskosinussmall = require('../../assets/DbImages/MathImages/equations_kosinus_small.png');
 const img_equationskugelvolumen = require('../../assets/DbImages/MathImages/equations_kugel_volumen.png');
 const img_equationslinear1 = require('../../assets/DbImages/MathImages/equations_linear_1.png');
 const img_equationslinear10 = require('../../assets/DbImages/MathImages/equations_linear_10.png');
@@ -240,6 +247,9 @@ const img_equationsmechanicwelcome = require('../../assets/DbImages/MathImages/e
 const img_equationsmechanicwinkelhebel = require('../../assets/DbImages/MathImages/equations_mechanic_winkelhebel.png');
 const img_equationspyramidevolumen = require('../../assets/DbImages/MathImages/equations_pyramide_volumen.png');
 const img_equationsquadervolumen = require('../../assets/DbImages/MathImages/equations_quader_volumen.png');
+const img_equationsrechterWinkelsmall = require('../../assets/DbImages/MathImages/equations_rechter_Winkel_small.png');
+const img_equationssinussmall = require('../../assets/DbImages/MathImages/equations_sinus_small.png');
+const img_equationstangenssmall = require('../../assets/DbImages/MathImages/equations_tangens_small.png');
 const img_equationstypeswelcome = require('../../assets/DbImages/MathImages/equations_types_welcome.png');
 const img_equationswelcome = require('../../assets/DbImages/MathImages/equations_welcome.png');
 const img_equationszylindervolumen = require('../../assets/DbImages/MathImages/equations_zylinder_volumen.png');
@@ -1618,6 +1628,7 @@ export const imageMap = {
     "equations_9_small": img_equations9small,
     "equations_Dichteanomalie": img_equationsDichteanomalie,
     "equations_Dichteanomalie_big": img_equationsDichteanomaliebig,
+    "equations_Gefälle": img_equationsGeflle,
     "equations_Gleichgewicht_Heizung": img_equationsGleichgewichtHeizung,
     "equations_Hypothenuse_Ankathete_Gegenkathete": img_equationsHypothenuseAnkatheteGegenkathete,
     "equations_Hypothenuse_Ankathete_Gegenkathete_darkmode": img_equationsHypothenuseAnkatheteGegenkathetedarkmode,
@@ -1627,6 +1638,11 @@ export const imageMap = {
     "equations_Kreissektor_Formel_small": img_equationsKreissektorFormelsmall,
     "equations_Kreisumfang": img_equationsKreisumfang,
     "equations_Kreisumfang_Formel_small": img_equationsKreisumfangFormelsmall,
+    "equations_Pythagoras": img_equationsPythagoras,
+    "equations_Pythagoras_Berechnung": img_equationsPythagorasBerechnung,
+    "equations_Sinus_Berechnung": img_equationsSinusBerechnung,
+    "equations_Tangens_Winkel": img_equationsTangensWinkel,
+    "equations_Taschenrechner_small": img_equationsTaschenrechnersmall,
     "equations_Trigonometrie_start": img_equationsTrigonometriestart,
     "equations_algebra_1": img_equationsalgebra1,
     "equations_algebra_10": img_equationsalgebra10,
@@ -1716,6 +1732,7 @@ export const imageMap = {
     "equations_geometrie_2": img_equationsgeometrie2,
     "equations_geometrie_3": img_equationsgeometrie3,
     "equations_geometrie_welcome": img_equationsgeometriewelcome,
+    "equations_kosinus_small": img_equationskosinussmall,
     "equations_kugel_volumen": img_equationskugelvolumen,
     "equations_linear_1": img_equationslinear1,
     "equations_linear_10": img_equationslinear10,
@@ -1842,6 +1859,9 @@ export const imageMap = {
     "equations_mechanic_winkelhebel": img_equationsmechanicwinkelhebel,
     "equations_pyramide_volumen": img_equationspyramidevolumen,
     "equations_quader_volumen": img_equationsquadervolumen,
+    "equations_rechter_Winkel_small": img_equationsrechterWinkelsmall,
+    "equations_sinus_small": img_equationssinussmall,
+    "equations_tangens_small": img_equationstangenssmall,
     "equations_types_welcome": img_equationstypeswelcome,
     "equations_welcome": img_equationswelcome,
     "equations_zylinder_volumen": img_equationszylindervolumen,
