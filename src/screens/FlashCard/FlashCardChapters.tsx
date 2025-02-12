@@ -16,8 +16,8 @@ const FlashCardChapters = () => {
     const { theme, isDarkMode } = useTheme();
 
     // Locked chapters (IDs 3–15)
-    const lockedChapters = new Set(Array.from({ length: 13 }, (_, i) => i + 4));
-
+    /* const lockedChapters = new Set(Array.from({ length: 13 }, (_, i) => i + 4));
+ */
     // Calculate button size to fit three per row
     const screenWidth = Dimensions.get('window').width;
     const buttonSize = (screenWidth - 80) / 3; // 40 for padding between buttons
@@ -49,13 +49,14 @@ const FlashCardChapters = () => {
     }, []);
 
     const handleButtonPress = (chapterId: number) => {
-        if (lockedChapters.has(chapterId)) {
-            setModalMessage('Dieser Inhalt ist in der Tesversion nicht verfügbar.');
-            setModalVisible(true);
-        } else {
+        // if (lockedChapters.has(chapterId)) {
+        //     setModalMessage('Dieser Inhalt ist in der Tesversion nicht verfügbar.');
+        //     setModalVisible(true);
+        // } else {
             navigation.navigate('FlashcardScreen', { chapterId, chapterTitle: `Lernfeld ${chapterId}` });
-        }
+        // }
     };
+    
 
     return (
         <View style={[styles.container, { backgroundColor: theme.background }]}>
@@ -73,9 +74,10 @@ const FlashCardChapters = () => {
                             key={chapter.ChapterId}
                             style={[
                                 styles.button,
-                                lockedChapters.has(chapter.ChapterId)
-                                    ? { backgroundColor: isDarkMode ? '#333333' : styles.lockedButton.backgroundColor } // Dark gray for locked buttons
-                                    : { backgroundColor: isDarkMode ? '#445566' : styles.unlockedButton.backgroundColor }, // Subtle bluish-gray for unlocked buttons
+                                // lockedChapters.has(chapter.ChapterId)
+                                //     ? { backgroundColor: isDarkMode ? '#333333' : styles.lockedButton.backgroundColor } // Dark gray for locked buttons
+                                //     : { backgroundColor: isDarkMode ? '#445566' : styles.unlockedButton.backgroundColor }, // Subtle bluish-gray for unlocked buttons
+                                { backgroundColor: isDarkMode ? '#445566' : styles.unlockedButton.backgroundColor }, // Einheitliche Farbe für alle Buttons
                                 { width: buttonSize, height: buttonSize },
                             ]}
                             onPress={() => handleButtonPress(chapter.ChapterId)}
@@ -84,15 +86,17 @@ const FlashCardChapters = () => {
                                 style={[
                                     styles.buttonText,
                                     {
-                                        color: lockedChapters.has(chapter.ChapterId)
-                                            ? isDarkMode ? '#AAAAAA' : theme.secondaryText // Softer gray for locked buttons
-                                            : isDarkMode ? '#FFFFFF' : theme.primaryText,  // White for unlocked buttons
+                                        // color: lockedChapters.has(chapter.ChapterId)
+                                        //     ? isDarkMode ? '#AAAAAA' : theme.secondaryText // Softer gray for locked buttons
+                                        //     : isDarkMode ? '#FFFFFF' : theme.primaryText,  // White for unlocked buttons
+                                        color: isDarkMode ? '#FFFFFF' : theme.primaryText, // Einheitliche Farbe für alle Buttons
                                     },
                                 ]}
                             >
                                 {chapter.ChapterName}
                             </Text>
                         </TouchableOpacity>
+
 
                     ))}
                 </View>

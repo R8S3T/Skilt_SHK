@@ -73,16 +73,19 @@ const processNormalText = (text: string, index: number, lastIndex: number, theme
             return content;
         }
 
+
         // Image handling
         if (line.startsWith('[equations_') || line.startsWith('[bigImage_') || line.startsWith('[small]') || line.startsWith('[welcome]')) {
             const imageName = line.replace('[', '').replace(']', '').trim();
             const imageSource = imageMap[imageName as keyof typeof imageMap];
-            
-            // Check if it's a "small", "big", or "welcome" image and apply the appropriate style
+
+            // Prüfe, ob das Bild den Dark Mode Marker enthält
+            const hasDarkModeMarker = imageName.includes('darkmode');
+
             if (imageSource) {
-                let imageStyle = styles.image; // Default style
-        
-                // Apply specific styles based on the image name
+                let imageStyle = styles.image; // Standard-Stil
+
+                // Wende spezifische Stile basierend auf dem Bildnamen an
                 if (imageName.includes('small')) {
                     imageStyle = styles.smallImage;
                 } else if (imageName.includes("big")) {
@@ -90,28 +93,40 @@ const processNormalText = (text: string, index: number, lastIndex: number, theme
                 } else if (imageName.includes("welcome")) {
                     imageStyle = styles.welcomeImage;
                 }
-                // Conditionally wrap big images in imageContainer
+
                 if (imageName.includes("big")) {
+                    // Falls das Bild groß ist, wird es in ein zentriertes Container-View gelegt
                     content.push(
                         <View style={styles.imageContainer} key={`${index}-${lastIndex}-${subIndex}`}>
-                            <Image
-                                source={imageSource}
-                                style={imageStyle}
-                            />
+                            {hasDarkModeMarker && isDarkMode ? (
+                                <View style={styles.darkModeImageBackground}>
+                                    <Image source={imageSource} style={imageStyle} />
+                                </View>
+                            ) : (
+                                <Image source={imageSource} style={imageStyle} />
+                            )}
                         </View>
                     );
                 } else {
+                    // Standard-Fall für alle anderen Bilder
                     content.push(
-                        <Image
-                            key={`${index}-${lastIndex}-${subIndex}`}
-                            source={imageSource}
-                            style={imageStyle}  // This will use smallImage, welcomeImage, or default image style
-                        />
+                        hasDarkModeMarker && isDarkMode ? (
+                            <View key={`${index}-${lastIndex}-${subIndex}`} style={styles.darkModeImageBackground}>
+                                <Image source={imageSource} style={imageStyle} />
+                            </View>
+                        ) : (
+                            <Image
+                                key={`${index}-${lastIndex}-${subIndex}`}
+                                source={imageSource}
+                                style={imageStyle}
+                            />
+                        )
                     );
                 }
             }
             return content;
         }
+
 
         // Check for heading
         if (line.startsWith('[heading]') && line.endsWith('[/heading]')) {
@@ -207,6 +222,11 @@ const styles = StyleSheet.create({
         height: 80,
         resizeMode: 'contain',
         marginVertical: 5,
+    },
+    darkModeImageBackground: {
+        backgroundColor: '#c4c1e0',
+        padding: 10,
+        alignItems: 'center',
     },
     contentText: {
         fontSize: screenWidth > 600 ? 22 : 19,

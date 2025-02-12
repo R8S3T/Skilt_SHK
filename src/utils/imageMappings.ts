@@ -17,12 +17,15 @@ const img_equations9small = require('../../assets/DbImages/MathImages/equations_
 const img_equationsDichteanomalie = require('../../assets/DbImages/MathImages/equations_Dichteanomalie.png');
 const img_equationsDichteanomaliebig = require('../../assets/DbImages/MathImages/equations_Dichteanomalie_big.png');
 const img_equationsGleichgewichtHeizung = require('../../assets/DbImages/MathImages/equations_Gleichgewicht_Heizung.png');
+const img_equationsHypothenuseAnkatheteGegenkathete = require('../../assets/DbImages/MathImages/equations_Hypothenuse_Ankathete_Gegenkathete.png');
+const img_equationsHypothenuseAnkatheteGegenkathetedarkmode = require('../../assets/DbImages/MathImages/equations_Hypothenuse_Ankathete_Gegenkathete_darkmode.png');
 const img_equationsKreisbogen = require('../../assets/DbImages/MathImages/equations_Kreisbogen.png');
 const img_equationsKreisbogenFormelsmall = require('../../assets/DbImages/MathImages/equations_Kreisbogen_Formel_small.png');
 const img_equationsKreissektor = require('../../assets/DbImages/MathImages/equations_Kreissektor.png');
 const img_equationsKreissektorFormelsmall = require('../../assets/DbImages/MathImages/equations_Kreissektor_Formel_small.png');
 const img_equationsKreisumfang = require('../../assets/DbImages/MathImages/equations_Kreisumfang.png');
 const img_equationsKreisumfangFormelsmall = require('../../assets/DbImages/MathImages/equations_Kreisumfang_Formel_small.png');
+const img_equationsTrigonometriestart = require('../../assets/DbImages/MathImages/equations_Trigonometrie_start.png');
 const img_equationsalgebra1 = require('../../assets/DbImages/MathImages/equations_algebra_1.png');
 const img_equationsalgebra10 = require('../../assets/DbImages/MathImages/equations_algebra_10.png');
 const img_equationsalgebra101 = require('../../assets/DbImages/MathImages/equations_algebra_10_1.png');
@@ -404,6 +407,39 @@ const img_LF10Verbrennungsluftversorgungwelcome = require('../../assets/DbImages
 const img_LF10VerwahrungGasleitungwelcome = require('../../assets/DbImages/SubchapterContent/LF_10/LF_10_Verwahrung_Gasleitung_welcome.png');
 const img_LF10maxAbstndezoom = require('../../assets/DbImages/SubchapterContent/LF_10/LF_10_max_Abstände_zoom.png');
 const img_LFiconraumluftunabhngigeBetriebsstttezoom = require('../../assets/DbImages/SubchapterContent/LF_10/LF_icon_raumluftunabhängige_Betriebsstätte_zoom.png');
+const img_LF11Abgasmessung1zoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Abgasmessung_1_zoom.png');
+const img_LF11Abgasmessung2zoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Abgasmessung_2_zoom.png');
+const img_LF11AntiheberventilSchnittzoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Antiheberventil_Schnitt_zoom.png');
+const img_LF11Antiheberventilzoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Antiheberventil_zoom.png');
+const img_LF11EntnahmearmaturNahaufnahmezoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Entnahmearmatur_Nahaufnahme_zoom.png');
+const img_LF11Entnahmearmaturzoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Entnahmearmatur_zoom.png');
+const img_LF11Holzvergaserkessel2zoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Holzvergaserkessel_2_zoom.png');
+const img_LF11Holzvergaserkesselzoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Holzvergaserkessel_zoom.png');
+const img_LF11Kessel1zoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Kessel_1_zoom.png');
+const img_LF11Kessel2zoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Kessel_2_zoom.png');
+const img_LF11Kessel3zoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Kessel_3_zoom.png');
+const img_LF11PumpengruppeMischer1zoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Pumpengruppe_Mischer_1_zoom.png');
+const img_LF11PumpengruppeMischer2zoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Pumpengruppe_Mischer_2_zoom.png');
+const img_LF11Rumessung1zoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Rußmessung_1_zoom.png');
+const img_LF11RumessungAnsichtzoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Rußmessung_Ansicht_zoom.png');
+const img_LF11RumessungKesselzoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Rußmessung_Kessel_zoom.png');
+const img_LF11Sicherheitsgruppezoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Sicherheitsgruppe_zoom.png');
+const img_LF11VerteilermitPumpengruppen1zoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Verteiler_mit_Pumpengruppen_1_zoom.png');
+const img_LF11VerteilermitPumpengruppenoffenzoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Verteiler_mit_Pumpengruppen_offen_zoom.png');
+const img_LF11lbrennerBlaubrennerzoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Ölbrenner_Blaubrenner_zoom.png');
+const img_LF11lbrennerDsenstockzoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Ölbrenner_Düsenstock_zoom.png');
+const img_LF11lbrennergeschlossenzoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Ölbrenner_geschlossen_zoom.png');
+const img_LF11lbrennerinnen2zoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Ölbrenner_innen_2_zoom.png');
+const img_LF11lbrennerinnenzoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Ölbrenner_innen_zoom.png');
+const img_LF11lbrennermitLuftklappezoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Ölbrenner_mit_Luftklappe_zoom.png');
+const img_LF11lbrenneroffenzoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Ölbrenner_offen_zoom.png');
+const img_LF11lfilterEinstrangEntlfter2zoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Ölfilter_Einstrang_Entlüfter_2_zoom.png');
+const img_LF11lfilterEinstrangEntlfterzoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Ölfilter_Einstrang_Entlüfter_zoom.png');
+const img_LF11lfiltermontiert2zoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Ölfilter_montiert_2_zoom.png');
+const img_LF11lfiltermontiertzoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Ölfilter_montiert_zoom.png');
+const img_LF11ltankanlage2zoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Öltankanlage_2_zoom.png');
+const img_LF11ltankanlage3zoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Öltankanlage_3_zoom.png');
+const img_LF11ltankanlagezoom = require('../../assets/DbImages/SubchapterContent/LF_11/Bilder noch nicht eingefügt/LF_11_Öltankanlage_zoom.png');
 const img_LF11Abgasanlagewelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Abgasanlage_welcome.png');
 const img_LF11Abgasmessunglwelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Abgasmessung_Öl_welcome.png');
 const img_LF11Antiheberventilwelcome = require('../../assets/DbImages/SubchapterContent/LF_11/LF_11_Antiheberventil_welcome.png');
@@ -1583,12 +1619,15 @@ export const imageMap = {
     "equations_Dichteanomalie": img_equationsDichteanomalie,
     "equations_Dichteanomalie_big": img_equationsDichteanomaliebig,
     "equations_Gleichgewicht_Heizung": img_equationsGleichgewichtHeizung,
+    "equations_Hypothenuse_Ankathete_Gegenkathete": img_equationsHypothenuseAnkatheteGegenkathete,
+    "equations_Hypothenuse_Ankathete_Gegenkathete_darkmode": img_equationsHypothenuseAnkatheteGegenkathetedarkmode,
     "equations_Kreisbogen": img_equationsKreisbogen,
     "equations_Kreisbogen_Formel_small": img_equationsKreisbogenFormelsmall,
     "equations_Kreissektor": img_equationsKreissektor,
     "equations_Kreissektor_Formel_small": img_equationsKreissektorFormelsmall,
     "equations_Kreisumfang": img_equationsKreisumfang,
     "equations_Kreisumfang_Formel_small": img_equationsKreisumfangFormelsmall,
+    "equations_Trigonometrie_start": img_equationsTrigonometriestart,
     "equations_algebra_1": img_equationsalgebra1,
     "equations_algebra_10": img_equationsalgebra10,
     "equations_algebra_10_1": img_equationsalgebra101,
@@ -1970,6 +2009,39 @@ export const imageMap = {
     "LF_10_Verwahrung_Gasleitung_welcome": img_LF10VerwahrungGasleitungwelcome,
     "LF_10_max_Abstände_zoom": img_LF10maxAbstndezoom,
     "LF_icon_raumluftunabhängige_Betriebsstätte_zoom": img_LFiconraumluftunabhngigeBetriebsstttezoom,
+    "LF_11_Abgasmessung_1_zoom": img_LF11Abgasmessung1zoom,
+    "LF_11_Abgasmessung_2_zoom": img_LF11Abgasmessung2zoom,
+    "LF_11_Antiheberventil_Schnitt_zoom": img_LF11AntiheberventilSchnittzoom,
+    "LF_11_Antiheberventil_zoom": img_LF11Antiheberventilzoom,
+    "LF_11_Entnahmearmatur_Nahaufnahme_zoom": img_LF11EntnahmearmaturNahaufnahmezoom,
+    "LF_11_Entnahmearmatur_zoom": img_LF11Entnahmearmaturzoom,
+    "LF_11_Holzvergaserkessel_2_zoom": img_LF11Holzvergaserkessel2zoom,
+    "LF_11_Holzvergaserkessel_zoom": img_LF11Holzvergaserkesselzoom,
+    "LF_11_Kessel_1_zoom": img_LF11Kessel1zoom,
+    "LF_11_Kessel_2_zoom": img_LF11Kessel2zoom,
+    "LF_11_Kessel_3_zoom": img_LF11Kessel3zoom,
+    "LF_11_Pumpengruppe_Mischer_1_zoom": img_LF11PumpengruppeMischer1zoom,
+    "LF_11_Pumpengruppe_Mischer_2_zoom": img_LF11PumpengruppeMischer2zoom,
+    "LF_11_Rußmessung_1_zoom": img_LF11Rumessung1zoom,
+    "LF_11_Rußmessung_Ansicht_zoom": img_LF11RumessungAnsichtzoom,
+    "LF_11_Rußmessung_Kessel_zoom": img_LF11RumessungKesselzoom,
+    "LF_11_Sicherheitsgruppe_zoom": img_LF11Sicherheitsgruppezoom,
+    "LF_11_Verteiler_mit_Pumpengruppen_1_zoom": img_LF11VerteilermitPumpengruppen1zoom,
+    "LF_11_Verteiler_mit_Pumpengruppen_offen_zoom": img_LF11VerteilermitPumpengruppenoffenzoom,
+    "LF_11_Ölbrenner_Blaubrenner_zoom": img_LF11lbrennerBlaubrennerzoom,
+    "LF_11_Ölbrenner_Düsenstock_zoom": img_LF11lbrennerDsenstockzoom,
+    "LF_11_Ölbrenner_geschlossen_zoom": img_LF11lbrennergeschlossenzoom,
+    "LF_11_Ölbrenner_innen_2_zoom": img_LF11lbrennerinnen2zoom,
+    "LF_11_Ölbrenner_innen_zoom": img_LF11lbrennerinnenzoom,
+    "LF_11_Ölbrenner_mit_Luftklappe_zoom": img_LF11lbrennermitLuftklappezoom,
+    "LF_11_Ölbrenner_offen_zoom": img_LF11lbrenneroffenzoom,
+    "LF_11_Ölfilter_Einstrang_Entlüfter_2_zoom": img_LF11lfilterEinstrangEntlfter2zoom,
+    "LF_11_Ölfilter_Einstrang_Entlüfter_zoom": img_LF11lfilterEinstrangEntlfterzoom,
+    "LF_11_Ölfilter_montiert_2_zoom": img_LF11lfiltermontiert2zoom,
+    "LF_11_Ölfilter_montiert_zoom": img_LF11lfiltermontiertzoom,
+    "LF_11_Öltankanlage_2_zoom": img_LF11ltankanlage2zoom,
+    "LF_11_Öltankanlage_3_zoom": img_LF11ltankanlage3zoom,
+    "LF_11_Öltankanlage_zoom": img_LF11ltankanlagezoom,
     "LF_11_Abgasanlage_welcome": img_LF11Abgasanlagewelcome,
     "LF_11_Abgasmessung_Öl_welcome": img_LF11Abgasmessunglwelcome,
     "LF_11_Antiheberventil_welcome": img_LF11Antiheberventilwelcome,
