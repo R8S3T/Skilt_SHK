@@ -1,3 +1,3 @@
 // src/utils/lockConfig.ts
-export const LOCKED_YEARS = []; // Years to lock
-export const LOCKED_CHAPTERS = []; // Chapters to lock
+export const LOCKED_YEARS: number[] = []; // Years to lock
+export const LOCKED_CHAPTERS: number[] = []; // Chapters to lock

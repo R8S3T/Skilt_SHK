@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     },
     questionText: {
         fontFamily: 'Lato-Bold',
-        fontSize: screenWidth > 600 ? 28 : 24,
+        fontSize: screenWidth > 600 ? 28 : 22,
         textAlign: 'center',
         paddingHorizontal: screenWidth > 600 ? 10 : 8,
         lineHeight: 30,

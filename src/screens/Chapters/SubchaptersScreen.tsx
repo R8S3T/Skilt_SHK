@@ -67,7 +67,7 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
             ),
             headerStyle: {
                 backgroundColor: theme.surface,
-                elevation: 0, // Entfernt Schatten auf Android
+                elevation: 0,
                 shadowOpacity: 0,
             },
             headerTintColor: theme.primaryText,
@@ -109,7 +109,8 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
                 subchapterTitle,
                 chapterId,
                 chapterTitle,
-                currentIndex: 0
+                currentIndex: 0,
+                origin: route.params?.origin || 'AllChaptersSection'
             });
         }
     };
@@ -122,7 +123,8 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
                 subchapterTitle: selectedSubchapter.SubchapterName,
                 chapterId,
                 chapterTitle,
-                currentIndex: 0
+                currentIndex: 0,
+                origin: route.params?.origin || 'AllChaptersSection'
             });
         }
         setModalVisible(false);
@@ -137,7 +139,8 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
                 subchapterTitle: selectedSubchapter.SubchapterName,
                 chapterId,
                 chapterTitle,
-                currentIndex: 0
+                currentIndex: 0,
+                origin: route.params?.origin || 'AllChaptersSection'
             });
         }
         setModalVisible(false);

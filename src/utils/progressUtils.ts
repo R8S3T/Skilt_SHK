@@ -188,6 +188,9 @@ export const completeSubchapter = async ({
     unlockSubchapter: (id: number) => void;
     origin?: string;
 }) => {
+
+    console.log("Subchapter abgeschlossen, origin:", origin);
+
     // Mark the current subchapter as finished and unlock the next one
     markSubchapterAsFinished(subchapterId);
     unlockSubchapter(subchapterId + 1);

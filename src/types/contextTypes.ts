@@ -12,6 +12,11 @@ export interface SubchapterContextType {
     getFinishedSubchaptersToday: () => Promise<number>;
     getFinishedQuizzesToday: () => Promise<number>;
     getTotalFinishedSubchapters: () => Promise<number>;
+    triggerStatisticsUpdate: () => Promise<{ 
+        updatedSubchapters: number; 
+        updatedQuizzes: number; 
+        totalFinished: number;
+    }>;
 }
 
 export interface MathSubchapterContextType {

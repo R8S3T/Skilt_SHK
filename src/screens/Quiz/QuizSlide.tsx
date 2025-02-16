@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { View, Text, StyleSheet, ViewStyle } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import MultipleChoice from './MultipleChoice';
 import ClozeTest from './ClozeTest';
@@ -105,9 +106,14 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, set
 
     const handleContinue = async () => {
         if (currentQuiz) {
-            await markQuizAsFinished(currentQuiz.QuizId); // Speichert das Quiz als abgeschlossen
+            const existingDate = await AsyncStorage.getItem(`finishedQuiz_${currentQuiz.QuizId}`);
+            if (existingDate !== new Date().toISOString().split('T')[0]) {
+                await markQuizAsFinished(currentQuiz.QuizId);
+            } else {
+                console.log(`⚠️ Quiz ${currentQuiz.QuizId} wurde heute bereits abgeschlossen.`);
+            }
         }
-
+    
         const nextIndex = currentQuizIndex + 1;
         if (nextIndex < quizzes.length) {
             setOptions([]);
@@ -118,6 +124,7 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, set
             await onContinue();
         }
     };
+    
 
     // Return statement with all safeguards
     if (loading) {

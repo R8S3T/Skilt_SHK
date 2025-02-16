@@ -9,15 +9,16 @@ import { useSubchapter } from 'src/context/SubchapterContext';
 const StatisticsScreen = () => {
     const { theme } = useTheme();
     const navigation = useNavigation();
-    const { getFinishedSubchaptersToday, getFinishedQuizzesToday, getTotalFinishedSubchapters } = useSubchapter();
+    const { getFinishedSubchaptersToday, getFinishedQuizzesToday, getTotalFinishedSubchapters, triggerStatisticsUpdate } = useSubchapter();
 
     const [finishedToday, setFinishedToday] = useState<number>(0);
-    const [quizzesToday, setQuizzesToday] = useState<number>(2); // Placeholder
-    const [totalSubchapters, setTotalSubchapters] = useState<number>(50); // Placeholder
+    const [quizzesToday, setQuizzesToday] = useState<number>(0); // Placeholder
+    const [totalSubchapters, setTotalSubchapters] = useState<number>(0); // Placeholder
 
     useLayoutEffect(() => {
         navigation.setOptions({ title: 'Lernerfolge' });
     }, [navigation]);
+
     useEffect(() => {
         const fetchData = async () => {
             const finishedSubchapters = await getFinishedSubchaptersToday();
@@ -29,7 +30,13 @@ const StatisticsScreen = () => {
             setTotalSubchapters(totalFinished);
         };
         fetchData();
+        triggerStatisticsUpdate();
     }, []);
+
+    useEffect(() => {
+        console.log("📊 UI-Update nach Statistikänderung:", finishedToday, quizzesToday, totalSubchapters);
+    }, [finishedToday, quizzesToday, totalSubchapters]);
+    
 
     return (
         <View style={[styles.container, { backgroundColor: theme.background }]}>

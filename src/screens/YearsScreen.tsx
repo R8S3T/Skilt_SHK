@@ -63,11 +63,11 @@ const YearsScreen: React.FC = () => {
 
     const handlePress = async (year: number) => {
         // Lock years 3 and 4
-        if (year === 4) {
+ /*        if (year === 4) {
             setModalMessage('Dieser Inhalt ist in der Tesversion nicht verfügbar.');
             setModalVisible(true);
-            return; // Prevent further execution if year is locked
-        }
+            return;
+        } */
     
         // Toggle expanded state for the year
         setExpandedYear(expandedYear === year ? null : year);
@@ -90,15 +90,20 @@ const YearsScreen: React.FC = () => {
     };
 
     const handleChapterPress = (chapterId: number, year: number) => {
-        // Lock chapter IDs and 4
+
+        /*
         if ((chapterId === 14 || chapterId === 15) || (year === 4)) {
             setModalMessage('Dieser Inhalt ist in der Tesversion nicht verfügbar.');
             setModalVisible(true);
         } else {
-            // Navigate if chapter is not locked
-            navigation.navigate('SubchaptersScreen', { chapterId });
-        }
+        */
+    
+        // Lock deaktiviert – alle Kapitel sind zugänglich
+        navigation.navigate('SubchaptersScreen', { chapterId, origin: 'AllChaptersSection' });
+    
+        // }
     };
+    
 
     const renderChapter = (chapter: { chapterId: number; chapterIntro?: string }, year: number) => (
         <TouchableOpacity

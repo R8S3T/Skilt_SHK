@@ -50,6 +50,18 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
         });
     };
 
+    // Funktion zum Aktualisieren der Statistik
+    const triggerStatisticsUpdate = async () => {    
+        const updatedSubchapters = await getFinishedSubchaptersToday();
+        const updatedQuizzes = await getFinishedQuizzesToday();
+        const totalFinished = await getTotalFinishedSubchapters();
+
+        console.log("🔄 Statistik aktualisiert:", updatedSubchapters, updatedQuizzes, totalFinished);
+
+        return { updatedSubchapters, updatedQuizzes, totalFinished };
+    };
+
+
     // Marks a subchapter as finished and saves to AsyncStorage
     const markSubchapterAsFinished = async (subchapterId: number) => {
         const today = new Date().toISOString().split('T')[0];
@@ -58,24 +70,33 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
             const updated = [...new Set([...current, subchapterId])];
 
             AsyncStorage.setItem('finishedSubchapters', JSON.stringify(updated));
-                    // Save completion timestamp
             AsyncStorage.setItem(`finishedSubchapter_${subchapterId}`, today);
             return updated;
         });
-        unlockSubchapter(subchapterId + 1); // Optionally unlock the next subchapter
+
+        unlockSubchapter(subchapterId + 1);
+    
+        await triggerStatisticsUpdate();
     };
+
 
     const markQuizAsFinished = async (quizId: number) => {
         const today = new Date().toISOString().split('T')[0];
+        const storedFinished = await AsyncStorage.getItem('finishedQuizzes');
+        const finishedIds: number[] = storedFinished ? JSON.parse(storedFinished) : [];
 
-        setFinishedQuizzes((current) => {
-            const updated = [...new Set([...current, quizId])];
+        if (!finishedIds.includes(quizId)) {
+            const updated = [...finishedIds, quizId];
 
-            AsyncStorage.setItem('finishedQuizzes', JSON.stringify(updated));
-            AsyncStorage.setItem(`finishedQuiz_${quizId}`, today);
-            return updated;
-        });
+            await AsyncStorage.setItem('finishedQuizzes', JSON.stringify(updated));
+            await AsyncStorage.setItem(`finishedQuiz_${quizId}`, today);
+        } else {
+            console.log(`⚠️ Quiz ${quizId} wurde bereits heute abgeschlossen.`);
+        }
+
+        await triggerStatisticsUpdate();
     };
+
 
     const setCurrentSubchapter = (subchapterId: number | null, subchapterTitle: string) => {
         setCurrentSubchapterId(subchapterId);
@@ -153,7 +174,8 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
             setCurrentSubchapter,
             getFinishedSubchaptersToday,
             getFinishedQuizzesToday,
-            getTotalFinishedSubchapters
+            getTotalFinishedSubchapters,
+            triggerStatisticsUpdate,
         }}>
             {children}
         </SubchapterContext.Provider>
