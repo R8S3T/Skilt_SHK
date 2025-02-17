@@ -246,6 +246,7 @@ const styles = StyleSheet.create({
   },
   headingText: {
     fontFamily: 'Lato-Medium',
+    lineHeight: screenWidth > 600 ? 36 : 30,
     fontSize: screenWidth > 600 ? 28 : 24,
   },
   subheadingText: {

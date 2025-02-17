@@ -602,6 +602,8 @@ const img_LF13zentraleLftungsanlagezoom = require('../../assets/DbImages/Subchap
 const img_LF14Kesseltemperaturregelungwelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Kesseltemperaturregelung_welcome.png');
 const img_LF14Regelkreiszoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Regelkreis_zoom.png');
 const img_LF14Regelungsmall = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Regelung_small.png');
+const img_LF14Regelungsartenwelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Regelungsarten_welcome.png');
+const img_LF14StellgliedRegelkreiszoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Stellglied_Regelkreis_zoom.png');
 const img_LF14Steuerkettezoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Steuerkette_zoom.png');
 const img_LF14SteuernRegelnwelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Steuern_Regeln_welcome.png');
 const img_LF14Steuerungsmall = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Steuerung_small.png');
@@ -699,6 +701,7 @@ const img_LFZMaBeispiel1small = require('../../assets/DbImages/SubchapterContent
 const img_LF3Formel = require('../../assets/DbImages/SubchapterContent/LF_3_Formel.png');
 const img_LF3Rohrewelcome = require('../../assets/DbImages/SubchapterContent/LF_3_Rohre_welcome.png');
 const img_LF4AC = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_AC.png');
+const img_LF4Abzweigdosezoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Abzweigdose_zoom.png');
 const img_LF4Amperemeterzoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Amperemeter_zoom.png');
 const img_LF4Arbeitsschutzwelcome = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Arbeitsschutz_welcome.png');
 const img_LF4Ausschaltersmall = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Ausschalter_small.png');
@@ -710,8 +713,10 @@ const img_LF4ElektrischeInstallationwelcome = require('../../assets/DbImages/Sub
 const img_LF4Elektrotechnikwelcome = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Elektrotechnik_welcome.png');
 const img_LF4Erden = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Erden.png');
 const img_LF4Fehlerstromschutzzoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Fehlerstromschutz_zoom.png');
+const img_LF4FormelBerechnungelektrischeArbeitsmall = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Formel_Berechnung_elektrische_Arbeit_small.png');
 const img_LF4FormelParallelschaltungsmall = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Formel_Parallelschaltung_small.png');
 const img_LF4FormelReihenschaltungWiederstandsmall = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Formel_Reihenschaltung_Wiederstand_small.png');
+const img_LF4FormelelektrischeArbeitsmall = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Formel_elektrische_Arbeit_small.png');
 const img_LF4Freischalten = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Freischalten.png');
 const img_LF4GSicherungzoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_G_Sicherung_zoom.png');
 const img_LF4GesamtstromstrkeParallelsmall = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Gesamtstromstärke_Parallel_small.png');
@@ -721,6 +726,7 @@ const img_LF4Instandhaltenwelcome = require('../../assets/DbImages/SubchapterCon
 const img_LF4Kabelkanal = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Kabelkanal.png');
 const img_LF4Kabelquerschnitt = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Kabelquerschnitt.png');
 const img_LF4Kopfhrersmall = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Kopfhörer_small.png');
+const img_LF4Leitungsartenzoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Leitungsarten_zoom.png');
 const img_LF4Leitungsschutzschalterzoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Leitungsschutzschalter_zoom.png');
 const img_LF4MessPrftechnikwelcome = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Mess_Prüftechnik_welcome.png');
 const img_LF4Multimeterzoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Multimeter_zoom.png');
@@ -736,6 +742,7 @@ const img_LF4Schaltplan2zoom = require('../../assets/DbImages/SubchapterContent/
 const img_LF4Schaltplan3zoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Schaltplan_3_zoom.png');
 const img_LF4Schaltplanzoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Schaltplan_zoom.png');
 const img_LF4Schraubsicherungenzoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Schraubsicherungen_zoom.png');
+const img_LF4Schukozoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Schuko_zoom.png');
 const img_LF4Schutzeinrichtungenwelcome = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Schutzeinrichtungen_welcome.png');
 const img_LF4Schutzleitersmall = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Schutzleiter_small.png');
 const img_LF4Schutzpotentialausgleichwelcome = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Schutzpotentialausgleich_welcome.png');
@@ -1027,6 +1034,11 @@ const img_LF7Flachheizkrperzoom = require('../../assets/DbImages/SubchapterConte
 const img_LF7Flchenheizung = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Flächenheizung.png');
 const img_LF7Formel2Druckverlustsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_2_Druckverlust_small.png');
 const img_LF7Formel2Massestromsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_2_Massestrom_small.png');
+const img_LF7FormelBerechnungGliedersmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Berechnung_Glieder_small.png');
+const img_LF7FormelBerechnungGliederheizkrpersmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Berechnung_Gliederheizkörper_small.png');
+const img_LF7FormelBerechnungHeizlastsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Berechnung_Heizlast_small.png');
+const img_LF7FormelBerechnungLftungswrmeverlustesmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Berechnung_Lüftungswärmeverluste_small.png');
+const img_LF7FormelBerechnungTransmissionwrmeverlustesmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Berechnung_Transmissionwärmeverluste_small.png');
 const img_LF7FormelDimensionierungsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Dimensionierung_small.png');
 const img_LF7FormelDrehzahl2small = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Drehzahl_2_small.png');
 const img_LF7FormelDrehzahlsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Drehzahl_small.png');
@@ -1036,11 +1048,14 @@ const img_LF7FormelFlachheizkrperHeizkrperleistungsmall = require('../../assets/
 const img_LF7FormelFlachheizkrpersmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Flachheizkörper_small.png');
 const img_LF7FormelGliederheizkrperHeizkrperleistungsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Gliederheizkörper_Heizkörperleistung_small.png');
 const img_LF7FormelGliederheizkrpersmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Gliederheizkörper_small.png');
+const img_LF7FormelGrundformelHeizlastsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Grundformel_Heizlast_small.png');
+const img_LF7FormelLftungswrmeverlustesmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Lüftungswärmeverluste_small.png');
 const img_LF7FormelMassestromsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Massestrom_small.png');
 const img_LF7FormelNormwrmeleistung2small = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Normwärmeleistung_2_small.png');
 const img_LF7FormelNormwrmeleistungsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Normwärmeleistung_small.png');
 const img_LF7FormelPumpenleistung2small = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Pumpenleistung_2_small.png');
 const img_LF7FormelPumpenleistungsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Pumpenleistung_small.png');
+const img_LF7FormelTransmissionwrmeverlustesmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Transmissionwärmeverluste_small.png');
 const img_LF7FormelUWertsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_U-Wert_small.png');
 const img_LF7FormelWrmedurchlasswiderstandsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Wärmedurchlasswiderstand_small.png');
 const img_LF7FormelWrmeleitfhigkeitsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Wärmeleitfähigkeit_small.png');
@@ -1057,6 +1072,7 @@ const img_LF7GliederheizungBerechnung = require('../../assets/DbImages/Subchapte
 const img_LF7Heizkostenverteilerzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Heizkostenverteiler_zoom.png');
 const img_LF7Heizkrperanschlssewelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Heizkörperanschlüsse_welcome.png');
 const img_LF7Heizkrperleistungzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Heizkörperleistung_zoom.png');
+const img_LF7Heizlastwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Heizlast_welcome.png');
 const img_LF7Heizsystemewelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Heizsysteme_welcome.png');
 const img_LF7Heizung = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Heizung.png');
 const img_LF7Heizungspumpewelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Heizungspumpe_welcome.png');
@@ -1148,6 +1164,7 @@ const img_LF8Klosetartenzoom = require('../../assets/DbImages/SubchapterContent/
 const img_LF8Kopfbrausezoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Kopfbrause_zoom.png');
 const img_LF8MaxSchlitztiefezoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Max_Schlitztiefe_zoom.png');
 const img_LF8MontageSchallschutzzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Montage_Schallschutz_zoom.png');
+const img_LF8Montageblockzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Montageblock_zoom.png');
 const img_LF8Porzellanzoom = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Porzellan_zoom.png');
 const img_LF8Reinigungsmittel = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Reinigungsmittel.png');
 const img_LF8Sanitrarmaturenwelcome = require('../../assets/DbImages/SubchapterContent/LF_8/LF_8_Sanitärarmaturen_welcome.png');
@@ -1378,6 +1395,7 @@ const img_LFiconGresmall = require('../../assets/DbImages/SubchapterContent/LF_i
 const img_LFiconH2Osmall = require('../../assets/DbImages/SubchapterContent/LF_icon_H2O_small.png');
 const img_LFiconHausmodernsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Haus_modern_small.png');
 const img_LFiconHeizkesselraumsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Heizkesselraum_small.png');
+const img_LFiconHeizlastsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Heizlast_small.png');
 const img_LFiconHeizleistungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Heizleistung_small.png');
 const img_LFiconHeizsystemsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Heizsystem_small.png');
 const img_LFiconHeizungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Heizung_small.png');
@@ -1533,6 +1551,8 @@ const img_LFiconSchutzziel1small = require('../../assets/DbImages/SubchapterCont
 const img_LFiconSchweiensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Schweißen_small.png');
 const img_LFiconSchwerkraftsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Schwerkraft_small.png');
 const img_LFiconSeesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_See_small.png');
+const img_LFiconSensor2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Sensor_2_small.png');
+const img_LFiconSensor3small = require('../../assets/DbImages/SubchapterContent/LF_icon_Sensor_3_small.png');
 const img_LFiconSensorsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sensor_small.png');
 const img_LFiconSicherheit1small = require('../../assets/DbImages/SubchapterContent/LF_icon_Sicherheit_1_small.png');
 const img_LFiconSicherheitFrostschutzmittelsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sicherheit_Frostschutzmittel_small.png');
@@ -1558,6 +1578,7 @@ const img_LFiconStromschlagsmall = require('../../assets/DbImages/SubchapterCont
 const img_LFiconSgensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sägen_small.png');
 const img_LFiconTRGIsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_TRGI_small.png');
 const img_LFiconTaupunktsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Taupunkt_small.png');
+const img_LFiconTemperaturNachtsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Temperatur_Nacht_small.png');
 const img_LFiconTemperaturregelungRaumsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Temperaturregelung_Raum_small.png');
 const img_LFiconTemperatursteuerungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Temperatursteuerung_small.png');
 const img_LFiconThermischsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Thermisch_small.png');
@@ -1595,8 +1616,12 @@ const img_LFiconVorteileNachteilesmall = require('../../assets/DbImages/Subchapt
 const img_LFiconVorteilesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Vorteile_small.png');
 const img_LFiconWandheizungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wandheizung_small.png');
 const img_LFiconWarmbiegensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Warmbiegen_small.png');
+const img_LFiconWarmwasserBedarfsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Warmwasser_Bedarf_small.png');
 const img_LFiconWarmwasserTemperatursmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Warmwasser_Temperatur_small.png');
 const img_LFiconWarmwassersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Warmwasser_small.png');
+const img_LFiconWarmwasservorrang1small = require('../../assets/DbImages/SubchapterContent/LF_icon_Warmwasservorrang_1_small.png');
+const img_LFiconWarmwasservorrang2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Warmwasservorrang_2_small.png');
+const img_LFiconWarmwasservorrangsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Warmwasservorrang_small.png');
 const img_LFiconWartungAbgasanlagensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Abgasanlagen_small.png');
 const img_LFiconWartungFliesensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Fliesen_small.png');
 const img_LFiconWartungIntervallsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Intervall_small.png');
@@ -1624,6 +1649,7 @@ const img_LFiconWrmekapazittsmall = require('../../assets/DbImages/SubchapterCon
 const img_LFiconWrmeleistungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wärmeleistung_small.png');
 const img_LFiconWrmestromsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wärmestrom_small.png');
 const img_LFiconWrmebertragungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wärmeübertragung_small.png');
+const img_LFiconZeitgesteuertsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Zeitgesteuert_small.png');
 const img_LFiconZeitsteuerungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Zeitsteuerung_small.png');
 const img_LFiconZementsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Zement_small.png');
 const img_LFiconZielsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Ziel_small.png');
@@ -1639,6 +1665,7 @@ const img_LFiconhydraulischerAbgleichsmall = require('../../assets/DbImages/Subc
 const img_LFiconkaltsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_kalt_small.png');
 const img_LFiconnichtuvsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_nichtuv_small.png');
 const img_LFicontrinkwasserverordnungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_trinkwasserverordnung_small.png');
+const img_LFiconumschaltensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_umschalten_small.png');
 const img_LFiconvariableHeizflammesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_variable_Heizflamme_small.png');
 const img_LFiconwandhngendsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_wandhängend_small.png');
 const img_LFiconwarmsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_warm_small.png');
@@ -2260,6 +2287,8 @@ export const imageMap = {
     "LF_14_Kesseltemperaturregelung_welcome": img_LF14Kesseltemperaturregelungwelcome,
     "LF_14_Regelkreis_zoom": img_LF14Regelkreiszoom,
     "LF_14_Regelung_small": img_LF14Regelungsmall,
+    "LF_14_Regelungsarten_welcome": img_LF14Regelungsartenwelcome,
+    "LF_14_Stellglied_Regelkreis_zoom": img_LF14StellgliedRegelkreiszoom,
     "LF_14_Steuerkette_zoom": img_LF14Steuerkettezoom,
     "LF_14_Steuern_Regeln_welcome": img_LF14SteuernRegelnwelcome,
     "LF_14_Steuerung_small": img_LF14Steuerungsmall,
@@ -2357,6 +2386,7 @@ export const imageMap = {
     "LF_3_Formel": img_LF3Formel,
     "LF_3_Rohre_welcome": img_LF3Rohrewelcome,
     "LF_4_AC": img_LF4AC,
+    "LF_4_Abzweigdose_zoom": img_LF4Abzweigdosezoom,
     "LF_4_Amperemeter_zoom": img_LF4Amperemeterzoom,
     "LF_4_Arbeitsschutz_welcome": img_LF4Arbeitsschutzwelcome,
     "LF_4_Ausschalter_small": img_LF4Ausschaltersmall,
@@ -2368,8 +2398,10 @@ export const imageMap = {
     "LF_4_Elektrotechnik_welcome": img_LF4Elektrotechnikwelcome,
     "LF_4_Erden": img_LF4Erden,
     "LF_4_Fehlerstromschutz_zoom": img_LF4Fehlerstromschutzzoom,
+    "LF_4_Formel_Berechnung_elektrische_Arbeit_small": img_LF4FormelBerechnungelektrischeArbeitsmall,
     "LF_4_Formel_Parallelschaltung_small": img_LF4FormelParallelschaltungsmall,
     "LF_4_Formel_Reihenschaltung_Wiederstand_small": img_LF4FormelReihenschaltungWiederstandsmall,
+    "LF_4_Formel_elektrische_Arbeit_small": img_LF4FormelelektrischeArbeitsmall,
     "LF_4_Freischalten": img_LF4Freischalten,
     "LF_4_G_Sicherung_zoom": img_LF4GSicherungzoom,
     "LF_4_Gesamtstromstärke_Parallel_small": img_LF4GesamtstromstrkeParallelsmall,
@@ -2379,6 +2411,7 @@ export const imageMap = {
     "LF_4_Kabelkanal": img_LF4Kabelkanal,
     "LF_4_Kabelquerschnitt": img_LF4Kabelquerschnitt,
     "LF_4_Kopfhörer_small": img_LF4Kopfhrersmall,
+    "LF_4_Leitungsarten_zoom": img_LF4Leitungsartenzoom,
     "LF_4_Leitungsschutzschalter_zoom": img_LF4Leitungsschutzschalterzoom,
     "LF_4_Mess_Prüftechnik_welcome": img_LF4MessPrftechnikwelcome,
     "LF_4_Multimeter_zoom": img_LF4Multimeterzoom,
@@ -2394,6 +2427,7 @@ export const imageMap = {
     "LF_4_Schaltplan_3_zoom": img_LF4Schaltplan3zoom,
     "LF_4_Schaltplan_zoom": img_LF4Schaltplanzoom,
     "LF_4_Schraubsicherungen_zoom": img_LF4Schraubsicherungenzoom,
+    "LF_4_Schuko_zoom": img_LF4Schukozoom,
     "LF_4_Schutzeinrichtungen_welcome": img_LF4Schutzeinrichtungenwelcome,
     "LF_4_Schutzleiter_small": img_LF4Schutzleitersmall,
     "LF_4_Schutzpotentialausgleich_welcome": img_LF4Schutzpotentialausgleichwelcome,
@@ -2685,6 +2719,11 @@ export const imageMap = {
     "LF_7_Flächenheizung": img_LF7Flchenheizung,
     "LF_7_Formel_2_Druckverlust_small": img_LF7Formel2Druckverlustsmall,
     "LF_7_Formel_2_Massestrom_small": img_LF7Formel2Massestromsmall,
+    "LF_7_Formel_Berechnung_Glieder_small": img_LF7FormelBerechnungGliedersmall,
+    "LF_7_Formel_Berechnung_Gliederheizkörper_small": img_LF7FormelBerechnungGliederheizkrpersmall,
+    "LF_7_Formel_Berechnung_Heizlast_small": img_LF7FormelBerechnungHeizlastsmall,
+    "LF_7_Formel_Berechnung_Lüftungswärmeverluste_small": img_LF7FormelBerechnungLftungswrmeverlustesmall,
+    "LF_7_Formel_Berechnung_Transmissionwärmeverluste_small": img_LF7FormelBerechnungTransmissionwrmeverlustesmall,
     "LF_7_Formel_Dimensionierung_small": img_LF7FormelDimensionierungsmall,
     "LF_7_Formel_Drehzahl_2_small": img_LF7FormelDrehzahl2small,
     "LF_7_Formel_Drehzahl_small": img_LF7FormelDrehzahlsmall,
@@ -2694,11 +2733,14 @@ export const imageMap = {
     "LF_7_Formel_Flachheizkörper_small": img_LF7FormelFlachheizkrpersmall,
     "LF_7_Formel_Gliederheizkörper_Heizkörperleistung_small": img_LF7FormelGliederheizkrperHeizkrperleistungsmall,
     "LF_7_Formel_Gliederheizkörper_small": img_LF7FormelGliederheizkrpersmall,
+    "LF_7_Formel_Grundformel_Heizlast_small": img_LF7FormelGrundformelHeizlastsmall,
+    "LF_7_Formel_Lüftungswärmeverluste_small": img_LF7FormelLftungswrmeverlustesmall,
     "LF_7_Formel_Massestrom_small": img_LF7FormelMassestromsmall,
     "LF_7_Formel_Normwärmeleistung_2_small": img_LF7FormelNormwrmeleistung2small,
     "LF_7_Formel_Normwärmeleistung_small": img_LF7FormelNormwrmeleistungsmall,
     "LF_7_Formel_Pumpenleistung_2_small": img_LF7FormelPumpenleistung2small,
     "LF_7_Formel_Pumpenleistung_small": img_LF7FormelPumpenleistungsmall,
+    "LF_7_Formel_Transmissionwärmeverluste_small": img_LF7FormelTransmissionwrmeverlustesmall,
     "LF_7_Formel_U-Wert_small": img_LF7FormelUWertsmall,
     "LF_7_Formel_Wärmedurchlasswiderstand_small": img_LF7FormelWrmedurchlasswiderstandsmall,
     "LF_7_Formel_Wärmeleitfähigkeit_small": img_LF7FormelWrmeleitfhigkeitsmall,
@@ -2715,6 +2757,7 @@ export const imageMap = {
     "LF_7_Heizkostenverteiler_zoom": img_LF7Heizkostenverteilerzoom,
     "LF_7_Heizkörperanschlüsse_welcome": img_LF7Heizkrperanschlssewelcome,
     "LF_7_Heizkörperleistung_zoom": img_LF7Heizkrperleistungzoom,
+    "LF_7_Heizlast_welcome": img_LF7Heizlastwelcome,
     "LF_7_Heizsysteme_welcome": img_LF7Heizsystemewelcome,
     "LF_7_Heizung": img_LF7Heizung,
     "LF_7_Heizungspumpe_welcome": img_LF7Heizungspumpewelcome,
@@ -2806,6 +2849,7 @@ export const imageMap = {
     "LF_8_Kopfbrause_zoom": img_LF8Kopfbrausezoom,
     "LF_8_Max_Schlitztiefe_zoom": img_LF8MaxSchlitztiefezoom,
     "LF_8_Montage_Schallschutz_zoom": img_LF8MontageSchallschutzzoom,
+    "LF_8_Montageblock_zoom": img_LF8Montageblockzoom,
     "LF_8_Porzellan_zoom": img_LF8Porzellanzoom,
     "LF_8_Reinigungsmittel": img_LF8Reinigungsmittel,
     "LF_8_Sanitärarmaturen_welcome": img_LF8Sanitrarmaturenwelcome,
@@ -3036,6 +3080,7 @@ export const imageMap = {
     "LF_icon_H2O_small": img_LFiconH2Osmall,
     "LF_icon_Haus_modern_small": img_LFiconHausmodernsmall,
     "LF_icon_Heizkesselraum_small": img_LFiconHeizkesselraumsmall,
+    "LF_icon_Heizlast_small": img_LFiconHeizlastsmall,
     "LF_icon_Heizleistung_small": img_LFiconHeizleistungsmall,
     "LF_icon_Heizsystem_small": img_LFiconHeizsystemsmall,
     "LF_icon_Heizung_small": img_LFiconHeizungsmall,
@@ -3191,6 +3236,8 @@ export const imageMap = {
     "LF_icon_Schweißen_small": img_LFiconSchweiensmall,
     "LF_icon_Schwerkraft_small": img_LFiconSchwerkraftsmall,
     "LF_icon_See_small": img_LFiconSeesmall,
+    "LF_icon_Sensor_2_small": img_LFiconSensor2small,
+    "LF_icon_Sensor_3_small": img_LFiconSensor3small,
     "LF_icon_Sensor_small": img_LFiconSensorsmall,
     "LF_icon_Sicherheit_1_small": img_LFiconSicherheit1small,
     "LF_icon_Sicherheit_Frostschutzmittel_small": img_LFiconSicherheitFrostschutzmittelsmall,
@@ -3216,6 +3263,7 @@ export const imageMap = {
     "LF_icon_Sägen_small": img_LFiconSgensmall,
     "LF_icon_TRGI_small": img_LFiconTRGIsmall,
     "LF_icon_Taupunkt_small": img_LFiconTaupunktsmall,
+    "LF_icon_Temperatur_Nacht_small": img_LFiconTemperaturNachtsmall,
     "LF_icon_Temperaturregelung_Raum_small": img_LFiconTemperaturregelungRaumsmall,
     "LF_icon_Temperatursteuerung_small": img_LFiconTemperatursteuerungsmall,
     "LF_icon_Thermisch_small": img_LFiconThermischsmall,
@@ -3253,8 +3301,12 @@ export const imageMap = {
     "LF_icon_Vorteile_small": img_LFiconVorteilesmall,
     "LF_icon_Wandheizung_small": img_LFiconWandheizungsmall,
     "LF_icon_Warmbiegen_small": img_LFiconWarmbiegensmall,
+    "LF_icon_Warmwasser_Bedarf_small": img_LFiconWarmwasserBedarfsmall,
     "LF_icon_Warmwasser_Temperatur_small": img_LFiconWarmwasserTemperatursmall,
     "LF_icon_Warmwasser_small": img_LFiconWarmwassersmall,
+    "LF_icon_Warmwasservorrang_1_small": img_LFiconWarmwasservorrang1small,
+    "LF_icon_Warmwasservorrang_2_small": img_LFiconWarmwasservorrang2small,
+    "LF_icon_Warmwasservorrang_small": img_LFiconWarmwasservorrangsmall,
     "LF_icon_Wartung_Abgasanlagen_small": img_LFiconWartungAbgasanlagensmall,
     "LF_icon_Wartung_Fliesen_small": img_LFiconWartungFliesensmall,
     "LF_icon_Wartung_Intervall_small": img_LFiconWartungIntervallsmall,
@@ -3282,6 +3334,7 @@ export const imageMap = {
     "LF_icon_Wärmeleistung_small": img_LFiconWrmeleistungsmall,
     "LF_icon_Wärmestrom_small": img_LFiconWrmestromsmall,
     "LF_icon_Wärmeübertragung_small": img_LFiconWrmebertragungsmall,
+    "LF_icon_Zeitgesteuert_small": img_LFiconZeitgesteuertsmall,
     "LF_icon_Zeitsteuerung_small": img_LFiconZeitsteuerungsmall,
     "LF_icon_Zement_small": img_LFiconZementsmall,
     "LF_icon_Ziel_small": img_LFiconZielsmall,
@@ -3297,6 +3350,7 @@ export const imageMap = {
     "LF_icon_kalt_small": img_LFiconkaltsmall,
     "LF_icon_nichtuv_small": img_LFiconnichtuvsmall,
     "LF_icon_trinkwasserverordnung_small": img_LFicontrinkwasserverordnungsmall,
+    "LF_icon_umschalten_small": img_LFiconumschaltensmall,
     "LF_icon_variable_Heizflamme_small": img_LFiconvariableHeizflammesmall,
     "LF_icon_wandhängend_small": img_LFiconwandhngendsmall,
     "LF_icon_warm_small": img_LFiconwarmsmall,
