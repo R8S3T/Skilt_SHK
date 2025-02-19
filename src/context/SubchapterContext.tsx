@@ -56,8 +56,6 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
         const updatedQuizzes = await getFinishedQuizzesToday();
         const totalFinished = await getTotalFinishedSubchapters();
 
-        console.log("🔄 Statistik aktualisiert:", updatedSubchapters, updatedQuizzes, totalFinished);
-
         return { updatedSubchapters, updatedQuizzes, totalFinished };
     };
 

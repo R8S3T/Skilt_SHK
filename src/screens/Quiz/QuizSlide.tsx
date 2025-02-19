@@ -7,6 +7,7 @@ import ClozeTest from './ClozeTest';
 import { fetchQuizByContentId, fetchMultipleChoiceOptionsByQuizId, fetchClozeTestOptionsByQuizId } from 'src/database/databaseServices';
 import { Quiz, MultipleChoiceOption } from 'src/types/contentTypes';
 import { useSubchapter } from 'src/context/SubchapterContext';
+import { saveContentSlideIndex, loadContentSlideIndex } from 'src/utils/progressUtils';
 
 const isClozeTestOptions = (
     options: MultipleChoiceOption[] | { options: string[]; correctAnswers: (string | null)[] }
@@ -17,11 +18,12 @@ const isClozeTestOptions = (
 interface QuizSlideProps {
     contentId: number;
     onContinue: () => void;
+    subchapterId: number; 
     style?: ViewStyle;
     setShowQuiz: (show: boolean) => void;
 }
 
-const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, setShowQuiz }) => {
+const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, setShowQuiz, subchapterId }) => {
     const navigation = useNavigation();
     const [quizzes, setQuizzes] = useState<Quiz[]>([]);
     const [options, setOptions] = useState<MultipleChoiceOption[] | { options: string[]; correctAnswers: (string | null)[] }>([]);
@@ -108,9 +110,8 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, set
         if (currentQuiz) {
             const existingDate = await AsyncStorage.getItem(`finishedQuiz_${currentQuiz.QuizId}`);
             if (existingDate !== new Date().toISOString().split('T')[0]) {
-                await markQuizAsFinished(currentQuiz.QuizId);
+                markQuizAsFinished(currentQuiz.QuizId);
             } else {
-                console.log(`⚠️ Quiz ${currentQuiz.QuizId} wurde heute bereits abgeschlossen.`);
             }
         }
     
@@ -120,13 +121,23 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, set
             setCurrentQuizIndex(nextIndex);
             loadQuizOptions(quizzes[nextIndex]);
         } else {
+    
+            // Lade den letzten gespeicherten Wert
+            const previousIndex = await loadContentSlideIndex(subchapterId);
+    
+            // **Speichere den maximalen Fortschritt**
+            const newIndex = Math.max(previousIndex, currentQuizIndex + 1);
+            await saveContentSlideIndex(subchapterId, newIndex);
+    
+            // Lade nochmal zum Überprüfen
+            const updatedLastVisitedIndex = await loadContentSlideIndex(subchapterId);
+
             setShowQuiz(false);
-            await onContinue();
+            onContinue();
         }
     };
     
 
-    // Return statement with all safeguards
     if (loading) {
         return <View style={{ flex: 1, backgroundColor: '#2b4353' }} />;
     }
@@ -145,7 +156,7 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, set
 
     return (
         <View style={[styles.slide, style]}>
-            {/* Render Multiple Choice */}
+   
             {currentQuiz.QuizType === 'multiple_choice' && Array.isArray(options) && (
                 <MultipleChoice
                     key={`multiple-choice-${currentQuizIndex}`}

@@ -234,28 +234,38 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     return (
         <GestureHandlerRootView style={styles.container}>
             <View style={styles.container}>
-            {showQuiz ? (
-                <QuizSlide
-                    contentId={(contentData[currentIndex] as Quiz).ContentId}
-                    setShowQuiz={setShowQuiz}
-                    onContinue={async () => {
-                        setShowQuiz(false);
-                        handleNextContent();
-                    }}
-                />
-            ) : (
-                <ContentSlide
-                    contentData={contentData}
-                    onNext={handleNextContent}
-                    currentIndex={currentIndex} // Pass the current index
-                    setCurrentIndex={setCurrentIndex}
-                    subchapterId={subchapterId}
-                    setShowQuiz={setShowQuiz}
-                />
-            )}
+                {showQuiz ? (
+                    contentData[currentIndex] ? ( 
+                        <QuizSlide
+                            contentId={(contentData[currentIndex] as Quiz).ContentId}
+                            subchapterId={subchapterId}
+                            setShowQuiz={setShowQuiz}
+                            onContinue={async () => {
+                                setShowQuiz(false);
+                                handleNextContent();
+                            }}
+                        />
+                    ) : (
+                        <Text>Fehler: Kein Quiz-Inhalt vorhanden.</Text> // 🛠 Fallback für ungültigen Index
+                    )
+                ) : (
+                    contentData[currentIndex] ? ( 
+                        <ContentSlide
+                            contentData={contentData}
+                            onNext={handleNextContent}
+                            currentIndex={currentIndex}
+                            setCurrentIndex={setCurrentIndex}
+                            subchapterId={subchapterId}
+                            setShowQuiz={setShowQuiz}
+                        />
+                    ) : (
+                        <Text>Fehler: Kein Inhalt vorhanden.</Text> // 🛠 Fallback für ungültigen Index
+                    )
+                )}
             </View>
         </GestureHandlerRootView>
     );
+    
 }
 
 const styles = StyleSheet.create({

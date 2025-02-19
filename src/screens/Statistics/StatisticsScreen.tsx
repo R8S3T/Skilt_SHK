@@ -34,7 +34,6 @@ const StatisticsScreen = () => {
     }, []);
 
     useEffect(() => {
-        console.log("📊 UI-Update nach Statistikänderung:", finishedToday, quizzesToday, totalSubchapters);
     }, [finishedToday, quizzesToday, totalSubchapters]);
     
 

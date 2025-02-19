@@ -599,6 +599,7 @@ const img_LF13Querlftenzoom = require('../../assets/DbImages/SubchapterContent/L
 const img_LF13RALzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_RAL_zoom.png');
 const img_LF13RLTAnlagenwelcome = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_RLT_Anlagen_welcome.png');
 const img_LF13Radialventilatorzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Radialventilator_zoom.png');
+const img_LF13Rauchentwicklung2zoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Rauchentwicklung_2_zoom.png');
 const img_LF13Rauchentwicklungzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Rauchentwicklung_zoom.png');
 const img_LF13Rohrschalldmpferzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Rohrschalldämpfer_zoom.png');
 const img_LF13Rollbandfilterzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Rollbandfilter_zoom.png');
@@ -607,6 +608,7 @@ const img_LF13SchallBrandschutzwelcome = require('../../assets/DbImages/Subchapt
 const img_LF13TabelleWrmeschutzfaktorzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Tabelle_Wärmeschutzfaktor_zoom.png');
 const img_LF13Tangentialventilatorzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Tangentialventilator_zoom.png');
 const img_LF13Taschenfilterzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Taschenfilter_zoom.png');
+const img_LF13Volumenstromregelungzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Volumenstromregelung_zoom.png');
 const img_LF13WartungLftungwelcome = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Wartung_Lüftung_welcome.png');
 const img_LF13Zellenfilterzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Zellenfilter_zoom.png');
 const img_LF13dezentraleLftungsanlagezoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_dezentrale_Lüftungsanlage_zoom.png');
@@ -1299,6 +1301,7 @@ const img_LFiconBlockheizkraftwerksmall = require('../../assets/DbImages/Subchap
 const img_LFiconBodenablaufsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Bodenablauf_small.png');
 const img_LFiconBrandschutzLftungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Brandschutz_Lüftung_small.png');
 const img_LFiconBrandschutzsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Brandschutz_small.png');
+const img_LFiconBrandwandsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Brandwand_small.png');
 const img_LFiconBreitesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Breite_small.png');
 const img_LFiconBrennstoffzellesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Brennstoffzelle_small.png');
 const img_LFiconBrennwertsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Brennwert_small.png');
@@ -2303,6 +2306,7 @@ export const imageMap = {
     "LF_13_RAL_zoom": img_LF13RALzoom,
     "LF_13_RLT_Anlagen_welcome": img_LF13RLTAnlagenwelcome,
     "LF_13_Radialventilator_zoom": img_LF13Radialventilatorzoom,
+    "LF_13_Rauchentwicklung_2_zoom": img_LF13Rauchentwicklung2zoom,
     "LF_13_Rauchentwicklung_zoom": img_LF13Rauchentwicklungzoom,
     "LF_13_Rohrschalldämpfer_zoom": img_LF13Rohrschalldmpferzoom,
     "LF_13_Rollbandfilter_zoom": img_LF13Rollbandfilterzoom,
@@ -2311,6 +2315,7 @@ export const imageMap = {
     "LF_13_Tabelle_Wärmeschutzfaktor_zoom": img_LF13TabelleWrmeschutzfaktorzoom,
     "LF_13_Tangentialventilator_zoom": img_LF13Tangentialventilatorzoom,
     "LF_13_Taschenfilter_zoom": img_LF13Taschenfilterzoom,
+    "LF_13_Volumenstromregelung_zoom": img_LF13Volumenstromregelungzoom,
     "LF_13_Wartung_Lüftung_welcome": img_LF13WartungLftungwelcome,
     "LF_13_Zellenfilter_zoom": img_LF13Zellenfilterzoom,
     "LF_13_dezentrale_Lüftungsanlage_zoom": img_LF13dezentraleLftungsanlagezoom,
@@ -3003,6 +3008,7 @@ export const imageMap = {
     "LF_icon_Bodenablauf_small": img_LFiconBodenablaufsmall,
     "LF_icon_Brandschutz_Lüftung_small": img_LFiconBrandschutzLftungsmall,
     "LF_icon_Brandschutz_small": img_LFiconBrandschutzsmall,
+    "LF_icon_Brandwand_small": img_LFiconBrandwandsmall,
     "LF_icon_Breite_small": img_LFiconBreitesmall,
     "LF_icon_Brennstoffzelle_small": img_LFiconBrennstoffzellesmall,
     "LF_icon_Brennwert_small": img_LFiconBrennwertsmall,

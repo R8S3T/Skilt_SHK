@@ -59,13 +59,13 @@ const ContentSlide: React.FC<ContentSlideProps> = ({
         const lastVisitedIndex = await loadContentSlideIndex(subchapterId);
         const nextIndex = currentIndex + 1;
     
-        if (currentIndex < lastVisitedIndex) {
-            // Check if the next content is a quiz
+        if (currentIndex <= lastVisitedIndex) {
             if (contentData[nextIndex] && 'QuizId' in contentData[nextIndex]) {
-                setShowQuiz(true); 
+                setShowQuiz(true);
                 setCurrentIndex(nextIndex);
             } else {
                 setCurrentIndex(nextIndex);
+                setCanNavigateForward(lastVisitedIndex !== null && nextIndex <= lastVisitedIndex); 
             }
         } else {
             console.log("Cannot move forward beyond the most recently visited slide.");
@@ -75,16 +75,17 @@ const ContentSlide: React.FC<ContentSlideProps> = ({
     useEffect(() => {
         const checkProgress = async () => {
             const lastVisitedIndex = await loadContentSlideIndex(subchapterId);
+    
             setCanNavigateBack(currentIndex > 0);
-
-            setCanNavigateForward(
-                lastVisitedIndex !== null && currentIndex < lastVisitedIndex
-            );
+    
+            // Fix: `currentIndex <= lastVisitedIndex` statt `< lastVisitedIndex`
+            const canMoveForward = lastVisitedIndex !== null && currentIndex <= lastVisitedIndex;
+            setCanNavigateForward(canMoveForward);
         };
-
+    
         checkProgress();
     }, [currentIndex, subchapterId]);
-
+    
 
     useEffect(() => {
         if (ContentData) {

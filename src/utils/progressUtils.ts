@@ -47,13 +47,18 @@ export const loadProgress = async (sectionKey: string) => {
 
 
 // Function to save slide index
-export const saveContentSlideIndex = async (subchapterId: number, currentIndex: number) => {
+export const saveContentSlideIndex = async (subchapterId: number, newIndex: number) => {
     try {
-        await AsyncStorage.setItem(`slideIndex_${subchapterId}`, JSON.stringify(currentIndex));
+        const previousIndex = await loadContentSlideIndex(subchapterId);
+        const finalIndex = previousIndex !== null ? Math.max(previousIndex, newIndex) : newIndex;
+
+        await AsyncStorage.setItem(`slideIndex_${subchapterId}`, JSON.stringify(finalIndex));
     } catch (error) {
         console.error('Error saving slide index:', error);
     }
 };
+
+
 
 // Function to load slide index
 export const loadContentSlideIndex = async (subchapterId: number) => {
@@ -188,8 +193,6 @@ export const completeSubchapter = async ({
     unlockSubchapter: (id: number) => void;
     origin?: string;
 }) => {
-
-    console.log("Subchapter abgeschlossen, origin:", origin);
 
     // Mark the current subchapter as finished and unlock the next one
     markSubchapterAsFinished(subchapterId);
