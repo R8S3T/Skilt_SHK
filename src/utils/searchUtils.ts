@@ -11,34 +11,29 @@ const cleanContent = (content: string): string => {
 const adjustPreview = (content: string, query: string): string => {
     const cleanedContent = cleanContent(content);
 
-    // Split the content into sentences
+    // Split content into sentences
     const sentences = cleanedContent.match(/[^\.!\?]+[\.!\?]+|[^\.!\?]+$/g);
+    if (!sentences) return '';
 
-    if (!sentences) {
-        // If no sentences found, return an empty string
-        return '';
-    }
+    // Split query into multiple words
+    const queryWords = query.split(/\s+/).map(word => word.trim()).filter(Boolean);
+    if (queryWords.length === 0) return '';
 
-    // Find the index of the sentence that contains the query
-    const queryRegex = new RegExp(query, 'i');
+    // Build regex for all words (ignoring order)
+    const queryRegex = new RegExp(queryWords.map(word => `(?=.*${word})`).join(''), 'i');
 
+    // Find the first sentence that contains ALL words
     const index = sentences.findIndex(sentence => queryRegex.test(sentence));
 
     if (index === -1) {
-        // If query not found, return the first sentence(s) as a fallback
-        const preview = sentences.slice(0, 1).join(' ').trim();
-        return preview.length > 0 ? preview + '...' : '';
+        return sentences.slice(0, 1).join(' ').trim() + '...';
     } else {
-        // Start the preview from the matching sentence
         const previewSentences = [];
-
-        // Add the matching sentence
         previewSentences.push(sentences[index]);
 
-        // Optionally, include subsequent sentences until preview length is reached
         let totalLength = sentences[index].length;
         let i = index + 1;
-        const previewLength = 50; // Adjust the desired preview length as needed
+        const previewLength = 50;
 
         while (i < sentences.length && totalLength < previewLength) {
             totalLength += sentences[i].length;
@@ -46,10 +41,10 @@ const adjustPreview = (content: string, query: string): string => {
             i++;
         }
 
-        const preview = previewSentences.join(' ').trim();
-        return preview.length > 0 ? preview + '...' : '';
+        return previewSentences.join(' ').trim() + '...';
     }
 };
+
 
 
 // Highlight the query in the preview
@@ -62,6 +57,12 @@ export const handleSearch = async (
     query: string,
     searchSubchapters: (query: string) => Promise<SubchapterWithPreview[]>
 ): Promise<SubchapterWithPreviewExtended[]> => {
+
+    // Falls query leer oder nur Leerzeichen enthält, keine Suche durchführen
+    if (!query.trim()) {
+        return [];
+    }
+
     const searchResults = await searchSubchapters(query);
 
     const filteredResults = searchResults
@@ -71,11 +72,12 @@ export const handleSearch = async (
 
             return {
                 ...subchapter,
-                relevanceScore: 0, // (Optional) You can implement relevance logic here
-                cleanedPreview: highlightedPreview, // Return as an array of strings for highlighting
+                relevanceScore: 0, 
+                cleanedPreview: highlightedPreview, 
             };
         })
         .sort((a, b) => b.relevanceScore - a.relevanceScore);
 
     return filteredResults;
 };
+

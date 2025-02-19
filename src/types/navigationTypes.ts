@@ -96,6 +96,7 @@ export type RootStackParamList = {
     };
     FlashCardRepeat: { chapterId: number } | undefined;
     PrivacyPolicyScreen: undefined;
+    TermsOfServiceScreen: undefined;
 };
 
 

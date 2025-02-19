@@ -17,7 +17,7 @@ import FlashcardScreen from 'src/screens/FlashCard/FlashcardScreen';
 import FlashCardRepeat from 'src/screens/FlashCard/FlashCardRepeat';
 import SearchScreen from 'src/screens/Search/SearchScreen';
 import SearchEndScreen from 'src/screens/Search/SearchEndScreen';
-
+import TermsOfServiceScreen from 'src/screens/Settings Screen/TermsOfServiceScreen';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -115,6 +115,11 @@ const AppNavigator = () => {
                 name="PrivacyPolicyScreen"
                 component={PrivacyPolicyScreen}
                 options={{ title: 'Datenschutzerklärung', headerTitleAlign: 'center' }}
+            />
+            <Stack.Screen
+                name="TermsOfServiceScreen"
+                component={TermsOfServiceScreen}
+                options={{ title: 'Nutzungsbedingungen', headerTitleAlign: 'center' }}
             />
         </Stack.Navigator>
     );

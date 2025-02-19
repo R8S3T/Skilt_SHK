@@ -103,8 +103,8 @@ const Flashcard = ({
 
 const styles = StyleSheet.create({
     cardWrapper: {
-        width: screenWidth > 600 ? 450 : 350,
-        height: screenWidth > 600 ? 550 : 480,
+        width: screenWidth > 600 ? 450 : 400,
+        height: screenWidth > 600 ? 550 : 500,
         borderRadius: 15,
         overflow: 'hidden',
         shadowColor: '#000',
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     flipCard: {
-        width: screenWidth > 600 ? 450 : 350,
+        width: screenWidth > 600 ? 450 : 380,
         height: screenWidth > 600 ? 550 : 480,
     },
     front: {
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 15,
+        padding: 5,
     },
     defaultBorder: {
         borderColor: '#85a6b1',
@@ -152,9 +152,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         paddingHorizontal: screenWidth > 600 ? 10 : 8,
         lineHeight: 30,
+
     },
     answerBox: {
-        width: '90%',
+        width: '95%',
         height: '65%',
         borderRadius: 10,
         backgroundColor: '#ffffff',
@@ -165,8 +166,8 @@ const styles = StyleSheet.create({
         elevation: 3,
         justifyContent: 'center',
         alignItems: 'center',
-        padding: screenWidth > 600 ? 20 : 15,
-        marginBottom: screenWidth > 600 ? 35 : 30,
+        padding: screenWidth > 600 ? 15 : 5,
+        marginBottom: screenWidth > 600 ? 30 : 25,
     },
     answerText: {
         fontFamily: 'OpenSans-Semibold',

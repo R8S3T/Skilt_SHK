@@ -46,15 +46,14 @@ const SettingsScreen = () => {
 
     return (
         <View style={[styles.container, { backgroundColor: theme.background }]}>
-            {/* Separate Header Container */}
                 <View style={[styles.headerContainer, { backgroundColor: theme.background }]}>
                 </View>
 
-                {/* Name Change Section */}
+
                 <View style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}>
                     <View style={styles.row}>
                         {isEditing ? (
-                            // Show input field during editing
+
                             <TextInput
                                 style={[
                                     styles.input,
@@ -70,7 +69,6 @@ const SettingsScreen = () => {
                                 placeholderTextColor={isDarkMode ? '#ccc' : '#aaa'}
                             />
                         ) : (
-                            // Display name or placeholder when not editing
                         <Text
                             style={[
                                 styles.name,
@@ -112,6 +110,14 @@ const SettingsScreen = () => {
                     onPress={() => navigation.navigate('PrivacyPolicyScreen')}
                 >
                     <Text style={[styles.label, { color: theme.primaryText }]}>Datenschutzerklärung</Text>
+                </TouchableOpacity>
+
+                <View style={[styles.divider, { backgroundColor: theme.border }]} />
+                <TouchableOpacity
+                    style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}
+                    onPress={() => navigation.navigate('TermsOfServiceScreen')}
+                >
+                    <Text style={[styles.label, { color: theme.primaryText }]}>Nutzungsbedingungen</Text>
                 </TouchableOpacity>
 
         </View>

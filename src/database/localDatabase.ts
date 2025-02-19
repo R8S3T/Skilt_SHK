@@ -13,7 +13,9 @@ import {
 } from '../types/contentTypes';
 
 
-
+export interface SubchapterWithPreview extends Subchapter {
+    ContentPreview: string; // Fügt eine Vorschau des Inhalts hinzu
+}
 // Fetch chapters by year from local SQLite database
 export async function fetchChaptersByYear(year: number): Promise<Chapter[]> {
     const db = await initializeDatabase();
@@ -177,28 +179,38 @@ export async function fetchMathMiniQuizByContentId(contentId: number): Promise<M
 }
 
 // Search subchapters by query
-export async function searchSubchapters(query: string): Promise<Subchapter[]> {
+export async function searchSubchapters(query: string): Promise<SubchapterWithPreview[]> {
+    if (!query.trim()) return []; // Falls leer, abbrechen
+
     const db = await initializeDatabase();
     if (!db) return [];
+
+    // Zerlege die Suchanfrage in einzelne Wörter
+    const words = query.trim().split(/\s+/); // Trennt an Leerzeichen
+
+    // Erstelle die SQL-Abfrage mit mehreren LIKE-Bedingungen mit ODER (statt UND)
+    const conditions = words.map(() => "(s.SubchapterName LIKE ? OR c.ContentData LIKE ?)").join(" OR ");
+    const params = words.flatMap(word => [`%${word}%`, `%${word}%`]);
+
     const sqlQuery = `
         SELECT s.SubchapterId, s.SubchapterName, GROUP_CONCAT(c.ContentData, ' ') AS ContentPreview
         FROM Subchapters s
         LEFT JOIN SubchapterContent c ON s.SubchapterId = c.SubchapterId
-        WHERE s.SubchapterName LIKE ? OR c.ContentData LIKE ?
+        WHERE ${conditions}
         GROUP BY s.SubchapterId
         ORDER BY s.SortOrder;
     `;
+
     try {
-        const results = await db.getAllAsync<Subchapter>(
-            sqlQuery,
-            [`%${query}%`, `%${query}%`]
-        );
+        const results = await db.getAllAsync<SubchapterWithPreview>(sqlQuery, params);
         return results;
     } catch (error) {
         console.error(`Failed to fetch search results for query "${query}":`, error);
         return [];
     }
 }
+
+
 
 // Function to fetch flashcards based on a chapterId
 export async function fetchFlashcardsForChapter(chapterId: number): Promise<{ Question: string; Answer: string }[]> {

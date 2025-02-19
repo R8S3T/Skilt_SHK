@@ -401,6 +401,7 @@ const img_LF10FormelinfiltriertenLuftstromsmall = require('../../assets/DbImages
 const img_LF10Gasbrennerwelcome = require('../../assets/DbImages/SubchapterContent/LF_10/LF_10_Gasbrenner_welcome.png');
 const img_LF10GasdruckregelgertSchnittzoom = require('../../assets/DbImages/SubchapterContent/LF_10/LF_10_Gasdruckregelgerät_Schnitt_zoom.png');
 const img_LF10Gasdruckregelgertwelcome = require('../../assets/DbImages/SubchapterContent/LF_10/LF_10_Gasdruckregelgerät_welcome.png');
+const img_LF10Gasdruckregelgertzoom = require('../../assets/DbImages/SubchapterContent/LF_10/LF_10_Gasdruckregelgerät_zoom.png');
 const img_LF10Gasheizgertewelcome = require('../../assets/DbImages/SubchapterContent/LF_10/LF_10_Gasheizgeräte_welcome.png');
 const img_LF10GasleitungenArbeitenwelcome = require('../../assets/DbImages/SubchapterContent/LF_10/LF_10_Gasleitungen_Arbeiten_welcome.png');
 const img_LF10GasregelstreckemitGeblsezoom = require('../../assets/DbImages/SubchapterContent/LF_10/LF_10_Gasregelstrecke_mit_Gebläse_zoom.png');
@@ -562,6 +563,9 @@ const img_LF13Axialventilatorzoom = require('../../assets/DbImages/SubchapterCon
 const img_LF13BauteileRLTwelcome = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Bauteile_RLT_welcome.png');
 const img_LF13Behaglichkeitstabellezoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Behaglichkeitstabelle_zoom.png');
 const img_LF13BerechnungLuftwechselwelcome = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Berechnung_Luftwechsel_welcome.png');
+const img_LF13Brandschutzklappenzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Brandschutzklappen_zoom.png');
+const img_LF13BrandschutzventilSchnittzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Brandschutzventil_Schnitt_zoom.png');
+const img_LF13Brandschutzventilzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Brandschutzventil_zoom.png');
 const img_LF13Brandverhaltenzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Brandverhalten_zoom.png');
 const img_LF13Deckenlftungzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Deckenlüftung_zoom.png');
 const img_LF13Feuerwiderstand135012zoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Feuerwiderstand_135012_zoom.png');
@@ -583,6 +587,11 @@ const img_LF13FormelNennleistungsmall = require('../../assets/DbImages/Subchapte
 const img_LF13FormelVentilatordrucksmall = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Formel_Ventilatordruck_small.png');
 const img_LF13FormelVentilatorleistungsmall = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Formel_Ventilatorleistung_small.png');
 const img_LF13GrundlagenRaumklimawelcome = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Grundlagen_Raumklima_welcome.png');
+const img_LF13Heizregisterzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Heizregister_zoom.png');
+const img_LF13Klimaanlagekomplettzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Klimaanlage_komplett_zoom.png');
+const img_LF13Kulissenschalldmpferzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Kulissenschalldämpfer_zoom.png');
+const img_LF13Khlregisterzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Kühlregister_zoom.png');
+const img_LF13Luftbefeuchterzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Luftbefeuchter_zoom.png');
 const img_LF13Luftbehandlungwelcome = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Luftbehandlung_welcome.png');
 const img_LF13Lftungsgitterzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Lüftungsgitter_zoom.png');
 const img_LF13Lftungskonzeptewelcome = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Lüftungskonzepte_welcome.png');
@@ -591,11 +600,15 @@ const img_LF13RALzoom = require('../../assets/DbImages/SubchapterContent/LF_13/L
 const img_LF13RLTAnlagenwelcome = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_RLT_Anlagen_welcome.png');
 const img_LF13Radialventilatorzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Radialventilator_zoom.png');
 const img_LF13Rauchentwicklungzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Rauchentwicklung_zoom.png');
+const img_LF13Rohrschalldmpferzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Rohrschalldämpfer_zoom.png');
+const img_LF13Rollbandfilterzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Rollbandfilter_zoom.png');
 const img_LF13Schachtlftungzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Schachtlüftung_zoom.png');
 const img_LF13SchallBrandschutzwelcome = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Schall_Brandschutz_welcome.png');
 const img_LF13TabelleWrmeschutzfaktorzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Tabelle_Wärmeschutzfaktor_zoom.png');
 const img_LF13Tangentialventilatorzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Tangentialventilator_zoom.png');
+const img_LF13Taschenfilterzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Taschenfilter_zoom.png');
 const img_LF13WartungLftungwelcome = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Wartung_Lüftung_welcome.png');
+const img_LF13Zellenfilterzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Zellenfilter_zoom.png');
 const img_LF13dezentraleLftungsanlagezoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_dezentrale_Lüftungsanlage_zoom.png');
 const img_LF13zentraldezentralzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_zentral_dezentral_zoom.png');
 const img_LF13zentraleLftungsanlagezoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_zentrale_Lüftungsanlage_zoom.png');
@@ -725,6 +738,7 @@ const img_LF4IPSchutzartenzoom = require('../../assets/DbImages/SubchapterConten
 const img_LF4Instandhaltenwelcome = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Instandhalten_welcome.png');
 const img_LF4Kabelkanal = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Kabelkanal.png');
 const img_LF4Kabelquerschnitt = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Kabelquerschnitt.png');
+const img_LF4Kabelverlegungzoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Kabelverlegung_zoom.png');
 const img_LF4Kopfhrersmall = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Kopfhörer_small.png');
 const img_LF4Leitungsartenzoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Leitungsarten_zoom.png');
 const img_LF4Leitungsschutzschalterzoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Leitungsschutzschalter_zoom.png');
@@ -741,6 +755,7 @@ const img_LF4ReihenschaltungStromstrke = require('../../assets/DbImages/Subchapt
 const img_LF4Schaltplan2zoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Schaltplan_2_zoom.png');
 const img_LF4Schaltplan3zoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Schaltplan_3_zoom.png');
 const img_LF4Schaltplanzoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Schaltplan_zoom.png');
+const img_LF4SchellenabstndeTabellezoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Schellenabstände_Tabelle_zoom.png');
 const img_LF4Schraubsicherungenzoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Schraubsicherungen_zoom.png');
 const img_LF4Schukozoom = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Schuko_zoom.png');
 const img_LF4Schutzeinrichtungenwelcome = require('../../assets/DbImages/SubchapterContent/LF_4/LF_4_Schutzeinrichtungen_welcome.png');
@@ -1020,6 +1035,8 @@ const img_LF7Celsiuszoom = require('../../assets/DbImages/SubchapterContent/LF_7
 const img_LF7Dichteanomaliezoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Dichteanomalie_zoom.png');
 const img_LF7Durchflussanzeigezoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Durchflussanzeige_zoom.png');
 const img_LF7Durchgangsventilzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Durchgangsventil_zoom.png');
+const img_LF7DmmenWrmeleitungenwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Dämmen_Wärmeleitungen_welcome.png');
+const img_LF7DmmungTabellezoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Dämmung_Tabelle_zoom.png');
 const img_LF7EckventilSchnittzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Eckventil_Schnitt_zoom.png');
 const img_LF7Energieausweiszoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Energieausweis_zoom.png');
 const img_LF7FBHeizungzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_FB_Heizung_zoom.png');
@@ -1360,6 +1377,7 @@ const img_LFiconFunktion2small = require('../../assets/DbImages/SubchapterConten
 const img_LFiconFunktion3small = require('../../assets/DbImages/SubchapterContent/LF_icon_Funktion_3_small.png');
 const img_LFiconFunktionsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Funktion_small.png');
 const img_LFiconFllgradsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Füllgrad_small.png');
+const img_LFiconGEGsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_GEG_small.png');
 const img_LFiconGasFirmasmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Gas_Firma_small.png');
 const img_LFiconGasRohrsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Gas_Rohr_small.png');
 const img_LFiconGasbrennwertkesselsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Gasbrennwertkessel_small.png');
@@ -1643,6 +1661,7 @@ const img_LFiconWidereinschaltensmall = require('../../assets/DbImages/Subchapte
 const img_LFiconWiderstandsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Widerstand_small.png');
 const img_LFiconWiderstandmessungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Widerstandmessung_small.png');
 const img_LFiconWirkungsgradsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wirkungsgrad_small.png');
+const img_LFiconWrmedmmungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wärmedämmung_small.png');
 const img_LFiconWrmefluss2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Wärmefluss_2_small.png');
 const img_LFiconWrmeflusssmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wärmefluss_small.png');
 const img_LFiconWrmekapazittsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wärmekapazität_small.png');
@@ -2086,6 +2105,7 @@ export const imageMap = {
     "LF_10_Gasbrenner_welcome": img_LF10Gasbrennerwelcome,
     "LF_10_Gasdruckregelgerät_Schnitt_zoom": img_LF10GasdruckregelgertSchnittzoom,
     "LF_10_Gasdruckregelgerät_welcome": img_LF10Gasdruckregelgertwelcome,
+    "LF_10_Gasdruckregelgerät_zoom": img_LF10Gasdruckregelgertzoom,
     "LF_10_Gasheizgeräte_welcome": img_LF10Gasheizgertewelcome,
     "LF_10_Gasleitungen_Arbeiten_welcome": img_LF10GasleitungenArbeitenwelcome,
     "LF_10_Gasregelstrecke_mit_Gebläse_zoom": img_LF10GasregelstreckemitGeblsezoom,
@@ -2247,6 +2267,9 @@ export const imageMap = {
     "LF_13_Bauteile_RLT_welcome": img_LF13BauteileRLTwelcome,
     "LF_13_Behaglichkeitstabelle_zoom": img_LF13Behaglichkeitstabellezoom,
     "LF_13_Berechnung_Luftwechsel_welcome": img_LF13BerechnungLuftwechselwelcome,
+    "LF_13_Brandschutzklappen_zoom": img_LF13Brandschutzklappenzoom,
+    "LF_13_Brandschutzventil_Schnitt_zoom": img_LF13BrandschutzventilSchnittzoom,
+    "LF_13_Brandschutzventil_zoom": img_LF13Brandschutzventilzoom,
     "LF_13_Brandverhalten_zoom": img_LF13Brandverhaltenzoom,
     "LF_13_Deckenlüftung_zoom": img_LF13Deckenlftungzoom,
     "LF_13_Feuerwiderstand_135012_zoom": img_LF13Feuerwiderstand135012zoom,
@@ -2268,6 +2291,11 @@ export const imageMap = {
     "LF_13_Formel_Ventilatordruck_small": img_LF13FormelVentilatordrucksmall,
     "LF_13_Formel_Ventilatorleistung_small": img_LF13FormelVentilatorleistungsmall,
     "LF_13_Grundlagen_Raumklima_welcome": img_LF13GrundlagenRaumklimawelcome,
+    "LF_13_Heizregister_zoom": img_LF13Heizregisterzoom,
+    "LF_13_Klimaanlage_komplett_zoom": img_LF13Klimaanlagekomplettzoom,
+    "LF_13_Kulissenschalldämpfer_zoom": img_LF13Kulissenschalldmpferzoom,
+    "LF_13_Kühlregister_zoom": img_LF13Khlregisterzoom,
+    "LF_13_Luftbefeuchter_zoom": img_LF13Luftbefeuchterzoom,
     "LF_13_Luftbehandlung_welcome": img_LF13Luftbehandlungwelcome,
     "LF_13_Lüftungsgitter_zoom": img_LF13Lftungsgitterzoom,
     "LF_13_Lüftungskonzepte_welcome": img_LF13Lftungskonzeptewelcome,
@@ -2276,11 +2304,15 @@ export const imageMap = {
     "LF_13_RLT_Anlagen_welcome": img_LF13RLTAnlagenwelcome,
     "LF_13_Radialventilator_zoom": img_LF13Radialventilatorzoom,
     "LF_13_Rauchentwicklung_zoom": img_LF13Rauchentwicklungzoom,
+    "LF_13_Rohrschalldämpfer_zoom": img_LF13Rohrschalldmpferzoom,
+    "LF_13_Rollbandfilter_zoom": img_LF13Rollbandfilterzoom,
     "LF_13_Schachtlüftung_zoom": img_LF13Schachtlftungzoom,
     "LF_13_Schall_Brandschutz_welcome": img_LF13SchallBrandschutzwelcome,
     "LF_13_Tabelle_Wärmeschutzfaktor_zoom": img_LF13TabelleWrmeschutzfaktorzoom,
     "LF_13_Tangentialventilator_zoom": img_LF13Tangentialventilatorzoom,
+    "LF_13_Taschenfilter_zoom": img_LF13Taschenfilterzoom,
     "LF_13_Wartung_Lüftung_welcome": img_LF13WartungLftungwelcome,
+    "LF_13_Zellenfilter_zoom": img_LF13Zellenfilterzoom,
     "LF_13_dezentrale_Lüftungsanlage_zoom": img_LF13dezentraleLftungsanlagezoom,
     "LF_13_zentral_dezentral_zoom": img_LF13zentraldezentralzoom,
     "LF_13_zentrale_Lüftungsanlage_zoom": img_LF13zentraleLftungsanlagezoom,
@@ -2410,6 +2442,7 @@ export const imageMap = {
     "LF_4_Instandhalten_welcome": img_LF4Instandhaltenwelcome,
     "LF_4_Kabelkanal": img_LF4Kabelkanal,
     "LF_4_Kabelquerschnitt": img_LF4Kabelquerschnitt,
+    "LF_4_Kabelverlegung_zoom": img_LF4Kabelverlegungzoom,
     "LF_4_Kopfhörer_small": img_LF4Kopfhrersmall,
     "LF_4_Leitungsarten_zoom": img_LF4Leitungsartenzoom,
     "LF_4_Leitungsschutzschalter_zoom": img_LF4Leitungsschutzschalterzoom,
@@ -2426,6 +2459,7 @@ export const imageMap = {
     "LF_4_Schaltplan_2_zoom": img_LF4Schaltplan2zoom,
     "LF_4_Schaltplan_3_zoom": img_LF4Schaltplan3zoom,
     "LF_4_Schaltplan_zoom": img_LF4Schaltplanzoom,
+    "LF_4_Schellenabstände_Tabelle_zoom": img_LF4SchellenabstndeTabellezoom,
     "LF_4_Schraubsicherungen_zoom": img_LF4Schraubsicherungenzoom,
     "LF_4_Schuko_zoom": img_LF4Schukozoom,
     "LF_4_Schutzeinrichtungen_welcome": img_LF4Schutzeinrichtungenwelcome,
@@ -2705,6 +2739,8 @@ export const imageMap = {
     "LF_7_Dichteanomalie_zoom": img_LF7Dichteanomaliezoom,
     "LF_7_Durchflussanzeige_zoom": img_LF7Durchflussanzeigezoom,
     "LF_7_Durchgangsventil_zoom": img_LF7Durchgangsventilzoom,
+    "LF_7_Dämmen_Wärmeleitungen_welcome": img_LF7DmmenWrmeleitungenwelcome,
+    "LF_7_Dämmung_Tabelle_zoom": img_LF7DmmungTabellezoom,
     "LF_7_Eckventil_Schnitt_zoom": img_LF7EckventilSchnittzoom,
     "LF_7_Energieausweis_zoom": img_LF7Energieausweiszoom,
     "LF_7_FB_Heizung_zoom": img_LF7FBHeizungzoom,
@@ -3045,6 +3081,7 @@ export const imageMap = {
     "LF_icon_Funktion_3_small": img_LFiconFunktion3small,
     "LF_icon_Funktion_small": img_LFiconFunktionsmall,
     "LF_icon_Füllgrad_small": img_LFiconFllgradsmall,
+    "LF_icon_GEG_small": img_LFiconGEGsmall,
     "LF_icon_Gas_Firma_small": img_LFiconGasFirmasmall,
     "LF_icon_Gas_Rohr_small": img_LFiconGasRohrsmall,
     "LF_icon_Gasbrennwertkessel_small": img_LFiconGasbrennwertkesselsmall,
@@ -3328,6 +3365,7 @@ export const imageMap = {
     "LF_icon_Widerstand_small": img_LFiconWiderstandsmall,
     "LF_icon_Widerstandmessung_small": img_LFiconWiderstandmessungsmall,
     "LF_icon_Wirkungsgrad_small": img_LFiconWirkungsgradsmall,
+    "LF_icon_Wärmedämmung_small": img_LFiconWrmedmmungsmall,
     "LF_icon_Wärmefluss_2_small": img_LFiconWrmefluss2small,
     "LF_icon_Wärmefluss_small": img_LFiconWrmeflusssmall,
     "LF_icon_Wärmekapazität_small": img_LFiconWrmekapazittsmall,
