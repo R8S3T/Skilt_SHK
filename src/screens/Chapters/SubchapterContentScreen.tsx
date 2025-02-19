@@ -165,26 +165,26 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     }, [currentIndex, contentData.length, loading]);
 
     const handleNextContent = async () => {
-
         const nextIndex = currentIndex + 1;
-
+        console.log("🔍 Next Index:", nextIndex, "Content Data Length:", contentData.length, "Current Index:", currentIndex);
+    
         if (nextIndex < contentData.length) {
             const nextContent = contentData[nextIndex];
             const isQuiz = 'QuizId' in nextContent;
-
+    
+            console.log("📌 Navigiere zur nächsten Folie:", nextIndex, "Ist ein Quiz:", isQuiz);
+    
             const subchapters = await fetchSubchaptersByChapterId(chapterId);
             const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
             const imageName = currentSubchapter?.ImageName || null;
-
+    
             setCurrentIndex(() => {
-                setShowQuiz(isQuiz); // Handle quiz display
+                setShowQuiz(isQuiz);
                 return nextIndex;
             });
-
-            // Save progress
+    
             await saveContentSlideIndex(subchapterId, nextIndex);
-
-            // Only save progress if not from SearchScreen
+    
             if (origin !== 'SearchScreen') {
                 await saveProgress(
                     'section1',
@@ -195,14 +195,15 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                     imageName
                 );
             }
-        }
-         else {
+        } else {
+            console.log("✅ Subchapter abgeschlossen. Rufe completeSubchapter() auf.");
+    
             const subchapters = await fetchSubchaptersByChapterId(chapterId);
             const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
             const imageName = currentSubchapter?.ImageName || null;
-
+    
             setNavigating(true);
-
+    
             setTimeout(async () => {
                 await completeSubchapter({
                     subchapterId,
@@ -213,9 +214,10 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                     unlockSubchapter,
                     origin,
                 });
-            }, 200); // Delay to ensure smooth transition
+            }, 200);
         }
     };
+    
 
     if (loading || navigating) {
         return (
@@ -230,37 +232,30 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         );
     }
     
-
     return (
         <GestureHandlerRootView style={styles.container}>
             <View style={styles.container}>
-                {showQuiz ? (
-                    contentData[currentIndex] ? ( 
-                        <QuizSlide
-                            contentId={(contentData[currentIndex] as Quiz).ContentId}
-                            subchapterId={subchapterId}
-                            setShowQuiz={setShowQuiz}
-                            onContinue={async () => {
-                                setShowQuiz(false);
-                                handleNextContent();
-                            }}
-                        />
-                    ) : (
-                        <Text>Fehler: Kein Quiz-Inhalt vorhanden.</Text> // 🛠 Fallback für ungültigen Index
-                    )
+                {currentIndex >= contentData.length ? (
+                    <Text>Fehler: Subchapter ist abgeschlossen.</Text> // 🛠 Fallback für ungültigen Index
+                ) : showQuiz ? (
+                    <QuizSlide
+                        contentId={(contentData[currentIndex] as Quiz).ContentId}
+                        subchapterId={subchapterId}
+                        setShowQuiz={setShowQuiz}
+                        onContinue={async () => {
+                            setShowQuiz(false);
+                            handleNextContent();
+                        }}
+                    />
                 ) : (
-                    contentData[currentIndex] ? ( 
-                        <ContentSlide
-                            contentData={contentData}
-                            onNext={handleNextContent}
-                            currentIndex={currentIndex}
-                            setCurrentIndex={setCurrentIndex}
-                            subchapterId={subchapterId}
-                            setShowQuiz={setShowQuiz}
-                        />
-                    ) : (
-                        <Text>Fehler: Kein Inhalt vorhanden.</Text> // 🛠 Fallback für ungültigen Index
-                    )
+                    <ContentSlide
+                        contentData={contentData}
+                        onNext={handleNextContent}
+                        currentIndex={currentIndex}
+                        setCurrentIndex={setCurrentIndex}
+                        subchapterId={subchapterId}
+                        setShowQuiz={setShowQuiz}
+                    />
                 )}
             </View>
         </GestureHandlerRootView>

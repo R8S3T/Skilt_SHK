@@ -586,9 +586,16 @@ const img_LF13FormelLuftwechselSchadstoffsmall = require('../../assets/DbImages/
 const img_LF13FormelNennleistungsmall = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Formel_Nennleistung_small.png');
 const img_LF13FormelVentilatordrucksmall = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Formel_Ventilatordruck_small.png');
 const img_LF13FormelVentilatorleistungsmall = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Formel_Ventilatorleistung_small.png');
+const img_LF13GegenstromwrmetauscherSeitezoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Gegenstromwärmetauscher_Seite_zoom.png');
+const img_LF13Gegenstromwrmetauscherzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Gegenstromwärmetauscher_zoom.png');
 const img_LF13GrundlagenRaumklimawelcome = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Grundlagen_Raumklima_welcome.png');
 const img_LF13Heizregisterzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Heizregister_zoom.png');
+const img_LF13KWLAnlagezoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_KWL_Anlage_zoom.png');
+const img_LF13KWLWrmerckgewinnungzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_KWL_Wärmerückgewinnung_zoom.png');
+const img_LF13KWLoffenzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_KWL_offen_zoom.png');
+const img_LF13KWLwelcome = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_KWL_welcome.png');
 const img_LF13Klimaanlagekomplettzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Klimaanlage_komplett_zoom.png');
+const img_LF13Kreuzstromwrmetauscherzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Kreuzstromwärmetauscher_zoom.png');
 const img_LF13Kulissenschalldmpferzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Kulissenschalldämpfer_zoom.png');
 const img_LF13Khlregisterzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Kühlregister_zoom.png');
 const img_LF13Luftbefeuchterzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Luftbefeuchter_zoom.png');
@@ -601,6 +608,7 @@ const img_LF13RLTAnlagenwelcome = require('../../assets/DbImages/SubchapterConte
 const img_LF13Radialventilatorzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Radialventilator_zoom.png');
 const img_LF13Rauchentwicklung2zoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Rauchentwicklung_2_zoom.png');
 const img_LF13Rauchentwicklungzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Rauchentwicklung_zoom.png');
+const img_LF13RaumschemaKWLzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Raumschema_KWL_zoom.png');
 const img_LF13Rohrschalldmpferzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Rohrschalldämpfer_zoom.png');
 const img_LF13Rollbandfilterzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Rollbandfilter_zoom.png');
 const img_LF13Schachtlftungzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Schachtlüftung_zoom.png');
@@ -1473,6 +1481,7 @@ const img_LFiconLieferformsmall = require('../../assets/DbImages/SubchapterConte
 const img_LFiconLuftsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Luft_small.png');
 const img_LFiconLuftblasensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Luftblasen_small.png');
 const img_LFiconLuftfeuchtigkeitsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Luftfeuchtigkeit_small.png');
+const img_LFiconLuftqualittsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Luftqualität_small.png');
 const img_LFiconLuftwechselsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Luftwechsel_small.png');
 const img_LFiconLngenausdehnungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Längenausdehnung_small.png');
 const img_LFiconLtensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Löten_small.png');
@@ -1552,6 +1561,7 @@ const img_LFiconRohrdmmungsmall = require('../../assets/DbImages/SubchapterConte
 const img_LFiconRuhesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Ruhe_small.png');
 const img_LFiconRuhedrucksmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Ruhedruck_small.png');
 const img_LFiconSBSsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_SBS_small.png');
+const img_LFiconSaisonsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Saison_small.png');
 const img_LFiconSanitrMontagesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sanitär_Montage_small.png');
 const img_LFiconSaubersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sauber_small.png');
 const img_LFiconSauerstoffsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sauerstoff_small.png');
@@ -2293,9 +2303,16 @@ export const imageMap = {
     "LF_13_Formel_Nennleistung_small": img_LF13FormelNennleistungsmall,
     "LF_13_Formel_Ventilatordruck_small": img_LF13FormelVentilatordrucksmall,
     "LF_13_Formel_Ventilatorleistung_small": img_LF13FormelVentilatorleistungsmall,
+    "LF_13_Gegenstromwärmetauscher_Seite_zoom": img_LF13GegenstromwrmetauscherSeitezoom,
+    "LF_13_Gegenstromwärmetauscher_zoom": img_LF13Gegenstromwrmetauscherzoom,
     "LF_13_Grundlagen_Raumklima_welcome": img_LF13GrundlagenRaumklimawelcome,
     "LF_13_Heizregister_zoom": img_LF13Heizregisterzoom,
+    "LF_13_KWL_Anlage_zoom": img_LF13KWLAnlagezoom,
+    "LF_13_KWL_Wärmerückgewinnung_zoom": img_LF13KWLWrmerckgewinnungzoom,
+    "LF_13_KWL_offen_zoom": img_LF13KWLoffenzoom,
+    "LF_13_KWL_welcome": img_LF13KWLwelcome,
     "LF_13_Klimaanlage_komplett_zoom": img_LF13Klimaanlagekomplettzoom,
+    "LF_13_Kreuzstromwärmetauscher_zoom": img_LF13Kreuzstromwrmetauscherzoom,
     "LF_13_Kulissenschalldämpfer_zoom": img_LF13Kulissenschalldmpferzoom,
     "LF_13_Kühlregister_zoom": img_LF13Khlregisterzoom,
     "LF_13_Luftbefeuchter_zoom": img_LF13Luftbefeuchterzoom,
@@ -2308,6 +2325,7 @@ export const imageMap = {
     "LF_13_Radialventilator_zoom": img_LF13Radialventilatorzoom,
     "LF_13_Rauchentwicklung_2_zoom": img_LF13Rauchentwicklung2zoom,
     "LF_13_Rauchentwicklung_zoom": img_LF13Rauchentwicklungzoom,
+    "LF_13_Raumschema_KWL_zoom": img_LF13RaumschemaKWLzoom,
     "LF_13_Rohrschalldämpfer_zoom": img_LF13Rohrschalldmpferzoom,
     "LF_13_Rollbandfilter_zoom": img_LF13Rollbandfilterzoom,
     "LF_13_Schachtlüftung_zoom": img_LF13Schachtlftungzoom,
@@ -3180,6 +3198,7 @@ export const imageMap = {
     "LF_icon_Luft_small": img_LFiconLuftsmall,
     "LF_icon_Luftblasen_small": img_LFiconLuftblasensmall,
     "LF_icon_Luftfeuchtigkeit_small": img_LFiconLuftfeuchtigkeitsmall,
+    "LF_icon_Luftqualität_small": img_LFiconLuftqualittsmall,
     "LF_icon_Luftwechsel_small": img_LFiconLuftwechselsmall,
     "LF_icon_Längenausdehnung_small": img_LFiconLngenausdehnungsmall,
     "LF_icon_Löten_small": img_LFiconLtensmall,
@@ -3259,6 +3278,7 @@ export const imageMap = {
     "LF_icon_Ruhe_small": img_LFiconRuhesmall,
     "LF_icon_Ruhedruck_small": img_LFiconRuhedrucksmall,
     "LF_icon_SBS_small": img_LFiconSBSsmall,
+    "LF_icon_Saison_small": img_LFiconSaisonsmall,
     "LF_icon_Sanitär_Montage_small": img_LFiconSanitrMontagesmall,
     "LF_icon_Sauber_small": img_LFiconSaubersmall,
     "LF_icon_Sauerstoff_small": img_LFiconSauerstoffsmall,
