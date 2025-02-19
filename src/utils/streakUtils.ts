@@ -13,7 +13,6 @@ export const getStreakData = async () => {
         const activeDays = storedActiveDays ? JSON.parse(storedActiveDays) : [];
         return { streak, longestStreak, activeDays };
     } catch (error) {
-        console.error('Failed to fetch streak data:', error);
         return { streak: 0, longestStreak: 0, activeDays: [] };
     }
 };
@@ -49,7 +48,6 @@ export const updateStreak = async () => {
 
         return { streak, longestStreak, activeDays };
     } catch (error) {
-        console.error('Error updating streak:', error);
         return { streak: 0, longestStreak: 0, activeDays: [] };
     }
 };

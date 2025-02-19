@@ -25,7 +25,6 @@ const MathModulSection: React.FC<MathModulSectionProps> = ({ onButtonPress }) =>
                 const selectedChapters = shuffledChapters.slice(0, 3);
                 setDisplayModules(selectedChapters);
             } catch (error) {
-                console.error('Failed to fetch chapters:', error);
             }
         };
         loadModules();

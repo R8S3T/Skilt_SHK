@@ -70,7 +70,6 @@ const ResumeSection: React.FC<ResumeSectionProps> = ({ sectionTitle = "Lernen fo
                 },
             });
         } else {
-            console.error("Cannot navigate: Missing one or more required parameters.");
         }
     };
 

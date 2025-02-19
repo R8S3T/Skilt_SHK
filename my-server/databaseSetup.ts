@@ -27,10 +27,8 @@ export const initializeDatabase = (): Promise<void> => {
     return new Promise((resolve, reject) => {
         const db = new sqlite3.Database(dbPath, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, async (err) => {
             if (err) {
-                console.error('Error opening database:', err.message);
                 reject(err);
             } else {
-                console.log('Connected to the SQLite database.');
 
                 // Set busy timeout to 5 seconds (5000 milliseconds)
                 db.configure('busyTimeout', 5000);
@@ -64,14 +62,12 @@ export const fetchChaptersByYear = (year: number): Promise<any[]> => {
             // Update the SQL query to only select the relevant columns: ChapterName and ChapterIntro
             db.all('SELECT ChapterId, ChapterName, ChapterIntro FROM Chapters WHERE Year = ?', [year], (err, rows) => {
                 if (err) {
-                    console.error('Failed to fetch chapters:', err);
                     reject(err);
                 } else {
                     resolve(rows);
                 }
             });
         } catch (error) {
-            console.error('Error executing query:', error);
             reject(error);
         } finally {
             db.close();  // Ensures closure even if db.all() setup fails
@@ -87,7 +83,6 @@ export const fetchSubchaptersByChapterId = (chapterId: number): Promise<any[]> =
         db.all('SELECT SubchapterId, ChapterId, SubchapterName, SortOrder, ImageName FROM Subchapters WHERE ChapterId = ? ORDER BY SortOrder ASC', [chapterId], (err, rows) => {
             db.close();
             if (err) {
-                console.error('Failed to fetch subchapters:', err);
                 reject(err);
             } else {
                 resolve(rows);
@@ -103,7 +98,6 @@ export const fetchSubchapterContentBySubchapterId = (subchapterId: number): Prom
         db.all('SELECT * FROM SubchapterContent WHERE SubchapterId = ? ORDER BY SortOrder', [subchapterId], (err, rows) => {
             db.close();
             if (err) {
-                console.error('Failed to fetch subchapter content:', err);
                 reject(err);
             } else {
                 resolve(rows);
@@ -119,7 +113,6 @@ export const fetchMathChapters = (): Promise<any[]> => {
         try {
             db.all('SELECT * FROM MathChapters ORDER BY SortOrder', [], (err, rows) => {
                 if (err) {
-                    console.error('Failed to fetch math chapters:', err);
                     reject(err);
                 } else {
                     console.log("Fetched rows from MathChapters:", rows);  // Debug log
@@ -127,7 +120,6 @@ export const fetchMathChapters = (): Promise<any[]> => {
                 }
             });
         } catch (error) {
-            console.error('Error during database query:', error);
             reject(error);
         } finally {
             db.close();  // Ensures the database is always closed
@@ -143,7 +135,6 @@ export const fetchMathSubchaptersByChapterId = (chapterId: number): Promise<any[
         db.all('SELECT * FROM MathSubchapters WHERE ChapterId = ? ORDER BY SortOrder', [chapterId], (err, rows) => {
             db.close();
             if (err) {
-                console.error('Failed to fetch subchapters:', err);
                 reject(err);
             } else {
                 resolve(rows);
@@ -159,7 +150,6 @@ export const fetchMathSubchapterContentBySubchapterId = (subchapterId: number): 
         db.all('SELECT * FROM MathSubchapterContent WHERE SubchapterId = ? ORDER BY SortOrder', [subchapterId], (err, rows) => {
             db.close();
             if (err) {
-                console.error('Failed to fetch subchapter content:', err);
                 reject(err);
             } else {
                 resolve(rows);
@@ -177,7 +167,6 @@ export const addChapter = (chapterName: string, chapterIntro: string, year: numb
         `, [chapterName, chapterIntro, year], (err: Error | null) => {
             db.close();
             if (err) {
-                console.error('Error adding chapter:', err.message);
                 reject(err);
             } else {
                 resolve();
@@ -193,7 +182,6 @@ export const fetchQuizByContentId = (contentId: number): Promise<any[]> => {
         db.all('SELECT * FROM Quiz WHERE ContentId = ?', [contentId], (err, rows) => {
             db.close();
             if (err) {
-                console.error('Failed to fetch quiz:', err);
                 reject(err);
             } else {
                 resolve(rows);
@@ -212,7 +200,6 @@ export const fetchMultipleChoiceOptionsByQuizId = (quizId: number): Promise<any[
             WHERE QuizId = ?`, [quizId], (err, rows) => {  // Updated query to fetch new columns
             db.close();
             if (err) {
-                console.error('Failed to fetch multiple-choice options:', err);
                 reject(err);
             } else {
                 resolve(rows);
@@ -226,9 +213,9 @@ export const fetchClozeTestOptionsByQuizId = (quizId: number): Promise<{ options
     return new Promise((resolve, reject) => {
         const db = new sqlite3.Database(dbPath);
         db.get(
-            `SELECT Option1, Option2, Option3, Option4, CorrectAnswerForBlank1, CorrectAnswerForBlank2 
-             FROM ClozeTestOptions 
-             WHERE QuizId = ?`,
+            `SELECT Option1, Option2, Option3, Option4, CorrectAnswerForBlank1, CorrectAnswerForBlank2
+            FROM ClozeTestOptions
+            WHERE QuizId = ?`,
             [quizId],
             (err, row: {
                 Option1: string;
@@ -240,7 +227,6 @@ export const fetchClozeTestOptionsByQuizId = (quizId: number): Promise<{ options
             } | undefined) => {
                 db.close();
                 if (err) {
-                    console.error('Failed to fetch cloze test options:', err);
                     reject(err);
                 } else if (!row) {
                     reject(new Error(`No cloze test options found for QuizId ${quizId}`));
@@ -264,7 +250,6 @@ export const fetchMathMiniQuizByContentId = (contentId: number): Promise<any[]> 
         db.all('SELECT * FROM MathMiniQuiz WHERE ContentId = ?', [contentId], (err, rows) => {
             db.close();
             if (err) {
-                console.error('Failed to fetch MathMiniQuiz:', err);
                 reject(err);
             } else {
                 // Ensure TypeScript knows that rows is an array of objects
@@ -298,7 +283,6 @@ export const searchSubchapters = (searchQuery: string): Promise<any[]> => {
         db.all(query, [`%${searchQuery}%`, `%${searchQuery}%`], (err, rows) => {
             db.close();
             if (err) {
-                console.error('Search query failed:', err);
                 reject(err);
             } else {
                 resolve(rows);
@@ -317,7 +301,6 @@ export const fetchFlashcardsByChapterId = (chapterId: number): Promise<{ Questio
             (err, rows: { Question: string; Answer: string }[]) => { // Specify the type for rows
                 db.close(); // Close the database connection
                 if (err) {
-                    console.error('Failed to fetch flashcards:', err);
                     reject(err);
                 } else {
                     resolve(rows);
@@ -337,7 +320,6 @@ export const fetchChaptersFromDatabase = (): Promise<{ ChapterId: number; Chapte
             (err, rows: { ChapterId: number; ChapterName: string }[]) => { // Specify the type for rows
                 db.close();
                 if (err) {
-                    console.error('Failed to fetch chapters:', err);
                     reject(err);
                 } else {
                     resolve(rows);

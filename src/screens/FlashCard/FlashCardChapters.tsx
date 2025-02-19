@@ -15,9 +15,9 @@ const FlashCardChapters = () => {
     const [modalMessage, setModalMessage] = useState('');
     const { theme, isDarkMode } = useTheme();
 
-    // Locked chapters (IDs 3–15)
-    /* const lockedChapters = new Set(Array.from({ length: 13 }, (_, i) => i + 4));
- */
+    // Locked chapters 
+    const lockedChapters = new Set([10, 11, 12, 13, 14, 15]);
+
     // Calculate button size to fit three per row
     const screenWidth = Dimensions.get('window').width;
     const buttonSize = (screenWidth - 80) / 3; // 40 for padding between buttons
@@ -49,14 +49,14 @@ const FlashCardChapters = () => {
     }, []);
 
     const handleButtonPress = (chapterId: number) => {
-        // if (lockedChapters.has(chapterId)) {
-        //     setModalMessage('Dieser Inhalt ist in der Tesversion nicht verfügbar.');
-        //     setModalVisible(true);
-        // } else {
+        if (lockedChapters.has(chapterId)) {
+            setModalMessage('Dieser Inhalt ist in der Tesversion nicht verfügbar.');
+            setModalVisible(true);
+        } else {
             navigation.navigate('FlashcardScreen', { chapterId, chapterTitle: `Lernfeld ${chapterId}` });
-        // }
+        }
     };
-    
+
 
     return (
         <View style={[styles.container, { backgroundColor: theme.background }]}>
@@ -74,10 +74,9 @@ const FlashCardChapters = () => {
                             key={chapter.ChapterId}
                             style={[
                                 styles.button,
-                                // lockedChapters.has(chapter.ChapterId)
-                                //     ? { backgroundColor: isDarkMode ? '#333333' : styles.lockedButton.backgroundColor } // Dark gray for locked buttons
-                                //     : { backgroundColor: isDarkMode ? '#445566' : styles.unlockedButton.backgroundColor }, // Subtle bluish-gray for unlocked buttons
-                                { backgroundColor: isDarkMode ? '#445566' : styles.unlockedButton.backgroundColor }, // Einheitliche Farbe für alle Buttons
+                                lockedChapters.has(chapter.ChapterId)
+                                    ? { backgroundColor: isDarkMode ? '#333333' : styles.lockedButton.backgroundColor } // Gesperrte Buttons
+                                    : { backgroundColor: isDarkMode ? '#445566' : styles.unlockedButton.backgroundColor }, // Freigegebene Buttons
                                 { width: buttonSize, height: buttonSize },
                             ]}
                             onPress={() => handleButtonPress(chapter.ChapterId)}
@@ -86,10 +85,9 @@ const FlashCardChapters = () => {
                                 style={[
                                     styles.buttonText,
                                     {
-                                        // color: lockedChapters.has(chapter.ChapterId)
-                                        //     ? isDarkMode ? '#AAAAAA' : theme.secondaryText // Softer gray for locked buttons
-                                        //     : isDarkMode ? '#FFFFFF' : theme.primaryText,  // White for unlocked buttons
-                                        color: isDarkMode ? '#FFFFFF' : theme.primaryText, // Einheitliche Farbe für alle Buttons
+                                        color: lockedChapters.has(chapter.ChapterId)
+                                            ? (isDarkMode ? '#AAAAAA' : theme.secondaryText) // Grauer Text für gesperrte Kapitel
+                                            : (isDarkMode ? '#FFFFFF' : theme.primaryText),  // Weißer Text für freigegebene Kapitel
                                     },
                                 ]}
                             >
@@ -179,18 +177,18 @@ const styles = StyleSheet.create({
     },
     modalContainer: {
         width: '80%',
-        padding: screenWidth > 600 ? 24 : 18,
+        padding: screenWidth > 600 ? 35 : 24,
         backgroundColor: 'white',
         borderRadius: 8,
         alignItems: 'center',
     },
     modalText: {
-        fontSize: screenWidth > 600 ? 22 : 18,
+        fontSize: screenWidth > 600 ? 22 : 20,
         marginBottom: 16,
         textAlign: 'center',
     },
     modalButton: {
-        fontSize: screenWidth > 600 ? 22 : 16,
+        fontSize: screenWidth > 600 ? 22 : 20,
         color: '#007bff',
     },
 });

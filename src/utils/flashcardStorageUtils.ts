@@ -24,7 +24,6 @@ export const addIncorrectCardToStorage = async (chapterId: number, card: { quest
             await AsyncStorage.setItem(key, JSON.stringify(incorrectCards));
         }
     } catch (error) {
-        console.error('Error adding incorrect card to storage:', error);
     }
 };
 

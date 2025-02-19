@@ -63,7 +63,6 @@ export async function initializeDatabase() {
             console.log("Datenbank bereits vorhanden, keine Notwendigkeit, sie zu ersetzen.");
         }
     } catch (error) {
-        console.error("Error in database initialization:", error);
         throw error;
     }
 
@@ -82,15 +81,12 @@ export async function getDatabase() {
         // Prüfen, ob die Datei noch existiert
         const fileInfo = await FileSystem.getInfoAsync(dbPath);
         if (!fileInfo.exists) {
-            console.warn("⚠️ Datenbank fehlt! Erstelle sie neu...");
             await initializeDatabase(); // Datenbank neu kopieren
         }
 
         dbInstance = await openDatabaseAsync(dbName);
-        console.log("✅ Datenbank erfolgreich geöffnet.");
         return dbInstance;
     } catch (error) {
-        console.error("❌ Fehler beim Öffnen der Datenbank:", error);
         return null;
     }
 }
@@ -112,7 +108,6 @@ export async function fetchVersionNumber(): Promise<number | null> {
         }
         return null; // No version found
     } catch (error) {
-        console.error('Failed to fetch version number:', error);
         return null; // Return null in case of error
     }
 }
@@ -130,7 +125,6 @@ export const fetchChaptersByYear = async (year: number): Promise<Chapter[]> => {
         );
         return result;
     } catch (error) {
-        console.error('Failed to fetch chapters:', error);
         return [];
     }
 };
@@ -146,7 +140,6 @@ export const fetchSubchaptersByChapterId = async (chapterId: number): Promise<Su
         );
         return subchapters;
     } catch (error) {
-        console.error('Failed to fetch subchapters:', error);
         return [];
     }
 };
@@ -162,7 +155,6 @@ export const fetchSubchapterContentBySubchapterId = async (subchapterId: number)
         );
         return content;
     } catch (error) {
-        console.error('Failed to fetch subchapter content:', error);
         return [];
     }
 };
@@ -178,7 +170,6 @@ export const fetchMathChapters = async (): Promise<MathChapter[]> => {
         console.log("Fetched rows from MathChapters:", mathChapters);  // Debug log
         return mathChapters;
     } catch (error) {
-        console.error('Failed to fetch math chapters:', error);
         return [];
     }
 };
@@ -194,7 +185,6 @@ export const fetchMathSubchaptersByChapterId = async (chapterId: number): Promis
         );
         return mathSubchapters;
     } catch (error) {
-        console.error('Failed to fetch math subchapters:', error);
         return [];
     }
 };
@@ -210,7 +200,6 @@ export const fetchMathSubchapterContentBySubchapterId = async (subchapterId: num
         );
         return subchapterContent;
     } catch (error) {
-        console.error('Failed to fetch math subchapter content:', error);
         return [];
     }
 };
@@ -226,7 +215,6 @@ export const addChapter = async (chapterName: string, chapterIntro: string, year
         );
         console.log("Chapter added successfully");
     } catch (error) {
-        console.error('Error adding chapter:', error);
         throw error;
     }
 };
@@ -243,7 +231,6 @@ export const fetchQuizByContentId = async (contentId: number): Promise<Quiz[]> =
         );
         return quizzes;
     } catch (error) {
-        console.error('Failed to fetch quiz:', error);
         return [];
     }
 };
@@ -264,7 +251,6 @@ export const fetchMultipleChoiceOptionsByQuizId = async (quizId: number): Promis
         );
         return options;
     } catch (error) {
-        console.error('Failed to fetch multiple-choice options:', error);
         return [];
     }
 };
@@ -280,7 +266,6 @@ export const fetchClozeTestOptionsByQuizId = async (quizId: number): Promise<Clo
         );
         return options;
     } catch (error) {
-        console.error('Failed to fetch cloze test options:', error);
         return [];
     }
 };
@@ -304,7 +289,6 @@ export const fetchMathMiniQuizByContentId = async (contentId: number): Promise<M
         
         return processedRows;
     } catch (error) {
-        console.error('Failed to fetch MathMiniQuiz:', error);
         return [];
     }
 };
@@ -326,7 +310,6 @@ export const searchSubchapters = async (searchQuery: string): Promise<any[]> => 
         const results = await db.getAllAsync<any>(query, [`%${searchQuery}%`, `%${searchQuery}%`]);
         return results;
     } catch (error) {
-        console.error('Search query failed:', error);
         return [];
     }
 };
@@ -342,7 +325,6 @@ export const fetchFlashcardsByChapterId = async (chapterId: number): Promise<{ Q
         );
         return flashcards;
     } catch (error) {
-        console.error('Failed to fetch flashcards:', error);
         return [];
     }
 };
@@ -358,7 +340,6 @@ export const fetchChaptersFromDatabase = async (): Promise<{ ChapterId: number; 
         );
         return chapters;
     } catch (error) {
-        console.error('Failed to fetch chapters:', error);
         return [];
     }
 };

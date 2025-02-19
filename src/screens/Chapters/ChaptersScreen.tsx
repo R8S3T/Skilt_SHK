@@ -31,7 +31,6 @@ const ChaptersScreen: React.FC<ChaptersScreenRouteProps> = ({ route }) => {
                 setChapters(data);
                 setLoading(false);
             } catch (error) {
-                console.error('Failed to load chapters for year ' + year + ':', error);
                 setLoading(false);
             }
         };

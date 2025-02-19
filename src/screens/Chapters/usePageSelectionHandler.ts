@@ -34,7 +34,6 @@ export const usePageSelectionHandler = (combinedData: CombinedDataItem[]) => {
             setCurrentSlideType(newType);
             setIsQuizSlide(newType === 'quiz'); // Update when page is selected
         } else {
-            console.error('Data at this index is not available:', index);
         }
     };
 

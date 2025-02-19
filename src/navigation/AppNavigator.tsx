@@ -30,7 +30,6 @@ const AppNavigator = () => {
                 const hasOnboarded = await AsyncStorage.getItem('hasOnboarded');
                 setInitialRoute(hasOnboarded ? 'HomeScreen' : 'Intro');
             } catch (error) {
-                console.error("Error loading initial route:", error);
                 setInitialRoute('HomeScreen'); // Fallback
             }
         };

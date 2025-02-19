@@ -80,7 +80,6 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
                 const data = await fetchSubchaptersByChapterId(chapterId);
                 setSubchapters(data);
             } catch (error) {
-                console.error('Failed to load subchapters:', error);
             } finally {
                 setLoading(false);
             }

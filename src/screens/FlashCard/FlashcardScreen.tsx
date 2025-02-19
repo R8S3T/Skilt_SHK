@@ -116,7 +116,6 @@ const FlashcardScreen = () => {
                 await AsyncStorage.setItem(key, JSON.stringify(incorrectCards));
             }
         } catch (error) {
-            console.error('Failed to save incorrect card:', error);
         }
 
         await saveFlashcardProgress(chapterId, currentCardIndex + 1);

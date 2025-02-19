@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useTheme } from '../../context/ThemeContext';
+import { Ionicons } from '@expo/vector-icons';
 
 const TermsOfServiceScreen = () => {
     const { theme } = useTheme();
@@ -8,11 +9,11 @@ const TermsOfServiceScreen = () => {
     return (
         <View style={[styles.container, { backgroundColor: theme.background }]}>
             <ScrollView contentContainerStyle={styles.contentContainer}>
+                <Ionicons name="construct-outline" size={60} color={theme.primaryText} style={styles.icon} />
                 <Text style={[styles.title, { color: theme.primaryText }]}>Nutzungsbedingungen</Text>
                 <Text style={[styles.text, { color: theme.secondaryText }]}>
-                    Hier stehen die vollständigen Nutzungsbedingungen...
+                    Diese Seite befindet sich noch im Aufbau. Die Nutzungsbedingungen werden in Kürze ergänzt.
                 </Text>
-                {/* Weitere Inhalte hinzufügen */}
             </ScrollView>
         </View>
     );
@@ -24,7 +25,13 @@ const styles = StyleSheet.create({
         padding: 20,
     },
     contentContainer: {
-        paddingBottom: 20,
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingBottom: 150,
+    },
+    icon: {
+        marginBottom: 15,
     },
     title: {
         fontSize: 24,
@@ -32,8 +39,9 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     text: {
-        fontSize: 16,
+        fontSize: 20,
         lineHeight: 24,
+        textAlign: 'center',
     },
 });
 

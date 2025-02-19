@@ -18,7 +18,6 @@ const IntroScreen: React.FC<IntroScreenProps> = ({ navigation }) => {
         try {
             await AsyncStorage.setItem('userName', name);
         } catch (error) {
-            console.error("Failed to save the name:", error);
         }
     };
 

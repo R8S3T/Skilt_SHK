@@ -135,7 +135,6 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                 setLoading(false);
 
             } catch (error) {
-                console.error('Failed to load content data:', error);
                 setLoading(false);
             }
         };

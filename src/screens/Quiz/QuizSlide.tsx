@@ -82,7 +82,6 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, set
             setOptions(fetchedOptions);
         } catch (err) {
             setError('Failed to load quiz options.');
-            console.error(err);
         }
     };
 
@@ -98,7 +97,6 @@ const QuizSlide: React.FC<QuizSlideProps> = ({ contentId, onContinue, style, set
                 }
             } catch (err) {
                 setError('Failed to fetch quiz data.');
-                console.error(err);
             } finally {
                 setLoading(false);
             }

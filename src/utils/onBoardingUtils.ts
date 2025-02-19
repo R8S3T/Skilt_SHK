@@ -44,7 +44,6 @@ export const hasMadeProgress = async (): Promise<boolean> => {
         }
         return false;
     } catch (error) {
-        console.error("Error checking progress:", error);
         return false;
     }
 };

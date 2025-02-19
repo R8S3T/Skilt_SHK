@@ -31,7 +31,6 @@ app.use(cors());
 initializeDatabase().then(() => {
 
 }).catch(error => {
-    console.error('Failed to initialize database:', error);
 });
 
 // Serve the form.html file when the '/form' URL is accessed
@@ -47,7 +46,6 @@ app.get('/chapters/:year', async (req, res) => {
         const chapters = await fetchChaptersByYear(year);
         res.json(chapters);
     } catch (error) {
-        console.error(`Error fetching data for year ${year}:`, error);
         res.status(500).json({ error: 'Failed to fetch data' });
     }
 });
@@ -62,7 +60,6 @@ app.post('/chapters', async (req, res) => {
         await addChapter(chapterName, chapterIntro, parseInt(year));
         res.status(201).send('Chapter added successfully');
     } catch (error) {
-        console.error('Error adding chapter:', error);
         res.status(500).json({ error: 'Failed to add chapter' });
     }
 });
@@ -74,7 +71,6 @@ app.get('/subchapters/:chapterId', async (req, res) => {
         const subchapters = await fetchSubchaptersByChapterId(chapterId);
         res.json(subchapters);
     } catch (error) {
-        console.error(`Error fetching subchapters for chapterId ${chapterId}:`, error);
         res.status(500).json({ error: 'Failed to fetch subchapters' });
     }
 });
@@ -86,7 +82,6 @@ app.get('/subchaptercontent/:subchapterId', async (req, res) => {
         const subchapterContent = await fetchSubchapterContentBySubchapterId(subchapterId);
         res.json(subchapterContent);
     } catch (error) {
-        console.error(`Error fetching content for subchapterId ${subchapterId}:`, error);
         res.status(500).json({ error: 'Failed to fetch content' });
     }
 });
@@ -97,7 +92,6 @@ app.get('/mathchapters', async (req, res) => {
         const mathChapters = await fetchMathChapters();
         res.json(mathChapters);
     } catch (error) {
-        console.error('Error fetching math chapters:', error);
         res.status(500).json({ error: 'Failed to fetch math chapters' });
     }
 });
@@ -109,7 +103,6 @@ app.get('/mathsubchapters/:chapterId', async (req, res) => {
         const subchapters = await fetchMathSubchaptersByChapterId(chapterId);
         res.json(subchapters);
     } catch (error) {
-        console.error(`Error fetching subchapters for chapterId ${chapterId}:`, error);
         res.status(500).json({ error: 'Failed to fetch subchapters' });
     }
 });
@@ -121,7 +114,6 @@ app.get('/mathsubchaptercontent/:subchapterId', async (req, res) => {
         const subchapterContent = await fetchMathSubchapterContentBySubchapterId(subchapterId);
         res.json(subchapterContent);
     } catch (error) {
-        console.error(`Error fetching content for subchapterId ${subchapterId}:`, error);
         res.status(500).json({ error: 'Failed to fetch content' });
     }
 });
@@ -133,7 +125,6 @@ app.get('/quiz/:contentId', async (req, res) => {
         const quiz = await fetchQuizByContentId(contentId);
         res.json(quiz); // Always return 200 OK with the quiz data (even if empty)
     } catch (error) {
-        console.error(`Error fetching quiz for contentId ${contentId}:`, error);
         res.status(500).json({ error: 'Failed to fetch quiz' });
     }
 });
@@ -146,7 +137,6 @@ app.get('/multiplechoiceoptions/:quizId', async (req, res) => {
         const options = await fetchMultipleChoiceOptionsByQuizId(quizId);
         res.json(options);
     } catch (error) {
-        console.error(`Error fetching multiple-choice options for QuizId ${quizId}:`, error);
         res.status(500).json({ error: 'Failed to fetch multiple-choice options' });
     }
 });
@@ -158,7 +148,6 @@ app.get('/clozetestoptions/:quizId', async (req, res) => {
         const options = await fetchClozeTestOptionsByQuizId(quizId);
         res.json(options);
     } catch (error) {
-        console.error(`Error fetching cloze test options for quizId ${quizId}:`, error);
         res.status(500).json({ error: 'Failed to fetch cloze test options' });
     }
 });
@@ -170,7 +159,6 @@ app.get('/mathminiquiz/:contentId', async (req, res) => {
         const mathMiniQuiz = await fetchMathMiniQuizByContentId(contentId);
         res.json(mathMiniQuiz);
     } catch (error) {
-        console.error(`Error fetching MathMiniQuiz for contentId ${contentId}:`, error);
         res.status(500).json({ error: 'Failed to fetch MathMiniQuiz' });
     }
 });
@@ -184,7 +172,6 @@ app.get('/search/:query', async (req, res) => {
         const searchResults = await searchSubchapters(searchQuery); // Use the DB function to search subchapters and content
         res.json(searchResults); // Return the search results to the client
     } catch (error) {
-        console.error('Error fetching search results:', error);
         res.status(500).json({ error: 'Failed to fetch search results' });
     }
 });
@@ -199,7 +186,6 @@ app.get('/flashcards', async (req, res) => {
         const flashcards = await fetchFlashcardsByChapterId(Number(chapterId));
         res.json(flashcards);
     } catch (error) {
-        console.error('Error fetching flashcards:', error);
         res.status(500).json({ error: 'Failed to fetch flashcards' });
     }
 });
@@ -209,7 +195,6 @@ app.get('/chapters', async (req, res) => {
         const chapters = await fetchChaptersFromDatabase(); // Replace with your function to fetch chapters from the database
         res.json(chapters);
     } catch (error) {
-        console.error('Error fetching chapters:', error);
         res.status(500).json({ error: 'Failed to fetch chapters' });
     }
 });

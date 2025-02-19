@@ -35,8 +35,7 @@ const App = () => {
       // Mark app as ready
       setIsReady(true);
     } catch (e) {
-      console.error("An error occurred while preparing the app:", e);
-      setError("An error occurred while initializing the app. Please restart.");
+  
     }
   };
 

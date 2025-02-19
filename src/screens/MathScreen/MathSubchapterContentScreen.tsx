@@ -113,7 +113,6 @@ useEffect(() => {
                     setMathQuiz(quizzes[0] || null);
                 }
             } catch (error) {
-                console.error('Failed to load content data:', error);
             } finally {
                 setLoading(false);
             }

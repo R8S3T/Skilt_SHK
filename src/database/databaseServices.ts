@@ -28,7 +28,6 @@ export async function fetchVersionNumber(): Promise<number | null> {
             const { version_number }: { version_number: number } = await response.json();
             return version_number; // Return the server version number
         } catch (error) {
-            console.error('Failed to fetch version number from server:', error);
             return null; // Return null on error
         }
     }
@@ -45,7 +44,6 @@ export async function fetchChaptersByYear(year: number): Promise<Chapter[]> {
             const chapters: Chapter[] = await response.json();
             return chapters;
         } catch (error) {
-            console.error(`Failed to fetch chapters for year ${year}:`, error);
             return [];  // Return empty array on error
         }
     }
@@ -55,13 +53,11 @@ export async function fetchSubchaptersByChapterId(chapterId: number): Promise<Su
         try {
             const response = await fetch(`${API_URL}/subchapters/${chapterId}`);
             if (!response.ok) {
-                console.error('Network response was not ok:', response.status, response.statusText);
                 throw new Error(`Network response was not ok: ${response.status} ${response.statusText}`);
             }
             const subchapters: Subchapter[] = await response.json();
             return subchapters;
         } catch (error) {
-            console.error(`Failed to fetch subchapters for chapterId ${chapterId} from server:`, error);
             return [];
         }
     }
@@ -90,7 +86,6 @@ export async function fetchSubchapterContentBySubchapterId(subchapterId: number)
 
             return mergedContent;
         } catch (error) {
-            console.error(`Failed to fetch subchapter content for subchapterId ${subchapterId} from server:`, error);
             return [];
         }
     }
@@ -108,7 +103,6 @@ export async function fetchMathChapters(): Promise<MathChapter[]> {
             const mathChapters: MathChapter[] = await response.json();
             return mathChapters;
         } catch (error) {
-            console.error('Failed to fetch math chapters from server:', error);
             return [];
         }
     }
@@ -125,7 +119,6 @@ export async function fetchMathSubchaptersByChapterId(chapterId: number): Promis
             const subchapters: MathSubchapter[] = await response.json();
             return subchapters;
         } catch (error) {
-            console.error(`Failed to fetch math subchapters for chapterId ${chapterId} from server:`, error);
             return [];
         }
     }
@@ -141,7 +134,6 @@ export async function fetchMathContentBySubchapterId(subchapterId: number): Prom
             const mathSubchapterContent: GenericContent[] = await response.json();
             return mathSubchapterContent;
         } catch (error) {
-            console.error(`Failed to fetch math subchapter content for subchapterId ${subchapterId} from server:`, error);
             return [];
         }
     }
@@ -166,7 +158,6 @@ export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
             }
             return quizzes;
         } catch (error) {
-            console.error(`Failed to fetch quiz for contentId ${contentId} from server:`, error);
             return [];
         }
     }
@@ -184,7 +175,6 @@ export async function fetchMultipleChoiceOptionsByQuizId(quizId: number): Promis
             const options: MultipleChoiceOption[] = await response.json();
             return options;
         } catch (error) {
-            console.error(`Database query failed for QuizId ${quizId}:`, error); // Log error details
             throw error;
         }
     }
@@ -208,7 +198,6 @@ export async function fetchClozeTestOptionsByQuizId(
                 correctAnswers: data.correctAnswers || [],
             };
         } catch (error) {
-            console.error(`Failed to fetch cloze test options for QuizId ${quizId} from server:`, error);
             return { options: [], correctAnswers: [] };
         }
     }
@@ -234,7 +223,6 @@ export async function fetchMathMiniQuizByContentId(contentId: number): Promise<M
                 Image: quiz.Image || null,
             }));
         } catch (error) {
-            console.error(`Failed to fetch MathMiniQuiz for contentId ${contentId} from server:`, error);
             return [];
         }
     }
@@ -252,7 +240,6 @@ export async function searchSubchapters(query: string): Promise<Subchapter[]> {
             const results: Subchapter[] = await response.json();
             return results;
         } catch (error) {
-            console.error(`Failed to fetch search results for query "${query}" from server:`, error);
             return [];
         }
     }
@@ -269,7 +256,6 @@ export async function fetchFlashcardsForChapter(chapterId: number): Promise<{ Qu
             const data = await response.json();
             return data;
         } catch (error) {
-            console.error(`Failed to fetch flashcards for ChapterId ${chapterId} from server:`, error);
             return [];
         }
     }
@@ -286,7 +272,6 @@ export async function fetchChapters(): Promise<{ ChapterId: number; ChapterName:
             const data = await response.json();
             return data;
         } catch (error) {
-            console.error('Failed to fetch chapters from server:', error);
             return [];
         }
     }

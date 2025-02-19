@@ -76,7 +76,6 @@ const CongratsScreen: React.FC = () => {
                 })
             );
         } else {
-            console.error("Unexpected targetScreen:", targetScreen);
         }
     };
     

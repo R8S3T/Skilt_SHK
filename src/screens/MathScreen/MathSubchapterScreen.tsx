@@ -82,7 +82,6 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
                     unlockSubchapter(firstSubchapter.SubchapterId);
                 }
             } catch (error) {
-                console.error('Failed to load subchapters:', error);
             } finally {
                 setLoading(false);
             }
@@ -128,7 +127,6 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
                     preloadedQuiz: quizzes[0] || null,
                 });
             } catch (error) {
-                console.error('Failed to preload data:', error);
             }
         }
     };

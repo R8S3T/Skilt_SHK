@@ -24,7 +24,6 @@ export const usePreloadContent = <T>(
                         }));
                     }
                 } catch (error) {
-                    console.error('Failed to preload content:', error);
                 } finally {
                     setPreloading(false);
                 }

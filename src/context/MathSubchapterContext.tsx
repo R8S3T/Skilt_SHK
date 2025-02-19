@@ -69,7 +69,6 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
             await AsyncStorage.setItem('mathUnlockedSubchapters', JSON.stringify(combinedUnlocked));
 
         } catch (error) {
-            console.error('Error loading saved progress or unlocking first subchapters:', error);
         }
     };
 

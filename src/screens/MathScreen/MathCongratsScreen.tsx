@@ -64,7 +64,6 @@ const MathCongratsScreen: React.FC = () => {
         } else if (targetScreen === 'MathSubchapterScreen') {
             navigation.replace('MathSubchapterScreen', targetParams); // Use replace directly from navigation
         } else {
-            console.error("Unexpected targetScreen:", targetScreen);
         }
     };
     

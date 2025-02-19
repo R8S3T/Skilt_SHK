@@ -35,7 +35,6 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
                 if (savedUnlocked) setUnlockedSubchapters(JSON.parse(savedUnlocked));
                 if (savedFinished) setFinishedSubchapters(JSON.parse(savedFinished));
             } catch (error) {
-                console.error("Error loading saved progress:", error);
             }
         };
         loadSavedProgress();
@@ -118,7 +117,6 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
                 }
             }
         } catch (error) {
-            console.error("Error fetching today's finished subchapters:", error);
         }
 
         return count;
@@ -141,7 +139,6 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
                 }
             }
         } catch (error) {
-            console.error("Error fetching today's finished quizzes:", error);
         }
 
         return count;
@@ -155,7 +152,6 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
                 return finishedIds.length;
             }
         } catch (error) {
-            console.error("Error fetching total finished subchapters:", error);
         }
         return 0;
     };

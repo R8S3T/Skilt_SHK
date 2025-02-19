@@ -27,7 +27,6 @@ export const saveProgress = async (
         // Confirm the data was successfully saved
         const savedProgress = await AsyncStorage.getItem(`progress_${sectionKey}`);
     } catch (e) {
-        console.error('Error saving progress.', e);
     }
 };
 
@@ -40,7 +39,6 @@ export const loadProgress = async (sectionKey: string) => {
         const parsedProgress = savedProgress ? JSON.parse(savedProgress) : { chapterId: null, subchapterId: null, subchapterName: null, currentIndex: null, imageName: null };
         return parsedProgress;
     } catch (e) {
-        console.error('Error loading progress.', e);
         return { chapterId: null, subchapterId: null, subchapterName: null, currentIndex: null, imageName: null };
     }
 };
@@ -54,7 +52,6 @@ export const saveContentSlideIndex = async (subchapterId: number, newIndex: numb
 
         await AsyncStorage.setItem(`slideIndex_${subchapterId}`, JSON.stringify(finalIndex));
     } catch (error) {
-        console.error('Error saving slide index:', error);
     }
 };
 
@@ -66,7 +63,6 @@ export const loadContentSlideIndex = async (subchapterId: number) => {
         const savedIndex = await AsyncStorage.getItem(`slideIndex_${subchapterId}`);
         return savedIndex ? JSON.parse(savedIndex) : null;
     } catch (error) {
-        console.error('Error loading slide index:', error);
     }
 };
 
@@ -87,7 +83,6 @@ export const handleExit = async (
         await saveProgress('section1', chapterId, subchapterId, subchapterName, currentIndex, imageName);
         navigation.navigate('HomeScreen');
     } catch (error) {
-        console.error('Error handling exit:', error);
     }
 };
 
@@ -157,7 +152,6 @@ export const moveToNextSlide = async ({
             });
             await saveCurrentProgress(newIndex);
         } else {
-            console.error("Unrecognized content type. Skipping.");
         }
     } else {
 
@@ -170,7 +164,6 @@ export const moveToNextSlide = async ({
                 await completeSubchapter(); // Transition to CongratsScreen
             }
         } catch (error) {
-            console.error("Error fetching quiz data for last slide:", error);
             await completeSubchapter();
         }
     }
@@ -286,7 +279,6 @@ export const nextContent = async ({
                 );
             }
         } catch (error) {
-            console.error("Error saving progress:", error);
         }
     };
     
@@ -333,7 +325,6 @@ export const saveFlashcardProgress = async (
         };
         await AsyncStorage.setItem(`flashcard_progress_${key}`, JSON.stringify(flashcardProgress));
     } catch (error) {
-        console.error('Error saving flashcard progress:', error);
     }
 };
 
@@ -343,7 +334,6 @@ export const loadFlashcardProgress = async (key: string | number) => {
         const savedProgress = await AsyncStorage.getItem(`flashcard_progress_${key}`);
         return savedProgress ? JSON.parse(savedProgress) : { key: null, currentIndex: 0 };
     } catch (error) {
-        console.error('Error loading flashcard progress:', error);
         return { key: null, currentIndex: 0 }; // Return default values on error
     }
 };

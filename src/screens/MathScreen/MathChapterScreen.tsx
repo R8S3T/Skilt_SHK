@@ -57,7 +57,6 @@ const MathChapterScreen: React.FC = () => {
                 const fetchedChapters = await fetchMathChapters();
                 setChapters(fetchedChapters);
             } catch (error) {
-                console.error('Failed to fetch chapters:', error);
             } finally {
                 setLoading(false);
             }

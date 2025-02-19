@@ -589,6 +589,7 @@ const img_LF13FormelVentilatorleistungsmall = require('../../assets/DbImages/Sub
 const img_LF13GegenstromwrmetauscherSeitezoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Gegenstromwärmetauscher_Seite_zoom.png');
 const img_LF13Gegenstromwrmetauscherzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Gegenstromwärmetauscher_zoom.png');
 const img_LF13GrundlagenRaumklimawelcome = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Grundlagen_Raumklima_welcome.png');
+const img_LF13HeizregisterKhlregisterzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Heizregister_Kühlregister_zoom.png');
 const img_LF13Heizregisterzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_Heizregister_zoom.png');
 const img_LF13KWLAnlagezoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_KWL_Anlage_zoom.png');
 const img_LF13KWLWrmerckgewinnungzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_KWL_Wärmerückgewinnung_zoom.png');
@@ -1422,6 +1423,7 @@ const img_LFiconGrenzewerteAbgasmessungsmall = require('../../assets/DbImages/Su
 const img_LFiconGre2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Größe_2_small.png');
 const img_LFiconGresmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Größe_small.png');
 const img_LFiconH2Osmall = require('../../assets/DbImages/SubchapterContent/LF_icon_H2O_small.png');
+const img_LFiconHausmodernenergieeffizientsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Haus_modern_energieeffizient_small.png');
 const img_LFiconHausmodernsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Haus_modern_small.png');
 const img_LFiconHeizkesselraumsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Heizkesselraum_small.png');
 const img_LFiconHeizlastsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Heizlast_small.png');
@@ -1482,6 +1484,7 @@ const img_LFiconLuftsmall = require('../../assets/DbImages/SubchapterContent/LF_
 const img_LFiconLuftblasensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Luftblasen_small.png');
 const img_LFiconLuftfeuchtigkeitsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Luftfeuchtigkeit_small.png');
 const img_LFiconLuftqualittsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Luftqualität_small.png');
+const img_LFiconLuftreinigungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Luftreinigung_small.png');
 const img_LFiconLuftwechselsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Luftwechsel_small.png');
 const img_LFiconLngenausdehnungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Längenausdehnung_small.png');
 const img_LFiconLtensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Löten_small.png');
@@ -2306,6 +2309,7 @@ export const imageMap = {
     "LF_13_Gegenstromwärmetauscher_Seite_zoom": img_LF13GegenstromwrmetauscherSeitezoom,
     "LF_13_Gegenstromwärmetauscher_zoom": img_LF13Gegenstromwrmetauscherzoom,
     "LF_13_Grundlagen_Raumklima_welcome": img_LF13GrundlagenRaumklimawelcome,
+    "LF_13_Heizregister_Kühlregister_zoom": img_LF13HeizregisterKhlregisterzoom,
     "LF_13_Heizregister_zoom": img_LF13Heizregisterzoom,
     "LF_13_KWL_Anlage_zoom": img_LF13KWLAnlagezoom,
     "LF_13_KWL_Wärmerückgewinnung_zoom": img_LF13KWLWrmerckgewinnungzoom,
@@ -3139,6 +3143,7 @@ export const imageMap = {
     "LF_icon_Größe_2_small": img_LFiconGre2small,
     "LF_icon_Größe_small": img_LFiconGresmall,
     "LF_icon_H2O_small": img_LFiconH2Osmall,
+    "LF_icon_Haus_modern_energieeffizient_small": img_LFiconHausmodernenergieeffizientsmall,
     "LF_icon_Haus_modern_small": img_LFiconHausmodernsmall,
     "LF_icon_Heizkesselraum_small": img_LFiconHeizkesselraumsmall,
     "LF_icon_Heizlast_small": img_LFiconHeizlastsmall,
@@ -3199,6 +3204,7 @@ export const imageMap = {
     "LF_icon_Luftblasen_small": img_LFiconLuftblasensmall,
     "LF_icon_Luftfeuchtigkeit_small": img_LFiconLuftfeuchtigkeitsmall,
     "LF_icon_Luftqualität_small": img_LFiconLuftqualittsmall,
+    "LF_icon_Luftreinigung_small": img_LFiconLuftreinigungsmall,
     "LF_icon_Luftwechsel_small": img_LFiconLuftwechselsmall,
     "LF_icon_Längenausdehnung_small": img_LFiconLngenausdehnungsmall,
     "LF_icon_Löten_small": img_LFiconLtensmall,

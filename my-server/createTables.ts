@@ -11,7 +11,6 @@ export const createChaptersTable = (db: sqlite3.Database): Promise<void> => {
             );
         `, (err) => {
             if (err) {
-                console.error('Error creating Chapters table:', err.message);
                 reject(err);
             } else {
                 resolve();
@@ -31,7 +30,6 @@ export const createSubchaptersTable = (db: sqlite3.Database): Promise<void> => {
             );
         `, (err) => {
             if (err) {
-                console.error('Error creating Subchapters table:', err.message);
                 reject(err);
             } else {
                 resolve();
@@ -52,7 +50,6 @@ export const createSubchapterContentTable = (db: sqlite3.Database): Promise<void
             );
         `, (err) => {
             if (err) {
-                console.error('Error creating SubchapterContent table:', err.message);
                 reject(err);
             } else {
                 resolve();
@@ -73,7 +70,6 @@ export const createMathChaptersTable = (db: sqlite3.Database): Promise<void> => 
             );
         `, (err) => {
             if (err) {
-                console.error('Error creating MathChapters table:', err.message);
                 reject(err);
             } else {
                 resolve();
@@ -94,7 +90,6 @@ export const createMathSubchaptersTable = (db: sqlite3.Database): Promise<void> 
             );
         `, (err) => {
             if (err) {
-                console.error('Error creating MathSubchapters table:', err.message);
                 reject(err);
             } else {
                 resolve();
@@ -119,7 +114,6 @@ export const createMathSubchapterContentTable = (db: sqlite3.Database): Promise<
             );
         `, (err) => {
             if (err) {
-                console.error('Error creating MathSubchapterContent table:', err.message);
                 reject(err);
             } else {
                 resolve();
@@ -141,7 +135,6 @@ export const createQuizTable = (db: sqlite3.Database): Promise<void> => {
             );
         `, (err) => {
             if (err) {
-                console.error('Error creating Quiz table:', err.message);
                 reject(err);
             } else {
                 resolve();
@@ -163,7 +156,6 @@ export const createMultipleChoiceOptionsTable = (db: sqlite3.Database): Promise<
             );
         `, (err) => {
             if (err) {
-                console.error('Error creating MultipleChoiceOptions table:', err.message);
                 reject(err);
             } else {
                 resolve();
@@ -187,7 +179,6 @@ export const createClozeTestOptionsTable = (db: sqlite3.Database): Promise<void>
             );
         `, (err) => {
             if (err) {
-                console.error('Error creating ClozeTestOptions table:', err.message);
                 reject(err);
             } else {
                 resolve();
@@ -210,7 +201,6 @@ export const createMathMiniQuizTable = (db: sqlite3.Database): Promise<void> => 
             );
         `, (err) => {
             if (err) {
-                console.error('Error creating MathMiniQuiz table:', err.message);
                 reject(err);
             } else {
                 resolve();
@@ -234,7 +224,6 @@ export const createFlashcardsTable = (db: sqlite3.Database): Promise<void> => {
             `,
             (err) => {
                 if (err) {
-                    console.error('Error creating Flashcards table:', err.message);
                     reject(err);
                 } else {
                     resolve();

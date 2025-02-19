@@ -12,6 +12,5 @@ export async function verifyDatabaseExists(): Promise<void> {
         console.warn('Database file does NOT exist:', dbPath);
         }
     } catch (error) {
-        console.error('Error checking database file:', error);
     }
 }

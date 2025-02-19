@@ -62,12 +62,11 @@ const YearsScreen: React.FC = () => {
     ];
 
     const handlePress = async (year: number) => {
-        // Lock years 3 and 4
- /*        if (year === 4) {
-            setModalMessage('Dieser Inhalt ist in der Tesversion nicht verfügbar.');
+        if (year === 4) {
+            setModalMessage('Dieser Inhalt ist in der Tesversion momentan nicht verfügbar.');
             setModalVisible(true);
             return;
-        } */
+        }
     
         // Toggle expanded state for the year
         setExpandedYear(expandedYear === year ? null : year);
@@ -83,7 +82,6 @@ const YearsScreen: React.FC = () => {
                     })),
                 }));
             } catch (error) {
-                console.error(`Failed to fetch chapters for year ${year}:`, error);
             }
             setLoading(false);
         }
@@ -262,18 +260,18 @@ const styles = StyleSheet.create({
     },
     modalContainer: {
         width: '80%',
-        padding: screenWidth > 600 ? 24 : 16,
+        padding: screenWidth > 600 ? 32 : 24,
         backgroundColor: 'white',
         borderRadius: 8,
         alignItems: 'center',
     },
     modalText: {
-        fontSize: screenWidth > 600 ? 22 : 16,
+        fontSize: screenWidth > 600 ? 22 : 20,
         marginBottom: 16,
         textAlign: 'center',
     },
     modalButton: {
-        fontSize: screenWidth > 600 ? 20 : 16,
+        fontSize: screenWidth > 600 ? 22 : 20,
         color: '#007bff',
     },
 });

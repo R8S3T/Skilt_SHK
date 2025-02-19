@@ -29,7 +29,6 @@ const SettingsScreen = () => {
                 const savedName = await AsyncStorage.getItem('userName');
                 if (savedName) setName(savedName);
             } catch (error) {
-                console.error('Failed to load the name:', error);
             }
         };
         loadName();
@@ -40,7 +39,6 @@ const SettingsScreen = () => {
             await AsyncStorage.setItem('userName', name);
             setIsEditing(false);
         } catch (error) {
-            console.error('Failed to save the name:', error);
         }
     };
 

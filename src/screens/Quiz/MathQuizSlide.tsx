@@ -27,7 +27,6 @@ const parseAnswer = (answer: string | string[]): string[] => {
         // Parse stringified JSON array into a proper array
         return JSON.parse(answer);
     } catch (error) {
-        console.error('Failed to parse answer:', answer, error);
         return []; // Return an empty array if parsing fails
     }
 };

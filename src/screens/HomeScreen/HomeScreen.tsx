@@ -30,7 +30,6 @@ const HomeScreen = () => {
                 const storedName = await AsyncStorage.getItem('userName');
                 if (storedName) setUsername(storedName);
             } catch (error) {
-                console.error('Failed to load username:', error);
             }
         };
 
