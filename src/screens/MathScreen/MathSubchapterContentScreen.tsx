@@ -138,74 +138,98 @@ useEffect(() => {
     );
 
     const nextContent = async () => {
-        if (showQuiz && currentIndex < contentData.length - 1) {
-            // Move to the next content slide
+        // NEW: If there's no quiz available, skip directly to the next slide or navigation.
+        if (!mathQuiz) {
+          if (currentIndex < contentData.length - 1) {
             const newIndex = currentIndex + 1;
             setShowQuiz(false);
             setCurrentIndex(newIndex);
-
+      
             // Save progress
             await saveProgress(
-                'math',
-                chapterId,
-                subchapterId,
-                subchapterTitle,
-                newIndex,
-                null
+              'math',
+              chapterId,
+              subchapterId,
+              subchapterTitle,
+              newIndex,
+              null
             );
-
-            // Use preloaded quiz if available
+      
+            // Preload quiz for the new content if available
             const preloadedQuiz = getNextContent();
             if (preloadedQuiz) {
-                setMathQuiz(preloadedQuiz);
+              setMathQuiz(preloadedQuiz);
             } else {
-                // Fallback to fetching the quiz
-                const quizzes = await fetchMathMiniQuizByContentId(contentData[newIndex]?.ContentId);
-                setMathQuiz(quizzes[0] || null);
+              const quizzes = await fetchMathMiniQuizByContentId(contentData[newIndex]?.ContentId);
+              setMathQuiz(quizzes[0] || null);
             }
-        } else if (showQuiz) {
-            // All content and quizzes completed, navigate to the congrats screen
+          } else {
+            // End of content: mark finished and navigate
             markSubchapterAsFinished(subchapterId);
             unlockSubchapter(subchapterId + 1);
-        // Determine the origin and navigate accordingly
-        const origin = route.params?.origin;
-        if (origin === 'HomeScreen') {
-            navigation.reset({
+            const origin = route.params?.origin;
+            if (origin === 'HomeScreen') {
+              navigation.reset({
                 index: 0,
                 routes: [
-                    {
-                        name: 'MathCongratsScreen',
-                        params: {
-                            subchapterId,
-                            targetScreen: 'HomeScreen', // End at HomeScreen
-                            targetParams: {},
-                        },
+                  {
+                    name: 'MathCongratsScreen',
+                    params: {
+                      subchapterId,
+                      targetScreen: 'HomeScreen',
+                      targetParams: {},
                     },
+                  },
                 ],
-            });
-        } else {
-            navigation.reset({
+              });
+            } else {
+              navigation.reset({
                 index: 0,
                 routes: [
-                    {
-                        name: 'MathCongratsScreen',
-                        params: {
-                            subchapterId,
-                            targetScreen: 'MathSubchapterScreen', // Default behavior
-                            targetParams: {
-                                chapterId,
-                                chapterTitle,
-                            },
-                        },
+                  {
+                    name: 'MathCongratsScreen',
+                    params: {
+                      subchapterId,
+                      targetScreen: 'MathSubchapterScreen',
+                      targetParams: { chapterId, chapterTitle },
                     },
+                  },
                 ],
-            });
+              });
+            }
+          }
+          return;
         }
-    } else {
-        // Toggle to show the quiz after the content slide
-        setShowQuiz(true);
-    }
-};
+      
+        // EXISTING LOGIC for when a quiz is available:
+        if (showQuiz && currentIndex < contentData.length - 1) {
+          const newIndex = currentIndex + 1;
+          setShowQuiz(false);
+          setCurrentIndex(newIndex);
+          await saveProgress(
+            'math',
+            chapterId,
+            subchapterId,
+            subchapterTitle,
+            newIndex,
+            null
+          );
+          const preloadedQuiz = getNextContent();
+          if (preloadedQuiz) {
+            setMathQuiz(preloadedQuiz);
+          } else {
+            const quizzes = await fetchMathMiniQuizByContentId(contentData[newIndex]?.ContentId);
+            setMathQuiz(quizzes[0] || null);
+          }
+        } else if (showQuiz) {
+          markSubchapterAsFinished(subchapterId);
+          unlockSubchapter(subchapterId + 1);
+          // Navigation logic...
+        } else {
+          setShowQuiz(true);
+        }
+      };
+      
 
     return (
         <View style={[styles.container, { backgroundColor: theme.background }]}>

@@ -60,7 +60,7 @@ export async function initializeDatabase() {
                 throw new Error("Fehler beim Kopieren der Datenbank.");
             }
         } else {
-            console.log("Datenbank bereits vorhanden, keine Notwendigkeit, sie zu ersetzen.");
+            
         }
     } catch (error) {
         throw error;
@@ -72,25 +72,24 @@ export async function initializeDatabase() {
 
 let dbInstance: SQLiteDatabase | null = null;
 
-export async function getDatabase() {
+export async function getDatabase(): Promise<SQLiteDatabase | null> {
     if (dbInstance) {
-        return dbInstance;
+      return dbInstance;
     }
-
     try {
-        // Prüfen, ob die Datei noch existiert
-        const fileInfo = await FileSystem.getInfoAsync(dbPath);
-        if (!fileInfo.exists) {
-            await initializeDatabase(); // Datenbank neu kopieren
-        }
-
-        dbInstance = await openDatabaseAsync(dbName);
-        return dbInstance;
+      // Check if the database file exists
+      const fileInfo = await FileSystem.getInfoAsync(dbPath);
+      if (!fileInfo.exists) {
+        // If the file doesn’t exist, call initializeDatabase to copy it over.
+        await initializeDatabase();
+      }
+      // Open and store the database instance.
+      dbInstance = await openDatabaseAsync(dbName);
+      return dbInstance;
     } catch (error) {
-        return null;
+      return null;
     }
-}
-
+  }
 
 
 // Fetch Database Version
@@ -116,7 +115,7 @@ export async function fetchVersionNumber(): Promise<number | null> {
 
 // Fetch chapters by year
 export const fetchChaptersByYear = async (year: number): Promise<Chapter[]> => {
-    const db = await initializeDatabase();
+    const db = await getDatabase();
     if (!db) return [];
     try {
         const result = await db.getAllAsync<Chapter>(
@@ -131,7 +130,7 @@ export const fetchChaptersByYear = async (year: number): Promise<Chapter[]> => {
 
 // Fetch subchapters by chapter id and order by SortOrder
 export const fetchSubchaptersByChapterId = async (chapterId: number): Promise<Subchapter[]> => {
-    const db = await initializeDatabase();
+    const db = await getDatabase();
     if (!db) return [];
     try {
         const subchapters = await db.getAllAsync<Subchapter>(
@@ -146,7 +145,7 @@ export const fetchSubchaptersByChapterId = async (chapterId: number): Promise<Su
 
 // Fetch subchapter content by subchapter id
 export const fetchSubchapterContentBySubchapterId = async (subchapterId: number): Promise<GenericContent[]> => {
-    const db = await initializeDatabase();
+    const db = await getDatabase();
     if (!db) return [];
     try {
         const content = await db.getAllAsync<GenericContent>(
@@ -161,7 +160,7 @@ export const fetchSubchapterContentBySubchapterId = async (subchapterId: number)
 
 // Fetch math chapters
 export const fetchMathChapters = async (): Promise<MathChapter[]> => {
-    const db = await initializeDatabase();
+    const db = await getDatabase();
     if (!db) return [];
     try {
         const mathChapters = await db.getAllAsync<MathChapter>(
@@ -176,7 +175,7 @@ export const fetchMathChapters = async (): Promise<MathChapter[]> => {
 
 // Fetch math subchapters by chapter ID
 export const fetchMathSubchaptersByChapterId = async (chapterId: number): Promise<MathSubchapter[]> => {
-    const db = await initializeDatabase();
+    const db = await getDatabase();
     if (!db) return [];
     try {
         const mathSubchapters = await db.getAllAsync<MathSubchapter>(
@@ -191,7 +190,7 @@ export const fetchMathSubchaptersByChapterId = async (chapterId: number): Promis
 
 // Fetch math subchapter content by subchapter ID
 export const fetchMathSubchapterContentBySubchapterId = async (subchapterId: number): Promise<GenericContent[]> => {
-    const db = await initializeDatabase();
+    const db = await getDatabase();
     if (!db) return [];
     try {
         const subchapterContent = await db.getAllAsync<GenericContent>(
@@ -206,7 +205,7 @@ export const fetchMathSubchapterContentBySubchapterId = async (subchapterId: num
 
 // Add a new chapter to the database
 export const addChapter = async (chapterName: string, chapterIntro: string, year: number): Promise<void> => {
-    const db = await initializeDatabase();
+    const db = await getDatabase();
     if (!db) return;
     try {
         await db.runAsync(
@@ -221,7 +220,7 @@ export const addChapter = async (chapterName: string, chapterIntro: string, year
 
 // Fetch quiz by content ID
 export const fetchQuizByContentId = async (contentId: number): Promise<Quiz[]> => {
-    const db = await initializeDatabase();
+    const db = await getDatabase();
     if (!db) return [];
     try {
         console.log('Fetching quizzes for ContentId:', contentId); // Log the input
@@ -238,7 +237,7 @@ export const fetchQuizByContentId = async (contentId: number): Promise<Quiz[]> =
 
 // Fetch multiple-choice options by quiz ID
 export const fetchMultipleChoiceOptionsByQuizId = async (quizId: number): Promise<MultipleChoiceOption[]> => {
-    const db = await initializeDatabase();
+    const db = await getDatabase();
     if (!db) return [];
     try {
         const options = await db.getAllAsync<MultipleChoiceOption>(
@@ -257,7 +256,7 @@ export const fetchMultipleChoiceOptionsByQuizId = async (quizId: number): Promis
 
 // Fetch cloze test options by quiz ID
 export const fetchClozeTestOptionsByQuizId = async (quizId: number): Promise<ClozeTestOption[]> => {
-    const db = await initializeDatabase();
+    const db = await getDatabase();
     if (!db) return [];
     try {
         const options = await db.getAllAsync<ClozeTestOption>(
@@ -272,7 +271,7 @@ export const fetchClozeTestOptionsByQuizId = async (quizId: number): Promise<Clo
 
 // Fetch MathMiniQuiz by content ID
 export const fetchMathMiniQuizByContentId = async (contentId: number): Promise<MathMiniQuiz[]> => {
-    const db = await initializeDatabase();
+    const db = await getDatabase();
     if (!db) return [];
     try {
         const rows = await db.getAllAsync<MathMiniQuiz>(
@@ -296,7 +295,7 @@ export const fetchMathMiniQuizByContentId = async (contentId: number): Promise<M
 
 // Search subchapters and content by a search query
 export const searchSubchapters = async (searchQuery: string): Promise<any[]> => {
-    const db = await initializeDatabase();
+    const db = await getDatabase();
     if (!db) return [];
     const query = `
         SELECT s.SubchapterId, s.SubchapterName, GROUP_CONCAT(c.ContentData, ' ') AS ContentPreview
@@ -316,7 +315,7 @@ export const searchSubchapters = async (searchQuery: string): Promise<any[]> => 
 
 // Fetch ChapterIds from Flashcards
 export const fetchFlashcardsByChapterId = async (chapterId: number): Promise<{ Question: string; Answer: string }[]> => {
-    const db = await initializeDatabase();
+    const db = await getDatabase();
     if (!db) return [];
     try {
         const flashcards = await db.getAllAsync<{ Question: string; Answer: string }>(
@@ -332,7 +331,7 @@ export const fetchFlashcardsByChapterId = async (chapterId: number): Promise<{ Q
 
 // Function to fetch all chapters from the database
 export const fetchChaptersFromDatabase = async (): Promise<{ ChapterId: number; ChapterName: string }[]> => {
-    const db = await initializeDatabase();
+    const db = await getDatabase();
     if (!db) return [];
     try {
         const chapters = await db.getAllAsync<{ ChapterId: number; ChapterName: string }>(

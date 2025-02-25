@@ -53,6 +53,7 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
             <FlatList
             ref={flatListRef}
             data={parts.slice(0, currentPartIndex + 1)}
+            keyboardShouldPersistTaps="always"
             renderItem={({ item, index }) => (
                 <View key={index} style={styles.partContainer}>
                 <MathContentHandler part={item} index={index} />

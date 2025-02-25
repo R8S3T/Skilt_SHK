@@ -240,21 +240,28 @@ export async function fetchMathSubchaptersByChapterId(chapterId: number): Promis
 
 // Fetch math subchapter content by subchapter ID
 export async function fetchMathContentBySubchapterId(subchapterId: number): Promise<GenericContent[]> {
+    console.log(`fetchMathContentBySubchapterId wurde für SubchapterId ${subchapterId} aufgerufen.`);
     if (DATABASE_MODE === 'local') {
+        console.log("Datenbankmodus ist 'local', rufe initializeDatabase() auf...");
         // Fetch from local SQLite database
         const db = await initializeDatabase();
+        console.log("initializeDatabase() wurde in fetchMathContentBySubchapterId ausgeführt.");
+
         if (!db) return [];
         try {
             const result = await db.getAllAsync<GenericContent>(
                 'SELECT * FROM MathSubchapterContent WHERE SubchapterId = ? ORDER BY SortOrder',
                 [subchapterId]
             );
+            console.log(`SQL-Abfrage erfolgreich für SubchapterId ${subchapterId}:`, result);
+
             return result;
         } catch (error) {
             console.error(`Failed to fetch math subchapter content for subchapterId ${subchapterId} from SQLite:`, error);
             return [];
         }
     } else {
+        console.log("Datenbankmodus ist 'remote', fetch von API.");
         // Fetch from server
         try {
             const response = await fetch(`${API_URL}/mathsubchaptercontent/${subchapterId}`);
@@ -262,6 +269,8 @@ export async function fetchMathContentBySubchapterId(subchapterId: number): Prom
                 throw new Error('Network response was not ok.');
             }
             const mathSubchapterContent: GenericContent[] = await response.json();
+            console.log(`API-Daten erfolgreich abgerufen für SubchapterId ${subchapterId}:`, mathSubchapterContent);
+
             return mathSubchapterContent;
         } catch (error) {
             console.error(`Failed to fetch math subchapter content for subchapterId ${subchapterId} from server:`, error);
