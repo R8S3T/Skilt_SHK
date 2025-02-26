@@ -47,7 +47,6 @@ const SettingsScreen = () => {
                 <View style={[styles.headerContainer, { backgroundColor: theme.background }]}>
                 </View>
 
-
                 <View style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}>
                     <View style={styles.row}>
                         {isEditing ? (
@@ -111,14 +110,16 @@ const SettingsScreen = () => {
                 </TouchableOpacity>
 
                 <View style={[styles.divider, { backgroundColor: theme.border }]} />
-                <TouchableOpacity
-                    style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}
-                    onPress={() => navigation.navigate('TermsOfServiceScreen')}
-                >
-                    <Text style={[styles.label, { color: theme.primaryText }]}>Nutzungsbedingungen</Text>
-                </TouchableOpacity>
-
-        </View>
+                    <TouchableOpacity
+                        style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}
+                        onPress={() => navigation.navigate('TermsOfServiceScreen')}
+                    >
+                        <Text style={[styles.label, { color: theme.primaryText }]}>Nutzungsbedingungen</Text>
+                    </TouchableOpacity>
+                    <View style={{ position: 'absolute', bottom: 20, alignSelf: 'center' }}>
+                        <Text style={{ color: theme.secondaryText, fontSize: 16 }}>Version: Closed Test v01</Text>
+                    </View>
+                </View>
     );
     
 };

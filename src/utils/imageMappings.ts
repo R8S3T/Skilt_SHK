@@ -623,7 +623,11 @@ const img_LF13Zellenfilterzoom = require('../../assets/DbImages/SubchapterConten
 const img_LF13dezentraleLftungsanlagezoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_dezentrale_Lüftungsanlage_zoom.png');
 const img_LF13zentraldezentralzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_zentral_dezentral_zoom.png');
 const img_LF13zentraleLftungsanlagezoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_zentrale_Lüftungsanlage_zoom.png');
+const img_LF14FupunktHeizkennliniezoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Fußpunkt_Heizkennlinie_zoom.png');
+const img_LF14Heizkennliniewelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Heizkennlinie_welcome.png');
+const img_LF14Heizkennliniezoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Heizkennlinie_zoom.png');
 const img_LF14Kesseltemperaturregelungwelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Kesseltemperaturregelung_welcome.png');
+const img_LF14ParallelverschiebungHeizkurvezoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Parallelverschiebung_Heizkurve_zoom.png');
 const img_LF14Regelkreiszoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Regelkreis_zoom.png');
 const img_LF14Regelungsmall = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Regelung_small.png');
 const img_LF14Regelungsartenwelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Regelungsarten_welcome.png');
@@ -2343,7 +2347,11 @@ export const imageMap = {
     "LF_13_dezentrale_Lüftungsanlage_zoom": img_LF13dezentraleLftungsanlagezoom,
     "LF_13_zentral_dezentral_zoom": img_LF13zentraldezentralzoom,
     "LF_13_zentrale_Lüftungsanlage_zoom": img_LF13zentraleLftungsanlagezoom,
+    "LF_14_Fußpunkt_Heizkennlinie_zoom": img_LF14FupunktHeizkennliniezoom,
+    "LF_14_Heizkennlinie_welcome": img_LF14Heizkennliniewelcome,
+    "LF_14_Heizkennlinie_zoom": img_LF14Heizkennliniezoom,
     "LF_14_Kesseltemperaturregelung_welcome": img_LF14Kesseltemperaturregelungwelcome,
+    "LF_14_Parallelverschiebung_Heizkurve_zoom": img_LF14ParallelverschiebungHeizkurvezoom,
     "LF_14_Regelkreis_zoom": img_LF14Regelkreiszoom,
     "LF_14_Regelung_small": img_LF14Regelungsmall,
     "LF_14_Regelungsarten_welcome": img_LF14Regelungsartenwelcome,
