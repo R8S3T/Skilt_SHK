@@ -18,6 +18,7 @@ import FlashCardRepeat from 'src/screens/FlashCard/FlashCardRepeat';
 import SearchScreen from 'src/screens/Search/SearchScreen';
 import SearchEndScreen from 'src/screens/Search/SearchEndScreen';
 import TermsOfServiceScreen from 'src/screens/Settings Screen/TermsOfServiceScreen';
+import ImpressumScreen from 'src/screens/Settings Screen/ImpressumScreen';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -119,6 +120,11 @@ const AppNavigator = () => {
                 name="TermsOfServiceScreen"
                 component={TermsOfServiceScreen}
                 options={{ title: 'Nutzungsbedingungen', headerTitleAlign: 'center' }}
+            />
+            <Stack.Screen 
+                name="ImpressumScreen" 
+                component={ImpressumScreen} 
+                options={{ title: 'Impressum' }} 
             />
         </Stack.Navigator>
     );

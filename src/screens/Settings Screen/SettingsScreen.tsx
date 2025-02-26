@@ -116,6 +116,15 @@ const SettingsScreen = () => {
                     >
                         <Text style={[styles.label, { color: theme.primaryText }]}>Nutzungsbedingungen</Text>
                     </TouchableOpacity>
+                    
+                    <View style={[styles.divider, { backgroundColor: theme.border }]} />
+                        <TouchableOpacity
+                            style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}
+                            onPress={() => navigation.navigate('ImpressumScreen')}
+                        >
+                            <Text style={[styles.label, { color: theme.primaryText }]}>Impressum</Text>
+                        </TouchableOpacity>
+
                     <View style={{ position: 'absolute', bottom: 20, alignSelf: 'center' }}>
                         <Text style={{ color: theme.secondaryText, fontSize: 16 }}>Version: Closed Test v01</Text>
                     </View>
