@@ -9,9 +9,9 @@ export default {
     icon: "./assets/icon.png",
     userInterfaceStyle: "light",
     splash: {
-      image: "./assets/Images/skilt_logo.png",
+      image: "./assets/Images/icon_2.png",
       resizeMode: "native",
-      backgroundColor: "#ffffff"
+      backgroundColor: "#142d4c",
     },
     ios: {
       supportsTablet: true,
