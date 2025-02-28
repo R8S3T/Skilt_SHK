@@ -1,5 +1,6 @@
 // ThemeContext.tsx
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { lightTheme, darkTheme, lightenColor } from 'src/components/theme';
 
 interface ThemeContextType {
@@ -14,10 +15,26 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [isDarkMode, setIsDarkMode] = useState(false);
-    const [fontSize, setFontSize] = useState(16);  // Add fontSize state here
+    const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+    const [fontSize, setFontSize] = useState<number>(16);
 
-    const toggleDarkMode = () => setIsDarkMode(prev => !prev);
+    // Lade Dark Mode Einstellung aus AsyncStorage
+    useEffect(() => {
+        const loadTheme = async () => {
+            const savedTheme = await AsyncStorage.getItem('darkMode');
+            if (savedTheme !== null) {
+                setIsDarkMode(savedTheme === 'true');
+            }
+        };
+        loadTheme();
+    }, []);
+
+    // Speichere Dark Mode Einstellung in AsyncStorage
+    const toggleDarkMode = async () => {
+        const newMode = !isDarkMode;
+        setIsDarkMode(newMode);
+        await AsyncStorage.setItem('darkMode', newMode.toString());
+    };
 
     const theme = isDarkMode ? darkTheme : lightTheme;
 
@@ -28,7 +45,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             theme, 
             fontSize, 
             setFontSize,
-            lightenColor, // Pass lightenColor as part of the context
+            lightenColor,
         }}>
             {children}
         </ThemeContext.Provider>
