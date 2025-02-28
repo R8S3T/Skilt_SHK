@@ -5,8 +5,8 @@ export interface SubchapterContextType {
     finishedSubchapters: number[];
     currentSubchapterId: number | null;
     currentSubchapterTitle: string;
-    unlockSubchapter: (subchapterId: number) => void;
-    markSubchapterAsFinished: (subchapterId: number) => void;
+    unlockSubchapter: (subchapterId: number, chapterId: number) => void;
+    markSubchapterAsFinished: (subchapterId: number, chapterId: number) => void;
     markQuizAsFinished: (quizId: number) => void;
     setCurrentSubchapter: (subchapterId: number | null, subchapterTitle: string) => void;
     getFinishedSubchaptersToday: () => Promise<number>;

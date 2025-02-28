@@ -131,7 +131,7 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
 
     const handleJumpAheadConfirm = () => {
         if (selectedSubchapter) {
-            unlockSubchapter(selectedSubchapter.SubchapterId);
+            unlockSubchapter(selectedSubchapter.SubchapterId, chapterId);
             setCurrentSubchapter(selectedSubchapter.SubchapterId, selectedSubchapter.SubchapterName);
             navigation.navigate('SubchapterContentScreen', {
                 subchapterId: selectedSubchapter.SubchapterId,

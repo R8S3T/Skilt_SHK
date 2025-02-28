@@ -3,6 +3,8 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SubchapterContextType } from 'src/types/contextTypes';
+import { Subchapter } from 'src/types/contentTypes';
+import { fetchSubchaptersByChapterId} from 'src/database/databaseServices';
 
 const SubchapterContext = createContext<SubchapterContextType | undefined>(undefined);
 
@@ -41,13 +43,27 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
     }, []);
 
     // Unlocks a subchapter and updates AsyncStorage
-    const unlockSubchapter = async (subchapterId: number) => {
-        setUnlockedSubchapters((current) => {
-            const updated = [...new Set([...current, subchapterId])];
-            AsyncStorage.setItem('unlockedSubchapters', JSON.stringify(updated)); // Persist the data
-            return updated;
-        });
+    const unlockSubchapter = async (subchapterId: number, chapterId: number) => {
+        try {
+            const subchapters: Subchapter[] = await fetchSubchaptersByChapterId(chapterId);
+    
+            const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
+            if (!currentSubchapter) return;
+    
+            const nextSubchapter = subchapters.find(sub => sub.SortOrder === currentSubchapter.SortOrder + 1);
+            if (!nextSubchapter) return;
+    
+            setUnlockedSubchapters((current) => {
+                const updated = [...new Set([...current, nextSubchapter.SubchapterId])];
+                AsyncStorage.setItem('unlockedSubchapters', JSON.stringify(updated));
+                return updated;
+            });
+    
+        } catch (error) {
+            console.error('Fehler beim Freischalten des nächsten Subchapters:', error);
+        }
     };
+    
 
     // Funktion zum Aktualisieren der Statistik
     const triggerStatisticsUpdate = async () => {    
@@ -60,7 +76,7 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
 
 
     // Marks a subchapter as finished and saves to AsyncStorage
-    const markSubchapterAsFinished = async (subchapterId: number) => {
+    const markSubchapterAsFinished = async (subchapterId: number, chapterId: number) => {
         const today = new Date().toISOString().split('T')[0];
 
         setFinishedSubchapters((current) => {
@@ -71,7 +87,7 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
             return updated;
         });
 
-        unlockSubchapter(subchapterId + 1);
+        unlockSubchapter(subchapterId, chapterId);
     
         await triggerStatisticsUpdate();
     };

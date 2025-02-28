@@ -28,11 +28,12 @@ const GenericNode: React.FC<GenericNodeProps> = ({
     const dynamicNodeSize = getDynamicIconSize(70, 90);
     const dynamicIconSize = getDynamicIconSize(40, 50);
 
-    const iconSource = isLocked
+    const iconSource = isFinished
+    ? require('../../assets/Images/ok_icon.png')
+    : isLocked
         ? require('../../assets/Images/lock_icon.png')
-        : isFinished
-            ? require('../../assets/Images/ok_icon.png')
-            : require('../../assets/Images/play_icon.png');
+        : require('../../assets/Images/play_icon.png');
+
 
     const dynamicStyles = StyleSheet.create({
         container: {
@@ -42,8 +43,8 @@ const GenericNode: React.FC<GenericNodeProps> = ({
             marginVertical: 5,
             borderRadius: 20,
             borderWidth: 2,
-            borderColor: isLocked ? '#A9A9A9' : isFinished ? finishedColor : '#A9A9A9',
-            backgroundColor: isLocked ? '#f0f0f0' : '#FFFFFF',
+            borderColor: isFinished ? finishedColor : isLocked ? '#A9A9A9' : '#A9A9A9',
+            backgroundColor: isFinished ? '#FFFFFF' : isLocked ? '#f0f0f0' : '#FFFFFF',
             paddingVertical: 8,
             paddingHorizontal: 15,
             ...(isDarkMode && {
@@ -62,21 +63,26 @@ const GenericNode: React.FC<GenericNodeProps> = ({
         icon: {
             width: dynamicIconSize,
             height: dynamicIconSize,
-            // Ensure play icon remains grey in both themes and finished icon stays orange
-            tintColor: isLocked 
-                ? '#A9A9A9' 
-                : isFinished 
-                    ? finishedColor 
-                    : '#A9A9A9', // Play icon grey in both light and dark modes
+            tintColor: isFinished ? finishedColor : isLocked ? '#A9A9A9' : '#A9A9A9',
         },
         text: {
             flex: 1,
-            fontSize: screenWidth > 600 ? 20 : 18, // Larger font size for tablets
-            color: isLocked ? '#A9A9A9' : '#000000',
+            fontSize: screenWidth > 600 ? 20 : 18,
+            color: isFinished 
+                ? '#333333' 
+                : isLocked 
+                    ? '#A9A9A9' 
+                    : '#000000',
             ...(isDarkMode && {
-                color: isLocked ? '#A9A9A9' : theme.primaryText,
+                color: isFinished 
+                    ? '#333333' 
+                    : isLocked 
+                        ? '#A9A9A9' 
+                        : theme.primaryText,
             }),
         },
+        
+
     });
 
     return (
