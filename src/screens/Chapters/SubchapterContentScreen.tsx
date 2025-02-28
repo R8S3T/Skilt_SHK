@@ -18,6 +18,7 @@ import {  saveContentSlideIndex, completeSubchapter, saveProgress, } from 'src/u
 import { useTheme } from 'src/context/ThemeContext';
 import LottieView from 'lottie-react-native';
 import { screenWidth } from 'src/utils/screenDimensions';
+import { updateStreak } from 'src/utils/streakUtils';
 
 type SubchapterContentScreenRouteProp = RouteProp<LearnStackParamList, 'SubchapterContentScreen'>;
 type SubchapterContentScreenNavigationProp = StackNavigationProp<LearnStackParamList, 'SubchapterContentScreen'>;
@@ -204,6 +205,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
             setNavigating(true);
     
             setTimeout(async () => {
+                await updateStreak('chapter');
                 await completeSubchapter({
                     subchapterId,
                     chapterId,
@@ -259,7 +261,6 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
             </View>
         </GestureHandlerRootView>
     );
-    
 }
 
 const styles = StyleSheet.create({

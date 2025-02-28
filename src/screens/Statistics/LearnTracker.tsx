@@ -13,7 +13,6 @@ const LearnTracker = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            await updateStreak();
             const { streak, longestStreak, activeDays } = await getStreakData();
             setStreak(streak);
             setLongestStreak(longestStreak);

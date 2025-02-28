@@ -12,6 +12,7 @@ import { fetchMathContentBySubchapterId, fetchMathMiniQuizByContentId } from 'sr
 import { useTheme } from 'src/context/ThemeContext';
 import { usePreloadContent } from 'src/hooks/usePreloadContent';
 import { saveProgress, loadProgress } from 'src/utils/progressUtils';
+import { updateStreak } from 'src/utils/streakUtils';
 
 type MathSubchapterContentScreenRouteProp = RouteProp<MathStackParamList, 'MathSubchapterContentScreen'>;
 type MathSubchapterContentScreenNavigationProp = StackNavigationProp<MathStackParamList, 'MathSubchapterContentScreen'>;
@@ -138,69 +139,73 @@ useEffect(() => {
     );
 
     const nextContent = async () => {
-        // NEW: If there's no quiz available, skip directly to the next slide or navigation.
         if (!mathQuiz) {
+          await updateStreak('math'); // Streak für Mathe-Module aktualisieren
+
           if (currentIndex < contentData.length - 1) {
-            const newIndex = currentIndex + 1;
-            setShowQuiz(false);
-            setCurrentIndex(newIndex);
-      
-            // Save progress
-            await saveProgress(
-              'math',
-              chapterId,
-              subchapterId,
-              subchapterTitle,
-              newIndex,
-              null
-            );
-      
-            // Preload quiz for the new content if available
-            const preloadedQuiz = getNextContent();
-            if (preloadedQuiz) {
-              setMathQuiz(preloadedQuiz);
-            } else {
-              const quizzes = await fetchMathMiniQuizByContentId(contentData[newIndex]?.ContentId);
-              setMathQuiz(quizzes[0] || null);
-            }
+              const newIndex = currentIndex + 1;
+              setShowQuiz(false);
+              setCurrentIndex(newIndex);
+        
+              // Save progress
+              await saveProgress(
+                  'math',
+                  chapterId,
+                  subchapterId,
+                  subchapterTitle,
+                  newIndex,
+                  null
+              );
+        
+              // Preload quiz for the new content if available
+              const preloadedQuiz = getNextContent();
+              if (preloadedQuiz) {
+                  setMathQuiz(preloadedQuiz);
+              } else {
+                  const quizzes = await fetchMathMiniQuizByContentId(contentData[newIndex]?.ContentId);
+                  setMathQuiz(quizzes[0] || null);
+              }
           } else {
-            // End of content: mark finished and navigate
-            markSubchapterAsFinished(subchapterId);
-            unlockSubchapter(subchapterId + 1);
-            const origin = route.params?.origin;
-            if (origin === 'HomeScreen') {
-              navigation.reset({
-                index: 0,
-                routes: [
-                  {
-                    name: 'MathCongratsScreen',
-                    params: {
-                      subchapterId,
-                      targetScreen: 'HomeScreen',
-                      targetParams: {},
-                    },
-                  },
-                ],
-              });
-            } else {
-              navigation.reset({
-                index: 0,
-                routes: [
-                  {
-                    name: 'MathCongratsScreen',
-                    params: {
-                      subchapterId,
-                      targetScreen: 'MathSubchapterScreen',
-                      targetParams: { chapterId, chapterTitle },
-                    },
-                  },
-                ],
-              });
-            }
+              // End of content: mark finished and navigate
+              markSubchapterAsFinished(subchapterId);
+              unlockSubchapter(subchapterId + 1);
+              
+              await updateStreak('math'); // Streak wird auch am Ende aktualisiert
+              
+              const origin = route.params?.origin;
+              if (origin === 'HomeScreen') {
+                  navigation.reset({
+                      index: 0,
+                      routes: [
+                          {
+                              name: 'MathCongratsScreen',
+                              params: {
+                                  subchapterId,
+                                  targetScreen: 'HomeScreen',
+                                  targetParams: {},
+                              },
+                          },
+                      ],
+                  });
+              } else {
+                  navigation.reset({
+                      index: 0,
+                      routes: [
+                          {
+                              name: 'MathCongratsScreen',
+                              params: {
+                                  subchapterId,
+                                  targetScreen: 'MathSubchapterScreen',
+                                  targetParams: { chapterId, chapterTitle },
+                              },
+                          },
+                      ],
+                  });
+              }
           }
           return;
-        }
-      
+      }
+  
         // EXISTING LOGIC for when a quiz is available:
         if (showQuiz && currentIndex < contentData.length - 1) {
           const newIndex = currentIndex + 1;
@@ -237,11 +242,20 @@ useEffect(() => {
                 <Text style={{ color: theme.primaryText }}>Daten werden geladen ...</Text>
             ) : (
                 showQuiz && mathQuiz ? (
-                    <MathQuizSlide
-                        quiz={mathQuiz}
-                        onQuizComplete={(isCorrect) => console.log(isCorrect ? 'Correct' : 'Incorrect')}
-                        onNextSlide={nextContent}
-                    />
+                  <MathQuizSlide
+                      quiz={mathQuiz}
+                      onQuizComplete={async (isCorrect) => {
+                          console.log(isCorrect ? 'Correct' : 'Incorrect');
+
+                          // Streak als Mathemodul-Fortschritt aktualisieren
+                          await updateStreak('math');
+
+                          // Weiter zum nächsten Inhalt
+                          nextContent();
+                      }}
+                      onNextSlide={nextContent}
+                  />
+
                 ) : (
                     <MathContentSlide
                         contentData={contentData[currentIndex]}

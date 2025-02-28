@@ -4,6 +4,7 @@ import FlipCard from 'react-native-flip-card';
 import { screenWidth } from 'src/utils/screenDimensions';
 import { useTheme } from 'src/context/ThemeContext';
 import { lightenColor } from 'src/components/theme';
+import { updateStreak } from 'src/utils/streakUtils';
 
 const Flashcard = ({
     question,
@@ -78,21 +79,29 @@ const Flashcard = ({
                             <TouchableOpacity
                                 style={[
                                     styles.incorrectButton,
-                                    { backgroundColor: isDarkMode ? '#5585b5' : '#f46134' }, // Muted red for dark mode
+                                    { backgroundColor: isDarkMode ? '#5585b5' : '#f46134' },
                                 ]}
-                                onPress={onMarkIncorrect}
+                                onPress={async () => {
+                                    if (onMarkIncorrect) onMarkIncorrect();
+                                    await updateStreak('flashcard'); // Streak für Lernkarten aktualisieren
+                                }}
                             >
                                 <Text style={styles.buttonText}>Wusste ich nicht</Text>
                             </TouchableOpacity>
+
                             <TouchableOpacity
                                 style={[
                                     styles.correctButton,
-                                    { backgroundColor: isDarkMode ? '#f46134' : '#385170' }, // Muted green for dark mode
+                                    { backgroundColor: isDarkMode ? '#f46134' : '#385170' },
                                 ]}
-                                onPress={onMarkCorrect}
+                                onPress={async () => {
+                                    if (onMarkCorrect) onMarkCorrect();
+                                    await updateStreak('flashcard'); // Streak für Lernkarten aktualisieren
+                                }}
                             >
                                 <Text style={styles.buttonText}>Gewusst</Text>
                             </TouchableOpacity>
+
                         </View>
                     )}
                 </View>

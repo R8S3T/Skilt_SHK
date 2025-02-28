@@ -623,9 +623,18 @@ const img_LF13Zellenfilterzoom = require('../../assets/DbImages/SubchapterConten
 const img_LF13dezentraleLftungsanlagezoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_dezentrale_Lüftungsanlage_zoom.png');
 const img_LF13zentraldezentralzoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_zentral_dezentral_zoom.png');
 const img_LF13zentraleLftungsanlagezoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_zentrale_Lüftungsanlage_zoom.png');
+const img_LF14Aktorenzoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Aktoren_zoom.png');
+const img_LF14BerechnungHeizkennliniewelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Berechnung_Heizkennlinie_welcome.png');
+const img_LF14FormelBerechnungSteilheit2small = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Formel_Berechnung_Steilheit_2_small.png');
+const img_LF14FormelBerechnungSteilheitsmall = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Formel_Berechnung_Steilheit_small.png');
+const img_LF14FormelBerechnungVorlauftemperatursmall = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Formel_Berechnung_Vorlauftemperatur_small.png');
+const img_LF14FormelSteilheitsmall = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Formel_Steilheit_small.png');
+const img_LF14FormelVorlauftemperatursmall = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Formel_Vorlauftemperatur_small.png');
 const img_LF14FupunktHeizkennliniezoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Fußpunkt_Heizkennlinie_zoom.png');
+const img_LF14GLTwelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_GLT_welcome.png');
 const img_LF14Heizkennliniewelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Heizkennlinie_welcome.png');
 const img_LF14Heizkennliniezoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Heizkennlinie_zoom.png');
+const img_LF14KNXBUSzoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_KNX_BUS_zoom.png');
 const img_LF14Kesseltemperaturregelungwelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Kesseltemperaturregelung_welcome.png');
 const img_LF14ParallelverschiebungHeizkurvezoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Parallelverschiebung_Heizkurve_zoom.png');
 const img_LF14Regelkreiszoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Regelkreis_zoom.png');
@@ -1389,6 +1398,7 @@ const img_LFiconFristsmall = require('../../assets/DbImages/SubchapterContent/LF
 const img_LFiconFrostfreismall = require('../../assets/DbImages/SubchapterContent/LF_icon_Frost_frei_small.png');
 const img_LFiconFrostschutzsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Frostschutz_small.png');
 const img_LFiconFrostschutzmittelsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Frostschutzmittel_small.png');
+const img_LFiconFunksmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Funk_small.png');
 const img_LFiconFunktion2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Funktion_2_small.png');
 const img_LFiconFunktion3small = require('../../assets/DbImages/SubchapterContent/LF_icon_Funktion_3_small.png');
 const img_LFiconFunktionsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Funktion_small.png');
@@ -1439,6 +1449,7 @@ const img_LFiconHerkunftsmall = require('../../assets/DbImages/SubchapterContent
 const img_LFiconHitzebestndigsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Hitzebeständig_small.png');
 const img_LFiconHybridLftungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Hybrid_Lüftung_small.png');
 const img_LFiconHheLngesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Höhe_Länge_small.png');
+const img_LFiconIPNetzwerkesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_IP_Netzwerke_small.png');
 const img_LFiconIndustriesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Industrie_small.png');
 const img_LFiconInfrastruktursmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Infrastruktur_small.png');
 const img_LFiconInhibitorsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Inhibitor_small.png');
@@ -1524,6 +1535,7 @@ const img_LFiconOrganisationsmall = require('../../assets/DbImages/SubchapterCon
 const img_LFiconOzonsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Ozon_small.png');
 const img_LFiconPHwertsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_PHwert_small.png');
 const img_LFiconPVCsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_PVC_small.png');
+const img_LFiconParallelverschiebungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Parallelverschiebung_small.png');
 const img_LFiconParametersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Parameter_small.png');
 const img_LFiconPlanungSanitrsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Planung_Sanitär_small.png');
 const img_LFiconPlanungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Planung_small.png');
@@ -1591,6 +1603,8 @@ const img_LFiconSchwerkraftsmall = require('../../assets/DbImages/SubchapterCont
 const img_LFiconSeesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_See_small.png');
 const img_LFiconSensor2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Sensor_2_small.png');
 const img_LFiconSensor3small = require('../../assets/DbImages/SubchapterContent/LF_icon_Sensor_3_small.png');
+const img_LFiconSensorLuftsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sensor_Luft_small.png');
+const img_LFiconSensorRaumtemperatursmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sensor_Raumtemperatur_small.png');
 const img_LFiconSensorsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sensor_small.png');
 const img_LFiconSicherheit1small = require('../../assets/DbImages/SubchapterContent/LF_icon_Sicherheit_1_small.png');
 const img_LFiconSicherheitFrostschutzmittelsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sicherheit_Frostschutzmittel_small.png');
@@ -2347,9 +2361,18 @@ export const imageMap = {
     "LF_13_dezentrale_Lüftungsanlage_zoom": img_LF13dezentraleLftungsanlagezoom,
     "LF_13_zentral_dezentral_zoom": img_LF13zentraldezentralzoom,
     "LF_13_zentrale_Lüftungsanlage_zoom": img_LF13zentraleLftungsanlagezoom,
+    "LF_14_Aktoren_zoom": img_LF14Aktorenzoom,
+    "LF_14_Berechnung_Heizkennlinie_welcome": img_LF14BerechnungHeizkennliniewelcome,
+    "LF_14_Formel_Berechnung_Steilheit_2_small": img_LF14FormelBerechnungSteilheit2small,
+    "LF_14_Formel_Berechnung_Steilheit_small": img_LF14FormelBerechnungSteilheitsmall,
+    "LF_14_Formel_Berechnung_Vorlauftemperatur_small": img_LF14FormelBerechnungVorlauftemperatursmall,
+    "LF_14_Formel_Steilheit_small": img_LF14FormelSteilheitsmall,
+    "LF_14_Formel_Vorlauftemperatur_small": img_LF14FormelVorlauftemperatursmall,
     "LF_14_Fußpunkt_Heizkennlinie_zoom": img_LF14FupunktHeizkennliniezoom,
+    "LF_14_GLT_welcome": img_LF14GLTwelcome,
     "LF_14_Heizkennlinie_welcome": img_LF14Heizkennliniewelcome,
     "LF_14_Heizkennlinie_zoom": img_LF14Heizkennliniezoom,
+    "LF_14_KNX_BUS_zoom": img_LF14KNXBUSzoom,
     "LF_14_Kesseltemperaturregelung_welcome": img_LF14Kesseltemperaturregelungwelcome,
     "LF_14_Parallelverschiebung_Heizkurve_zoom": img_LF14ParallelverschiebungHeizkurvezoom,
     "LF_14_Regelkreis_zoom": img_LF14Regelkreiszoom,
@@ -3113,6 +3136,7 @@ export const imageMap = {
     "LF_icon_Frost_frei_small": img_LFiconFrostfreismall,
     "LF_icon_Frostschutz_small": img_LFiconFrostschutzsmall,
     "LF_icon_Frostschutzmittel_small": img_LFiconFrostschutzmittelsmall,
+    "LF_icon_Funk_small": img_LFiconFunksmall,
     "LF_icon_Funktion_2_small": img_LFiconFunktion2small,
     "LF_icon_Funktion_3_small": img_LFiconFunktion3small,
     "LF_icon_Funktion_small": img_LFiconFunktionsmall,
@@ -3163,6 +3187,7 @@ export const imageMap = {
     "LF_icon_Hitzebeständig_small": img_LFiconHitzebestndigsmall,
     "LF_icon_Hybrid_Lüftung_small": img_LFiconHybridLftungsmall,
     "LF_icon_Höhe_Länge_small": img_LFiconHheLngesmall,
+    "LF_icon_IP_Netzwerke_small": img_LFiconIPNetzwerkesmall,
     "LF_icon_Industrie_small": img_LFiconIndustriesmall,
     "LF_icon_Infrastruktur_small": img_LFiconInfrastruktursmall,
     "LF_icon_Inhibitor_small": img_LFiconInhibitorsmall,
@@ -3248,6 +3273,7 @@ export const imageMap = {
     "LF_icon_Ozon_small": img_LFiconOzonsmall,
     "LF_icon_PHwert_small": img_LFiconPHwertsmall,
     "LF_icon_PVC_small": img_LFiconPVCsmall,
+    "LF_icon_Parallelverschiebung_small": img_LFiconParallelverschiebungsmall,
     "LF_icon_Parameter_small": img_LFiconParametersmall,
     "LF_icon_Planung_Sanitär_small": img_LFiconPlanungSanitrsmall,
     "LF_icon_Planung_small": img_LFiconPlanungsmall,
@@ -3315,6 +3341,8 @@ export const imageMap = {
     "LF_icon_See_small": img_LFiconSeesmall,
     "LF_icon_Sensor_2_small": img_LFiconSensor2small,
     "LF_icon_Sensor_3_small": img_LFiconSensor3small,
+    "LF_icon_Sensor_Luft_small": img_LFiconSensorLuftsmall,
+    "LF_icon_Sensor_Raumtemperatur_small": img_LFiconSensorRaumtemperatursmall,
     "LF_icon_Sensor_small": img_LFiconSensorsmall,
     "LF_icon_Sicherheit_1_small": img_LFiconSicherheit1small,
     "LF_icon_Sicherheit_Frostschutzmittel_small": img_LFiconSicherheitFrostschutzmittelsmall,
