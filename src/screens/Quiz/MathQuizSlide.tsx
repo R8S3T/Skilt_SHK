@@ -3,10 +3,12 @@ import { View, Text, TouchableOpacity, Image, StyleSheet, ScrollView } from 'rea
 import { imageMap } from 'src/utils/imageMappings';
 import { scaleFontSize } from 'src/utils/screenDimensions';
 import ControlButtons from './ControlButtons';
+import { useMathSubchapter } from '../../context/MathSubchapterContext';
 import { screenWidth } from 'src/utils/screenDimensions';
 
 interface MathMiniQuiz {
     Question: string;
+    ContentId: number;
     Options: string[];
     Answer: string[];
     Image?: string;
@@ -36,19 +38,20 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null);
     const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
+    const { markMathQuizAsFinished } = useMathSubchapter();
 
-
-    const handleAnswerSubmit = () => {
+    const handleAnswerSubmit = async () => {
         if (selectedOption) {
             setIsSubmitted(true);
             const normalize = (text: string) => text.trim().toLowerCase();
-            const parsedAnswers = parseAnswer(quiz.Answer);    
+            const parsedAnswers = parseAnswer(quiz.Answer);
             const isCorrect = parsedAnswers.some(answer => normalize(answer) === normalize(selectedOption));
-    
+
             if (isCorrect) {
                 setIsAnswerCorrect(true);
                 onQuizComplete(true);
-                if (isLast) { // NEUER Check
+                await markMathQuizAsFinished(quiz.ContentId);
+                if (isLast) { 
                     onNextSlide();
                 }
             } else {
@@ -56,7 +59,6 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
             }
         }
     };
-    
 
     const handleOptionSelect = (option: string) => {
         setSelectedOption(option); // Update the selected option

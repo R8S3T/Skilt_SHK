@@ -5,11 +5,25 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from 'src/context/ThemeContext';
 import LearnTracker from './LearnTracker';
 import { useSubchapter } from 'src/context/SubchapterContext';
+import { useMathSubchapter } from 'src/context/MathSubchapterContext';
+
 
 const StatisticsScreen = () => {
     const { theme } = useTheme();
     const navigation = useNavigation();
-    const { getFinishedSubchaptersToday, getFinishedQuizzesToday, getTotalFinishedSubchapters, triggerStatisticsUpdate } = useSubchapter();
+    const {
+        getFinishedSubchaptersToday,
+        getFinishedQuizzesToday,
+        getTotalFinishedSubchapters,
+        triggerStatisticsUpdate
+    } = useSubchapter();
+
+    const {
+        getFinishedMathSubchaptersToday,
+        getFinishedMathQuizzesToday,
+        getTotalFinishedMathSubchapters,
+    } = useMathSubchapter();
+
 
     const [finishedToday, setFinishedToday] = useState<number>(0);
     const [quizzesToday, setQuizzesToday] = useState<number>(0); // Placeholder
@@ -25,9 +39,19 @@ const StatisticsScreen = () => {
             const finishedQuizzes = await getFinishedQuizzesToday();
             const totalFinished = await getTotalFinishedSubchapters();
 
-            setFinishedToday(finishedSubchapters);
-            setQuizzesToday(finishedQuizzes);
-            setTotalSubchapters(totalFinished);
+            const finishedMathSubchapters = getFinishedMathSubchaptersToday
+            ? await getFinishedMathSubchaptersToday()
+            : 0;
+            const finishedMathQuizzes = getFinishedMathQuizzesToday
+            ? await getFinishedMathQuizzesToday()
+            : 0;
+            const totalMathFinished = getTotalFinishedMathSubchapters
+            ? await getTotalFinishedMathSubchapters()
+            : 0;
+
+            setFinishedToday(finishedSubchapters + finishedMathSubchapters);
+            setQuizzesToday(finishedQuizzes + finishedMathQuizzes);
+            setTotalSubchapters(totalFinished + totalMathFinished);
         };
         fetchData();
         triggerStatisticsUpdate();

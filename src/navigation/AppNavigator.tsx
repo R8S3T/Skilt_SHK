@@ -56,7 +56,9 @@ const AppNavigator = () => {
             >
                 {() => (
                     <SubchapterProvider>
-                        <BottomTabNavigator />
+                        <MathSubchapterProvider>
+                            <BottomTabNavigator />
+                        </MathSubchapterProvider>
                     </SubchapterProvider>
                 )}
             </Stack.Screen>

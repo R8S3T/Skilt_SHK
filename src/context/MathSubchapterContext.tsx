@@ -108,12 +108,16 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
     };
 
     const markSubchapterAsFinished = async (subchapterId: number) => {
+        const today = new Date().toISOString().split('T')[0];
+
 
         // Add the subchapter to finishedSubchapters
         setFinishedSubchapters((current) => {
             if (!current.includes(subchapterId)) {
                 const updatedFinished = [...current, subchapterId];
-                AsyncStorage.setItem('mathFinishedSubchapters', JSON.stringify(updatedFinished)); // Persist finished subchapters
+                AsyncStorage.setItem('mathFinishedSubchapters', JSON.stringify(updatedFinished));
+
+                AsyncStorage.setItem(`mathFinishedSubchapter_${subchapterId}`, today);
                 return updatedFinished;
             }
             return current;
@@ -152,6 +156,69 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
         setCurrentSubchapterTitle(subchapterTitle);
     };
 
+    const markMathQuizAsFinished = async (quizId: number) => {
+        const today = new Date().toISOString().split('T')[0];
+        const storedFinished = await AsyncStorage.getItem('mathFinishedQuizzes');
+        const finishedIds: number[] = storedFinished ? JSON.parse(storedFinished) : [];
+
+        if (!finishedIds.includes(quizId)) {
+            const updated = [...finishedIds, quizId];
+            await AsyncStorage.setItem('mathFinishedQuizzes', JSON.stringify(updated));
+            await AsyncStorage.setItem(`mathFinishedQuiz_${quizId}`, today);
+        }
+    };
+
+    const getFinishedMathSubchaptersToday = async (): Promise<number> => {
+        const today = new Date().toISOString().split('T')[0];
+        let count = 0;
+        try {
+            const storedFinished = await AsyncStorage.getItem('mathFinishedSubchapters');
+            if (storedFinished) {
+                const finishedIds: number[] = JSON.parse(storedFinished);
+                for (const id of finishedIds) {
+                    const storedDate = await AsyncStorage.getItem(`mathFinishedSubchapter_${id}`);
+                    if (storedDate === today) {
+                        count++;
+                    }
+                }
+            }
+        } catch (error) {
+            console.error(error);
+        }
+        return count;
+    };
+    
+    const getFinishedMathQuizzesToday = async (): Promise<number> => {
+        const today = new Date().toISOString().split('T')[0];
+        let count = 0;
+        try {
+            const storedFinished = await AsyncStorage.getItem('mathFinishedQuizzes');
+            if (storedFinished) {
+                const finishedIds: number[] = JSON.parse(storedFinished);
+                for (const id of finishedIds) {
+                    const storedDate = await AsyncStorage.getItem(`mathFinishedQuiz_${id}`);
+                    if (storedDate === today) {
+                        count++;
+                    }
+                }
+            }
+        } catch (error) {
+            console.error(error);
+        }
+        return count;
+    };
+
+    const getTotalFinishedMathSubchapters = async (): Promise<number> => {
+        try {
+            const storedFinished = await AsyncStorage.getItem('mathFinishedSubchapters');
+            return storedFinished ? JSON.parse(storedFinished).length : 0;
+            } catch (error) {
+            console.error(error);
+            return 0;
+            }
+        };
+
+
     return (
         <MathSubchapterContext.Provider
             value={{
@@ -161,9 +228,13 @@ export const MathSubchapterProvider: React.FC<MathSubchapterProviderProps> = ({ 
                 currentSubchapterTitle,
                 unlockSubchapter,
                 markSubchapterAsFinished,
+                markMathQuizAsFinished,
                 setCurrentSubchapter,
                 subchapters,
                 setSubchapters,
+                getFinishedMathSubchaptersToday,
+                getFinishedMathQuizzesToday,
+                getTotalFinishedMathSubchapters,
             }}
         >
             {children}

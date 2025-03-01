@@ -29,4 +29,8 @@ export interface MathSubchapterContextType {
     setCurrentSubchapter: (subchapterId: number | null, subchapterTitle: string) => void;
     subchapters: MathSubchapter[];
     setSubchapters: (subchapters: MathSubchapter[]) => void;
+    markMathQuizAsFinished: (quizId: number) => Promise<void>;
+    getFinishedMathSubchaptersToday?: () => Promise<number>;  // Optional if needed
+    getFinishedMathQuizzesToday?: () => Promise<number>;
+    getTotalFinishedMathSubchapters?: () => Promise<number>;
 }

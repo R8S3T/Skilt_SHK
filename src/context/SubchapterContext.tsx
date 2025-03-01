@@ -139,7 +139,7 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
     };
 
     const getFinishedQuizzesToday = async (): Promise<number> => {
-        const today = new Date().toISOString().split('T')[0]; // Heutiges Datum (YYYY-MM-DD)
+        const today = new Date().toISOString().split('T')[0]; 
         let count = 0;
 
         try {

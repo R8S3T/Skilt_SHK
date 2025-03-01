@@ -35,7 +35,7 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
     const [mathMiniQuizzes, setMathMiniQuizzes] = useState<MathMiniQuiz[]>([]);
     const [completedQuizzes, setCompletedQuizzes] = useState<boolean[]>([]);
     const { finishedSubchapters } = useMathSubchapter();
-
+    
 // Configure navigation header
 useEffect(() => {
     navigation.setOptions({
@@ -232,7 +232,6 @@ useEffect(() => {
                     <MathQuizSlide
                         quiz={mathQuiz}
                         onQuizComplete={async (isCorrect) => {
-                            console.log(isCorrect ? 'Correct' : 'Incorrect');
 
                             await updateStreak('math');
 
