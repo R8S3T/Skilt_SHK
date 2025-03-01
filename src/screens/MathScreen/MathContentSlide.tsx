@@ -47,7 +47,15 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
             }, 100);
         }
         };
-    
+
+
+        const handleQuizComplete = (isCorrect: boolean) => {
+            setQuizAnswered(true);
+            // Wenn der aktuelle Part der letzte ist, navigiere direkt weiter:
+            if (currentPartIndex === parts.length - 1) {
+                onNextSlide();
+            }
+        };
         return (
         <View style={[styles.container, { backgroundColor: theme.background }]}>
             <FlatList
@@ -56,7 +64,13 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
             keyboardShouldPersistTaps="always"
             renderItem={({ item, index }) => (
                 <View key={index} style={styles.partContainer}>
-                <MathContentHandler part={item} index={index} />
+                <MathContentHandler 
+                    part={item} 
+                    index={index}
+                    onQuizComplete={handleQuizComplete}  // neu hinzugefügt
+                    onNextSlide={onNextSlide}            // neu hinzugefügt
+                    isLast={currentPartIndex === parts.length - 1}  // neu hinzugefügt
+                />
                 {index === currentPartIndex &&
                     currentPartIndex < parts.length - 1 &&
                     !quizAnswered && (

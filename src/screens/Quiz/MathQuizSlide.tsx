@@ -16,6 +16,7 @@ interface MathQuizSlideProps {
     quiz: MathMiniQuiz;
     onQuizComplete: (isCorrect: boolean) => void;
     onNextSlide: () => void;
+    isLast: boolean;
 }
 
 // Utility function to parse the Answer field
@@ -31,7 +32,7 @@ const parseAnswer = (answer: string | string[]): string[] => {
     }
 };
 
-const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onNextSlide }) => {
+const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onNextSlide, isLast }) => {
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const [isAnswerCorrect, setIsAnswerCorrect] = useState<boolean | null>(null);
     const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
@@ -39,23 +40,23 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
 
     const handleAnswerSubmit = () => {
         if (selectedOption) {
-            setIsSubmitted(true); // Mark as submitted
+            setIsSubmitted(true);
             const normalize = (text: string) => text.trim().toLowerCase();
-    
-            // Parse and normalize the answers
             const parsedAnswers = parseAnswer(quiz.Answer);    
             const isCorrect = parsedAnswers.some(answer => normalize(answer) === normalize(selectedOption));
-        
+    
             if (isCorrect) {
                 setIsAnswerCorrect(true);
                 onQuizComplete(true);
+                if (isLast) { // NEUER Check
+                    onNextSlide();
+                }
             } else {
-                setIsAnswerCorrect(false); // Allow retries
+                setIsAnswerCorrect(false);
             }
         }
     };
     
-
 
     const handleOptionSelect = (option: string) => {
         setSelectedOption(option); // Update the selected option

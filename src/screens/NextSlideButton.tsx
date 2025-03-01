@@ -33,7 +33,7 @@ const NextSlideButton: React.FC<NextSlideButtonProps> = ({ onPress, isActive, st
                     styles.text,
                     {
                         color: isDarkMode ? '#E0E0E0' : 'white',
-                        fontSize: screenWidth > 600 ? 20 : 18, // Adjust font size for tablet
+                        fontSize: screenWidth > 600 ? 20 : 18, 
                     },
                 ]}
             >

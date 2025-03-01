@@ -7,6 +7,9 @@ import { screenWidth } from 'src/utils/screenDimensions';
 interface MathContentHandlerProps {
     part: string;
     index: number;
+    onQuizComplete?: (isCorrect: boolean) => void;
+    onNextSlide?: () => void;
+    isLast?: boolean;
     }
 
 const MathContentHandler: React.FC<MathContentHandlerProps> = ({ part, index }) => {
