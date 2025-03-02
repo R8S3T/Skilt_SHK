@@ -32,20 +32,19 @@ const ContinueButton: React.FC<ContinueButtonProps> = ({ label, onPress, disable
 
 const styles = StyleSheet.create({
     button: {
-        marginTop: screenWidth > 600 ? 20 : 10, // Größerer Abstand oben für Tablets
-        paddingVertical: screenWidth > 600 ? 12 : 8, // Mehr Polsterung für Tablets
+        marginTop: screenWidth > 600 ? 20 : 10, 
+        paddingVertical: screenWidth > 600 ? 12 : 8, 
         paddingHorizontal: screenWidth > 600 ? 20 : 12,
         borderRadius: 5,
         alignItems: 'center',
-        height: screenWidth > 600 ? 60 : 40, // Höherer Button für Tablets
+        height: screenWidth > 600 ? 60 : 40,
     },
     activeButton: {
-        backgroundColor: '#5f6769',
+        backgroundColor: '#e8630a',
     },
     buttonText: {
         color: 'white',
-        fontSize: screenWidth > 600 ? 22 : 18, // Größere Schrift für Tablets
-        fontWeight: 'bold',
+        fontSize: screenWidth > 600 ? 22 : 18,
     },
 });
 

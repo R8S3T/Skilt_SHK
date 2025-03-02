@@ -30,8 +30,12 @@ const StatisticsScreen = () => {
     const [totalSubchapters, setTotalSubchapters] = useState<number>(0); // Placeholder
 
     useLayoutEffect(() => {
-        navigation.setOptions({ title: 'Lernerfolge' });
-    }, [navigation]);
+        navigation.setOptions({
+            title: 'Lernerfolge',
+            headerStyle: { backgroundColor: theme.background },
+            headerTintColor: theme.primaryText,
+        });
+    }, [navigation, theme]);
 
     useEffect(() => {
         const fetchData = async () => {

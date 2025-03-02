@@ -113,46 +113,45 @@ const SearchScreen: React.FC = () => {
         <View style={styles.headerContainer}>
         <View
             style={[
-            styles.inputContainer,
-            {
-                borderColor: '#e8630a', // Orange Border
-                borderWidth: 2,
-                backgroundColor: isDarkMode ? '#666' : '#fff', // In Dark Mode etwas helleres Suchfeld
-            },
+                styles.inputContainer,
+                {
+                    borderColor: '#e8630a', // Orange Border
+                    borderWidth: 2,
+                    backgroundColor: isDarkMode ? '#666' : '#fff',
+                },
             ]}
         >
             <TextInput
-            value={query}
-            onChangeText={handleQueryChange}
-            onSubmitEditing={handleQuerySubmit}
-            placeholder="Suche..."
-            placeholderTextColor={theme.secondaryText}
-            style={styles.textInput}
+                value={query}
+                onChangeText={handleQueryChange}
+                onSubmitEditing={handleQuerySubmit}
+                placeholder="Suche..."
+                placeholderTextColor={theme.secondaryText}
+                style={styles.textInput}
             />
             <View style={styles.iconContainer}>
-            {query.length > 0 && (
-                <TouchableOpacity onPress={() => setQuery('')}>
-                <Ionicons
-                    name="close-circle"
-                    size={screenWidth > 600 ? 30 : 24}
-                    color={theme.secondaryText}
-                    style={{ marginRight: 8 }}
-                />
+                {query.length > 0 && (
+                    <TouchableOpacity onPress={() => setQuery('')}>
+                        <Ionicons
+                            name="close"
+                            size={screenWidth > 600 ? 30 : 26}
+                            color={theme.secondaryText}
+                            style={{ marginRight: 12 }}
+                        />
+                    </TouchableOpacity>
+                )}
+                <TouchableOpacity onPress={handleQuerySubmit}>
+                    <Ionicons
+                        name="search"
+                        size={screenWidth > 600 ? 32 : 28}
+                        color={theme.secondaryText}
+                    />
                 </TouchableOpacity>
-            )}
-            <TouchableOpacity onPress={handleQuerySubmit}>
-                <Ionicons
-                name="search"
-                size={screenWidth > 600 ? 30 : 24}
-                color={theme.secondaryText}
-                />
-            </TouchableOpacity>
             </View>
         </View>
+
         </View>
 
-
-      {/* Wenn das Suchfeld leer ist, zeige Recent Searches (falls vorhanden) oder Vorschläge */}
       {query.trim().length === 0 ? (
         <View style={styles.suggestionsContainer}>
           <Text style={[styles.suggestionsTitle, { color: theme.primaryText }]}>

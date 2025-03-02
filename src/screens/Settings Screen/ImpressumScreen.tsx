@@ -44,10 +44,9 @@ const ImpressumScreen: React.FC = () => {
 
                 <Text style={[styles.sectionTitle, { color: theme.primaryText }]}>Technische Zeichnungen</Text>
                 <Text style={[styles.description, { color: theme.primaryText }]}>
-                    Die technischen Zeichnungen in dieser App stammen von [Name oder Quelle der technischen Zeichnungen].{'\n'}
-                    Bei Fragen zur Nutzung oder Urheberrecht wenden Sie sich bitte an die oben genannte Kontaktadresse.
+                    Die technischen Zeichnungen stammen von Florian Broschart.{'\n'}
+                    Kontakt: broschart.florian@gmail.com
                 </Text>
-
             </ScrollView>
         </View>
     );

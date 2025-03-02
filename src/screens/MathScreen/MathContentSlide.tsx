@@ -67,9 +67,9 @@ const MathContentSlide: React.FC<MathContentSlideProps> = ({
                 <MathContentHandler 
                     part={item} 
                     index={index}
-                    onQuizComplete={handleQuizComplete}  // neu hinzugefügt
-                    onNextSlide={onNextSlide}            // neu hinzugefügt
-                    isLast={currentPartIndex === parts.length - 1}  // neu hinzugefügt
+                    onQuizComplete={handleQuizComplete}
+                    onNextSlide={onNextSlide}
+                    isLast={currentPartIndex === parts.length - 1}
                 />
                 {index === currentPartIndex &&
                     currentPartIndex < parts.length - 1 &&

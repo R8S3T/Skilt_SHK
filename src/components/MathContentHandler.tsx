@@ -98,7 +98,7 @@ const processNormalText = (text: string, index: number, lastIndex: number, theme
                 }
 
                 if (imageName.includes("big")) {
-                    // Falls das Bild groß ist, wird es in ein zentriertes Container-View gelegt
+
                     content.push(
                         <View style={styles.imageContainer} key={`${index}-${lastIndex}-${subIndex}`}>
                             {hasDarkModeMarker && isDarkMode ? (

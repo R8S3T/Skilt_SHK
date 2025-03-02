@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Switch } from 'react-native';
+import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity, Switch } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../../context/ThemeContext';
 import { useNavigation } from '@react-navigation/native';
@@ -124,13 +124,41 @@ const SettingsScreen = () => {
                         >
                             <Text style={[styles.label, { color: theme.primaryText }]}>Impressum</Text>
                         </TouchableOpacity>
+                        <View
+                            style={{
+                                position: 'absolute',
+                                bottom: screenWidth > 600 ? 30 : 20,
+                                width: '100%',
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                paddingHorizontal: screenWidth > 600 ? 40 : 20,
+                            }}
+                        >
+                            <Image
+                                source={isDarkMode 
+                                    ? require('../../../assets/Images/icon_2.png')  // Dark Mode Icon
+                                    : require('../../../assets/Images/skilt_logo.png')  // Light Mode Logo
+                                }
+                                style={{
+                                    width: screenWidth > 600 ? 40 : 32,
+                                    height: screenWidth > 600 ? 40 : 32,
+                                    marginRight: screenWidth > 600 ? 12 : 8,
+                                }}
+                                resizeMode="contain"
+                            />
+                            <Text 
+                                style={{
+                                    color: theme.secondaryText,
+                                    fontSize: screenWidth > 600 ? 18 : 16,
+                                }}
+                            >
+                                Version: Closed Test v01
+                            </Text>
+                        </View>
 
-                    <View style={{ position: 'absolute', bottom: 20, alignSelf: 'center' }}>
-                        <Text style={{ color: theme.secondaryText, fontSize: 16 }}>Version: Closed Test v01</Text>
-                    </View>
-                </View>
+                        </View>
     );
-    
 };
 
 const styles = StyleSheet.create({
@@ -202,6 +230,21 @@ const styles = StyleSheet.create({
     label: {
         fontSize: screenWidth > 600 ? 22 : 20,
         fontWeight: '600',
+    },
+    versionContainer: {
+        position: 'absolute',
+        bottom: screenWidth > 600 ? 30 : 20,
+        alignSelf: 'center',
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    logo: {
+        width: screenWidth > 600 ? 32 : 24,
+        height: screenWidth > 600 ? 32 : 24,
+        marginRight: screenWidth > 600 ? 12 : 8,
+    },
+    versionText: {
+        fontSize: screenWidth > 600 ? 18 : 16,
     },
 });
 
