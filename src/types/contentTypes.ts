@@ -19,8 +19,8 @@ export interface SubchapterWithPreview {
     SubchapterId: number;
     SubchapterName: string;
     ContentPreview?: string;
-    ChapterTitle?: string; // Add this if it's available
-    ChapterId?: number; // Add if needed
+    ChapterTitle?: string;
+    ChapterId?: number;
 }
 
 

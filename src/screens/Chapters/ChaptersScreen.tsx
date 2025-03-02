@@ -22,7 +22,7 @@ const ChaptersScreen: React.FC<ChaptersScreenRouteProps> = ({ route }) => {
     const [chapters, setChapters] = useState<Chapter[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const navigation = useNavigation<NavigationType>();
-    const { isDarkMode } = useTheme(); // Get the theme value here
+    const { isDarkMode } = useTheme();
 
     useEffect(() => {
         const loadData = async () => {
@@ -53,7 +53,7 @@ const ChaptersScreen: React.FC<ChaptersScreenRouteProps> = ({ route }) => {
                     style={{
                         width: iconSize,
                         height: iconSize,
-                        tintColor: theme.accent, // Use theme.accent for a consistent orange
+                        tintColor: theme.accent,
                     }}
                 />
                 {item.ChapterIntro && <Text style={styles.introText}>{item.ChapterIntro}</Text>}

@@ -187,7 +187,7 @@ const YearsScreen: React.FC = () => {
     );
 };
 
-const iconSize = 24;
+const iconSize = 32;
 
 const styles = StyleSheet.create({
     mainContainer: {

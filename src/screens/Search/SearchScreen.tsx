@@ -114,7 +114,7 @@ const SearchScreen: React.FC = () => {
             style={[
                 styles.inputContainer,
                 {
-                    borderColor: '#e8630a', // Orange Border
+                    borderColor: '#e8630a',
                     borderWidth: 2,
                     backgroundColor: isDarkMode ? '#666' : '#fff',
                 },
