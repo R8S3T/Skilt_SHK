@@ -25,8 +25,19 @@ const FlashCardRepeat = () => {
     useLayoutEffect(() => {
         navigation.setOptions({
             headerLeft: () => (
-                <TouchableOpacity onPress={() => navigation.goBack()} style={styles.closeButton}>
-                    <Ionicons name="close" size={screenWidth > 600 ? 30 : 24} color={theme.primaryText} />
+                <TouchableOpacity
+                    onPress={() => navigation.goBack()}
+                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                    style={{
+                        paddingHorizontal: 10,
+                        paddingVertical: 5,
+                    }}
+                >
+                    <Ionicons
+                        name="close"
+                        size={screenWidth > 600 ? 30 : 24}
+                        color={theme.primaryText}
+                    />
                 </TouchableOpacity>
             ),
             title: `Lernfeld ${chapterId} wiederholen`,
@@ -41,6 +52,7 @@ const FlashCardRepeat = () => {
             headerTitleAlign: 'center',
         });
     }, [navigation, chapterId, theme]);
+
 
     // Load incorrect cards and progress
     useEffect(() => {

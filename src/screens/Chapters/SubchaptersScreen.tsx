@@ -36,34 +36,39 @@ const SubchaptersScreen: React.FC<SubchaptersScreenRouteProps> = ({ route }) => 
     const { unlockedSubchapters, finishedSubchapters, setCurrentSubchapter, unlockSubchapter } = context;
 
     useLayoutEffect(() => {
-        const headerFontSize = screenWidth > 600 ? 28 : 22; // Größere Schrift für Tablets
-        const backIconSize = screenWidth > 600 ? 35 : 28; // Größerer Pfeil für Tablets
+        const headerFontSize = screenWidth > 600 ? 28 : 22;
+        const backIconSize = screenWidth > 600 ? 35 : 28;
 
         navigation.setOptions({
-            headerTitle: '', // Entfernt den automatischen Titel
+            headerTitle: '',
             headerLeft: () => (
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
-                    <TouchableOpacity
-                        onPress={() => navigation.goBack()}
-                        style={{ marginRight: 10 }}
+                <TouchableOpacity
+                    onPress={() => navigation.goBack()}
+                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginLeft: 10,
+                        paddingHorizontal: 10,
+                        paddingVertical: 5,
+                    }}
                     >
-                        <Ionicons
-                            name="arrow-back"
-                            size={backIconSize}
-                            color={theme.primaryText}
-                        />
-                    </TouchableOpacity>
+                    <Ionicons
+                        name="arrow-back"
+                        size={backIconSize}
+                        color={theme.primaryText}
+                    />
                     <Text
                         style={{
-                            color: theme.primaryText,
-                            fontSize: headerFontSize,
-                            fontWeight: '600', // Titel fett machen
-                            marginLeft: 5, // Abstand zwischen Icon und Text
+                        color: theme.primaryText,
+                        fontSize: headerFontSize,
+                        fontWeight: '600',
+                        marginLeft: 5,
                         }}
                     >
                         {chapterTitle || 'Lehrjahre'}
                     </Text>
-                </View>
+                    </TouchableOpacity>
             ),
             headerStyle: {
                 backgroundColor: theme.surface,

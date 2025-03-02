@@ -39,33 +39,39 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
         navigation.setOptions({
             headerStyle: {
                 backgroundColor: theme.surface,
-                elevation: 0, // Entfernt Schatten auf Android
+                elevation: 0,
                 shadowOpacity: 0,
             },
-            headerTitle: '', // Verhindert automatischen Header-Text
+            headerTitle: '',
             headerLeft: () => (
-                <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
-                    <TouchableOpacity
-                        onPress={() => navigation.goBack()}
-                        style={{ marginRight: 10 }}
+                <TouchableOpacity
+                    onPress={() => navigation.goBack()}
+                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginLeft: 10,
+                        paddingHorizontal: 10,
+                        paddingVertical: 5,
+                    }}
                     >
-                        <Ionicons
-                            name="arrow-back"
-                            size={backIconSize}
-                            color={theme.primaryText}
-                        />
-                    </TouchableOpacity>
+                    <Ionicons
+                        name="arrow-back"
+                        size={backIconSize}
+                        color={theme.primaryText}
+                    />
                     <Text
                         style={{
-                            color: theme.primaryText,
-                            fontSize: headerFontSize,
-                            fontWeight: '600',
+                        color: theme.primaryText,
+                        fontSize: headerFontSize,
+                        fontWeight: '600',
+                        marginLeft: 5,
                         }}
                     >
                         Module
                     </Text>
-                </View>
-            ),
+                    </TouchableOpacity>
+                )
         });
     }, [navigation, theme]);
 

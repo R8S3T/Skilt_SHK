@@ -30,23 +30,31 @@ const YearsScreen: React.FC = () => {
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
                     <TouchableOpacity
                         onPress={() => navigation.goBack()}
-                        style={{ marginRight: 10 }}
+                        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                        style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginLeft: 10,
+                        paddingHorizontal: 10,
+                        paddingVertical: 5,
+                        }}
                     >
                         <Ionicons
-                            name="arrow-back"
-                            size={backIconSize}
-                            color={theme.primaryText}
+                        name="arrow-back"
+                        size={backIconSize}
+                        color={theme.primaryText}
                         />
-                    </TouchableOpacity>
-                    <Text
+                        <Text
                         style={{
                             color: theme.primaryText,
                             fontSize: headerFontSize,
-                            fontWeight: '600', // Titel fett machen
+                            fontWeight: '600',
+                            marginLeft: 5,
                         }}
-                    >
+                        >
                         Start
-                    </Text>
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             ),
             headerTintColor: theme.primaryText,

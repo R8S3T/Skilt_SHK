@@ -69,24 +69,24 @@ const ContentSlide: React.FC<ContentSlideProps> = ({
             }
         } else {
             console.log("✅ Letzter Slide erreicht. Rufe handleNextContent() aus SubchapterContentScreen auf.");
-            onNext(); // Ruft die nächste Logik aus SubchapterContentScreen auf
+            onNext();
         }
     };
-    
+
     useEffect(() => {
         const checkProgress = async () => {
             const lastVisitedIndex = await loadContentSlideIndex(subchapterId);
-    
+
             setCanNavigateBack(currentIndex > 0);
-    
+
             // Fix: `currentIndex <= lastVisitedIndex` statt `< lastVisitedIndex`
             const canMoveForward = lastVisitedIndex !== null && currentIndex <= lastVisitedIndex;
             setCanNavigateForward(canMoveForward);
         };
-    
+
         checkProgress();
     }, [currentIndex, subchapterId]);
-    
+
 
     useEffect(() => {
         if (ContentData) {

@@ -3,7 +3,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { RootStackParamList } from 'src/types/navigationTypes';
-import FlashCardChoice from 'src/screens/FlashCard/FlashCardChoice';
+import FlashCardChoice from 'src/screens/FlashCard/FlashCardChoice1';
 import FlashCardChapters from 'src/screens/FlashCard/FlashCardChapters';
 import FlashcardScreen from 'src/screens/FlashCard/FlashcardScreen';
 import FlashCardRepeat from 'src/screens/FlashCard/FlashCardRepeat';

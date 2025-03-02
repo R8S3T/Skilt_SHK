@@ -55,9 +55,9 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     useLayoutEffect(() => {
         navigation.setOptions(
             loading
-                ? { headerShown: false } // Hide the header during loading
+                ? { headerShown: false }
                 : {
-                      headerShown: true, // Show the header after loading
+                    headerShown: true,
                         headerLeft: () => (
                             <TouchableOpacity
                                 onPress={() => {
@@ -95,6 +95,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                                     }
                                 }}
                                 style={{ marginLeft: 15 }}
+                                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                             >
                                 <Ionicons
                                     name="close"

@@ -23,29 +23,40 @@ const MathChapterScreen: React.FC = () => {
     useLayoutEffect(() => {
         const headerFontSize = screenWidth > 600 ? 24 : 20;
         navigation.setOptions({
-            title: 'Start',
+            // Den Standardtitel entfernen, da wir ihn in headerLeft einfügen
+            headerTitle: '',
             headerStyle: {
                 backgroundColor: theme.surface,
-                elevation: 0, // Remove shadow on Android
+                elevation: 0, // Entfernt Schatten auf Android
                 shadowOpacity: 0,
             },
-            headerTitleStyle: {
-                color: theme.primaryText,
-                fontSize: headerFontSize,
-                fontWeight: 'normal',
-                paddingLeft: -20,
-            },
-            headerTitleAlign: 'left',
             headerLeft: () => (
                 <TouchableOpacity
                     onPress={() => navigation.goBack()}
-                    style={{ marginLeft: 10 }}
+                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginLeft: 10,
+                        paddingHorizontal: 10,
+                        paddingVertical: 5,
+                    }}
                 >
                     <Ionicons
-                        name="arrow-back" // Das gewünschte Icon
-                        size={screenWidth > 600 ? 35 : 28} // Größe des Icons
-                        color={theme.primaryText} // Farbe des Icons
+                        name="arrow-back"
+                        size={screenWidth > 600 ? 35 : 28}
+                        color={theme.primaryText}
                     />
+                    <Text
+                        style={{
+                            color: theme.primaryText,
+                            fontSize: headerFontSize,
+                            fontWeight: '600',
+                            marginLeft: 5,
+                        }}
+                    >
+                        Start
+                    </Text>
                 </TouchableOpacity>
             ),
         });

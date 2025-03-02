@@ -35,7 +35,7 @@ const MathSubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => 
     const [mathMiniQuizzes, setMathMiniQuizzes] = useState<MathMiniQuiz[]>([]);
     const [completedQuizzes, setCompletedQuizzes] = useState<boolean[]>([]);
     const { finishedSubchapters } = useMathSubchapter();
-    
+
 // Configure navigation header
 useEffect(() => {
     navigation.setOptions({
@@ -54,18 +54,23 @@ useEffect(() => {
                         );
                     }
 
-                    // Use navigation.navigate for controlled navigation
                     if (route.params?.origin === 'MathModulSection') {
                         navigation.navigate('MathChapterScreen');
                     } else {
                         navigation.goBack();
                     }
                 }}
-                style={{ marginLeft: 15 }}
+                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                style={{
+                    marginLeft: 15,
+                    paddingHorizontal: 10,
+                    paddingVertical: 5,
+                }}
             >
                 <Ionicons name="close" size={24} color={theme.primaryText} />
             </TouchableOpacity>
         ),
+
         headerStyle: { backgroundColor: theme.surface },
         headerTintColor: theme.primaryText,
         title: subchapterTitle,

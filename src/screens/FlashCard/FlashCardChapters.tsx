@@ -5,6 +5,7 @@ import { fetchChapters } from 'src/database/databaseServices';
 import { NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from 'src/types/navigationTypes';
 import { useTheme } from 'src/context/ThemeContext';
+import { Ionicons } from '@expo/vector-icons';
 import { scaleFontSize, screenWidth } from "src/utils/screenDimensions";
 
 // Main component
@@ -20,24 +21,53 @@ const FlashCardChapters = () => {
 
     // Calculate button size to fit three per row
     const screenWidth = Dimensions.get('window').width;
-    const buttonSize = (screenWidth - 80) / 3; // 40 for padding between buttons
+    const buttonSize = (screenWidth - 80) / 3;
 
     useLayoutEffect(() => {
+        const headerFontSize = 20;
+        const backIconSize = screenWidth > 600 ? 35 : 28;
         navigation.setOptions({
-            title: 'Start',
+            headerTitle: '',
             headerStyle: {
                 backgroundColor: theme.surface,
+                elevation: 0,
+                shadowColor: 'transparent',
+                borderBottomWidth: 0,
             },
-            headerTitleStyle: {
-                color: theme.primaryText,
-                fontSize: 20,
-                fontWeight: '600',
-                paddingLeft: -20,
-            },
-            headerTitleAlign: 'left',
+            headerShadowVisible: false,
             headerTintColor: theme.primaryText,
+            headerLeft: () => (
+                <TouchableOpacity
+                    onPress={() => navigation.goBack()}
+                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginLeft: 10,
+                        paddingHorizontal: 10,
+                        paddingVertical: 5,
+                    }}
+                >
+                    <Ionicons
+                        name="arrow-back"
+                        size={backIconSize}
+                        color={theme.primaryText}
+                    />
+                    <Text
+                        style={{
+                            color: theme.primaryText,
+                            fontSize: headerFontSize,
+                            fontWeight: '600',
+                            marginLeft: 5,
+                        }}
+                    >
+                        Start
+                    </Text>
+                </TouchableOpacity>
+            ),
         });
     }, [navigation, theme]);
+    
 
     useEffect(() => {
         const getChapters = async () => {

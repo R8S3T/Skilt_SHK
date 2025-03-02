@@ -3,28 +3,55 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { RootStackParamList } from 'src/types/navigationTypes';
 import { useTheme } from 'src/context/ThemeContext';
-import { scaleFontSize, dynamicCardHeight } from "src/utils/screenDimensions";
+import { Ionicons } from '@expo/vector-icons';
+import { scaleFontSize, dynamicCardHeight, screenWidth } from "src/utils/screenDimensions";
 
 const FlashCardChoice = () => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const { theme } = useTheme();
 
     useLayoutEffect(() => {
+        const headerFontSize = 20;
+        const backIconSize = screenWidth > 600 ? 35 : 28;
         navigation.setOptions({
-            title: 'Start',
+            headerTitle: '',
             headerStyle: {
                 backgroundColor: theme.surface,
             },
-            headerTitleStyle: {
-                color: theme.primaryText,
-                fontSize: 20,
-                fontWeight: '600',
-                paddingLeft: -20,
-            },
-            headerTitleAlign: 'left',
             headerTintColor: theme.primaryText,
+            headerLeft: () => (
+                <TouchableOpacity
+                    onPress={() => navigation.goBack()}
+                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        marginLeft: 10,
+                        backgroundColor: 'rgba(255, 0, 0, 0.3)', // Debug-Hintergrund zur Visualisierung der Touch-Fläche
+                        paddingHorizontal: 10,
+                        paddingVertical: 5,
+                    }}
+                >
+                    <Ionicons
+                        name="arrow-back"
+                        size={backIconSize}
+                        color={theme.primaryText}
+                    />
+                    <Text
+                        style={{
+                            color: theme.primaryText,
+                            fontSize: headerFontSize,
+                            fontWeight: '600',
+                            marginLeft: 5,
+                        }}
+                    >
+                        Start
+                    </Text>
+                </TouchableOpacity>
+            ),
         });
     }, [navigation, theme]);
+    
 
     return (
         <View style={styles.mainContainer}>
