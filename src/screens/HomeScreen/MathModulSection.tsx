@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Platform } from 'react-native';
 import { useNavigation, NavigationProp } from "@react-navigation/native";
 import { RootStackParamList } from 'src/types/navigationTypes';
 import { scaleFontSize, screenWidth } from "src/utils/screenDimensions";
@@ -16,6 +16,9 @@ const MathModulSection: React.FC<MathModulSectionProps> = ({ onButtonPress }) =>
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const { isDarkMode, theme } = useTheme();
     const [displayModules, setDisplayModules] = useState<MathChapter[]>([]);
+    const [activeIndex, setActiveIndex] = useState<number>(0);
+    const cardWidth = screenWidth > 600 ? screenWidth * 0.45 + 20 : screenWidth * 0.4 + 20;
+
 
     useEffect(() => {
         const loadModules = async () => {
@@ -25,6 +28,7 @@ const MathModulSection: React.FC<MathModulSectionProps> = ({ onButtonPress }) =>
                 const selectedChapters = shuffledChapters.slice(0, 3);
                 setDisplayModules(selectedChapters);
             } catch (error) {
+                console.error(error);
             }
         };
         loadModules();
@@ -54,7 +58,13 @@ const MathModulSection: React.FC<MathModulSectionProps> = ({ onButtonPress }) =>
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={styles.scrollViewContainer}
-            >
+                onScroll={(event) => {
+                    const offsetX = event.nativeEvent.contentOffset.x;
+                    const index = Math.round(offsetX / cardWidth);
+                    setActiveIndex(index);
+                }}
+                scrollEventThrottle={16}
+                >
                 {displayModules.map((module) => (
                     <TouchableOpacity
                         key={module.ChapterId}
@@ -80,6 +90,11 @@ const MathModulSection: React.FC<MathModulSectionProps> = ({ onButtonPress }) =>
                     </Text>
                 </TouchableOpacity>
             </ScrollView>
+            <View style={styles.dotContainer}>
+                {Array.from({ length: displayModules.length + 1 }).map((_, index) => (
+                    <View key={index} style={[styles.dot, activeIndex === index && styles.activeDot]} />
+                ))}
+            </View>
         </View>
     );
 };
@@ -113,6 +128,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 1,
+        ...Platform.select({
+            ios: {
+                shadowColor: '#000',
+                shadowOffset: { width: 0, height: 2 },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+            },
+            android: {
+                elevation: 5,
+            },
+        }),
     },
     lightButton: {
         backgroundColor: '#FFF',
@@ -132,6 +158,21 @@ const styles = StyleSheet.create({
         fontSize: screenWidth > 600 ? 18 : 16,
         textAlign: 'center',
         color: '#333',
+    },
+    dotContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginTop: 10,
+    },
+    dot: {
+        width: 8,
+        height: 8,
+        borderRadius: 4,
+        backgroundColor: '#ccc',
+        marginHorizontal: 4,
+    },
+    activeDot: {
+        backgroundColor: '#333',
     },
 });
 
