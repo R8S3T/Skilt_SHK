@@ -101,7 +101,6 @@ const SearchScreen: React.FC = () => {
     });
   }, [navigation, isDarkMode]);
 
-  // Wenn bereits eigene Suchanfragen vorliegen, zeige ausschließlich diese, sonst 5 zufällige Vorschläge
   const getDisplaySuggestions = (): string[] => {
     return recentSearches.length > 0 ? recentSearches.slice(0, 5) : getRandomSuggestions(5);
   };
@@ -127,7 +126,7 @@ const SearchScreen: React.FC = () => {
                 onSubmitEditing={handleQuerySubmit}
                 placeholder="Suche..."
                 placeholderTextColor={theme.secondaryText}
-                style={styles.textInput}
+                style={[styles.textInput, { color: theme.primaryText }]}
             />
             <View style={styles.iconContainer}>
                 {query.length > 0 && (
