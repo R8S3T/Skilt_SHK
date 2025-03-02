@@ -30,6 +30,10 @@ export default {
       ],
       newArchEnabled: true
     },
+    androidStatusBar: {
+      hidden: false,
+      translucent: true
+    },
     web: {
       favicon: "./assets/favicon.png"
     },

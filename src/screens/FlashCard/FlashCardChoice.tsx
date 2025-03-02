@@ -27,7 +27,6 @@ const FlashCardChoice = () => {
                         flexDirection: 'row',
                         alignItems: 'center',
                         marginLeft: 10,
-                        backgroundColor: 'rgba(255, 0, 0, 0.3)', // Debug-Hintergrund zur Visualisierung der Touch-Fläche
                         paddingHorizontal: 10,
                         paddingVertical: 5,
                     }}

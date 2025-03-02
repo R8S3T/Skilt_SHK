@@ -183,8 +183,8 @@ const FlashcardScreen = () => {
                         style={[
                             styles.reviewButton,
                             {
-                                borderColor: isDarkMode ? '#CCCCCC' : '#24527a', // Bright gray for dark mode, original blue for light mode
-                                backgroundColor: isDarkMode ? 'transparent' : '#f5f5f5', // Transparent for dark mode, light gray for light mode
+                                borderColor: isDarkMode ? '#CCCCCC' : '#24527a',
+                                backgroundColor: isDarkMode ? 'transparent' : '#f5f5f5',
                             },
                         ]}
                         onPress={resetChapterCards}
@@ -202,8 +202,8 @@ const FlashcardScreen = () => {
                         style={[
                             styles.reviewButton,
                             {
-                                borderColor: isDarkMode ? '#CCCCCC' : '#24527a', // Bright gray for dark mode, original blue for light mode
-                                backgroundColor: isDarkMode ? 'transparent' : '#f5f5f5', // Transparent for dark mode, light gray for light mode
+                                borderColor: isDarkMode ? '#CCCCCC' : '#24527a',
+                                backgroundColor: isDarkMode ? 'transparent' : '#f5f5f5',
                             },
                         ]}
                         onPress={repeatIncorrectCards}
@@ -211,7 +211,7 @@ const FlashcardScreen = () => {
                         <Text
                             style={[
                                 styles.buttonContainerText,
-                                { color: isDarkMode ? '#CCCCCC' : '#24527a' }, // Use isDarkMode for text color
+                                { color: isDarkMode ? '#CCCCCC' : '#24527a' },
                             ]}
                         >
                             Nicht-gewusst Karten wiederholen

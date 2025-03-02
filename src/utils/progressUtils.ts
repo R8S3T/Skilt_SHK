@@ -189,7 +189,7 @@ export const completeSubchapter = async ({
 
     // Mark the current subchapter as finished and unlock the next one
     markSubchapterAsFinished(subchapterId);
-    unlockSubchapter(subchapterId);
+    unlockSubchapter(subchapterId + 1);
 
     const subchapters = await fetchSubchaptersByChapterId(chapterId);
     const currentSubchapterData = subchapters.find(sub => sub.SubchapterId === subchapterId);
@@ -289,12 +289,11 @@ export const nextContent = async ({
             chapterId,
             chapterTitle,
             navigation,
-            markSubchapterAsFinished: (id) => markSubchapterAsFinished(id), // statt markSubchapterAsFinished(id, chapterId)
-            unlockSubchapter: (id) => unlockSubchapter(id),                 // statt unlockSubchapter(id, chapterId)
+            markSubchapterAsFinished,
+            unlockSubchapter,
             origin,
         });
     };
-    
 
     await moveToNextSlide({
         currentIndex,

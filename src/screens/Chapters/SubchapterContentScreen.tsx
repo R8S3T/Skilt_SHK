@@ -55,9 +55,9 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
     useLayoutEffect(() => {
         navigation.setOptions(
             loading
-                ? { headerShown: false }
+                ? { headerShown: false } // Hide the header during loading
                 : {
-                    headerShown: true,
+                      headerShown: true, // Show the header after loading
                         headerLeft: () => (
                             <TouchableOpacity
                                 onPress={() => {
@@ -95,7 +95,6 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                                     }
                                 }}
                                 style={{ marginLeft: 15 }}
-                                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                             >
                                 <Ionicons
                                     name="close"
@@ -166,10 +165,13 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
 
     const handleNextContent = async () => {
         const nextIndex = currentIndex + 1;
-
+        console.log("🔍 Next Index:", nextIndex, "Content Data Length:", contentData.length, "Current Index:", currentIndex);
+    
         if (nextIndex < contentData.length) {
             const nextContent = contentData[nextIndex];
             const isQuiz = 'QuizId' in nextContent;
+    
+            console.log("📌 Navigiere zur nächsten Folie:", nextIndex, "Ist ein Quiz:", isQuiz);
     
             const subchapters = await fetchSubchaptersByChapterId(chapterId);
             const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
@@ -193,7 +195,8 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                 );
             }
         } else {
-
+            console.log("✅ Subchapter abgeschlossen. Rufe completeSubchapter() auf.");
+    
             const subchapters = await fetchSubchaptersByChapterId(chapterId);
             const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
             const imageName = currentSubchapter?.ImageName || null;

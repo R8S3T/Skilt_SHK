@@ -17,7 +17,7 @@ const FlashCardChapters = () => {
     const { theme, isDarkMode } = useTheme();
 
     // Locked chapters 
-    const lockedChapters = new Set([10, 11, 12, 13, 14, 15]);
+    const lockedChapters = new Set([14, 15]);
 
     // Calculate button size to fit three per row
     const screenWidth = Dimensions.get('window').width;
@@ -116,8 +116,8 @@ const FlashCardChapters = () => {
                                     styles.buttonText,
                                     {
                                         color: lockedChapters.has(chapter.ChapterId)
-                                            ? (isDarkMode ? '#AAAAAA' : theme.secondaryText) // Grauer Text für gesperrte Kapitel
-                                            : (isDarkMode ? '#FFFFFF' : theme.primaryText),  // Weißer Text für freigegebene Kapitel
+                                            ? (isDarkMode ? '#AAAAAA' : theme.secondaryText)
+                                            : (isDarkMode ? '#FFFFFF' : theme.primaryText),
                                     },
                                 ]}
                             >
