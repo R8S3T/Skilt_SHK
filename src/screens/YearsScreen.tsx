@@ -7,6 +7,7 @@ import { NavigationProp } from '@react-navigation/native';
 import { useTheme } from 'src/context/ThemeContext';
 import { screenWidth } from "src/utils/screenDimensions";
 import { Ionicons } from '@expo/vector-icons';
+import ChapterItem from './Chapters/ChapterItem';
 
 const YearsScreen: React.FC = () => {
     const navigation = useNavigation<NavigationProp<LearnStackParamList>>();
@@ -60,7 +61,7 @@ const YearsScreen: React.FC = () => {
             headerTintColor: theme.primaryText,
         });
     }, [navigation, theme]);
-    
+
 
     const educationData = [
         { year: 1, learnAreas: 4 },
@@ -160,7 +161,13 @@ const YearsScreen: React.FC = () => {
                                 {loading ? (
                                     <Text style={{ color: theme.secondaryText }}>Loading...</Text>
                                 ) : (
-                                    chapters[item.year]?.map((chapter) => renderChapter(chapter, item.year))
+                                    chapters[item.year]?.map((chapter) => (
+                                        <ChapterItem 
+                                            key={chapter.chapterId} 
+                                            chapter={chapter} 
+                                            onPress={(chapterId) => handleChapterPress(chapterId, item.year)} 
+                                        />
+                                    ))
                                 )}
                             </View>
                         )}
