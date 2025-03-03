@@ -43,22 +43,12 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
     }, []);
 
     // Unlocks a subchapter and updates AsyncStorage
-    const unlockSubchapter = async (subchapterId: number, chapterId: number): Promise<void> => {
-        try {
-            const subchapters: Subchapter[] = await fetchSubchaptersByChapterId(chapterId);
-            const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
-            if (!currentSubchapter) return;
-            const nextSubchapter = subchapters.find(sub => sub.SortOrder === currentSubchapter.SortOrder + 1);
-            if (!nextSubchapter) return;
-        
-            setUnlockedSubchapters((current) => {
-                const updated = [...new Set([...current, nextSubchapter.SubchapterId])];
-                AsyncStorage.setItem('unlockedSubchapters', JSON.stringify(updated));
-                return updated;
-            });
-        } catch (error) {
-            console.error('Fehler beim Freischalten des nächsten Subchapters:', error);
-        }
+    const unlockSubchapter = async (subchapterId: number) => {
+        setUnlockedSubchapters((current) => {
+            const updated = [...new Set([...current, subchapterId])];
+            AsyncStorage.setItem('unlockedSubchapters', JSON.stringify(updated)); // Persist the data
+            return updated;
+        });
     };
     
 
@@ -73,19 +63,21 @@ export const SubchapterProvider: React.FC<SubchapterProviderProps> = ({ children
 
 
     // Marks a subchapter as finished and saves to AsyncStorage
-    const markSubchapterAsFinished = async (subchapterId: number, chapterId: number): Promise<void> => {
+    const markSubchapterAsFinished = async (subchapterId: number) => {
         const today = new Date().toISOString().split('T')[0];
-    
+
         setFinishedSubchapters((current) => {
             const updated = [...new Set([...current, subchapterId])];
+
             AsyncStorage.setItem('finishedSubchapters', JSON.stringify(updated));
             AsyncStorage.setItem(`finishedSubchapter_${subchapterId}`, today);
             return updated;
         });
+
+        unlockSubchapter(subchapterId + 1);
     
         await triggerStatisticsUpdate();
     };
-    
 
     const markQuizAsFinished = async (quizId: number) => {
         const today = new Date().toISOString().split('T')[0];

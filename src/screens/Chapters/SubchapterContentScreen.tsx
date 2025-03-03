@@ -18,6 +18,7 @@ import {  saveContentSlideIndex, completeSubchapter, saveProgress, } from 'src/u
 import { useTheme } from 'src/context/ThemeContext';
 import LottieView from 'lottie-react-native';
 import { screenWidth } from 'src/utils/screenDimensions';
+import { updateStreak } from 'src/utils/streakUtils';
 
 type SubchapterContentScreenRouteProp = RouteProp<LearnStackParamList, 'SubchapterContentScreen'>;
 type SubchapterContentScreenNavigationProp = StackNavigationProp<LearnStackParamList, 'SubchapterContentScreen'>;
@@ -170,9 +171,7 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
         if (nextIndex < contentData.length) {
             const nextContent = contentData[nextIndex];
             const isQuiz = 'QuizId' in nextContent;
-    
-            console.log("📌 Navigiere zur nächsten Folie:", nextIndex, "Ist ein Quiz:", isQuiz);
-    
+
             const subchapters = await fetchSubchaptersByChapterId(chapterId);
             const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
             const imageName = currentSubchapter?.ImageName || null;
@@ -195,12 +194,13 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                 );
             }
         } else {
-            console.log("✅ Subchapter abgeschlossen. Rufe completeSubchapter() auf.");
-    
+
             const subchapters = await fetchSubchaptersByChapterId(chapterId);
             const currentSubchapter = subchapters.find(sub => sub.SubchapterId === subchapterId);
             const imageName = currentSubchapter?.ImageName || null;
     
+            await updateStreak('chapter');
+
             setNavigating(true);
     
             setTimeout(async () => {
