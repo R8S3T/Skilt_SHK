@@ -169,6 +169,21 @@ export const moveToNextSlide = async ({
     }
 };
 
+export const unlockNextSubchapter = async (
+    currentSubchapterId: number,
+    chapterId: number,
+    unlockSubchapter: (id: number) => void
+    ) => {
+        const subchapters = await fetchSubchaptersByChapterId(chapterId);
+        const currentIndex = subchapters.findIndex(
+        sub => sub.SubchapterId === currentSubchapterId
+        );
+        if (currentIndex !== -1 && currentIndex < subchapters.length - 1) {
+        const nextSubchapter = subchapters[currentIndex + 1];
+        unlockSubchapter(nextSubchapter.SubchapterId);
+        }
+    };
+
 export const completeSubchapter = async ({
     subchapterId,
     chapterId,
@@ -189,7 +204,7 @@ export const completeSubchapter = async ({
 
     // Mark the current subchapter as finished and unlock the next one
     markSubchapterAsFinished(subchapterId);
-    unlockSubchapter(subchapterId + 1);
+    await unlockNextSubchapter(subchapterId, chapterId, unlockSubchapter);
 
     const subchapters = await fetchSubchaptersByChapterId(chapterId);
     const currentSubchapterData = subchapters.find(sub => sub.SubchapterId === subchapterId);
@@ -281,7 +296,7 @@ export const nextContent = async ({
         } catch (error) {
         }
     };
-    
+
 
     const completeSubchapterWrapper = async () => {
         await completeSubchapter({
