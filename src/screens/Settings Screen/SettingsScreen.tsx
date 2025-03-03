@@ -153,7 +153,7 @@ const SettingsScreen = () => {
                                     fontSize: screenWidth > 600 ? 18 : 16,
                                 }}
                             >
-                                Version: Closed Test v02
+                                Version: Closed Test v03
                             </Text>
                         </View>
 
