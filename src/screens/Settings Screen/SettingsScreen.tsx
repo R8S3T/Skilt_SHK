@@ -137,7 +137,7 @@ const SettingsScreen = () => {
                         >
                             <Image
                                 source={isDarkMode 
-                                    ? require('../../../assets/Images/icon_2.png')  // Dark Mode Icon
+                                    ? require('../../../assets/Images/skilt_splash.png')  // Dark Mode Icon
                                     : require('../../../assets/Images/skilt_logo.png')  // Light Mode Logo
                                 }
                                 style={{

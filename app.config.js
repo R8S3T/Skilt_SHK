@@ -9,7 +9,7 @@ export default {
     icon: "./assets/icon.png",
     userInterfaceStyle: "light",
     splash: {
-      image: "./assets/Images/icon_2.png",
+      image: "./assets/Images/skilt_splash.png",
       resizeMode: "native",
       backgroundColor: "#142d4c",
     },
