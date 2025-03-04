@@ -73,16 +73,14 @@ const GenericNode: React.FC<GenericNodeProps> = ({
                 : isLocked 
                     ? '#A9A9A9' 
                     : '#000000',
-            ...(isDarkMode && {
-                color: isFinished 
-                    ? '#333333' 
-                    : isLocked 
-                        ? '#A9A9A9' 
-                        : theme.primaryText,
-            }),
+                    ...(isDarkMode && {
+                        color: isFinished 
+                            ? finishedColor || '#FFFFFF' // Falls `finishedColor` nicht gesetzt ist, nutze Weiß
+                            : isLocked 
+                                ? '#A9A9A9' 
+                                : theme.primaryText,
+                    }),
         },
-        
-
     });
 
     return (
@@ -99,5 +97,3 @@ const GenericNode: React.FC<GenericNodeProps> = ({
 };
 
 export default GenericNode;
-
-
