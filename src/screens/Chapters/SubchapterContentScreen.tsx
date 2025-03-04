@@ -95,11 +95,18 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
                                         );
                                     }
                                 }}
-                                style={{ marginLeft: 15 }}
+                                style={{
+                                    width: screenWidth > 600 ? 60 : 50,
+                                    height: screenWidth > 600 ? 60 : 50,
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    marginLeft: screenWidth > 600 ? 20 : 10,
+                                }}
+                                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                             >
                                 <Ionicons
                                     name="close"
-                                    size={24}
+                                    size={30}
                                     color={theme.primaryText}
                                 />
                             </TouchableOpacity>
@@ -282,7 +289,7 @@ const styles = StyleSheet.create({
     },
 
     progressBarContainer: {
-        height: screenWidth > 600 ? 20 : 16,
+        height: screenWidth > 600 ? 20 : 18,
         width: '90%',
         backgroundColor: '#e0e0e0',
         borderRadius: 10,

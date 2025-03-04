@@ -127,15 +127,20 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
           isDarkMode && !isIcon && !imageName.toLowerCase().includes('formel') && styles.darkImageContainer
         ]}>
               {isZoomable ? (
-                  <ImageModal
+                <ImageModal
                     source={imageSource}
                     resizeMode="contain"
-                    overlayBackgroundColor="#c1c1c1"
-                    style={{
-                      width: deviceWidth * 0.9,
-                      height: deviceWidth * 0.75,
+                    overlayBackgroundColor={isDarkMode ? '#6c7b95' : '#c1c1c1'}
+                    modalImageStyle={{
+                        width: deviceWidth * 0.95,
+                        height: deviceWidth * 0.85,
+                        borderRadius: 10, // Abgerundete Ecken für modernes Design
                     }}
-                  />
+                    style={{
+                        width: deviceWidth * 0.9,
+                        height: deviceWidth * 0.75,
+                    }}
+                />
           ) : (
             <Image source={imageSource} style={imageStyle} resizeMode="contain" />
           )}
@@ -228,15 +233,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   darkImageContainer: {
-    backgroundColor: '#c1c1c1',
-    paddingHorizontal: 2,
-    paddingVertical: screenWidth > 600 ? 15 : 10,
+    backgroundColor: '#65799b',
+
     alignItems: 'center',
     justifyContent: 'center',
     width: '100%',
+    borderRadius: 10,
   },
   imageContainer: {
-    marginVertical: 10,
+    marginVertical: 15,
     alignItems: 'center',
     width: '100%',
   },
