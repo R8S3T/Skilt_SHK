@@ -71,11 +71,11 @@ const YearsScreen: React.FC = () => {
     ];
 
     const handlePress = async (year: number) => {
-        if (year === 4) {
+/*         if (year === 4) {
             setModalMessage('Dieser Inhalt ist in der Tesversion momentan nicht verfügbar.');
             setModalVisible(true);
             return;
-        }
+        } */
     
         // Toggle expanded state for the year
         setExpandedYear(expandedYear === year ? null : year);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect } from 'react';
-import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity, Switch } from 'react-native';
+import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity, Switch, SafeAreaView, ScrollView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useTheme } from '../../context/ThemeContext';
 import { useNavigation } from '@react-navigation/native';
@@ -42,66 +42,70 @@ const SettingsScreen = () => {
         }
     };
 
+
     return (
-        <View style={[styles.container, { backgroundColor: theme.background }]}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
+            <View style={{ flex: 1 }}>
+                <ScrollView contentContainerStyle={[styles.container]}>
+                {/* Your content here */}
                 <View style={[styles.headerContainer, { backgroundColor: theme.background }]}>
+                    {/* Optional header content */}
                 </View>
 
                 <View style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}>
                     <View style={styles.row}>
-                        {isEditing ? (
-
-                            <TextInput
-                                style={[
-                                    styles.input,
-                                    {
-                                        backgroundColor: isDarkMode ? theme.surface : '#fff',
-                                        color: theme.primaryText,
-                                        borderColor: theme.border,
-                                    },
-                                ]}
-                                value={name}
-                                onChangeText={setName}
-                                placeholder="Namen festlegen"
-                                placeholderTextColor={isDarkMode ? '#ccc' : '#aaa'}
-                            />
-                        ) : (
+                    {isEditing ? (
+                        <TextInput
+                        style={[
+                            styles.input,
+                            {
+                            backgroundColor: isDarkMode ? theme.surface : '#fff',
+                            color: theme.primaryText,
+                            borderColor: theme.border,
+                            },
+                        ]}
+                        value={name}
+                        onChangeText={(text) => {}}
+                        placeholder="Namen festlegen"
+                        placeholderTextColor={isDarkMode ? '#ccc' : '#aaa'}
+                        />
+                    ) : (
                         <Text
-                            style={[
-                                styles.name,
-                                {
-                                    color: theme.primaryText,
-                                    fontSize: screenWidth > 600 ? 22 : 20,
-                                },
-                            ]}
+                        style={[
+                            styles.name,
+                            {
+                            color: theme.primaryText,
+                            fontSize: screenWidth > 600 ? 22 : 20,
+                            },
+                        ]}
                         >
-                            {name || 'Wie heißt du?'}
+                        {name || 'Wie heißt du?'}
                         </Text>
-                        )}
-                        <TouchableOpacity
-                            style={[styles.button, isEditing ? styles.saveButton : styles.editButton]}
-                            onPress={isEditing ? handleSave : () => setIsEditing(true)}
-                        >
-                            <Text style={styles.buttonText}>{isEditing ? 'Speichern' : 'Ändern'}</Text>
-                        </TouchableOpacity>
+                    )}
+                    <TouchableOpacity
+                        style={[styles.button, isEditing ? styles.saveButton : styles.editButton]}
+                        onPress={isEditing ? handleSave : () => setIsEditing(true)}
+                    >
+                        <Text style={styles.buttonText}>{isEditing ? 'Speichern' : 'Ändern'}</Text>
+                    </TouchableOpacity>
                     </View>
                 </View>
 
-                {/* Divider Line */}
+                {/* Divider */}
                 <View style={[styles.divider, { backgroundColor: theme.border }]} />
 
                 {/* Dark Mode Toggle */}
                 <View style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}>
                     <View style={styles.row}>
-                        <Text style={[styles.label, { color: theme.primaryText }]}>Dark Mode</Text>
-                        <Switch value={isDarkMode} onValueChange={toggleDarkMode} />
+                    <Text style={[styles.label, { color: theme.primaryText }]}>Dark Mode</Text>
+                    <Switch value={isDarkMode} onValueChange={toggleDarkMode} />
                     </View>
                 </View>
 
-                {/* Divider Line */}
+                {/* Divider */}
                 <View style={[styles.divider, { backgroundColor: theme.border }]} />
 
-                {/* Privacy Policy Button */}
+                {/* Datenschutzerklärung */}
                 <TouchableOpacity
                     style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}
                     onPress={() => navigation.navigate('PrivacyPolicyScreen')}
@@ -110,60 +114,52 @@ const SettingsScreen = () => {
                 </TouchableOpacity>
 
                 <View style={[styles.divider, { backgroundColor: theme.border }]} />
-                    <TouchableOpacity
-                        style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}
-                        onPress={() => navigation.navigate('TermsOfServiceScreen')}
-                    >
-                        <Text style={[styles.label, { color: theme.primaryText }]}>Nutzungsbedingungen</Text>
-                    </TouchableOpacity>
-                    
-                    <View style={[styles.divider, { backgroundColor: theme.border }]} />
-                        <TouchableOpacity
-                            style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}
-                            onPress={() => navigation.navigate('ImpressumScreen')}
-                        >
-                            <Text style={[styles.label, { color: theme.primaryText }]}>Impressum</Text>
-                        </TouchableOpacity>
-                        <View
-                            style={{
-                                position: 'absolute',
-                                bottom: screenWidth > 600 ? 30 : 20,
-                                width: '100%',
-                                flexDirection: 'row',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                paddingHorizontal: screenWidth > 600 ? 40 : 20,
-                            }}
-                        >
-                            <Image
-                                source={isDarkMode 
-                                    ? require('../../../assets/Images/skilt_splash.png')  // Dark Mode Icon
-                                    : require('../../../assets/Images/skilt_logo.png')  // Light Mode Logo
-                                }
-                                style={{
-                                    width: screenWidth > 600 ? 40 : 32,
-                                    height: screenWidth > 600 ? 40 : 32,
-                                    marginRight: screenWidth > 600 ? 12 : 8,
-                                }}
-                                resizeMode="contain"
-                            />
-                            <Text 
-                                style={{
-                                    color: theme.secondaryText,
-                                    fontSize: screenWidth > 600 ? 18 : 16,
-                                }}
-                            >
-                                Version: Closed Test v04
-                            </Text>
-                        </View>
 
-                        </View>
+                {/* Nutzungsbedingungen */}
+                <TouchableOpacity
+                    style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}
+                    onPress={() => navigation.navigate('TermsOfServiceScreen')}
+                >
+                    <Text style={[styles.label, { color: theme.primaryText }]}>Nutzungsbedingungen</Text>
+                </TouchableOpacity>
+
+                <View style={[styles.divider, { backgroundColor: theme.border }]} />
+
+                {/* Impressum */}
+                <TouchableOpacity
+                    style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}
+                    onPress={() => navigation.navigate('ImpressumScreen')}
+                >
+                    <Text style={[styles.label, { color: theme.primaryText }]}>Impressum</Text>
+                </TouchableOpacity>
+                </ScrollView>
+            </View>
+
+            {/* Fixed Footer */}
+            <View style={styles.footer}>
+                <Image
+                source={
+                    isDarkMode
+                    ? require('../../../assets/Images/skilt_splash.png')
+                    : require('../../../assets/Images/skilt_logo.png')
+                }
+                style={{
+                    width: screenWidth > 600 ? 40 : 32,
+                    height: screenWidth > 600 ? 40 : 32,
+                    marginRight: screenWidth > 600 ? 12 : 8,
+                }}
+                resizeMode="contain"
+                />
+                <Text style={{ color: theme.secondaryText, fontSize: screenWidth > 600 ? 18 : 16 }}>
+                Version: Closed Test v04
+                </Text>
+            </View>
+            </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         paddingHorizontal: screenWidth > 600 ? 40 : 20,
         paddingVertical: screenWidth > 600 ? 30 : 24,
     },
@@ -172,7 +168,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: screenWidth > 600 ? 32 : 24,
     },
-    
+
     headerText: {
         fontFamily: 'Lato-Bold',
         fontSize: screenWidth > 600 ? 24 : 20,
@@ -245,6 +241,13 @@ const styles = StyleSheet.create({
     },
     versionText: {
         fontSize: screenWidth > 600 ? 18 : 16,
+    },
+    footer: {
+        height: 80,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingHorizontal: screenWidth > 600 ? 40 : 20,
     },
 });
 

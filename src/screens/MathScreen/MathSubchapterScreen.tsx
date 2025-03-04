@@ -136,7 +136,6 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
             }
         }
     };
-    
 
     const handleReviewLesson = () => {
         if (selectedSubchapter) {
@@ -179,19 +178,30 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
             <Text style={[styles.stickyHeading, { color: theme.primaryText, backgroundColor: theme.surface }]}>
                 {chapterTitle}
             </Text>
-
-            <ScrollView contentContainerStyle={styles.scrollViewContent}>
-                {loading ? (
-                    <Text style={{ color: theme.primaryText }}>Daten werden geladen...</Text>
-                ) : (
-                    <GenericRows
-                        items={formattedSubchapters}
-                        onNodePress={handleNodePress}
-                        color={isDarkMode ? theme.accent : '#FF5733'}
-                        finishedColor={isDarkMode ? theme.accent : '#52ab95'}
-                    />
-                )}
-            </ScrollView>
+            <View style={{
+                flex: 1,
+                marginTop: subchapters.length < 5 ? (screenWidth > 600 ? 100 : 90) : (screenWidth > 600 ? 80 : 50) 
+            }}>  
+                <ScrollView
+                    style={{ flex: 1 }}
+                    contentContainerStyle={{
+                        flexGrow: 1,
+                        paddingBottom: 20,
+                    }}
+                >
+                    <View style={{ height: screenWidth > 600 ? 80 : 50 }} />
+                    {loading ? (
+                        <Text style={{ color: theme.primaryText }}>Daten werden geladen...</Text>
+                    ) : (
+                        <GenericRows
+                            items={formattedSubchapters}
+                            onNodePress={handleNodePress}
+                            color={isDarkMode ? theme.accent : '#FF5733'}
+                            finishedColor={isDarkMode ? theme.accent : '#52ab95'}
+                        />
+                    )}
+                </ScrollView>
+            </View>
 
             {selectedSubchapter && (
                 <SubchapterInfoModal
@@ -206,7 +216,6 @@ const MathSubchapterScreen: React.FC<Props> = ({ route, navigation }) => {
         </View>
     );
 };
-
 
 const styles = StyleSheet.create({
     container: {

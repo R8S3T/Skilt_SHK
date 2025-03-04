@@ -624,6 +624,7 @@ const img_LF13zentraldezentralzoom = require('../../assets/DbImages/SubchapterCo
 const img_LF13zentraleLftungsanlagezoom = require('../../assets/DbImages/SubchapterContent/LF_13/LF_13_zentrale_Lüftungsanlage_zoom.png');
 const img_LF14Aktorenzoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Aktoren_zoom.png');
 const img_LF14BerechnungHeizkennliniewelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Berechnung_Heizkennlinie_welcome.png');
+const img_LF14Feuerungsautomatwelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Feuerungsautomat_welcome.png');
 const img_LF14FormelBerechnungSteilheit2small = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Formel_Berechnung_Steilheit_2_small.png');
 const img_LF14FormelBerechnungSteilheitsmall = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Formel_Berechnung_Steilheit_small.png');
 const img_LF14FormelBerechnungVorlauftemperatursmall = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Formel_Berechnung_Vorlauftemperatur_small.png');
@@ -639,12 +640,14 @@ const img_LF14ParallelverschiebungHeizkurvezoom = require('../../assets/DbImages
 const img_LF14Regelkreiszoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Regelkreis_zoom.png');
 const img_LF14Regelungsmall = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Regelung_small.png');
 const img_LF14Regelungsartenwelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Regelungsarten_welcome.png');
+const img_LF14SmartHomewelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Smart_Home_welcome.png');
 const img_LF14StellgliedRegelkreiszoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Stellglied_Regelkreis_zoom.png');
 const img_LF14Steuerkettezoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Steuerkette_zoom.png');
 const img_LF14SteuernRegelnwelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Steuern_Regeln_welcome.png');
 const img_LF14Steuerungsmall = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Steuerung_small.png');
 const img_LF14ThermostatRegelungzoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Thermostat_Regelung_zoom.png');
 const img_LF14Thermostatventilzoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Thermostatventil_zoom.png');
+const img_LF14lbrennerFeuerungsautomatzoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Ölbrenner_Feuerungsautomat_zoom.png');
 const img_LF1Strichliniesmall = require('../../assets/DbImages/SubchapterContent/LF_1_Strichlinie_small.png');
 const img_LF1Strichpunktliniesmall = require('../../assets/DbImages/SubchapterContent/LF_1_Strichpunktlinie_small.png');
 const img_LF1Vollliniesmall = require('../../assets/DbImages/SubchapterContent/LF_1_Volllinie_small.png');
@@ -1626,6 +1629,7 @@ const img_LFiconStickstoffsmall = require('../../assets/DbImages/SubchapterConte
 const img_LFiconStromsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Strom_small.png');
 const img_LFiconStromquellesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Stromquelle_small.png');
 const img_LFiconStromschlagsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Stromschlag_small.png');
+const img_LFiconStrungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Störung_small.png');
 const img_LFiconSgensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sägen_small.png');
 const img_LFiconTRGIsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_TRGI_small.png');
 const img_LFiconTaupunktsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Taupunkt_small.png');
@@ -2361,6 +2365,7 @@ export const imageMap = {
     "LF_13_zentrale_Lüftungsanlage_zoom": img_LF13zentraleLftungsanlagezoom,
     "LF_14_Aktoren_zoom": img_LF14Aktorenzoom,
     "LF_14_Berechnung_Heizkennlinie_welcome": img_LF14BerechnungHeizkennliniewelcome,
+    "LF_14_Feuerungsautomat_welcome": img_LF14Feuerungsautomatwelcome,
     "LF_14_Formel_Berechnung_Steilheit_2_small": img_LF14FormelBerechnungSteilheit2small,
     "LF_14_Formel_Berechnung_Steilheit_small": img_LF14FormelBerechnungSteilheitsmall,
     "LF_14_Formel_Berechnung_Vorlauftemperatur_small": img_LF14FormelBerechnungVorlauftemperatursmall,
@@ -2376,12 +2381,14 @@ export const imageMap = {
     "LF_14_Regelkreis_zoom": img_LF14Regelkreiszoom,
     "LF_14_Regelung_small": img_LF14Regelungsmall,
     "LF_14_Regelungsarten_welcome": img_LF14Regelungsartenwelcome,
+    "LF_14_Smart_Home_welcome": img_LF14SmartHomewelcome,
     "LF_14_Stellglied_Regelkreis_zoom": img_LF14StellgliedRegelkreiszoom,
     "LF_14_Steuerkette_zoom": img_LF14Steuerkettezoom,
     "LF_14_Steuern_Regeln_welcome": img_LF14SteuernRegelnwelcome,
     "LF_14_Steuerung_small": img_LF14Steuerungsmall,
     "LF_14_Thermostat_Regelung_zoom": img_LF14ThermostatRegelungzoom,
     "LF_14_Thermostatventil_zoom": img_LF14Thermostatventilzoom,
+    "LF_14_Ölbrenner_Feuerungsautomat_zoom": img_LF14lbrennerFeuerungsautomatzoom,
     "LF_1_Strichlinie_small": img_LF1Strichliniesmall,
     "LF_1_Strichpunktlinie_small": img_LF1Strichpunktliniesmall,
     "LF_1_Volllinie_small": img_LF1Vollliniesmall,
@@ -3363,6 +3370,7 @@ export const imageMap = {
     "LF_icon_Strom_small": img_LFiconStromsmall,
     "LF_icon_Stromquelle_small": img_LFiconStromquellesmall,
     "LF_icon_Stromschlag_small": img_LFiconStromschlagsmall,
+    "LF_icon_Störung_small": img_LFiconStrungsmall,
     "LF_icon_Sägen_small": img_LFiconSgensmall,
     "LF_icon_TRGI_small": img_LFiconTRGIsmall,
     "LF_icon_Taupunkt_small": img_LFiconTaupunktsmall,

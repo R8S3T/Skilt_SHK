@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useLayoutEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from 'src/context/ThemeContext';
 import LearnTracker from './LearnTracker';
@@ -66,40 +66,41 @@ const StatisticsScreen = () => {
     
 
     return (
-        <View style={[styles.container, { backgroundColor: theme.background }]}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: theme.background }}>
+            <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingTop: 40, alignItems: 'center' }}>
+                <LearnTracker />
+                <View style={{ height: 50 }} />
 
-            <LearnTracker />
-            <View style={{ height: 50 }} />
+                <View style={[styles.statsContainer, { borderColor: theme.border, backgroundColor: theme.surface  }]}>
 
-            <View style={[styles.statsContainer, { borderColor: theme.border, backgroundColor: theme.surface  }]}>
+                    <View style={styles.headerRow}>
+                    <Text style={[styles.statsHeader, { color: theme.primaryText }]}>Heute hast du bereits</Text>
+                    </View>
 
-                <View style={styles.headerRow}>
-                <Text style={[styles.statsHeader, { color: theme.primaryText }]}>Heute hast du bereits</Text>
+                    <View style={styles.statItem}>
+                        <Ionicons name="book-outline" size={34} color="#4A90E2" />
+                        <Text style={[styles.statsText, { color: theme.primaryText }]}>
+                        <Text style={[styles.boldText, { color: theme.primaryText }]}>{finishedToday}</Text> Kapitel gelernt
+                        </Text>
+                    </View>
+
+                    <View style={styles.statItem}>
+                        <Ionicons name="checkbox-outline" size={34} color="#50C878" />
+                        <Text style={[styles.statsText, { color: theme.primaryText }]}>
+                        <Text style={[styles.boldText, { color: theme.primaryText }]}>{quizzesToday}</Text> Quizzes gelöst
+                        </Text>
+                    </View>
+
+                    <View style={styles.separator} />
+                    <View style={styles.footerRow}>
+                        <Ionicons name="library-outline" size={34} color="#FFD700" />
+                        <Text style={[styles.statsFooter, { color: theme.primaryText }]}>
+                        Insgesamt hast du <Text style={[styles.boldText, { color: theme.primaryText }]}>{totalSubchapters}</Text> Kapitel{'\n'} gelernt.
+                        </Text>
+                    </View>
                 </View>
-
-                <View style={styles.statItem}>
-                    <Ionicons name="book-outline" size={34} color="#4A90E2" />
-                    <Text style={[styles.statsText, { color: theme.primaryText }]}>
-                    <Text style={[styles.boldText, { color: theme.primaryText }]}>{finishedToday}</Text> Kapitel gelernt
-                    </Text>
-                </View>
-
-                <View style={styles.statItem}>
-                    <Ionicons name="checkbox-outline" size={34} color="#50C878" />
-                    <Text style={[styles.statsText, { color: theme.primaryText }]}>
-                    <Text style={[styles.boldText, { color: theme.primaryText }]}>{quizzesToday}</Text> Quizzes gelöst
-                    </Text>
-                </View>
-
-                <View style={styles.separator} />
-                <View style={styles.footerRow}>
-                    <Ionicons name="library-outline" size={34} color="#FFD700" />
-                    <Text style={[styles.statsFooter, { color: theme.primaryText }]}>
-                    Insgesamt hast du <Text style={[styles.boldText, { color: theme.primaryText }]}>{totalSubchapters}</Text> Kapitel{'\n'} gelernt.
-                    </Text>
-                </View>
-            </View>
-        </View>
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 
