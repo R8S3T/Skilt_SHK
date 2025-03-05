@@ -640,6 +640,7 @@ const img_LF14ParallelverschiebungHeizkurvezoom = require('../../assets/DbImages
 const img_LF14Regelkreiszoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Regelkreis_zoom.png');
 const img_LF14Regelungsmall = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Regelung_small.png');
 const img_LF14Regelungsartenwelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Regelungsarten_welcome.png');
+const img_LF14SmartHomeHeizung = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Smart_Home_Heizung.png');
 const img_LF14SmartHomewelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Smart_Home_welcome.png');
 const img_LF14StellgliedRegelkreiszoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Stellglied_Regelkreis_zoom.png');
 const img_LF14Steuerkettezoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Steuerkette_zoom.png');
@@ -2381,6 +2382,7 @@ export const imageMap = {
     "LF_14_Regelkreis_zoom": img_LF14Regelkreiszoom,
     "LF_14_Regelung_small": img_LF14Regelungsmall,
     "LF_14_Regelungsarten_welcome": img_LF14Regelungsartenwelcome,
+    "LF_14_Smart_Home_Heizung": img_LF14SmartHomeHeizung,
     "LF_14_Smart_Home_welcome": img_LF14SmartHomewelcome,
     "LF_14_Stellglied_Regelkreis_zoom": img_LF14StellgliedRegelkreiszoom,
     "LF_14_Steuerkette_zoom": img_LF14Steuerkettezoom,
