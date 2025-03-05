@@ -636,11 +636,12 @@ const img_LF14Heizkennliniewelcome = require('../../assets/DbImages/SubchapterCo
 const img_LF14Heizkennliniezoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Heizkennlinie_zoom.png');
 const img_LF14KNXBUSzoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_KNX_BUS_zoom.png');
 const img_LF14Kesseltemperaturregelungwelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Kesseltemperaturregelung_welcome.png');
+const img_LF14LeckSensorzoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Leck_Sensor_zoom.png');
 const img_LF14ParallelverschiebungHeizkurvezoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Parallelverschiebung_Heizkurve_zoom.png');
 const img_LF14Regelkreiszoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Regelkreis_zoom.png');
 const img_LF14Regelungsmall = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Regelung_small.png');
 const img_LF14Regelungsartenwelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Regelungsarten_welcome.png');
-const img_LF14SmartHomeHeizung = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Smart_Home_Heizung.png');
+const img_LF14SmartHomeHeizungzoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Smart_Home_Heizung_zoom.png');
 const img_LF14SmartHomewelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Smart_Home_welcome.png');
 const img_LF14StellgliedRegelkreiszoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Stellglied_Regelkreis_zoom.png');
 const img_LF14Steuerkettezoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Steuerkette_zoom.png');
@@ -1306,6 +1307,7 @@ const img_LFiconAerosolesmall = require('../../assets/DbImages/SubchapterContent
 const img_LFiconAngebotsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Angebot_small.png');
 const img_LFiconAnleitungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Anleitung_small.png');
 const img_LFiconAntikesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Antike_small.png');
+const img_LFiconAppSteuerungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_App_Steuerung_small.png');
 const img_LFiconArmaturselbstschlieendsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Armatur_selbstschließend_small.png');
 const img_LFiconAtemschutzsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Atemschutz_small.png');
 const img_LFiconAufbau2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Aufbau_2_small.png');
@@ -1507,6 +1509,7 @@ const img_LFiconLuftwechselsmall = require('../../assets/DbImages/SubchapterCont
 const img_LFiconLngenausdehnungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Längenausdehnung_small.png');
 const img_LFiconLtensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Löten_small.png');
 const img_LFiconLftensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Lüften_small.png');
+const img_LFiconLftungAppsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Lüftung_App_small.png');
 const img_LFiconLftungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Lüftung_small.png');
 const img_LFiconLftungskanalsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Lüftungskanal_small.png');
 const img_LFiconLftungsleitungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Lüftungsleitung_small.png');
@@ -1577,6 +1580,7 @@ const img_LFiconReihenfolge3small = require('../../assets/DbImages/SubchapterCon
 const img_LFiconReihenfolgesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Reihenfolge_small.png');
 const img_LFiconReinigungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Reinigung_small.png');
 const img_LFiconRisikosmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Risiko_small.png');
+const img_LFiconRohrSchallsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Rohr_Schall_small.png');
 const img_LFiconRohrSchutzsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Rohr_Schutz_small.png');
 const img_LFiconRohrdmmung2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Rohrdämmung_2_small.png');
 const img_LFiconRohrdmmungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Rohrdämmung_small.png');
@@ -1606,6 +1610,7 @@ const img_LFiconSchwerkraftsmall = require('../../assets/DbImages/SubchapterCont
 const img_LFiconSeesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_See_small.png');
 const img_LFiconSensor2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Sensor_2_small.png');
 const img_LFiconSensor3small = require('../../assets/DbImages/SubchapterContent/LF_icon_Sensor_3_small.png');
+const img_LFiconSensorDrucksmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sensor_Druck_small.png');
 const img_LFiconSensorLuftsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sensor_Luft_small.png');
 const img_LFiconSensorRaumtemperatursmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sensor_Raumtemperatur_small.png');
 const img_LFiconSensorsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sensor_small.png');
@@ -1655,6 +1660,7 @@ const img_LFiconVentil1small = require('../../assets/DbImages/SubchapterContent/
 const img_LFiconVentil2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Ventil_2_small.png');
 const img_LFiconVentil3small = require('../../assets/DbImages/SubchapterContent/LF_icon_Ventil_3_small.png');
 const img_LFiconVentil4small = require('../../assets/DbImages/SubchapterContent/LF_icon_Ventil_4_small.png');
+const img_LFiconVentilatorAppsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Ventilator_App_small.png');
 const img_LFiconVentilatorsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Ventilator_small.png');
 const img_LFiconVerbindung2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Verbindung_2_small.png');
 const img_LFiconVerbindungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Verbindung_small.png');
@@ -2378,11 +2384,12 @@ export const imageMap = {
     "LF_14_Heizkennlinie_zoom": img_LF14Heizkennliniezoom,
     "LF_14_KNX_BUS_zoom": img_LF14KNXBUSzoom,
     "LF_14_Kesseltemperaturregelung_welcome": img_LF14Kesseltemperaturregelungwelcome,
+    "LF_14_Leck_Sensor_zoom": img_LF14LeckSensorzoom,
     "LF_14_Parallelverschiebung_Heizkurve_zoom": img_LF14ParallelverschiebungHeizkurvezoom,
     "LF_14_Regelkreis_zoom": img_LF14Regelkreiszoom,
     "LF_14_Regelung_small": img_LF14Regelungsmall,
     "LF_14_Regelungsarten_welcome": img_LF14Regelungsartenwelcome,
-    "LF_14_Smart_Home_Heizung": img_LF14SmartHomeHeizung,
+    "LF_14_Smart_Home_Heizung_zoom": img_LF14SmartHomeHeizungzoom,
     "LF_14_Smart_Home_welcome": img_LF14SmartHomewelcome,
     "LF_14_Stellglied_Regelkreis_zoom": img_LF14StellgliedRegelkreiszoom,
     "LF_14_Steuerkette_zoom": img_LF14Steuerkettezoom,
@@ -3048,6 +3055,7 @@ export const imageMap = {
     "LF_icon_Angebot_small": img_LFiconAngebotsmall,
     "LF_icon_Anleitung_small": img_LFiconAnleitungsmall,
     "LF_icon_Antike_small": img_LFiconAntikesmall,
+    "LF_icon_App_Steuerung_small": img_LFiconAppSteuerungsmall,
     "LF_icon_Armatur_selbstschließend_small": img_LFiconArmaturselbstschlieendsmall,
     "LF_icon_Atemschutz_small": img_LFiconAtemschutzsmall,
     "LF_icon_Aufbau_2_small": img_LFiconAufbau2small,
@@ -3249,6 +3257,7 @@ export const imageMap = {
     "LF_icon_Längenausdehnung_small": img_LFiconLngenausdehnungsmall,
     "LF_icon_Löten_small": img_LFiconLtensmall,
     "LF_icon_Lüften_small": img_LFiconLftensmall,
+    "LF_icon_Lüftung_App_small": img_LFiconLftungAppsmall,
     "LF_icon_Lüftung_small": img_LFiconLftungsmall,
     "LF_icon_Lüftungskanal_small": img_LFiconLftungskanalsmall,
     "LF_icon_Lüftungsleitung_small": img_LFiconLftungsleitungsmall,
@@ -3319,6 +3328,7 @@ export const imageMap = {
     "LF_icon_Reihenfolge_small": img_LFiconReihenfolgesmall,
     "LF_icon_Reinigung_small": img_LFiconReinigungsmall,
     "LF_icon_Risiko_small": img_LFiconRisikosmall,
+    "LF_icon_Rohr_Schall_small": img_LFiconRohrSchallsmall,
     "LF_icon_Rohr_Schutz_small": img_LFiconRohrSchutzsmall,
     "LF_icon_Rohrdämmung_2_small": img_LFiconRohrdmmung2small,
     "LF_icon_Rohrdämmung_small": img_LFiconRohrdmmungsmall,
@@ -3348,6 +3358,7 @@ export const imageMap = {
     "LF_icon_See_small": img_LFiconSeesmall,
     "LF_icon_Sensor_2_small": img_LFiconSensor2small,
     "LF_icon_Sensor_3_small": img_LFiconSensor3small,
+    "LF_icon_Sensor_Druck_small": img_LFiconSensorDrucksmall,
     "LF_icon_Sensor_Luft_small": img_LFiconSensorLuftsmall,
     "LF_icon_Sensor_Raumtemperatur_small": img_LFiconSensorRaumtemperatursmall,
     "LF_icon_Sensor_small": img_LFiconSensorsmall,
@@ -3397,6 +3408,7 @@ export const imageMap = {
     "LF_icon_Ventil_2_small": img_LFiconVentil2small,
     "LF_icon_Ventil_3_small": img_LFiconVentil3small,
     "LF_icon_Ventil_4_small": img_LFiconVentil4small,
+    "LF_icon_Ventilator_App_small": img_LFiconVentilatorAppsmall,
     "LF_icon_Ventilator_small": img_LFiconVentilatorsmall,
     "LF_icon_Verbindung_2_small": img_LFiconVerbindung2small,
     "LF_icon_Verbindung_small": img_LFiconVerbindungsmall,

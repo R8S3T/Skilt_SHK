@@ -65,7 +65,7 @@ const SettingsScreen = () => {
                             },
                         ]}
                         value={name}
-                        onChangeText={(text) => {}}
+                        onChangeText={(text) => setName(text)}
                         placeholder="Namen festlegen"
                         placeholderTextColor={isDarkMode ? '#ccc' : '#aaa'}
                         />
