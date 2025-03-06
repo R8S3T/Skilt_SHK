@@ -650,6 +650,9 @@ const img_LF14Steuerungsmall = require('../../assets/DbImages/SubchapterContent/
 const img_LF14ThermostatRegelungzoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Thermostat_Regelung_zoom.png');
 const img_LF14Thermostatventilzoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Thermostatventil_zoom.png');
 const img_LF14lbrennerFeuerungsautomatzoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Ölbrenner_Feuerungsautomat_zoom.png');
+const img_LF15EinfhrungInstandhaltungwelcome = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Einführung_Instandhaltung_welcome.png');
+const img_LF15InstandhaltenAbwasseranlagenwelcome = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Instandhalten_Abwasseranlagen_welcome.png');
+const img_LF15PyramideGesetzzoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Pyramide_Gesetz_zoom.png');
 const img_LF1Strichliniesmall = require('../../assets/DbImages/SubchapterContent/LF_1_Strichlinie_small.png');
 const img_LF1Strichpunktliniesmall = require('../../assets/DbImages/SubchapterContent/LF_1_Strichpunktlinie_small.png');
 const img_LF1Vollliniesmall = require('../../assets/DbImages/SubchapterContent/LF_1_Volllinie_small.png');
@@ -1013,7 +1016,6 @@ const img_LF6Rckstauwelcome = require('../../assets/DbImages/SubchapterContent/L
 const img_LF6Rckstauebene = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Rückstauebene.png');
 const img_LF6Rckstauebenewelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Rückstauebene_welcome.png');
 const img_LF6Rckstauebenezoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Rückstauebene_zoom.png');
-const img_LF6Rckstauverschluss = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Rückstauverschluss.png');
 const img_LF6RckstauverschlussSchnitt = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Rückstauverschluss_Schnitt.png');
 const img_LF6RckstauverschlussSchnittzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Rückstauverschluss_Schnitt_zoom.png');
 const img_LF6Rckstauverschlusszoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Rückstauverschluss_zoom.png');
@@ -1323,6 +1325,7 @@ const img_LFiconBakteriensmall = require('../../assets/DbImages/SubchapterConten
 const img_LFiconBaustoffesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Baustoffe_small.png');
 const img_LFiconBeschwerdensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Beschwerden_small.png');
 const img_LFiconBestandteilesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Bestandteile_small.png');
+const img_LFiconBetrSichVsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_BetrSichV_small.png');
 const img_LFiconBiogassmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Biogas_small.png');
 const img_LFiconBlockheizkraftwerksmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Blockheizkraftwerk_small.png');
 const img_LFiconBodenablaufsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Bodenablauf_small.png');
@@ -1564,6 +1567,7 @@ const img_LFiconRechenweg4small = require('../../assets/DbImages/SubchapterConte
 const img_LFiconRechenwegsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Rechenweg_small.png');
 const img_LFiconRegel1small = require('../../assets/DbImages/SubchapterContent/LF_icon_Regel_1_small.png');
 const img_LFiconRegelnsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Regeln_small.png');
+const img_LFiconRegelungAbwassersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Regelung_Abwasser_small.png');
 const img_LFiconRegelungGasbrennersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Regelung_Gasbrenner_small.png');
 const img_LFiconRegelungGebudeenergiesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Regelung_Gebäudeenergie_small.png');
 const img_LFiconRegelungPufferspeichersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Regelung_Pufferspeicher_small.png');
@@ -1635,6 +1639,7 @@ const img_LFiconStickstoffsmall = require('../../assets/DbImages/SubchapterConte
 const img_LFiconStromsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Strom_small.png');
 const img_LFiconStromquellesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Stromquelle_small.png');
 const img_LFiconStromschlagsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Stromschlag_small.png');
+const img_LFiconStrung2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Störung_2_small.png');
 const img_LFiconStrungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Störung_small.png');
 const img_LFiconSgensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Sägen_small.png');
 const img_LFiconTRGIsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_TRGI_small.png');
@@ -1685,6 +1690,7 @@ const img_LFiconWarmwasservorrang1small = require('../../assets/DbImages/Subchap
 const img_LFiconWarmwasservorrang2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Warmwasservorrang_2_small.png');
 const img_LFiconWarmwasservorrangsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Warmwasservorrang_small.png');
 const img_LFiconWartungAbgasanlagensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Abgasanlagen_small.png');
+const img_LFiconWartungAutosmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Auto_small.png');
 const img_LFiconWartungFliesensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Fliesen_small.png');
 const img_LFiconWartungIntervallsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Intervall_small.png');
 const img_LFiconWartungKaminsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Kamin_small.png');
@@ -2398,6 +2404,9 @@ export const imageMap = {
     "LF_14_Thermostat_Regelung_zoom": img_LF14ThermostatRegelungzoom,
     "LF_14_Thermostatventil_zoom": img_LF14Thermostatventilzoom,
     "LF_14_Ölbrenner_Feuerungsautomat_zoom": img_LF14lbrennerFeuerungsautomatzoom,
+    "LF_15_Einführung_Instandhaltung_welcome": img_LF15EinfhrungInstandhaltungwelcome,
+    "LF_15_Instandhalten_Abwasseranlagen_welcome": img_LF15InstandhaltenAbwasseranlagenwelcome,
+    "LF_15_Pyramide_Gesetz_zoom": img_LF15PyramideGesetzzoom,
     "LF_1_Strichlinie_small": img_LF1Strichliniesmall,
     "LF_1_Strichpunktlinie_small": img_LF1Strichpunktliniesmall,
     "LF_1_Volllinie_small": img_LF1Vollliniesmall,
@@ -2761,7 +2770,6 @@ export const imageMap = {
     "LF_6_Rückstauebene": img_LF6Rckstauebene,
     "LF_6_Rückstauebene_welcome": img_LF6Rckstauebenewelcome,
     "LF_6_Rückstauebene_zoom": img_LF6Rckstauebenezoom,
-    "LF_6_Rückstauverschluss": img_LF6Rckstauverschluss,
     "LF_6_Rückstauverschluss_Schnitt": img_LF6RckstauverschlussSchnitt,
     "LF_6_Rückstauverschluss_Schnitt_zoom": img_LF6RckstauverschlussSchnittzoom,
     "LF_6_Rückstauverschluss_zoom": img_LF6Rckstauverschlusszoom,
@@ -3071,6 +3079,7 @@ export const imageMap = {
     "LF_icon_Baustoffe_small": img_LFiconBaustoffesmall,
     "LF_icon_Beschwerden_small": img_LFiconBeschwerdensmall,
     "LF_icon_Bestandteile_small": img_LFiconBestandteilesmall,
+    "LF_icon_BetrSichV_small": img_LFiconBetrSichVsmall,
     "LF_icon_Biogas_small": img_LFiconBiogassmall,
     "LF_icon_Blockheizkraftwerk_small": img_LFiconBlockheizkraftwerksmall,
     "LF_icon_Bodenablauf_small": img_LFiconBodenablaufsmall,
@@ -3312,6 +3321,7 @@ export const imageMap = {
     "LF_icon_Rechenweg_small": img_LFiconRechenwegsmall,
     "LF_icon_Regel_1_small": img_LFiconRegel1small,
     "LF_icon_Regeln_small": img_LFiconRegelnsmall,
+    "LF_icon_Regelung_Abwasser_small": img_LFiconRegelungAbwassersmall,
     "LF_icon_Regelung_Gasbrenner_small": img_LFiconRegelungGasbrennersmall,
     "LF_icon_Regelung_Gebäudeenergie_small": img_LFiconRegelungGebudeenergiesmall,
     "LF_icon_Regelung_Pufferspeicher_small": img_LFiconRegelungPufferspeichersmall,
@@ -3383,6 +3393,7 @@ export const imageMap = {
     "LF_icon_Strom_small": img_LFiconStromsmall,
     "LF_icon_Stromquelle_small": img_LFiconStromquellesmall,
     "LF_icon_Stromschlag_small": img_LFiconStromschlagsmall,
+    "LF_icon_Störung_2_small": img_LFiconStrung2small,
     "LF_icon_Störung_small": img_LFiconStrungsmall,
     "LF_icon_Sägen_small": img_LFiconSgensmall,
     "LF_icon_TRGI_small": img_LFiconTRGIsmall,
@@ -3433,6 +3444,7 @@ export const imageMap = {
     "LF_icon_Warmwasservorrang_2_small": img_LFiconWarmwasservorrang2small,
     "LF_icon_Warmwasservorrang_small": img_LFiconWarmwasservorrangsmall,
     "LF_icon_Wartung_Abgasanlagen_small": img_LFiconWartungAbgasanlagensmall,
+    "LF_icon_Wartung_Auto_small": img_LFiconWartungAutosmall,
     "LF_icon_Wartung_Fliesen_small": img_LFiconWartungFliesensmall,
     "LF_icon_Wartung_Intervall_small": img_LFiconWartungIntervallsmall,
     "LF_icon_Wartung_Kamin_small": img_LFiconWartungKaminsmall,
