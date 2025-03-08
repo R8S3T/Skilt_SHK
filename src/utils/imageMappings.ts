@@ -632,6 +632,7 @@ const img_LF14FormelSteilheitsmall = require('../../assets/DbImages/SubchapterCo
 const img_LF14FormelVorlauftemperatursmall = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Formel_Vorlauftemperatur_small.png');
 const img_LF14FupunktHeizkennliniezoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Fußpunkt_Heizkennlinie_zoom.png');
 const img_LF14GLTwelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_GLT_welcome.png');
+const img_LF14Heizbetriebzoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Heizbetrieb_zoom.png');
 const img_LF14Heizkennliniewelcome = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Heizkennlinie_welcome.png');
 const img_LF14Heizkennliniezoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Heizkennlinie_zoom.png');
 const img_LF14KNXBUSzoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_KNX_BUS_zoom.png');
@@ -649,10 +650,38 @@ const img_LF14SteuernRegelnwelcome = require('../../assets/DbImages/SubchapterCo
 const img_LF14Steuerungsmall = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Steuerung_small.png');
 const img_LF14ThermostatRegelungzoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Thermostat_Regelung_zoom.png');
 const img_LF14Thermostatventilzoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Thermostatventil_zoom.png');
+const img_LF14Vorlauftemperaturregelungzoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Vorlauftemperaturregelung_zoom.png');
+const img_LF14Warmwasserbetriebzoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Warmwasserbetrieb_zoom.png');
 const img_LF14lbrennerFeuerungsautomatzoom = require('../../assets/DbImages/SubchapterContent/LF_14/LF_14_Ölbrenner_Feuerungsautomat_zoom.png');
+const img_LF15ArbeitsAnlagendokumentationwelcome = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Arbeits_Anlagendokumentation_welcome.png');
+const img_LF15BrennwertthermeWartungzoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Brennwerttherme_Wartung_zoom.png');
 const img_LF15EinfhrungInstandhaltungwelcome = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Einführung_Instandhaltung_welcome.png');
+const img_LF15Flammezoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Flamme_zoom.png');
+const img_LF15Fkalienhebeanlagezoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Fäkalienhebeanlage_zoom.png');
+const img_LF15Geblsebrennerinnenzoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Gebläsebrenner_innen_zoom.png');
 const img_LF15InstandhaltenAbwasseranlagenwelcome = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Instandhalten_Abwasseranlagen_welcome.png');
+const img_LF15InstandhaltenTrinkwasseranlagenwelcome = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Instandhalten_Trinkwasseranlagen_welcome.png');
+const img_LF15InstandhaltenWrmeerzeugernwelcome = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Instandhalten_Wärmeerzeugern_welcome.png');
+const img_LF15InstandhaltenWrmeverteilungsanlagenwelcome = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Instandhalten_Wärmeverteilungsanlagen_welcome.png');
+const img_LF15IntervalleSicherungsarmaturzoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Intervalle_Sicherungsarmatur_zoom.png');
+const img_LF15KesselWartungzoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Kessel_Wartung_zoom.png');
+const img_LF15Kesselsicherheitsgruppezoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Kesselsicherheitsgruppe_zoom.png');
 const img_LF15PyramideGesetzzoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Pyramide_Gesetz_zoom.png');
+const img_LF15Strmungssicherungzoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Strömungssicherung_zoom.png');
+const img_LF15Trockenluferpumpezoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Trockenläuferpumpe_zoom.png');
+const img_LF15WartungArmaturenRohrleitungenzoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Wartung_Armaturen_Rohrleitungen_zoom.png');
+const img_LF15WartungArmaturenzoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Wartung_Armaturen_zoom.png');
+const img_LF15WartungDurchlauferhitzernzoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Wartung_Durchlauferhitzern_zoom.png');
+const img_LF15WartungHeizungswasserqualittzoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Wartung_Heizungswasserqualität_zoom.png');
+const img_LF15WartungMembranausdehnungsgefezoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Wartung_Membranausdehnungsgefäße_zoom.png');
+const img_LF15WartungPumpenWrmeverteilungzoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Wartung_Pumpen_Wärmeverteilung_zoom.png');
+const img_LF15WartungRLTwelcome = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Wartung_RLT_welcome.png');
+const img_LF15WartungRohrleitungenzoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Wartung_Rohrleitungen_zoom.png');
+const img_LF15WartungSicherheitsventilezoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Wartung_Sicherheitsventile_zoom.png');
+const img_LF15WartungSpeicherwassererwrmerzoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Wartung_Speicherwassererwärmer_zoom.png');
+const img_LF15WartungTrinkwasserbehandlungsanlagenzoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Wartung_Trinkwasserbehandlungsanlagen_zoom.png');
+const img_LF15Wrmepumpezoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Wärmepumpe_zoom.png');
+const img_LF15lbrennerzoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Ölbrenner_zoom.png');
 const img_LF1Strichliniesmall = require('../../assets/DbImages/SubchapterContent/LF_1_Strichlinie_small.png');
 const img_LF1Strichpunktliniesmall = require('../../assets/DbImages/SubchapterContent/LF_1_Strichpunktlinie_small.png');
 const img_LF1Vollliniesmall = require('../../assets/DbImages/SubchapterContent/LF_1_Volllinie_small.png');
@@ -961,7 +990,6 @@ const img_LF6Fllgradwelcome = require('../../assets/DbImages/SubchapterContent/L
 const img_LF6Fllungsgradzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Füllungsgrad_zoom.png');
 const img_LF6Geflle = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Gefälle.png');
 const img_LF6Geflle2 = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Gefälle_2.png');
-const img_LF6Gefllepmpelsmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Gefälle_pümpel_small.png');
 const img_LF6Gefllewelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Gefälle_welcome.png');
 const img_LF6Genehmigtsmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Genehmigt_small.png');
 const img_LF6Grundleitungzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Grundleitung_zoom.png');
@@ -995,11 +1023,7 @@ const img_LF6Mindestsohlenabstandzoom = require('../../assets/DbImages/Subchapte
 const img_LF6Mischsystemzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Mischsystem_zoom.png');
 const img_LF6Mischwasser = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Mischwasser.png');
 const img_LF6NeigungsverhltnisBerechnungsmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Neigungsverhältnis_Berechnung_small.png');
-const img_LF6PEHDsmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_PEHD_small.png');
-const img_LF6PPsmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_PP_small.png');
 const img_LF6Rammschutzzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Rammschutz_zoom.png');
-const img_LF6Regenrohrsmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Regenrohr_small.png');
-const img_LF6Regenwassersmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Regenwasser_small.png');
 const img_LF6Regenwasserwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Regenwasser_welcome.png');
 const img_LF6RegenwassermengeErgebnissmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Regenwassermenge_Ergebnis_small.png');
 const img_LF6Reinigungsffnung = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Reinigungsöffnung.png');
@@ -1007,9 +1031,7 @@ const img_LF6Reinigungsffnungwelcome = require('../../assets/DbImages/Subchapter
 const img_LF6Reinigungsffnungzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Reinigungsöffnung_zoom.png');
 const img_LF6RelativgeflleBerechnungsmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Relativgefälle_Berechnung_small.png');
 const img_LF6Richtungsnderungzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Richtungsänderung_zoom.png');
-const img_LF6Rohrbelfterinnenwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Rohrbelüfter_innen_welcome.png');
 const img_LF6Rohrbelfterinnenzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Rohrbelüfter_innen_zoom.png');
-const img_LF6Rohrbelfterwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Rohrbelüfter_welcome.png');
 const img_LF6Rohrbelfterzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Rohrbelüfter_zoom.png');
 const img_LF6Rohrwerkstoffewelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Rohrwerkstoffe_welcome.png');
 const img_LF6Rckstauwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Rückstau_welcome.png');
@@ -1024,11 +1046,8 @@ const img_LF6Sammelanschlussleitungzoom = require('../../assets/DbImages/Subchap
 const img_LF6Sammelhauptleitungwelcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Sammelhauptleitung_welcome.png');
 const img_LF6Sammelhauptleitungzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Sammelhauptleitung_zoom.png');
 const img_LF6Sammelleitungzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Sammelleitung_zoom.png');
-const img_LF6Schwerkraftsmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Schwerkraft_small.png');
 const img_LF6Sturzstreckezoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Sturzstrecke_zoom.png');
 const img_LF6TrennsystemAbwasserzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Trennsystem_Abwasser_zoom.png');
-const img_LF6Trinkwasserverboten = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Trinkwasser_verboten.png');
-const img_LF6Tropfensmall = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Tropfen_small.png');
 const img_LF6Umgehungsleitung2welcome = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Umgehungsleitung_2_welcome.png');
 const img_LF6Umgehungsleitungenzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Umgehungsleitungen_zoom.png');
 const img_LF6Umlenkungzoom = require('../../assets/DbImages/SubchapterContent/LF_6/LF_6_Umlenkung_zoom.png');
@@ -1689,13 +1708,16 @@ const img_LFiconWarmwassersmall = require('../../assets/DbImages/SubchapterConte
 const img_LFiconWarmwasservorrang1small = require('../../assets/DbImages/SubchapterContent/LF_icon_Warmwasservorrang_1_small.png');
 const img_LFiconWarmwasservorrang2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Warmwasservorrang_2_small.png');
 const img_LFiconWarmwasservorrangsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Warmwasservorrang_small.png');
+const img_LFiconWartung2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_2_small.png');
 const img_LFiconWartungAbgasanlagensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Abgasanlagen_small.png');
 const img_LFiconWartungAutosmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Auto_small.png');
 const img_LFiconWartungFliesensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Fliesen_small.png');
 const img_LFiconWartungIntervallsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Intervall_small.png');
+const img_LFiconWartungJhrlichsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Jährlich_small.png');
 const img_LFiconWartungKaminsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Kamin_small.png');
 const img_LFiconWartungRckstauverschlusssmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Rückstauverschluss_small.png');
 const img_LFiconWartungSicherheitsventilsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Sicherheitsventil_small.png');
+const img_LFiconWartungWrmeerzeugersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_Wärmeerzeuger_small.png');
 const img_LFiconWartungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Wartung_small.png');
 const img_LFiconWaschbeckensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Waschbecken_small.png');
 const img_LFiconWaschtischsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Waschtisch_small.png');
@@ -2386,6 +2408,7 @@ export const imageMap = {
     "LF_14_Formel_Vorlauftemperatur_small": img_LF14FormelVorlauftemperatursmall,
     "LF_14_Fußpunkt_Heizkennlinie_zoom": img_LF14FupunktHeizkennliniezoom,
     "LF_14_GLT_welcome": img_LF14GLTwelcome,
+    "LF_14_Heizbetrieb_zoom": img_LF14Heizbetriebzoom,
     "LF_14_Heizkennlinie_welcome": img_LF14Heizkennliniewelcome,
     "LF_14_Heizkennlinie_zoom": img_LF14Heizkennliniezoom,
     "LF_14_KNX_BUS_zoom": img_LF14KNXBUSzoom,
@@ -2403,10 +2426,38 @@ export const imageMap = {
     "LF_14_Steuerung_small": img_LF14Steuerungsmall,
     "LF_14_Thermostat_Regelung_zoom": img_LF14ThermostatRegelungzoom,
     "LF_14_Thermostatventil_zoom": img_LF14Thermostatventilzoom,
+    "LF_14_Vorlauftemperaturregelung_zoom": img_LF14Vorlauftemperaturregelungzoom,
+    "LF_14_Warmwasserbetrieb_zoom": img_LF14Warmwasserbetriebzoom,
     "LF_14_Ölbrenner_Feuerungsautomat_zoom": img_LF14lbrennerFeuerungsautomatzoom,
+    "LF_15_Arbeits_Anlagendokumentation_welcome": img_LF15ArbeitsAnlagendokumentationwelcome,
+    "LF_15_Brennwerttherme_Wartung_zoom": img_LF15BrennwertthermeWartungzoom,
     "LF_15_Einführung_Instandhaltung_welcome": img_LF15EinfhrungInstandhaltungwelcome,
+    "LF_15_Flamme_zoom": img_LF15Flammezoom,
+    "LF_15_Fäkalienhebeanlage_zoom": img_LF15Fkalienhebeanlagezoom,
+    "LF_15_Gebläsebrenner_innen_zoom": img_LF15Geblsebrennerinnenzoom,
     "LF_15_Instandhalten_Abwasseranlagen_welcome": img_LF15InstandhaltenAbwasseranlagenwelcome,
+    "LF_15_Instandhalten_Trinkwasseranlagen_welcome": img_LF15InstandhaltenTrinkwasseranlagenwelcome,
+    "LF_15_Instandhalten_Wärmeerzeugern_welcome": img_LF15InstandhaltenWrmeerzeugernwelcome,
+    "LF_15_Instandhalten_Wärmeverteilungsanlagen_welcome": img_LF15InstandhaltenWrmeverteilungsanlagenwelcome,
+    "LF_15_Intervalle_Sicherungsarmatur_zoom": img_LF15IntervalleSicherungsarmaturzoom,
+    "LF_15_Kessel_Wartung_zoom": img_LF15KesselWartungzoom,
+    "LF_15_Kesselsicherheitsgruppe_zoom": img_LF15Kesselsicherheitsgruppezoom,
     "LF_15_Pyramide_Gesetz_zoom": img_LF15PyramideGesetzzoom,
+    "LF_15_Strömungssicherung_zoom": img_LF15Strmungssicherungzoom,
+    "LF_15_Trockenläuferpumpe_zoom": img_LF15Trockenluferpumpezoom,
+    "LF_15_Wartung_Armaturen_Rohrleitungen_zoom": img_LF15WartungArmaturenRohrleitungenzoom,
+    "LF_15_Wartung_Armaturen_zoom": img_LF15WartungArmaturenzoom,
+    "LF_15_Wartung_Durchlauferhitzern_zoom": img_LF15WartungDurchlauferhitzernzoom,
+    "LF_15_Wartung_Heizungswasserqualität_zoom": img_LF15WartungHeizungswasserqualittzoom,
+    "LF_15_Wartung_Membranausdehnungsgefäße_zoom": img_LF15WartungMembranausdehnungsgefezoom,
+    "LF_15_Wartung_Pumpen_Wärmeverteilung_zoom": img_LF15WartungPumpenWrmeverteilungzoom,
+    "LF_15_Wartung_RLT_welcome": img_LF15WartungRLTwelcome,
+    "LF_15_Wartung_Rohrleitungen_zoom": img_LF15WartungRohrleitungenzoom,
+    "LF_15_Wartung_Sicherheitsventile_zoom": img_LF15WartungSicherheitsventilezoom,
+    "LF_15_Wartung_Speicherwassererwärmer_zoom": img_LF15WartungSpeicherwassererwrmerzoom,
+    "LF_15_Wartung_Trinkwasserbehandlungsanlagen_zoom": img_LF15WartungTrinkwasserbehandlungsanlagenzoom,
+    "LF_15_Wärmepumpe_zoom": img_LF15Wrmepumpezoom,
+    "LF_15_Ölbrenner_zoom": img_LF15lbrennerzoom,
     "LF_1_Strichlinie_small": img_LF1Strichliniesmall,
     "LF_1_Strichpunktlinie_small": img_LF1Strichpunktliniesmall,
     "LF_1_Volllinie_small": img_LF1Vollliniesmall,
@@ -2715,7 +2766,6 @@ export const imageMap = {
     "LF_6_Füllungsgrad_zoom": img_LF6Fllungsgradzoom,
     "LF_6_Gefälle": img_LF6Geflle,
     "LF_6_Gefälle_2": img_LF6Geflle2,
-    "LF_6_Gefälle_pümpel_small": img_LF6Gefllepmpelsmall,
     "LF_6_Gefälle_welcome": img_LF6Gefllewelcome,
     "LF_6_Genehmigt_small": img_LF6Genehmigtsmall,
     "LF_6_Grundleitung_zoom": img_LF6Grundleitungzoom,
@@ -2749,11 +2799,7 @@ export const imageMap = {
     "LF_6_Mischsystem_zoom": img_LF6Mischsystemzoom,
     "LF_6_Mischwasser": img_LF6Mischwasser,
     "LF_6_Neigungsverhältnis_Berechnung_small": img_LF6NeigungsverhltnisBerechnungsmall,
-    "LF_6_PEHD_small": img_LF6PEHDsmall,
-    "LF_6_PP_small": img_LF6PPsmall,
     "LF_6_Rammschutz_zoom": img_LF6Rammschutzzoom,
-    "LF_6_Regenrohr_small": img_LF6Regenrohrsmall,
-    "LF_6_Regenwasser_small": img_LF6Regenwassersmall,
     "LF_6_Regenwasser_welcome": img_LF6Regenwasserwelcome,
     "LF_6_Regenwassermenge_Ergebnis_small": img_LF6RegenwassermengeErgebnissmall,
     "LF_6_Reinigungsöffnung": img_LF6Reinigungsffnung,
@@ -2761,9 +2807,7 @@ export const imageMap = {
     "LF_6_Reinigungsöffnung_zoom": img_LF6Reinigungsffnungzoom,
     "LF_6_Relativgefälle_Berechnung_small": img_LF6RelativgeflleBerechnungsmall,
     "LF_6_Richtungsänderung_zoom": img_LF6Richtungsnderungzoom,
-    "LF_6_Rohrbelüfter_innen_welcome": img_LF6Rohrbelfterinnenwelcome,
     "LF_6_Rohrbelüfter_innen_zoom": img_LF6Rohrbelfterinnenzoom,
-    "LF_6_Rohrbelüfter_welcome": img_LF6Rohrbelfterwelcome,
     "LF_6_Rohrbelüfter_zoom": img_LF6Rohrbelfterzoom,
     "LF_6_Rohrwerkstoffe_welcome": img_LF6Rohrwerkstoffewelcome,
     "LF_6_Rückstau_welcome": img_LF6Rckstauwelcome,
@@ -2778,11 +2822,8 @@ export const imageMap = {
     "LF_6_Sammelhauptleitung_welcome": img_LF6Sammelhauptleitungwelcome,
     "LF_6_Sammelhauptleitung_zoom": img_LF6Sammelhauptleitungzoom,
     "LF_6_Sammelleitung_zoom": img_LF6Sammelleitungzoom,
-    "LF_6_Schwerkraft_small": img_LF6Schwerkraftsmall,
     "LF_6_Sturzstrecke_zoom": img_LF6Sturzstreckezoom,
     "LF_6_Trennsystem_Abwasser_zoom": img_LF6TrennsystemAbwasserzoom,
-    "LF_6_Trinkwasser_verboten": img_LF6Trinkwasserverboten,
-    "LF_6_Tropfen_small": img_LF6Tropfensmall,
     "LF_6_Umgehungsleitung_2_welcome": img_LF6Umgehungsleitung2welcome,
     "LF_6_Umgehungsleitungen_zoom": img_LF6Umgehungsleitungenzoom,
     "LF_6_Umlenkung_zoom": img_LF6Umlenkungzoom,
@@ -3443,13 +3484,16 @@ export const imageMap = {
     "LF_icon_Warmwasservorrang_1_small": img_LFiconWarmwasservorrang1small,
     "LF_icon_Warmwasservorrang_2_small": img_LFiconWarmwasservorrang2small,
     "LF_icon_Warmwasservorrang_small": img_LFiconWarmwasservorrangsmall,
+    "LF_icon_Wartung_2_small": img_LFiconWartung2small,
     "LF_icon_Wartung_Abgasanlagen_small": img_LFiconWartungAbgasanlagensmall,
     "LF_icon_Wartung_Auto_small": img_LFiconWartungAutosmall,
     "LF_icon_Wartung_Fliesen_small": img_LFiconWartungFliesensmall,
     "LF_icon_Wartung_Intervall_small": img_LFiconWartungIntervallsmall,
+    "LF_icon_Wartung_Jährlich_small": img_LFiconWartungJhrlichsmall,
     "LF_icon_Wartung_Kamin_small": img_LFiconWartungKaminsmall,
     "LF_icon_Wartung_Rückstauverschluss_small": img_LFiconWartungRckstauverschlusssmall,
     "LF_icon_Wartung_Sicherheitsventil_small": img_LFiconWartungSicherheitsventilsmall,
+    "LF_icon_Wartung_Wärmeerzeuger_small": img_LFiconWartungWrmeerzeugersmall,
     "LF_icon_Wartung_small": img_LFiconWartungsmall,
     "LF_icon_Waschbecken_small": img_LFiconWaschbeckensmall,
     "LF_icon_Waschtisch_small": img_LFiconWaschtischsmall,

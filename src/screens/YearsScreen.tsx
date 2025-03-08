@@ -25,8 +25,11 @@ const YearsScreen: React.FC = () => {
         navigation.setOptions({
             headerStyle: {
                 backgroundColor: theme.surface,
+                elevation: 0,
+                shadowOpacity: 0,
+                borderBottomWidth: 0,
             },
-            headerTitle: '', // Entfernt den automatischen Titel
+            headerTitle: '',
             headerLeft: () => (
                 <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10 }}>
                     <TouchableOpacity
@@ -71,12 +74,6 @@ const YearsScreen: React.FC = () => {
     ];
 
     const handlePress = async (year: number) => {
-/*         if (year === 4) {
-            setModalMessage('Dieser Inhalt ist in der Tesversion momentan nicht verfügbar.');
-            setModalVisible(true);
-            return;
-        } */
-    
         // Toggle expanded state for the year
         setExpandedYear(expandedYear === year ? null : year);
         if (!chapters[year]) {
@@ -98,17 +95,8 @@ const YearsScreen: React.FC = () => {
 
     const handleChapterPress = (chapterId: number, year: number) => {
 
-        /*
-        if ((chapterId === 14 || chapterId === 15) || (year === 4)) {
-            setModalMessage('Dieser Inhalt ist in der Tesversion nicht verfügbar.');
-            setModalVisible(true);
-        } else {
-        */
-    
         // Lock deaktiviert – alle Kapitel sind zugänglich
         navigation.navigate('SubchaptersScreen', { chapterId, origin: 'AllChaptersSection' });
-    
-        // }
     };
     
 
@@ -133,11 +121,14 @@ const YearsScreen: React.FC = () => {
 
     return (
         <View style={styles.mainContainer}>
-            <View style={[styles.titleContainer, { backgroundColor: theme.surface }]}>
+            <View style={[styles.titleContainer, { backgroundColor: theme.background }]}>
                 <Text style={[styles.title, { color: theme.primaryText }]}>Wähle dein Lehrjahr</Text>
             </View>
 
-            <ScrollView style={[styles.container, { backgroundColor: theme.background }]}>
+            <ScrollView 
+                style={[styles.container, { backgroundColor: theme.background }]} 
+                contentContainerStyle={{ paddingBottom: 100 }} // Hier mehr Platz hinzufügen
+            >
                 {educationData.map((item, index) => (
                     <View
                         key={index}
@@ -212,7 +203,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        paddingVertical: screenWidth > 600 ? 40 : 30, // Increased padding for tablets
+        paddingVertical: screenWidth > 600 ? 40 : 30,
     },
     cardContainer: {
         marginHorizontal: screenWidth > 600 ? 20 : 10,
@@ -249,6 +240,7 @@ const styles = StyleSheet.create({
     chaptersContainer: {
         marginTop: 10,
         paddingHorizontal: 10,
+        marginBottom: 40,
     },
     chapterContainer: {
         flexDirection: 'row',
