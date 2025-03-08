@@ -127,7 +127,7 @@ const YearsScreen: React.FC = () => {
 
             <ScrollView 
                 style={[styles.container, { backgroundColor: theme.background }]} 
-                contentContainerStyle={{ paddingBottom: 100 }} // Hier mehr Platz hinzufügen
+                contentContainerStyle={{ paddingBottom: 80}}
             >
                 {educationData.map((item, index) => (
                     <View

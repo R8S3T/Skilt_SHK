@@ -30,6 +30,7 @@ const img_equationsGeflle = require('../../assets/DbImages/MathImages/equations_
 const img_equationsGleichgewichtHeizung = require('../../assets/DbImages/MathImages/equations_Gleichgewicht_Heizung.png');
 const img_equationsHypothenuseAnkatheteGegenkathete = require('../../assets/DbImages/MathImages/equations_Hypothenuse_Ankathete_Gegenkathete.png');
 const img_equationsHypothenuseAnkatheteGegenkathetedarkmode = require('../../assets/DbImages/MathImages/equations_Hypothenuse_Ankathete_Gegenkathete_darkmode.png');
+const img_equationsKlammern = require('../../assets/DbImages/MathImages/equations_Klammern.png');
 const img_equationsKosinussatz = require('../../assets/DbImages/MathImages/equations_Kosinussatz.png');
 const img_equationsKosinussatzFormel = require('../../assets/DbImages/MathImages/equations_Kosinussatz_Formel.png');
 const img_equationsKreisbogen = require('../../assets/DbImages/MathImages/equations_Kreisbogen.png');
@@ -38,6 +39,7 @@ const img_equationsKreissektor = require('../../assets/DbImages/MathImages/equat
 const img_equationsKreissektorFormelsmall = require('../../assets/DbImages/MathImages/equations_Kreissektor_Formel_small.png');
 const img_equationsKreisumfang = require('../../assets/DbImages/MathImages/equations_Kreisumfang.png');
 const img_equationsKreisumfangFormelsmall = require('../../assets/DbImages/MathImages/equations_Kreisumfang_Formel_small.png');
+const img_equationsPotenzen = require('../../assets/DbImages/MathImages/equations_Potenzen.png');
 const img_equationsPythagoras = require('../../assets/DbImages/MathImages/equations_Pythagoras.png');
 const img_equationsPythagorasBerechnung = require('../../assets/DbImages/MathImages/equations_Pythagoras_Berechnung.png');
 const img_equationsSinusBerechnung = require('../../assets/DbImages/MathImages/equations_Sinus_Berechnung.png');
@@ -680,6 +682,7 @@ const img_LF15WartungRohrleitungenzoom = require('../../assets/DbImages/Subchapt
 const img_LF15WartungSicherheitsventilezoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Wartung_Sicherheitsventile_zoom.png');
 const img_LF15WartungSpeicherwassererwrmerzoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Wartung_Speicherwassererwärmer_zoom.png');
 const img_LF15WartungTrinkwasserbehandlungsanlagenzoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Wartung_Trinkwasserbehandlungsanlagen_zoom.png');
+const img_LF15Wartungsprotokollzoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Wartungsprotokoll_zoom.png');
 const img_LF15Wrmepumpezoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Wärmepumpe_zoom.png');
 const img_LF15lbrennerzoom = require('../../assets/DbImages/SubchapterContent/LF_15/LF_15_Ölbrenner_zoom.png');
 const img_LF1Strichliniesmall = require('../../assets/DbImages/SubchapterContent/LF_1_Strichlinie_small.png');
@@ -1326,6 +1329,7 @@ const img_LFiconAbwassersmall = require('../../assets/DbImages/SubchapterContent
 const img_LFiconAbzweigleitungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Abzweigleitung_small.png');
 const img_LFiconAerosolesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Aerosole_small.png');
 const img_LFiconAngebotsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Angebot_small.png');
+const img_LFiconAnlagenbuchsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Anlagenbuch_small.png');
 const img_LFiconAnleitungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Anleitung_small.png');
 const img_LFiconAntikesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Antike_small.png');
 const img_LFiconAppSteuerungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_App_Steuerung_small.png');
@@ -1366,6 +1370,7 @@ const img_LFiconDNsmall = require('../../assets/DbImages/SubchapterContent/LF_ic
 const img_LFiconDauersmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Dauer_small.png');
 const img_LFiconDichtheitsprfungGassmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Dichtheitsprüfung_Gas_small.png');
 const img_LFiconDichtheitsprfungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Dichtheitsprüfung_small.png');
+const img_LFiconDokumentation2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Dokumentation_2_small.png');
 const img_LFiconDokumentationsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Dokumentation_small.png');
 const img_LFiconDruckSicherheitsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Druck_Sicherheit_small.png');
 const img_LFiconDrucksmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Druck_small.png');
@@ -1806,6 +1811,7 @@ export const imageMap = {
     "equations_Gleichgewicht_Heizung": img_equationsGleichgewichtHeizung,
     "equations_Hypothenuse_Ankathete_Gegenkathete": img_equationsHypothenuseAnkatheteGegenkathete,
     "equations_Hypothenuse_Ankathete_Gegenkathete_darkmode": img_equationsHypothenuseAnkatheteGegenkathetedarkmode,
+    "equations_Klammern": img_equationsKlammern,
     "equations_Kosinussatz": img_equationsKosinussatz,
     "equations_Kosinussatz_Formel": img_equationsKosinussatzFormel,
     "equations_Kreisbogen": img_equationsKreisbogen,
@@ -1814,6 +1820,7 @@ export const imageMap = {
     "equations_Kreissektor_Formel_small": img_equationsKreissektorFormelsmall,
     "equations_Kreisumfang": img_equationsKreisumfang,
     "equations_Kreisumfang_Formel_small": img_equationsKreisumfangFormelsmall,
+    "equations_Potenzen": img_equationsPotenzen,
     "equations_Pythagoras": img_equationsPythagoras,
     "equations_Pythagoras_Berechnung": img_equationsPythagorasBerechnung,
     "equations_Sinus_Berechnung": img_equationsSinusBerechnung,
@@ -2456,6 +2463,7 @@ export const imageMap = {
     "LF_15_Wartung_Sicherheitsventile_zoom": img_LF15WartungSicherheitsventilezoom,
     "LF_15_Wartung_Speicherwassererwärmer_zoom": img_LF15WartungSpeicherwassererwrmerzoom,
     "LF_15_Wartung_Trinkwasserbehandlungsanlagen_zoom": img_LF15WartungTrinkwasserbehandlungsanlagenzoom,
+    "LF_15_Wartungsprotokoll_zoom": img_LF15Wartungsprotokollzoom,
     "LF_15_Wärmepumpe_zoom": img_LF15Wrmepumpezoom,
     "LF_15_Ölbrenner_zoom": img_LF15lbrennerzoom,
     "LF_1_Strichlinie_small": img_LF1Strichliniesmall,
@@ -3102,6 +3110,7 @@ export const imageMap = {
     "LF_icon_Abzweigleitung_small": img_LFiconAbzweigleitungsmall,
     "LF_icon_Aerosole_small": img_LFiconAerosolesmall,
     "LF_icon_Angebot_small": img_LFiconAngebotsmall,
+    "LF_icon_Anlagenbuch_small": img_LFiconAnlagenbuchsmall,
     "LF_icon_Anleitung_small": img_LFiconAnleitungsmall,
     "LF_icon_Antike_small": img_LFiconAntikesmall,
     "LF_icon_App_Steuerung_small": img_LFiconAppSteuerungsmall,
@@ -3142,6 +3151,7 @@ export const imageMap = {
     "LF_icon_Dauer_small": img_LFiconDauersmall,
     "LF_icon_Dichtheitsprüfung_Gas_small": img_LFiconDichtheitsprfungGassmall,
     "LF_icon_Dichtheitsprüfung_small": img_LFiconDichtheitsprfungsmall,
+    "LF_icon_Dokumentation_2_small": img_LFiconDokumentation2small,
     "LF_icon_Dokumentation_small": img_LFiconDokumentationsmall,
     "LF_icon_Druck_Sicherheit_small": img_LFiconDruckSicherheitsmall,
     "LF_icon_Druck_small": img_LFiconDrucksmall,

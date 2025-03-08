@@ -114,16 +114,17 @@ const SettingsScreen = () => {
                 </TouchableOpacity>
 
                 <View style={[styles.divider, { backgroundColor: theme.border }]} />
+{/* Nutzungsbedingungen */}
+{/* 
+<TouchableOpacity
+    style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}
+    onPress={() => navigation.navigate('TermsOfServiceScreen')}
+>
+    <Text style={[styles.label, { color: theme.primaryText }]}>Nutzungsbedingungen</Text>
+</TouchableOpacity>
 
-                {/* Nutzungsbedingungen */}
-                <TouchableOpacity
-                    style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}
-                    onPress={() => navigation.navigate('TermsOfServiceScreen')}
-                >
-                    <Text style={[styles.label, { color: theme.primaryText }]}>Nutzungsbedingungen</Text>
-                </TouchableOpacity>
-
-                <View style={[styles.divider, { backgroundColor: theme.border }]} />
+<View style={[styles.divider, { backgroundColor: theme.border }]} />
+*/}
 
                 {/* Impressum */}
                 <TouchableOpacity
@@ -151,7 +152,7 @@ const SettingsScreen = () => {
                 resizeMode="contain"
                 />
                 <Text style={{ color: theme.secondaryText, fontSize: screenWidth > 600 ? 18 : 16 }}>
-                Version: Closed Test v05
+                Version: V01
                 </Text>
             </View>
             </SafeAreaView>
