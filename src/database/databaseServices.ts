@@ -253,8 +253,6 @@ export async function fetchMathContentBySubchapterId(subchapterId: number): Prom
                 'SELECT * FROM MathSubchapterContent WHERE SubchapterId = ? ORDER BY SortOrder',
                 [subchapterId]
             );
-            console.log(`SQL-Abfrage erfolgreich für SubchapterId ${subchapterId}:`, result);
-
             return result;
         } catch (error) {
             console.error(`Failed to fetch math subchapter content for subchapterId ${subchapterId} from SQLite:`, error);
@@ -285,7 +283,6 @@ export async function fetchQuizByContentId(contentId: number): Promise<Quiz[]> {
         const db = await initializeDatabase();
         if (!db) return [];
         try {
-            console.log(`Fetching quiz for contentId: ${contentId}`);
             const result = await db.getAllAsync<Quiz>(
                 'SELECT QuizId, ContentId, Question, QuizType, Answer, Image FROM Quiz WHERE ContentId = ?',
                 [contentId]
@@ -341,7 +338,6 @@ export async function fetchMultipleChoiceOptionsByQuizId(quizId: number): Promis
                 'SELECT OptionText1, OptionText2, OptionText3 FROM MultipleChoiceOptions WHERE QuizId = ?',
                 [quizId]
             );
-            console.log('Fetched options:', result);
             return result;
         } catch (error) {
             console.error(`Failed to fetch multiple choice options for quizId ${quizId} from SQLite:`, error);
