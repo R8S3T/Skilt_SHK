@@ -293,7 +293,7 @@ const img_LF1Beton = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_
 const img_LF1Blattfaltung500 = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Blattfaltung_500.png');
 const img_LF1Blattfaltung800 = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Blattfaltung_800.png');
 const img_LF1Blattfaltung800zoom = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Blattfaltung_800_zoom.png');
-const img_LF1DINAwelcome = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_DIN_A_welcome.png');
+const img_LF1DINAzoom = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_DIN_A_zoom.png');
 const img_LF1Diodesmall = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Diode_small.png');
 const img_LF1Edelstahl = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Edelstahl.png');
 const img_LF1FarbkennzeichnungRohrewelcomezoom = require('../../assets/DbImages/SubchapterContent/LF_1/LF_1_Farbkennzeichnung_Rohre_welcome_zoom.png');
@@ -435,6 +435,8 @@ const img_LF10LeitungsverlegungGaswelcome = require('../../assets/DbImages/Subch
 const img_LF10Matrixbrennerzoom = require('../../assets/DbImages/SubchapterContent/LF_10/LF_10_Matrixbrenner_zoom.png');
 const img_LF10PrfenInbetriebnahmeGaswelcome = require('../../assets/DbImages/SubchapterContent/LF_10/LF_10_Prüfen_Inbetriebnahme_Gas_welcome.png');
 const img_LF10RaumluftabhngigeGertewelcome = require('../../assets/DbImages/SubchapterContent/LF_10/LF_10_Raumluftabhängige_Geräte_welcome.png');
+const img_LF10Schutzziel1zoom = require('../../assets/DbImages/SubchapterContent/LF_10/LF_10_Schutzziel_1_zoom.png');
+const img_LF10Schutzziel2zoom = require('../../assets/DbImages/SubchapterContent/LF_10/LF_10_Schutzziel_2_zoom.png');
 const img_LF10Strmungssicherungwelcome = require('../../assets/DbImages/SubchapterContent/LF_10/LF_10_Strömungssicherung_welcome.png');
 const img_LF10TAEKugelhahnzoom = require('../../assets/DbImages/SubchapterContent/LF_10/LF_10_TAE_Kugelhahn_zoom.png');
 const img_LF10TAEzoom = require('../../assets/DbImages/SubchapterContent/LF_10/LF_10_TAE_zoom.png');
@@ -1676,6 +1678,7 @@ const img_LFiconThermostatventil2small = require('../../assets/DbImages/Subchapt
 const img_LFiconThermostatventilsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Thermostatventil_small.png');
 const img_LFiconToilettesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Toilette_small.png');
 const img_LFiconTrennsystemsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Trennsystem_small.png');
+const img_LFiconTrinkwasserverbotensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Trinkwasser_verboten_small.png');
 const img_LFiconTrittschallsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Trittschall_small.png');
 const img_LFiconTypen2small = require('../../assets/DbImages/SubchapterContent/LF_icon_Typen_2_small.png');
 const img_LFiconTypensmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Typen_small.png');
@@ -2074,7 +2077,7 @@ export const imageMap = {
     "LF_1_Blattfaltung_500": img_LF1Blattfaltung500,
     "LF_1_Blattfaltung_800": img_LF1Blattfaltung800,
     "LF_1_Blattfaltung_800_zoom": img_LF1Blattfaltung800zoom,
-    "LF_1_DIN_A_welcome": img_LF1DINAwelcome,
+    "LF_1_DIN_A_zoom": img_LF1DINAzoom,
     "LF_1_Diode_small": img_LF1Diodesmall,
     "LF_1_Edelstahl": img_LF1Edelstahl,
     "LF_1_Farbkennzeichnung_Rohre_welcome_zoom": img_LF1FarbkennzeichnungRohrewelcomezoom,
@@ -2216,6 +2219,8 @@ export const imageMap = {
     "LF_10_Matrixbrenner_zoom": img_LF10Matrixbrennerzoom,
     "LF_10_Prüfen_Inbetriebnahme_Gas_welcome": img_LF10PrfenInbetriebnahmeGaswelcome,
     "LF_10_Raumluftabhängige_Geräte_welcome": img_LF10RaumluftabhngigeGertewelcome,
+    "LF_10_Schutzziel_1_zoom": img_LF10Schutzziel1zoom,
+    "LF_10_Schutzziel_2_zoom": img_LF10Schutzziel2zoom,
     "LF_10_Strömungssicherung_welcome": img_LF10Strmungssicherungwelcome,
     "LF_10_TAE_Kugelhahn_zoom": img_LF10TAEKugelhahnzoom,
     "LF_10_TAE_zoom": img_LF10TAEzoom,
@@ -3457,6 +3462,7 @@ export const imageMap = {
     "LF_icon_Thermostatventil_small": img_LFiconThermostatventilsmall,
     "LF_icon_Toilette_small": img_LFiconToilettesmall,
     "LF_icon_Trennsystem_small": img_LFiconTrennsystemsmall,
+    "LF_icon_Trinkwasser_verboten_small": img_LFiconTrinkwasserverbotensmall,
     "LF_icon_Trittschall_small": img_LFiconTrittschallsmall,
     "LF_icon_Typen_2_small": img_LFiconTypen2small,
     "LF_icon_Typen_small": img_LFiconTypensmall,

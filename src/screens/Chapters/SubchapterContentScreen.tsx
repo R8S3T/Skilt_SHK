@@ -173,7 +173,6 @@ const SubchapterContentScreen: React.FC<Props> = ({ route, navigation }) => {
 
     const handleNextContent = async () => {
         const nextIndex = currentIndex + 1;
-        console.log("🔍 Next Index:", nextIndex, "Content Data Length:", contentData.length, "Current Index:", currentIndex);
     
         if (nextIndex < contentData.length) {
             const nextContent = contentData[nextIndex];
