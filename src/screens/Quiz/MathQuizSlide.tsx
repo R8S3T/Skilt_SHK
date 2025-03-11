@@ -49,11 +49,7 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
 
             if (isCorrect) {
                 setIsAnswerCorrect(true);
-                onQuizComplete(true);
                 await markMathQuizAsFinished(quiz.ContentId);
-                if (isLast) { 
-                    onNextSlide();
-                }
             } else {
                 setIsAnswerCorrect(false);
             }
@@ -136,8 +132,11 @@ const MathQuizSlide: React.FC<MathQuizSlideProps> = ({ quiz, onQuizComplete, onN
                         setIsAnswerCorrect(null); // Reset the correctness state
                     }}
                     onSubmit={handleAnswerSubmit}
-                    onContinue={onNextSlide}
-                    submitButtonText={!isSubmitted ? 'Bestätigen' : 'Weiter'}
+                    onContinue={() => {
+                        onQuizComplete(true);
+                        onNextSlide();
+                    }}
+                    submitButtonText={isSubmitted ? (isAnswerCorrect ? 'Weiter' : 'Bestätigen') : 'Bestätigen'}
                     disabled={selectedOption === null || (isSubmitted && !isAnswerCorrect)}
                     showClearButton={!isSubmitted} // Clear button shown only if not yet submitted
                     showBackspaceButton={false}
