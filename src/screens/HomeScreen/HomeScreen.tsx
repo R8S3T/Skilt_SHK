@@ -19,7 +19,7 @@ type HomeRouteProp = RouteProp<BottomTabParamList, 'Home'>;
 const HomeScreen = () => {
     const navigation = useNavigation();
     const route = useRoute<HomeRouteProp>();
-    const [username, setUsername] = useState(route.params?.username || 'viel Spaß beim Lernen!');
+    const [username, setUsername] = useState(route.params?.username || '');
     const screenWidth = Dimensions.get('window').width; 
     const [showResume, setShowResume] = useState(false);
     const { theme } = useTheme();  // Access theme from ThemeContext
@@ -48,8 +48,10 @@ const HomeScreen = () => {
         navigation.setOptions({
             headerTitle: () => (
                 <Text style={[styles.greetingText, { color: theme.primaryText }]}>
-                    {`Hallo, ${username}`}
-                </Text>
+                {username 
+                    ? `Hallo ${username.trim()}, viel Spaß beim Lernen!`
+                    : 'Viel Spaß beim Lernen!'}
+            </Text>
             ), // Updated from static string to a Text component
             headerStyle: {
                 backgroundColor: theme.background,
