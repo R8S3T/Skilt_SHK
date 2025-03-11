@@ -5,7 +5,7 @@ export default {
     name: "Skilt_SHK",
     slug: "Skilt_SHK",
     version: "1.0.0",
-/*     orientation: "portrait", */
+    orientation: "portrait",
     icon: "./assets/icon.png",
     userInterfaceStyle: "light",
     splash: {
