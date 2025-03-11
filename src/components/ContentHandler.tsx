@@ -134,7 +134,7 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
                     modalImageStyle={{
                         width: deviceWidth * 0.95,
                         height: deviceWidth * 0.85,
-                        borderRadius: 10, // Abgerundete Ecken für modernes Design
+                        borderRadius: 10,
                     }}
                     style={{
                         width: deviceWidth * 0.9,
@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   darkImageContainer: {
-    backgroundColor: '#65799b',
+    backgroundColor: '#a6a6a6',
 
     alignItems: 'center',
     justifyContent: 'center',

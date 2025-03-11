@@ -8,6 +8,7 @@ import { ThemeProvider } from "src/context/ThemeContext";
 import { initializeDatabase } from "src/database/initializeLocalDatabase";
 import { fetchVersionNumber } from "src/database/initializeLocalDatabase";
 import { DATABASE_MODE } from "@env";
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 const App = () => {
@@ -62,11 +63,13 @@ const App = () => {
   }
 
   return (
-    <ThemeProvider>
-      <NavigationContainer>
-        <AppNavigator />
-      </NavigationContainer>
-    </ThemeProvider>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ThemeProvider>
+        <NavigationContainer>
+          <AppNavigator />
+        </NavigationContainer>
+      </ThemeProvider>
+    </SafeAreaView>
   );
 };
 
