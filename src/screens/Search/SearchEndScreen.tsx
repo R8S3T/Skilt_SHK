@@ -40,13 +40,16 @@ const SearchEndScreen: React.FC = () => {
                     ]}
                     onPress={() => {
                         navigation.reset({
-                            index: 1,
+                            index: 0,
                             routes: [
-                                { name: "HomeScreen" }, // Fügt HomeScreen in den Stack
-                                { name: "Search" }      // Setzt Search als aktive Seite
+                                {
+                                name: "HomeScreen",
+                                state: {
+                                    routes: [{ name: "Search" }],
+                                },
+                                },
                             ],
                         });
-                        
                     }}
                 >
                     <Text
