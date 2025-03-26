@@ -128,7 +128,7 @@ Testversion: Calisma stellt Nutzern eine kostenfreie Testversion der Sklit App m
 
 5.1. Calisma bleibt Eigentümer aller Eigentumsrechte. Dies gilt auch für Urheberrechte, Datenbankrechte, Patente, Geschäftsgeheimnisse, Marken und alle anderen geistigen Eigentumsrechte im Zusammenhang mit den Diensten. Dir werden nach einer Bestellung keine Eigentumsrechte an den Diensten verschafft. 
 
-5.2. Die Rechte der von Dir angegebenen Nutzerdaten verbleiben bei Dir. Du gewährst Calisma ein einfaches, nicht übertragbares, unterlizenzierbares, örtlich unbeschränktes Nutzungsrecht, die Nutzerdaten ausschließlich in Verbindung mit der Erbringung der Dienste zu nutzen. Sofern erforderlich kann Calisma Deine Nutzerdaten gemäß der Datenschutzerklärung von […] an Drittanbieter weitergeben.  
+5.2. Die Rechte der von Dir angegebenen Nutzerdaten verbleiben bei Dir. Du gewährst Calisma ein einfaches, nicht übertragbares, unterlizenzierbares, örtlich unbeschränktes Nutzungsrecht, die Nutzerdaten ausschließlich in Verbindung mit der Erbringung der Dienste zu nutzen. Sofern erforderlich kann Calisma Deine Nutzerdaten gemäß der Datenschutzerklärung sowie unter Beachtung der jeweiligen Regelungen der Vertriebsplattformen (z. B. Google Play oder Apple App Store) an Drittanbieter weitergeben.
 
 
 6. Nutzerpflichten
@@ -219,11 +219,11 @@ Sind Dir anlässlich des Widerrufs Gebühren oder Kosten wegen Beauftragung Drit
 
 12.2. Im Falle der Verletzung einer solchen wesentlichen Pflicht haftet Calisma nur für den vorhersehbaren, vertragstypischen Schaden. Diese Beschränkung gilt auch für Pflichtverletzungen der gesetzlichen Vertreter oder Erfüllungsgehilfen von Calisma. Die persönliche Haftung der gesetzlichen Vertreter, Erfüllungsgehilfen und Mitarbeitenden von Calisma für durch diese durch leichte Fahrlässigkeit verursachten Schäden ist ausgeschlossen. 
 
-12.3. Vorbehaltlich der zuvor genannten Regelungen ist die gesamte Haftung von Calisma für Schäden aus oder im Zusammenhang mit einer Bestellung, sei es aus Vertrag, Delikt oder aus anderen Gründen, in jedem Fall beschränkt auf den Betrag von einhundertzehn (110) Prozent der Summe der von Dir gezahlten oder zahlbaren Gebühren unter der betroffenen Bestellung. 
+12.3. Vorbehaltlich der zuvor genannten Regelungen ist die gesamte Haftung von Calisma für Schäden aus oder im Zusammenhang mit einer Bestellung, sei es aus Vertrag, Delikt oder aus anderen Gründen, in jedem Fall beschränkt auf den Betrag von einhundertzehn (110) Prozent der Summe der von Dir gezahlten oder zahlbaren Gebühren unter der betroffenen Bestellung.
 
-12.4. Die genannten Beschränkungen dieses Abschnittes gelten nicht bei Verletzung des Lebens, des Körpers, der Gesundheit, im Falle von Calisma übernommenen vertraglichen Garantien oder im Falle einer Haftung nach dem Produkthaftungsgesetz. 
+12.4. Die genannten Beschränkungen dieses Abschnittes gelten nicht bei Verletzung des Lebens, des Körpers, der Gesundheit, im Falle von Calisma übernommenen vertraglichen Garantien oder im Falle einer Haftung nach dem Produkthaftungsgesetz.
 
-12.5. Calisma übernimmt keine Garantie, Gewährleistung oder Zusicherung für einem bestimmten Lern-/ Ausbildungserfolg bzw. Lernfortschritt, die durch die Nutzung der Dienste erfolgen.  
+12.5. Calisma übernimmt keine Garantie, Gewährleistung oder Zusicherung für einem bestimmten Lern-/ Ausbildungserfolg bzw. Lernfortschritt, die durch die Nutzung der Dienste erfolgen.
 
 12.6. Calisma übernimmt im Falle eines Datenverluste Kosten der Widerherstellung bis zur Höhe der typischen Wiederherstellungskosten, die bei ordnungsgemäßer und regelmäßiger Datensicherung anfallen würden. 
 
