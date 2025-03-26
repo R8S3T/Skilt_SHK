@@ -17,6 +17,11 @@
         "buildType": "app-bundle",
         "credentialsSource": "remote"
       }
+    },
+    "simulator": {
+      "ios": {
+        "simulator": true
+      }
     }
   },
   "submit": {

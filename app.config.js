@@ -10,12 +10,13 @@ export default {
     userInterfaceStyle: "light",
     splash: {
       image: "./assets/Images/skilt_logo.png",
-      resizeMode: "native",
+      resizeMode: "native", // native for Android, contain for IoS
       backgroundColor: "#ffffff",
     },
     ios: {
       supportsTablet: true,
-      newArchEnabled: true
+      newArchEnabled: true,
+      bundleIdentifier: "com.skilt.shk",
     },
     android: {
       package: "com.skilt.shk",

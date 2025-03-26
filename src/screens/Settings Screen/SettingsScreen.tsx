@@ -114,17 +114,17 @@ const SettingsScreen = () => {
                 </TouchableOpacity>
 
                 <View style={[styles.divider, { backgroundColor: theme.border }]} />
-{/* Nutzungsbedingungen */}
-{/* 
-<TouchableOpacity
-    style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}
-    onPress={() => navigation.navigate('TermsOfServiceScreen')}
->
-    <Text style={[styles.label, { color: theme.primaryText }]}>Nutzungsbedingungen</Text>
-</TouchableOpacity>
 
-<View style={[styles.divider, { backgroundColor: theme.border }]} />
-*/}
+                {/* AGBs */}
+                <TouchableOpacity
+                    style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}
+                    onPress={() => navigation.navigate('TermsOfServiceScreen')}
+                >
+                    <Text style={[styles.label, { color: theme.primaryText }]}>Nutzungsbedingungen</Text>
+                </TouchableOpacity>
+
+                <View style={[styles.divider, { backgroundColor: theme.border }]} />
+
 
                 {/* Impressum */}
                 <TouchableOpacity
