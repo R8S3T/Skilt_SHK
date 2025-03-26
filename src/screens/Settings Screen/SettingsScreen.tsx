@@ -152,7 +152,7 @@ const SettingsScreen = () => {
                 resizeMode="contain"
                 />
                 <Text style={{ color: theme.secondaryText, fontSize: screenWidth > 600 ? 18 : 16 }}>
-                Version: V01
+                Version: V02
                 </Text>
             </View>
             </SafeAreaView>
