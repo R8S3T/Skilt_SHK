@@ -1078,6 +1078,8 @@ const img_LF7FormelBerechnungGliederheizkoerpersmall = require('../../assets/DbI
 const img_LF7FormelBerechnungHeizlastsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Berechnung_Heizlast_small.png');
 const img_LF7FormelBerechnungLueftungswaermeverlustesmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Berechnung_Lueftungswaermeverluste_small.png');
 const img_LF7FormelBerechnungTransmissionwaermeverlustesmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Berechnung_Transmissionwaermeverluste_small.png');
+const img_LF7FormelBerechnungWaermemengesmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Berechnung_Waermemenge_small.png');
+const img_LF7FormelBerechnungmomentaneWaermeleistungsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Berechnung_momentane_Waermeleistung_small.png');
 const img_LF7FormelDimensionierungsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Dimensionierung_small.png');
 const img_LF7FormelDrehzahl2small = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Drehzahl_2_small.png');
 const img_LF7FormelDrehzahlsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Drehzahl_small.png');
@@ -1101,6 +1103,7 @@ const img_LF7FormelWaermeleitfaehigkeitsmall = require('../../assets/DbImages/Su
 const img_LF7FormelWaermestromsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Waermestrom_small.png');
 const img_LF7FormelWaermeuebergangskoeffizientsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Waermeuebergangskoeffizient_small.png');
 const img_LF7FormelWaermeuebergangswiderstandsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_Waermeuebergangswiderstand_small.png');
+const img_LF7FormelmomentaneWaermeleistungsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Formel_momentane_Waermeleistung_small.png');
 const img_LF7GEG = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_GEG.png');
 const img_LF7Gebaeudeenergiegesetzwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Gebaeudeenergiegesetz_welcome.png');
 const img_LF7Gegenstromzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Gegenstrom_zoom.png');
@@ -1157,6 +1160,7 @@ const img_LF7Ventilheizkoerperzoom = require('../../assets/DbImages/SubchapterCo
 const img_LF7Verteilungsarten = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Verteilungsarten.png');
 const img_LF7Waermedurchgangzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Waermedurchgang_zoom.png');
 const img_LF7Waermeleitfaehigkeitzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Waermeleitfaehigkeit_zoom.png');
+const img_LF7WaermemengeFormelsmall = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Waermemenge_Formel_small.png');
 const img_LF7Waermemengenzaehlerzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Waermemengenzaehler_zoom.png');
 const img_LF7Waermestrahlungzoom = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Waermestrahlung_zoom.png');
 const img_LF7Waermetransferwelcome = require('../../assets/DbImages/SubchapterContent/LF_7/LF_7_Waermetransfer_welcome.png');
@@ -2823,6 +2827,8 @@ export const imageMap = {
     "LF_7_Formel_Berechnung_Heizlast_small": img_LF7FormelBerechnungHeizlastsmall,
     "LF_7_Formel_Berechnung_Lueftungswaermeverluste_small": img_LF7FormelBerechnungLueftungswaermeverlustesmall,
     "LF_7_Formel_Berechnung_Transmissionwaermeverluste_small": img_LF7FormelBerechnungTransmissionwaermeverlustesmall,
+    "LF_7_Formel_Berechnung_Waermemenge_small": img_LF7FormelBerechnungWaermemengesmall,
+    "LF_7_Formel_Berechnung_momentane_Waermeleistung_small": img_LF7FormelBerechnungmomentaneWaermeleistungsmall,
     "LF_7_Formel_Dimensionierung_small": img_LF7FormelDimensionierungsmall,
     "LF_7_Formel_Drehzahl_2_small": img_LF7FormelDrehzahl2small,
     "LF_7_Formel_Drehzahl_small": img_LF7FormelDrehzahlsmall,
@@ -2846,6 +2852,7 @@ export const imageMap = {
     "LF_7_Formel_Waermestrom_small": img_LF7FormelWaermestromsmall,
     "LF_7_Formel_Waermeuebergangskoeffizient_small": img_LF7FormelWaermeuebergangskoeffizientsmall,
     "LF_7_Formel_Waermeuebergangswiderstand_small": img_LF7FormelWaermeuebergangswiderstandsmall,
+    "LF_7_Formel_momentane_Waermeleistung_small": img_LF7FormelmomentaneWaermeleistungsmall,
     "LF_7_GEG": img_LF7GEG,
     "LF_7_Gebaeudeenergiegesetz_welcome": img_LF7Gebaeudeenergiegesetzwelcome,
     "LF_7_Gegenstrom_zoom": img_LF7Gegenstromzoom,
@@ -2902,6 +2909,7 @@ export const imageMap = {
     "LF_7_Verteilungsarten": img_LF7Verteilungsarten,
     "LF_7_Waermedurchgang_zoom": img_LF7Waermedurchgangzoom,
     "LF_7_Waermeleitfaehigkeit_zoom": img_LF7Waermeleitfaehigkeitzoom,
+    "LF_7_Waermemenge_Formel_small": img_LF7WaermemengeFormelsmall,
     "LF_7_Waermemengenzaehler_zoom": img_LF7Waermemengenzaehlerzoom,
     "LF_7_Waermestrahlung_zoom": img_LF7Waermestrahlungzoom,
     "LF_7_Waermetransfer_welcome": img_LF7Waermetransferwelcome,
