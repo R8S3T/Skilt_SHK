@@ -1445,7 +1445,6 @@ const img_LFiconHeizsystemsmall = require('../../assets/DbImages/SubchapterConte
 const img_LFiconHeizungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Heizung_small.png');
 const img_LFiconHeizwertsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Heizwert_small.png');
 const img_LFiconHerkunftsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Herkunft_small.png');
-const img_LFiconHitzebestaendigsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Hitzebestaendig_small.png');
 const img_LFiconHoeheLaengesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Hoehe_Laenge_small.png');
 const img_LFiconHybridLueftungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Hybrid_Lueftung_small.png');
 const img_LFiconIPNetzwerkesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_IP_Netzwerke_small.png');
@@ -1729,6 +1728,7 @@ const img_LFiconZugfuehrungsmall = require('../../assets/DbImages/SubchapterCont
 const img_LFiconZusammensetzungsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_Zusammensetzung_small.png');
 const img_LFiconerneuerbareEnergiesmall = require('../../assets/DbImages/SubchapterContent/LF_icon_erneuerbare_Energie_small.png');
 const img_LFiconfederleichtsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_federleicht_small.png');
+const img_LFiconhitzebestaendig1small = require('../../assets/DbImages/SubchapterContent/LF_icon_hitzebestaendig_1_small.png');
 const img_LFiconhitzebestaendigsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_hitzebestaendig_small.png');
 const img_LFiconhydraulischerAbgleichsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_hydraulischer_Abgleich_small.png');
 const img_LFiconkaltsmall = require('../../assets/DbImages/SubchapterContent/LF_icon_kalt_small.png');
@@ -3193,7 +3193,6 @@ export const imageMap = {
     "LF_icon_Heizung_small": img_LFiconHeizungsmall,
     "LF_icon_Heizwert_small": img_LFiconHeizwertsmall,
     "LF_icon_Herkunft_small": img_LFiconHerkunftsmall,
-    "LF_icon_Hitzebestaendig_small": img_LFiconHitzebestaendigsmall,
     "LF_icon_Hoehe_Laenge_small": img_LFiconHoeheLaengesmall,
     "LF_icon_Hybrid_Lueftung_small": img_LFiconHybridLueftungsmall,
     "LF_icon_IP_Netzwerke_small": img_LFiconIPNetzwerkesmall,
@@ -3477,6 +3476,7 @@ export const imageMap = {
     "LF_icon_Zusammensetzung_small": img_LFiconZusammensetzungsmall,
     "LF_icon_erneuerbare_Energie_small": img_LFiconerneuerbareEnergiesmall,
     "LF_icon_federleicht_small": img_LFiconfederleichtsmall,
+    "LF_icon_hitzebestaendig_1_small": img_LFiconhitzebestaendig1small,
     "LF_icon_hitzebestaendig_small": img_LFiconhitzebestaendigsmall,
     "LF_icon_hydraulischer_Abgleich_small": img_LFiconhydraulischerAbgleichsmall,
     "LF_icon_kalt_small": img_LFiconkaltsmall,
