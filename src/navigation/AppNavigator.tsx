@@ -19,6 +19,7 @@ import SearchScreen from 'src/screens/Search/SearchScreen';
 import SearchEndScreen from 'src/screens/Search/SearchEndScreen';
 import TermsOfServiceScreen from 'src/screens/Settings Screen/TermsOfServiceScreen';
 import ImpressumScreen from 'src/screens/Settings Screen/ImpressumScreen';
+import UpdatesInfoScreen from 'src/screens/Settings Screen/UpdatesInfo';
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -127,6 +128,11 @@ const AppNavigator = () => {
                 name="ImpressumScreen" 
                 component={ImpressumScreen} 
                 options={{ title: 'Impressum' }} 
+            />
+            <Stack.Screen
+                name="UpdatesInfoScreen"
+                component={UpdatesInfoScreen}
+                options={{ title: 'Updates', headerTitleAlign: 'center' }}
             />
         </Stack.Navigator>
     );

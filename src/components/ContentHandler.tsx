@@ -94,7 +94,8 @@ const ContentHandler: React.FC<ContentHandlerProps> = ({ part }) => {
   
     return (
       <View style={styles.bulletTextContainer}>
-        <Text style={[styles.bulletPoint, { color: theme.primaryText }]}>○</Text>
+        <Text style={[styles.bulletPoint, { color: theme.primaryText }]}>●</Text>
+
         <Text style={[styles.bulletText, { color: theme.primaryText }]}>
           {processNestedMarkers(bulletText)}
         </Text>

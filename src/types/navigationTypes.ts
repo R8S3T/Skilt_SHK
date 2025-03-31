@@ -98,6 +98,7 @@ export type RootStackParamList = {
     PrivacyPolicyScreen: undefined;
     TermsOfServiceScreen: undefined;
     ImpressumScreen: undefined;
+    UpdatesInfoScreen: undefined;
 };
 
 

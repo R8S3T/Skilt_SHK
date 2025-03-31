@@ -126,6 +126,17 @@ const SettingsScreen = () => {
                 <View style={[styles.divider, { backgroundColor: theme.border }]} />
 
 
+                {/* Updates Info */}
+                <TouchableOpacity
+                    style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}
+                    onPress={() => navigation.navigate('UpdatesInfoScreen')}
+                >
+                    <Text style={[styles.label, { color: theme.primaryText }]}>Updates</Text>
+                </TouchableOpacity>
+
+                <View style={[styles.divider, { backgroundColor: theme.border }]} />
+
+
                 {/* Impressum */}
                 <TouchableOpacity
                     style={[styles.section, { backgroundColor: isDarkMode ? theme.background : 'transparent' }]}
