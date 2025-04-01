@@ -10,13 +10,18 @@ export default {
     userInterfaceStyle: "light",
     splash: {
       image: "./assets/Images/skilt_logo.png",
-      resizeMode: "contain", // native for Android, contain for IoS
+      resizeMode: "contain",
       backgroundColor: "#ffffff",
     },
-    ios: {
-      supportsTablet: true,
-      newArchEnabled: true,
-      bundleIdentifier: "com.skilt.shk",
+    "ios": {
+      "supportsTablet": true,
+      "newArchEnabled": true,
+      "bundleIdentifier": "com.skilt.shk",
+      "splash": {
+        "image": "./assets/Images/skilt_logo.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#ffffff"
+      }
     },
     android: {
       package: "com.skilt.shk",
