@@ -313,7 +313,7 @@ const styles = StyleSheet.create({
   },
   bulletPoint: {
     width: screenWidth > 600 ? 14 : 10,
-    fontSize: screenWidth > 600 ? 14 : 18,
+    fontSize: screenWidth > 600 ? 16 : 12,
     lineHeight: screenWidth > 600 ? 28 : 24,
     marginRight: 10,
     textAlign: 'center',
