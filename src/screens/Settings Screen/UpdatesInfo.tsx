@@ -75,7 +75,7 @@ const UpdatesInfoScreen: React.FC = () => {
                         Da die App offline funktioniert, informieren wir nicht automatisch über Updates.
                     </Text>
                     <Text style={[styles.description, { color: theme.primaryText }]}>
-                        Bitte schaue gelegentlich im Google Play Store oder im Apple App Store nach, 
+                        Bitte schaue gelegentlich im App Store nach,
                         ob eine neue Version verfügbar ist.
                     </Text>
                 </View>
